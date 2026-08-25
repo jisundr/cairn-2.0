@@ -26,3 +26,12 @@ Every tool an agent's frontmatter grants must be justified here, one section per
 - Grep — baseline
 - Bash — reruns the project's own verification commands against the diff
 - Skill — loads cairn:shared for mechanics shared with the other agents
+
+## builder
+- Read — baseline
+- Glob — baseline
+- Grep — baseline
+- Write — authors new files for the change
+- Edit — modifies existing files for the change
+- Bash — runs the project's own verification commands named in the harness
+- Skill — loads cairn:shared for mechanics shared with the other agents

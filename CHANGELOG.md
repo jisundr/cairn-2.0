@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Added `agents/builder.md` — writes code and its tests in one context (`Read, Glob, Grep, Write, Edit, Bash, Skill`), the only agent that edits application code. No test/prod split across two agents.
 - Added `agents/reviewer.md` — reviews the diff only and reruns the harness's own verification commands (`Read, Glob, Grep, Bash, Skill`); no `Write`/`Edit`, enforced by omission, so it cannot alter what it reviews. Hands back pass/fail to the main thread, which opens the PR itself.
 - Added `agents/scribe.md` — the document-authorship agent (`Read, Glob, Grep, Write, Edit, AskUserQuestion, Skill`), scoped to `docs/` and only what's asked. `docs/registry.md` now carries its tool justifications, no longer a stub.
 - Regenerated `docs/BUDGET.md` — `commands/cairn-setup.md` grew (new step 6) but its trimmed `description` field shrank the always-loaded total to 547 B.
