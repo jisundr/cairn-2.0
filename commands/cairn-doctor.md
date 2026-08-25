@@ -10,7 +10,7 @@ Read-only. Never writes, never blocks.
 4. **`.cairn/`** — present or absent; if present, `sessions.log` line count and its last line (skip anything else found there without asserting what it is).
 5. **Local layer** — `.harness/local/preferences.md` absent → say so, stop. Else classify every line:
    - `model ...` → **inert (no lever)** — no runtime lever for session model (§B3f).
-   - a line that would relax, skip, or disable something one of the four team files requires → **ignored by ceiling**, naming the conflicting file/section.
+   - a line that would relax, skip, or disable something one of the four team files requires, or a stage cairn's own path always runs (`builder`, `reviewer`) → **ignored by ceiling**, naming the conflicting file/section or "cairn's own path".
    - a recognised key (`token-ceiling`, `narration`, `optional-pass`, `prefer-path`) not caught above → **active**.
    - anything else → **unrecognised**.
 
