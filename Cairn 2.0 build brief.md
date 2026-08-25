@@ -229,6 +229,7 @@ In a consuming project, cairn may write **only** these paths. Everything else is
 |---|---|---|
 | One marker block in root `CLAUDE.md` | `/cairn-setup`, on confirmation | cairn's, removable exactly |
 | `.harness/*.md` | `/cairn-setup`, per-rule confirmation | **the project's** — cairn drafts, the team owns |
+| `.harness/BUDGET.md` | `/cairn-setup`, after writing the four files | cairn's — a generated ledger, not user-confirmed, never read back by cairn |
 | `.harness/local/` | `/cairn-setup --local`, on confirmation | **this developer's** — never committed (§B3e) |
 | `docs/tasks/<slug>/` | escalated path only | the project's |
 | `.cairn/` | runtime state | cairn's, self-ignoring |
@@ -306,6 +307,8 @@ command "pnpm -v"                 [warning]
 ```
 
 Failure semantics are uniform: a check whose command can't run counts as **failed**, and a line that can't be parsed also counts as **failed**. No silent-skip tier for any failure mode. A `[blocking]` failure stops the task before a branch is created.
+
+`/cairn-setup` also writes `.harness/BUDGET.md` after the four files, mirroring this repo's own `docs/BUDGET.md`: one row per file, its current line count, its cap from the table above, and the headroom. It excludes `local/preferences.md` — gitignored and per-developer, not the team's committed record. Regenerated every setup run, so it can't drift from the files it measures. Cairn never reads it back; it is output for the team, not input to any task, and plays no part in §B3a's harness resolution.
 
 ### B3e. The local layer — `.harness/local/`
 
