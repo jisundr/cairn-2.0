@@ -21,7 +21,9 @@ Dispatch prompts carry only the relevant active lines, never the file; no agent 
 
 ## Scope resolution
 
-Resolve scope — invoke `Skill(skill: "cairn:scope")` — when any of these is true:
+On cold resume — a task folder exists with a scope record in its `STATE.md` frontmatter but none in this session — read that record back directly as the active one; no interview, no `cairn:scope`.
+
+Otherwise, resolve scope — invoke `Skill(skill: "cairn:scope")` — when any of these is true:
 
 1. First substantive request of the session.
 2. The request names a goal or area outside the active scope record.
