@@ -19,3 +19,10 @@ Every tool an agent's frontmatter grants must be justified here, one section per
 - Edit — updates existing documents under docs/
 - AskUserQuestion — clarifies a document's scope or audience with the user before writing
 - Skill — loads the relevant document-type skill for the requested format
+
+## reviewer
+- Read — baseline
+- Glob — baseline
+- Grep — baseline
+- Bash — reruns the project's own verification commands against the diff
+- Skill — loads cairn:shared for mechanics shared with the other agents
