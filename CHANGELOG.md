@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Added `skills/shared/SKILL.md` — the `cairn:shared` skill, centralizing STATE.md conventions and the verification-command-running mechanics that `planner`/`builder`/`reviewer` already referenced in Phase 8. First of the Phase 9 "remaining skills."
 - Regenerated `docs/BUDGET.md` after the `builder.md` fix — only its own self-measured size shifted; always-loaded total unchanged at 1055 B.
 - Regenerated `docs/BUDGET.md` to include the four agents. Always-loaded frontmatter total now 1055 B / 3000 B — 547 B carried in, plus 120+132+126+130 B across `scribe`/`reviewer`/`builder`/`planner`'s descriptions.
 - Added `agents/planner.md` — the fourth and final §B5 agent (`Read, Glob, Grep, Write, AskUserQuestion, Skill`), escalated path only. Owns `docs/tasks/<slug>/`: a plan that references paths and contracts rather than embedding file bodies, plus `STATE.md`. All four agents built; `docs/registry.md` fully populated.
