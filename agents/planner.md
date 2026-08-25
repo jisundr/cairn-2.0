@@ -15,6 +15,7 @@ Dispatched with the resolved scope record, the harness resolution, and any appli
 3. Load `Skill(skill: "cairn:shared")` for the plan-writing mechanics shared with the other agents.
 4. Write the plan: named actionables, the files or contracts each touches, and the done condition from the scope record.
 5. If the scope record leaves a genuine choice open — not a detail you can infer — ask it with `AskUserQuestion` before writing the plan.
+6. Re-read the drafted plan against the scope record's `done_when` and the actionable list; fix in place anything vague enough that `builder` would have to guess. If that turns up a genuine risk — an unverified assumption, a path that may not exist — add one `Risks:` line to the plan; omit it otherwise.
 
 ## Hands back
-The task folder path, to the main thread, which dispatches `builder` next.
+The task folder path, to the main thread, which presents the plan for the user's approval before dispatching `builder`.

@@ -4,6 +4,9 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Added a self-review step to `agents/planner.md`: after drafting the plan, `planner` now re-reads it against the scope record's `done_when` and actionable list, fixing anything vague enough that `builder` would have to guess, and adds an optional `Risks:` line only when a genuine risk turns up. Synthesized from maestro's `task-orchestrator` Plan Mode, superpowers' `writing-plans`, and Claude Code's native Plan Mode — adopting self-review, optional risk notes, and the approval gate above while rejecting parallel sub-agent assessment, per-agent scope breakdown, and embedded code as incompatible with cairn's 4-agent cap and 12,288 B plan-file cap. Spec at `docs/specs/planner-plan-writing-upgrade.md` (gitignored, not committed).
+- Extended `skills/requirements/SKILL.md` with three optional sections — Stakeholders, Constraints & assumptions, Open questions — closing the gap against a heavier reference format (a separate multi-document requirements pipeline) without adopting its tiering, gates, or versioning. Governed by the file's existing "omit, don't placeholder" rule. Spec at `docs/specs/requirements-doc-structure.md` (gitignored, not committed).
+
 - Wired `skills/scope/reference/vague-request.md` to escalate into `cairn:brainstorm` when `goal` still isn't nameable after the narrow questions — a new project, a subsystem with no existing flow, or an unformed idea.
 
 - Added `skills/brainstorm/SKILL.md` — the `cairn:brainstorm` skill: clarifies an idea too unformed for `cairn:scope`'s narrow questions, weighs approaches only when a genuine choice exists, and recommends a `scribe` doc type without writing it. Not a 5th agent — `AskUserQuestion` needs the main thread, and §B4/§B5 cap agents at 4.
