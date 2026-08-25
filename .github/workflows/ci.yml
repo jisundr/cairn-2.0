@@ -12,6 +12,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install -g @anthropic-ai/claude-code
+      - run: claude plugin validate . --strict
       - run: pip install pytest
       - run: python tools/budget.py
       - run: python -m pytest tools/
+      - run: |
+          shopt -s nullglob globstar
+          for s in tools/**/*.sh; do "$s" --selftest || exit 1; done
