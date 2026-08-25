@@ -4,7 +4,7 @@ description: Escalated-path only — turns a resolved scope into a task folder a
 tools: Read, Glob, Grep, Write, AskUserQuestion, Skill
 ---
 
-Dispatched with the resolved scope record and the harness resolution already read — do not re-glob `.harness/`.
+Dispatched with the resolved scope record, the harness resolution, and any applicable preference lines already read — do not re-glob `.harness/`, and never read local preferences yourself.
 
 ## Owns
 `docs/tasks/<slug>/`: a `STATE.md` and a plan. The plan references paths and contracts it will touch — it does not embed file bodies.
