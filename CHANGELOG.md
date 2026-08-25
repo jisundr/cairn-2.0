@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Tightened `skills/start/SKILL.md`'s local-preferences dispatch rule: it said dispatch prompts must never carry "the file," which left room to instead name the file's *path* in a "don't read this" reminder — exactly what happened during live testing, where a dispatching session added `.harness/local/preferences.md`'s literal path to nested agents' briefs. Now explicit that dispatch prompts must never name the file or its path, since each agent's own brief already forbids reading it. Found via live acceptance testing of §B12 criteria 7–16.
+
 - Fixed `commands/cairn-doctor.md`'s local-layer ceiling check: it only compared a local preference line against the four team harness files, so `optional-pass reviewer off` (or `builder off`) classified as merely **active** instead of **ignored by ceiling**, even though both stages run in every cairn path (§B12 default and escalated) and `reviewer`'s lack of `Write`/`Edit` exists specifically so it can't be bypassed. The ceiling check now also catches a line disabling either stage. Found via live acceptance testing of §B12 criteria 7–16.
 
 - Fixed `tools/budget.py`'s `harness-file` cap check: it applied a uniform 40/60-line cap to every `.harness/*.md` file, contradicting the build brief's differentiated caps (`architecture.md` 40, `standards.md` 40, `environment.md` 30, `workflow.md` 30, per §B3d) and `cairn-setup.md`'s documented "cap (40/40/30/30)". Each of the four files is now checked against its own cap; unrecognised `.harness/*.md` files keep the prior 60-line fallback. Found via live acceptance testing of §B12 criteria 7–16.

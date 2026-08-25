@@ -15,7 +15,7 @@ One `Glob .harness/**/*.md` call, once per task; hold the result — never re-gl
 
 ## Local preferences
 
-Also covered by the glob: `.harness/local/preferences.md`, classified as `/cairn-doctor` does (active / inert / ignored-by-ceiling / unrecognised). Dispatch prompts carry only relevant active lines, never the file or a non-active line — no agent reads it. Active `prefer-path` feeds the path choice below.
+Also covered by the glob: `.harness/local/preferences.md`, classified per `/cairn-doctor` (active / inert / ignored-by-ceiling / unrecognised). Dispatch prompts carry only active values — never the file, its path, or a non-active line; no agent reads it. Active `prefer-path` feeds the path choice below.
 
 ## Scope resolution
 
