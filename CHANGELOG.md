@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Regenerated `docs/BUDGET.md` to include `hooks/` and `commands/cairn-doctor.md`. Always-loaded frontmatter total now 1734 B / 3000 B — 1598 B carried in, plus 136 B for `cairn-doctor`'s description (`hooks/*` is executed-class, contributing nothing to the always-loaded total).
+
 - Added `commands/cairn-doctor.md` — read-only diagnostic: plugin version, marker/harness/`.cairn/` state, and the local layer line by line (active / inert-no-lever / ignored-by-ceiling / unrecognised) — the only place an ignored local preference is ever surfaced (§B3e). `/cairn-tokens` intentionally not built this phase: it depends entirely on the still-deferred Phase 2 token-metering system; raised to the user, who chose to skip it until Phase 2 is explicitly requested.
 
 - Added `hooks/hooks.json` + `hooks/session-start.sh`, wired via `.claude-plugin/plugin.json`'s new `hooks` field — the advisory `SessionStart` hook (§B10): a structural self-check (`jq`, session id, marker block, `.cairn/` writable) gating one version-log line to `.cairn/sessions.log`. Exits 0 on every path, no stdout ever. Manually verified all three named degrade cases (no `jq`, no session id, no marker block) plus the happy path.
