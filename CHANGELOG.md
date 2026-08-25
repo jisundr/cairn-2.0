@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Regenerated `docs/BUDGET.md` to include the four Phase 9 skills. Always-loaded frontmatter total now 1598 B / 3000 B — 1055 B carried in, plus 127+132+156+128 B across `shared`/`requirements`/`spec`/`readme`'s descriptions.
 - Added `skills/readme/SKILL.md` — the `cairn:readme` document-type skill `scribe` loads for READMEs, always written under `docs/` since the project root is outside scribe's scope. All four Phase 9 "remaining skills" now built.
 - Added `skills/spec/SKILL.md` — the `cairn:spec` document-type skill `scribe` loads for design/spec docs.
 - Added `skills/requirements/SKILL.md` — the `cairn:requirements` document-type skill `scribe` loads for requirements docs (§B5: "requirements, specs, READMEs — via skills").
