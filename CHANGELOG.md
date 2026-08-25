@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Regenerated `docs/BUDGET.md` to include `commands/` and `skills/task-assets/assets/claude-md-marker.md`.
 - Added `commands/cairn-setup.md` (default + `--local` modes) and `commands/cairn-teardown.md`, plus `skills/task-assets/assets/claude-md-marker.md` — the exact `CLAUDE.md` marker block cairn-setup reads and inserts. Manually verified the install → teardown → `git status` cycle in a scratch repo.
 - Regenerated `docs/BUDGET.md` to include `skills/task-assets/assets/`.
 - Added `skills/task-assets/assets/` — the five `.harness/` templates (`architecture.md`, `standards.md`, `environment.md`, `workflow.md`, `local/preferences.md`), each carrying its precedence-ceiling header line. Asset bundle read by path, never invoked — no `SKILL.md`.
