@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Regenerated `docs/BUDGET.md` — `commands/cairn-setup.md` grew (new step 6) but its trimmed `description` field shrank the always-loaded total to 547 B.
 - Amended `Cairn 2.0 build brief.md` (§B2b, §B3d) and `commands/cairn-setup.md` — `/cairn-setup` now writes `.harness/BUDGET.md`, a committed line-count-vs-cap ledger for the four team harness files, regenerated every run and never read back by cairn.
 
 - Regenerated `docs/BUDGET.md` to include `commands/` and `skills/task-assets/assets/claude-md-marker.md`.
