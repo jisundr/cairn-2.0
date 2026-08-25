@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Regenerated `docs/BUDGET.md` to include `skills/scope/`.
 - Added `skills/scope/SKILL.md` plus `reference/vague-request.md` and `reference/decomposition.md` — the `cairn:scope` resolution skill.
 - CI: added `claude plugin validate .claude-plugin/plugin.json` (non-strict) — `validate . --strict` only checks the marketplace manifest, never descends into the plugin manifest, so component-level plugin checks were unexercised.
 - Regenerated `docs/BUDGET.md` to include `skills/start/SKILL.md`.
