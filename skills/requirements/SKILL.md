@@ -5,7 +5,7 @@ description: Structure for a requirements document — problem, goals, non-goals
 
 # cairn:requirements
 
-Write under `docs/`, at a path matching what was asked. Sections:
+Write under `docs/`, at a path matching what was asked. When the source material names a file, function, or behavior, check it against the codebase before writing Problem and Goals — a claim that doesn't hold goes under Constraints & assumptions as an open discrepancy, not into Problem as settled fact. Sections:
 
 ## Problem
 
@@ -36,3 +36,5 @@ What's still unresolved and needs a decision before or during the build.
 How anyone can tell the requirement is met, without asking the author.
 
 Keep each section to what the request actually supplies — an empty Non-goals section is fine; a placeholder isn't.
+
+Hand the written path back with one line offering to continue into planning against it — a suggestion, not a trigger. The user may decline and stop here; nothing resolves scope until they ask.

@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the model (§A4) — read by humans only.
 
+## 2026-08-26
+
+- Extended `skills/requirements/SKILL.md`: verify any file, function, or behavior the source material names against the codebase before writing Problem and Goals — a claim that doesn't hold goes under Constraints & assumptions as an open discrepancy, not into Problem as settled fact — and hand the written path back with an offer, not a trigger, to continue into planning, so the user can decline and stop at the task file. Spec at `docs/specs/task-file-intake.md` (gitignored, not committed).
+
 ## 2026-08-25
 
 - Amended `Cairn 2.0 build brief.md` §B10 — the token-metering report is now a live local dashboard (prebuilt React/Vite/Recharts/Tailwind/shadcn/`@tanstack/react-query` frontend served as static assets by a Python stdlib server), replacing the original "self-contained HTML file — no server, no CDN" line. Node/npm stays a cairn-dev-time-only build step. Full spec at `docs/requirements/token-metering.md`.
