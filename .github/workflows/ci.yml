@@ -17,6 +17,7 @@ jobs:
           node-version: "22"
       - run: npm install -g @anthropic-ai/claude-code
       - run: claude plugin validate . --strict
+      - run: claude plugin validate .claude-plugin/plugin.json
       - run: pip install pytest
       - run: python tools/budget.py
       - run: python -m pytest tools/
