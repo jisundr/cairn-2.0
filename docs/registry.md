@@ -11,4 +11,11 @@ Every tool an agent's frontmatter grants must be justified here, one section per
 
 `budget.py` fails the build if an agent grants a tool this file doesn't justify for it, or if an agent whose name/description reads as a reviewer (`review`, `audit`, `check`) grants `Write` or `Edit`.
 
-Empty until Phase 8 adds the first agent.
+## scribe
+- Read — baseline
+- Glob — baseline
+- Grep — baseline
+- Write — authors new documents under docs/
+- Edit — updates existing documents under docs/
+- AskUserQuestion — clarifies a document's scope or audience with the user before writing
+- Skill — loads the relevant document-type skill for the requested format
