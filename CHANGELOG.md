@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Added `skills/task-assets/assets/` — the five `.harness/` templates (`architecture.md`, `standards.md`, `environment.md`, `workflow.md`, `local/preferences.md`), each carrying its precedence-ceiling header line. Asset bundle read by path, never invoked — no `SKILL.md`.
 - Regenerated `docs/BUDGET.md` to include `skills/scope/`.
 - Added `skills/scope/SKILL.md` plus `reference/vague-request.md` and `reference/decomposition.md` — the `cairn:scope` resolution skill.
 - CI: added `claude plugin validate .claude-plugin/plugin.json` (non-strict) — `validate . --strict` only checks the marketplace manifest, never descends into the plugin manifest, so component-level plugin checks were unexercised.
