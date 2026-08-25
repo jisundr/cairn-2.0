@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Regenerated `docs/BUDGET.md` to include the four agents. Always-loaded frontmatter total now 1055 B / 3000 B — 547 B carried in, plus 120+132+126+130 B across `scribe`/`reviewer`/`builder`/`planner`'s descriptions.
 - Added `agents/planner.md` — the fourth and final §B5 agent (`Read, Glob, Grep, Write, AskUserQuestion, Skill`), escalated path only. Owns `docs/tasks/<slug>/`: a plan that references paths and contracts rather than embedding file bodies, plus `STATE.md`. All four agents built; `docs/registry.md` fully populated.
 - Added `agents/builder.md` — writes code and its tests in one context (`Read, Glob, Grep, Write, Edit, Bash, Skill`), the only agent that edits application code. No test/prod split across two agents.
 - Added `agents/reviewer.md` — reviews the diff only and reruns the harness's own verification commands (`Read, Glob, Grep, Bash, Skill`); no `Write`/`Edit`, enforced by omission, so it cannot alter what it reviews. Hands back pass/fail to the main thread, which opens the PR itself.
