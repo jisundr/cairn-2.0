@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Regenerated `docs/BUDGET.md` to include `skills/start/SKILL.md`.
 - Added `skills/start/SKILL.md` — the `cairn:start` entry point: harness gate, scope-resolution trigger checklist, and path choice.
 - Regenerated `docs/BUDGET.md` to reflect the final Phase 3 artifact set.
 - Added `README.md` — install steps, both cost paths, load-class table, write allowlist.
