@@ -1,0 +1,11 @@
+{
+  "name": "cairn-marketplace",
+  "owner": { "name": "Jayson De los Reyes", "email": "jisun.delosreyes@gmail.com" },
+  "plugins": [
+    {
+      "name": "cairn",
+      "source": ".",
+      "description": "A lean, on-demand, non-invasive development workflow for Claude Code."
+    }
+  ]
+}
