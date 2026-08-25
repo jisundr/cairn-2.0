@@ -13,6 +13,12 @@ One `Glob .harness/**/*.md` call, once per task. Hold the result for the whole t
 - **Partial** — proceed with what's there. A missing individual file skips silently.
 - **Absent** — don't proceed with cairn's workflow. Say plainly that cairn works from the project's own `.harness/`, and offer `/cairn-setup`, once. If the user declines, stand down for the session: don't ask again, don't partially engage, don't write anything. Keep working on the request normally, without cairn.
 
+## Local preferences
+
+Also covered by the glob above: `.harness/local/preferences.md`. Classify each line as `/cairn-doctor` does (active / inert / ignored-by-ceiling / unrecognised); never mention a non-active line. An active `prefer-path` feeds the path choice below.
+
+Dispatch prompts carry only the relevant active lines, never the file; no agent reads it.
+
 ## Scope resolution
 
 Resolve scope — invoke `Skill(skill: "cairn:scope")` — when any of these is true:
