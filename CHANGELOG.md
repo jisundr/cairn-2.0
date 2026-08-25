@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Added `hooks/hooks.json` + `hooks/session-start.sh`, wired via `.claude-plugin/plugin.json`'s new `hooks` field — the advisory `SessionStart` hook (§B10): a structural self-check (`jq`, session id, marker block, `.cairn/` writable) gating one version-log line to `.cairn/sessions.log`. Exits 0 on every path, no stdout ever. Manually verified all three named degrade cases (no `jq`, no session id, no marker block) plus the happy path.
+
 - Regenerated `docs/BUDGET.md` to include the four Phase 9 skills. Always-loaded frontmatter total now 1598 B / 3000 B — 1055 B carried in, plus 127+132+156+128 B across `shared`/`requirements`/`spec`/`readme`'s descriptions.
 - Added `skills/readme/SKILL.md` — the `cairn:readme` document-type skill `scribe` loads for READMEs, always written under `docs/` since the project root is outside scribe's scope. All four Phase 9 "remaining skills" now built.
 - Added `skills/spec/SKILL.md` — the `cairn:spec` document-type skill `scribe` loads for design/spec docs.
