@@ -24,6 +24,12 @@ FORBIDDEN_WRITE_PATHS = (
     ".claude/commands",
     ".claude/hooks",
 )
+HARNESS_FILE_CAPS = {
+    "architecture.md": 40,
+    "standards.md": 40,
+    "environment.md": 30,
+    "workflow.md": 30,
+}
 MANDATE_RE = re.compile(r"\b(MUST|ALWAYS|NEVER|MANDATORY|NON-NEGOTIABLE)\b")
 HARD_REQ_RE = re.compile(r"(?m)^#{1,6}\s*HARD REQUIREMENTS\s*$")
 PLACEHOLDER_TOKENS = ("TODO", "TBD", "FIXME", "<placeholder")
@@ -154,8 +160,9 @@ def scan(root):
 
         if fnmatch.fnmatch(rel, ".harness/*.md") and not rel.startswith(".harness/local/"):
             n = len(read_text(path).splitlines())
-            findings += cap_check("harness-file", rel, n, "lines", 40, 60)
-            rows.append((rel, n, "lines", "on-demand (consuming project)", headroom(n, 60, "lines")))
+            hard = HARNESS_FILE_CAPS.get(Path(rel).name, 60)
+            findings += cap_check("harness-file", rel, n, "lines", hard, hard)
+            rows.append((rel, n, "lines", "on-demand (consuming project)", headroom(n, hard, "lines")))
             continue
 
         if rel == ".harness/local/preferences.md":

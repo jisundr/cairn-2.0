@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Fixed `tools/budget.py`'s `harness-file` cap check: it applied a uniform 40/60-line cap to every `.harness/*.md` file, contradicting the build brief's differentiated caps (`architecture.md` 40, `standards.md` 40, `environment.md` 30, `workflow.md` 30, per §B3d) and `cairn-setup.md`'s documented "cap (40/40/30/30)". Each of the four files is now checked against its own cap; unrecognised `.harness/*.md` files keep the prior 60-line fallback. Found via live acceptance testing of §B12 criteria 7–16.
+
 - Regenerated `docs/BUDGET.md` to include `hooks/` and `commands/cairn-doctor.md`. Always-loaded frontmatter total now 1734 B / 3000 B — 1598 B carried in, plus 136 B for `cairn-doctor`'s description (`hooks/*` is executed-class, contributing nothing to the always-loaded total).
 
 - Added `commands/cairn-doctor.md` — read-only diagnostic: plugin version, marker/harness/`.cairn/` state, and the local layer line by line (active / inert-no-lever / ignored-by-ceiling / unrecognised) — the only place an ignored local preference is ever surfaced (§B3e). `/cairn-tokens` intentionally not built this phase: it depends entirely on the still-deferred Phase 2 token-metering system; raised to the user, who chose to skip it until Phase 2 is explicitly requested.
