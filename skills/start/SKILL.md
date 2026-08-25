@@ -1,38 +1,36 @@
 ---
 name: start
-description: Entry point, loaded once per session at the marker block. Resolves the .harness/ gate, decides whether scope needs resolving, and picks the default vs escalated path.
+description: Entry point, loaded once per session at the marker block. Resolves the .harness/ gate, decides whether scope needs resolving, and picks default vs escalated.
 ---
 
 # cairn:start
 
 ## Harness gate
 
-One `Glob .harness/**/*.md` call, once per task. Hold the result for the whole task — never re-glob mid-task.
+One `Glob .harness/**/*.md` call, once per task; hold the result — never re-glob mid-task.
 
 - **Present** — read what the current step needs, proceed.
 - **Partial** — proceed with what's there. A missing individual file skips silently.
-- **Absent** — don't proceed with cairn's workflow. Say plainly that cairn works from the project's own `.harness/`, and offer `/cairn-setup`, once. If the user declines, stand down for the session: don't ask again, don't partially engage, don't write anything. Keep working on the request normally, without cairn.
+- **Absent** — don't proceed with cairn's workflow. Say cairn works from the project's own `.harness/`, and offer `/cairn-setup`, once. If declined, stand down for the session: no more asking, no partial engagement, no writes. Keep working on the request normally, without cairn.
 
 ## Local preferences
 
-Also covered by the glob above: `.harness/local/preferences.md`. Classify each line as `/cairn-doctor` does (active / inert / ignored-by-ceiling / unrecognised); never mention a non-active line. An active `prefer-path` feeds the path choice below.
-
-Dispatch prompts carry only the relevant active lines, never the file; no agent reads it.
+Also covered by the glob: `.harness/local/preferences.md`, classified as `/cairn-doctor` does (active / inert / ignored-by-ceiling / unrecognised). Dispatch prompts carry only relevant active lines, never the file or a non-active line — no agent reads it. Active `prefer-path` feeds the path choice below.
 
 ## Scope resolution
 
-On cold resume — a task folder exists with a scope record in its `STATE.md` frontmatter but none in this session — read that record back directly as the active one; no interview, no `cairn:scope`.
+On cold resume — a task folder's `STATE.md` holds a scope record but this session has none — read it back as the active record; no interview, no `cairn:scope`.
 
 Otherwise, resolve scope — invoke `Skill(skill: "cairn:scope")` — when any of these is true:
 
 1. First substantive request of the session.
-2. The request names a goal or area outside the active scope record.
-3. Underspecified: no clear object, no checkable done condition, or you can't name the files you'd touch.
-4. More than about three discrete actionables not already in the scope record.
-5. The user invalidates the active scope ("actually, let's…", "scrap that", "different idea").
-6. Cold resume: a task folder exists from a previous session and there's no scope record in this one.
+2. The request names a goal or area outside the active record.
+3. Underspecified: no clear object, no done condition, or you can't name the files you'd touch.
+4. More than about three actionables not already in the record.
+5. The user invalidates active scope ("actually, let's…", "scrap that", "different idea").
+6. Cold resume, no record to restore.
 
-Otherwise, continue without resolving — the default, and it should be most messages: a refinement inside the active scope, an answer to a question you asked, a concrete instruction you can already act on, or conversation about the work rather than a change to it. A request that only extends the active scope slightly (one more file, one more case, same goal, same done condition) — amend the scope record directly instead of re-resolving.
+Otherwise, continue without resolving — this should be most messages: a refinement inside scope, an answer to a question you asked, an instruction you can already act on, or conversation about the work. A request that only slightly extends scope (one more file, one more case, same goal, same done condition) — amend the record directly instead of re-resolving.
 
 **Scope record**, under 400 B:
 
@@ -44,9 +42,9 @@ out_of_scope: [<explicitly excluded>]
 path: default | escalated
 ```
 
-Continuity test: does this request fall inside `paths` and serve `goal` without changing `done_when`? Yes → continue. No → resolve again.
+Continuity test: request fits `paths`, serves `goal`, doesn't change `done_when`? Yes → continue; no → resolve again.
 
-Default path: held in the main thread for the session, nothing written to disk. Escalated path: written into `docs/tasks/<slug>/STATE.md`.
+Default path: held in the main thread, nothing written to disk. Escalated path: written into `docs/tasks/<slug>/STATE.md`.
 
 ## Path choice
 
@@ -55,4 +53,4 @@ Default path: held in the main thread for the session, nothing written to disk. 
 | Default | `builder` → `reviewer` → PR | ≤ 40k tokens |
 | Escalated (opt-in) | `planner` → `builder` → `reviewer` → PR, with `docs/tasks/<slug>/STATE.md` | ≤ 150k tokens |
 
-Escalation trigger, verbatim: escalate when the change spans more than one submodule, alters a published contract (API, schema, or event), or when you can't describe the change in two sentences.
+Escalation trigger, verbatim: escalate when the change spans more than one submodule, alters a published contract (API, schema, or event), or can't be described in two sentences.
