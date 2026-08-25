@@ -1,6 +1,6 @@
 ---
 name: requirements
-description: Structure for a requirements document — problem, goals, non-goals, success criteria. Loaded by scribe when asked for requirements.
+description: Structure for a requirements document — problem, goals, non-goals, stakeholders, constraints, open questions, success criteria. Loaded by scribe when asked for requirements.
 ---
 
 # cairn:requirements
@@ -18,6 +18,18 @@ What this must do, as checkable statements.
 ## Non-goals
 
 What's explicitly out of scope, so scope doesn't drift mid-build.
+
+## Stakeholders
+
+Who's affected or has a say, beyond the requester. Omit when there's only one party.
+
+## Constraints & assumptions
+
+What bounds the solution — technical, timeline, dependency — and what's being assumed true without verification.
+
+## Open questions
+
+What's still unresolved and needs a decision before or during the build.
 
 ## Success criteria
 
