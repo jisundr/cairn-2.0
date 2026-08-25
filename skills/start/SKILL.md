@@ -1,6 +1,6 @@
 ---
 name: start
-description: Entry point, loaded once per session at the marker block. Resolves the .harness/ gate, decides whether scope needs resolving, and picks default vs escalated.
+description: Entry point, loaded once per session. Resolves the .harness/ gate, decides whether scope needs resolving, and picks default vs escalated.
 ---
 
 # cairn:start
@@ -15,7 +15,7 @@ One `Glob .harness/**/*.md` call, once per task; hold the result — never re-gl
 
 ## Local preferences
 
-Also covered by the glob: `.harness/local/preferences.md`, classified per `/cairn-doctor` (active / inert / ignored-by-ceiling / unrecognised). Dispatch prompts carry only active values — never the file, its path, or a non-active line; no agent reads it. Active `prefer-path` feeds the path choice below.
+Also covered by the glob: `.harness/local/preferences.md`, classified per `/cairn-doctor` (active / inert / ignored-by-ceiling / unrecognised). Dispatch prompts carry only active values — never the file, its path, or a non-active line; no agent reads it. Active `prefer-path` feeds the path choice.
 
 ## Scope resolution
 
@@ -39,6 +39,7 @@ goal: <one sentence>
 paths: [<dirs or globs in scope>]
 done_when: <checkable condition>
 out_of_scope: [<explicitly excluded>]
+source: <doc, if any>
 path: default | escalated
 ```
 
