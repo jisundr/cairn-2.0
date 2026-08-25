@@ -1,0 +1,13 @@
+# Interviewing a vague request
+
+Ask one question at a time via `AskUserQuestion` — not a list of everything you might want to know.
+
+Order questions by what unblocks the most:
+
+1. The target — what or where the request is actually about, if that's unclear.
+2. The done condition — what "finished" looks like, checkably.
+3. The paths or files — only if still unclear once the target and done condition are named.
+
+Stop as soon as `goal`, `paths`, and `done_when` are all nameable. That's usually one to three questions, not a full interview.
+
+Prefer multiple-choice questions when there's a short list of plausible answers; open-ended when there isn't. If an answer is itself vague, ask a narrower follow-up rather than repeating the same question.
