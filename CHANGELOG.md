@@ -5,6 +5,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 ## 2026-08-26
 
 - Extended `skills/requirements/SKILL.md`: verify any file, function, or behavior the source material names against the codebase before writing Problem and Goals — a claim that doesn't hold goes under Constraints & assumptions as an open discrepancy, not into Problem as settled fact — and hand the written path back with an offer, not a trigger, to continue into planning, so the user can decline and stop at the task file. Spec at `docs/specs/task-file-intake.md` (gitignored, not committed).
+- Wired `skills/scope/SKILL.md`'s default flow with a step 0: when a request points at an existing `docs/requirements/*.md` doc instead of describing the work directly, `goal`/`done_when` are read from its Goals/Success criteria and `paths` from what it names, rather than re-derived from the conversation. Also records the doc's path as a new optional `source` field on the scope record. Spec at `docs/specs/task-file-intake.md` (gitignored, not committed).
 
 ## 2026-08-25
 
