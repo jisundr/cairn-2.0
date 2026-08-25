@@ -11,3 +11,5 @@ Order questions by what unblocks the most:
 Stop as soon as `goal`, `paths`, and `done_when` are all nameable. That's usually one to three questions, not a full interview.
 
 Prefer multiple-choice questions when there's a short list of plausible answers; open-ended when there isn't. If an answer is itself vague, ask a narrower follow-up rather than repeating the same question.
+
+If `goal` still isn't nameable after narrowing — a new project, a subsystem with no existing flow to change, or the user hasn't fully formed the idea yet — invoke `Skill(skill: "cairn:brainstorm")` instead of continuing to ask narrower questions.

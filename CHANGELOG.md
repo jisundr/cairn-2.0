@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-25
 
+- Wired `skills/scope/reference/vague-request.md` to escalate into `cairn:brainstorm` when `goal` still isn't nameable after the narrow questions — a new project, a subsystem with no existing flow, or an unformed idea.
+
 - Added `skills/brainstorm/SKILL.md` — the `cairn:brainstorm` skill: clarifies an idea too unformed for `cairn:scope`'s narrow questions, weighs approaches only when a genuine choice exists, and recommends a `scribe` doc type without writing it. Not a 5th agent — `AskUserQuestion` needs the main thread, and §B4/§B5 cap agents at 4.
 
 - Tightened `skills/start/SKILL.md`'s local-preferences dispatch rule: it said dispatch prompts must never carry "the file," which left room to instead name the file's *path* in a "don't read this" reminder — exactly what happened during live testing, where a dispatching session added `.harness/local/preferences.md`'s literal path to nested agents' briefs. Now explicit that dispatch prompts must never name the file or its path, since each agent's own brief already forbids reading it. Found via live acceptance testing of §B12 criteria 7–16.
