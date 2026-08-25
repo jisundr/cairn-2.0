@@ -8,6 +8,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 - Wired `skills/scope/SKILL.md`'s default flow with a step 0: when a request points at an existing `docs/requirements/*.md` doc instead of describing the work directly, `goal`/`done_when` are read from its Goals/Success criteria and `paths` from what it names, rather than re-derived from the conversation. Also records the doc's path as a new optional `source` field on the scope record. Spec at `docs/specs/task-file-intake.md` (gitignored, not committed).
 - Mirrored the `source` field into `skills/start/SKILL.md`'s copy of the scope record shape, so continuity checks and inline amendments don't silently drop it; trimmed elsewhere (frontmatter description, one prose line) to stay under its 3000 B soft cap (now 2996 B). Spec at `docs/specs/task-file-intake.md` (gitignored, not committed).
 - Wired `agents/planner.md` step 4 to reference the scope record's `source` doc, when present, among the paths/contracts the plan touches — closes the traceability gap where a task file's verified context would otherwise drop at the scope-resolution boundary and never reach `builder`/`reviewer`. Spec at `docs/specs/task-file-intake.md` (gitignored, not committed).
+- Regenerated `docs/BUDGET.md` to reflect all four changes above. Always-loaded frontmatter total now 1999 B / 3000 B (down from 2019 B).
 
 ## 2026-08-25
 
