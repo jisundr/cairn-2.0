@@ -11,7 +11,7 @@ Host from the URL (`github.com` → `gh`, a GitLab host → `glab`). Neither CLI
 
 ## Mode detection
 
-Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading (or equivalent) from a prior run of this skill → Re-review. Otherwise → First review.
+Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading (or equivalent) from a prior run of this skill → Re-review. Otherwise → First review. The caller names Final review explicitly (e.g. "let's do the final pass") rather than this being auto-detected.
 
 ## First review
 
@@ -27,3 +27,9 @@ Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading
 2. Rerun First review's steps 1–2, scoped to what changed since the last round, to catch anything new.
 3. Draft a dated round reply per prior finding (ack fixes, hold open what isn't) plus any new finding from step 2.
 4. `AskUserQuestion` gate, then post — same as First review step 4.
+
+## Final review + manual QA
+
+1. Rerun First review's steps 1–2, scoped to what's changed since the last round, to catch regressions the fixes may have introduced.
+2. Clean → `Skill(skill: "cairn:run")` to launch the app. Unavailable or fails to start → report it, ask the user to confirm manual QA is otherwise covered; don't block approval on it.
+3. Hand off for human manual QA. A reported problem loops back to Re-review's assessment step rather than starting over.
