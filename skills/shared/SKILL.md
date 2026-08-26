@@ -12,3 +12,10 @@ YAML frontmatter, every field under 200 characters, whole file under 1,024 B. `k
 ## Running verification
 
 Read `workflow.md`'s `## Gates` section and `environment.md`'s typed preconditions from the already-resolved harness. Run each via `Bash`. Failure semantics are uniform: a check whose command can't run counts as failed, and a line that can't be parsed also counts as failed — no silent-skip tier. A `[blocking]` failure stops the task; a `[warning]` failure doesn't.
+
+## Reference
+
+| File | Load when |
+|---|---|
+| reference/security-checklist.md | Reviewing a diff — check it against these categories alongside whatever the review already covers. |
+| reference/fix-lanes.md | Tagging a diff review's own reuse/simplification/efficiency findings, for human triage. |
