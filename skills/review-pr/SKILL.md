@@ -33,3 +33,10 @@ Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading
 1. Rerun First review's steps 1–2, scoped to what's changed since the last round, to catch regressions the fixes may have introduced.
 2. Clean → `Skill(skill: "cairn:run")` to launch the app. Unavailable or fails to start → report it, ask the user to confirm manual QA is otherwise covered; don't block approval on it.
 3. Hand off for human manual QA. A reported problem loops back to Re-review's assessment step rather than starting over.
+
+## Approval + cleanup
+
+1. Stop whatever Final review's `cairn:run` started.
+2. Approve the MR and post a final summary comment, using the merge method / push-safety convention from `workflow.md`'s `## Commits / PR`. Convention undocumented → ask once; never guess a merge command.
+3. Stop referencing the findings draft — nothing is persisted to disk to clean up.
+4. Report done.
