@@ -15,6 +15,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 - Wired `agents/planner.md` step 5: dispatched unattended, skip `AskUserQuestion` — take the most conservative/reversible reading and append one `flags` line instead, per `cairn:start`'s `reference/unattended.md`; if no conservative reading exists, write `needs-human` to `key_info` with the exact question and stop.
 - Wired `skills/scope/reference/vague-request.md` for unattended dispatch: don't interview (its usual escalation, `cairn:brainstorm`, is itself interactive and unreachable) — name the most conservative `goal`/`paths`/`done_when` directly and flag the assumption; if `goal` still isn't nameable, write `needs-human` to `key_info` and stop.
 - Added an "Attendance modes" section to `README.md`: the three-mode table (interactive/attended/unattended), how to actually run unattended (confirm once, hand off to an isolated worktree plus a headless or scheduled run), and how to check back (cold-resume reads `STATE.md`, the `key_info` stop-marker says why it stopped).
+- Regenerated `docs/BUDGET.md` to reflect the build-brief amendment and the four attendance-mode file edits above. Always-loaded frontmatter total now 1957 B / 3000 B (down from 1999 B).
 
 ## 2026-08-25
 
