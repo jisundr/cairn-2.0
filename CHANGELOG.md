@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the model (§A4) — read by humans only.
 
+## 2026-08-27
+
+- Added `skills/review-pr/reference/draft-template.md` — the structured findings-draft format (header, one block per finding, a dated section per re-review round) `review-pr`'s First review step 3 and Re-review step 3 now present findings in, wired into the skill's new `## Reference` table. Generalizes a user-supplied GitLab-flavored template to cover GitHub PRs too. Bumped `.claude-plugin/plugin.json` version to `0.10.0`.
+
 ## 2026-08-26
 
 - Added Approval + cleanup mode to `skills/review-pr/SKILL.md` (Phase 4 of `docs/specs/2026-08-26-pr-review-skill.md`, completing the spec) — stops whatever `cairn:run` started, approves the MR and posts a final summary comment using the merge method / push-safety convention from `workflow.md`'s `## Commits / PR` (asks once rather than guessing if undocumented), and reports done; nothing persists to disk to clean up in v1. Bumped `.claude-plugin/plugin.json` version to `0.9.0`.

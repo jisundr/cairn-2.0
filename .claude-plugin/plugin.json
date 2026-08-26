@@ -1,7 +1,7 @@
 {
   "name": "cairn",
   "displayName": "Cairn",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "A lean, on-demand, non-invasive development workflow for Claude Code.",
   "author": { "name": "Jayson De los Reyes", "email": "jisun.delosreyes@gmail.com" },
   "repository": "https://github.com/jisundr/cairn-2.0"
