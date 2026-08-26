@@ -532,6 +532,24 @@ Never write "if in doubt, use the full chain." The heavy path being the default 
 
 Keep one distinction from that design, because it's subtle and correct: a `key_info` field is **overwritten** each phase, while a `flags` list is **append-only** and accumulates across the task, so the final step asks one consolidated question.
 
+### B8a. Attendance modes
+
+Three postures for running the same chain, not three chains:
+
+| Mode | What it is |
+|---|---|
+| Interactive | A normal chat session. `AskUserQuestion` stops for scope ambiguity and plan approval; a human answers them as they come. |
+| Attended | The same chain with tool calls auto-accepted. A human is still present to answer cairn's own questions. |
+| Unattended | Dispatched, then left alone. No one is present to answer a question, so the chain doesn't ask one. |
+
+Unattended is escalated-path only (§B8): the default path keeps its scope record in-thread with nothing on disk, so there'd be nothing to check once the run detaches.
+
+Unattended changes exactly three things about the chain:
+
+1. **No questions.** Anywhere the chain would call `AskUserQuestion` — `planner`'s open-choice check, `cairn:scope`'s vague-request interview — it instead takes the most conservative, most reversible reading and appends one `flags` line naming the assumption.
+2. **Three terminal states, always written to `key_info` before stopping.** `done` — `reviewer` passed; the run stops there, leaving merge/PR/keep-as-is for a human. `needs-human` — a fork with no safe conservative reading (the goal is unnameable even conservatively, escalation to the interactive `cairn:brainstorm` isn't reachable). `stalled` — `reviewer` has rejected `builder`'s output 3 times running. No fourth state, no unbounded retry.
+3. **Never publishes.** The run stops after `reviewer` passes or a terminal state is hit; it never opens a PR. Isolation (a worktree per run) is recommended, not built or enforced by cairn.
+
 ## B9. Commands
 
 Four, all thin:
