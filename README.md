@@ -24,6 +24,20 @@ Then, in the project you want cairn to work in, run `/cairn-setup`.
 
 The default path is the default for a reason — most changes, all day, at two hops. Escalating is a deliberate choice for the cases above, not a fallback for uncertainty.
 
+## Attendance modes
+
+Three postures for running the same chain — not three chains:
+
+| Mode | Posture |
+|---|---|
+| **Interactive** | Normal chat session. cairn asks when it needs to. |
+| **Attended** | Same chain, tool calls auto-accepted. A human is still present to answer. |
+| **Unattended** | Dispatched, then left alone. Escalated path only — cairn defaults and flags an assumption instead of asking, and stops at one of three outcomes (`done`, `needs-human`, `stalled`) written into `STATE.md`. |
+
+Unattended never publishes — it stops after `reviewer` passes and leaves merging or opening a PR to you. To run one: confirm the launch once, then hand the task to an isolated worktree and either a headless Claude Code run you start yourself or a scheduled/triggered one. To check back, resume the task normally — cold-resume reads `STATE.md` back, the stop-marker in `key_info` says why it stopped, and any `flags` list what it assumed along the way.
+
+See `skills/start/reference/unattended.md` for the mechanics.
+
 ## What gets loaded, and when
 
 Every artifact cairn ships is in exactly one of four load classes, tracked in [`docs/BUDGET.md`](docs/BUDGET.md):
