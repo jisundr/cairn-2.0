@@ -282,6 +282,8 @@ That is what "non-invasive" means in practice — the framework's absence is a s
 
 The four files it produces are the project's, not cairn's. The team edits them freely; cairn reads them.
 
+`/cairn-setup <path>` scopes that same observe-confirm cycle to one subtree — e.g. a submodule added after the last full run — instead of the whole codebase. It never touches the marker block, and it requires the four files to already exist (a full `/cairn-setup` must run first). Candidates come only from `<path>`; one already matching what a root file says is skipped, one that diverges or introduces something the root files don't cover is offered as a path-scoped line (§B3d) under the matching section, same approve / edit / drop. Confirmed lines are inserted into the existing files — every other line stays untouched — and a file already at its cap is reported, not silently overflowed.
+
 ### B3d. The four files
 
 | File | Cap | Sections |
@@ -294,7 +296,7 @@ The four files it produces are the project's, not cairn's. The team edits them f
 All four together are ~1,200 tokens, which is what makes on-demand loading affordable.
 
 - **Refines, never overrides.** A harness file can add a check or tighten a standard; it cannot remove a step. Restate that ceiling in each file's own header line, so a file read without its skill still carries it.
-- A submodule's harness refines the parent's.
+- **No nested `.harness/`.** Resolution (§B3a) starts and stays at the project root; a submodule never gets its own `.harness/` tree. Where a submodule's rules diverge from the rest of the repo, they live in the parent's own four files, scoped by path — e.g. under `standards.md`'s `## Testing`, a line like `services/payments/: contract tests required`. `/cairn-setup`'s evidence count (§B3c) already surfaces this case ("1 of 4 services follow this"): a low count is the signal to write a scoped line instead of a repo-wide one, not a reason to drop the candidate.
 - `##` anchors, so a finding can cite `standards.md#error-handling`.
 
 `environment.md` is data, not prose:
@@ -563,6 +565,7 @@ Four, all thin:
 |---|---|
 | `/cairn-setup` | Offers the marker block (shows exact text, asks). Then observe-then-confirm harness generation (§B3c). Refuses to create a `CLAUDE.md` that doesn't exist. Idempotent. |
 | `/cairn-setup --local` | Writes `.harness/local/preferences.md` and its self-ignoring `.gitignore`, after showing the exact contents (§B3e). Never touches the team files. |
+| `/cairn-setup <path>` | Observes only that subtree; matches its candidates against the existing root files and offers path-scoped lines for what diverges (§B3c, §B3d). Requires the four files to already exist; never touches the marker. |
 | `/cairn-teardown` | Removes the marker block and `.cairn/`; reports what it left and why — including `.harness/local/`, which is the developer's own; points at `/plugin uninstall` for the rest. |
 | `/cairn-doctor` | Reports: plugin version, marker-block presence, harness presence and per-file status, `.cairn/` state, a stale pre-`0.2.1` `.harness/BUDGET.roster.md` if found, and the local layer line by line — active, inert (no lever), unrecognised, or ignored by the ceiling. The only place an ignored preference is ever surfaced (§B3e). Reports only — installs nothing, fixes nothing, gates nothing. |
 | `/cairn-tokens` | Runs the token report and relays it verbatim. |
