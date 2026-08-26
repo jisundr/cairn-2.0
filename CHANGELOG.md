@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-26
 
+- Bumped `.claude-plugin/plugin.json` version to `0.1.1` so installed marketplace copies pick up the hooks-manifest fix on upgrade.
 - Removed the redundant `hooks` key from `.claude-plugin/plugin.json`: Claude Code auto-loads `hooks/hooks.json` by convention, so pointing `manifest.hooks` at the same file caused a "Duplicate hooks file detected" load error on install. Found via live installation on a fresh machine.
 - Updated `README.md`'s `## Install` section for the repo's private-visibility status: notes the `owner/repo` shorthand already defaults to SSH (so it works as-is once the host is in `known_hosts` and a key is loaded in `ssh-agent`), and adds the explicit `git@github.com:jisundr/cairn-2.0.git` SSH URL form as a fallback for anyone without SSH set up. Verified against Claude Code's plugin-marketplace docs before writing.
 - Extended `skills/requirements/SKILL.md`: verify any file, function, or behavior the source material names against the codebase before writing Problem and Goals — a claim that doesn't hold goes under Constraints & assumptions as an open discrepancy, not into Problem as settled fact — and hand the written path back with an offer, not a trigger, to continue into planning, so the user can decline and stop at the task file. Spec at `docs/specs/task-file-intake.md` (gitignored, not committed).
