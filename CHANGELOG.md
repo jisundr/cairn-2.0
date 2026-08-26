@@ -23,6 +23,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 - Wired `commands/cairn-setup.md` with a new Track mode (`--track`/`--untrack claude-md-marker`) that edits only `.harness/BUDGET.roster.md` and reruns the BUDGET.md regeneration step; Default mode's step 6 now also reads the roster, if present, and adds its rows. Landed at 2045 B, over its 1500 B soft cap — justified by the added mode's prose; still well under the 2048 B hard cap.
 - Regenerated `docs/BUDGET.md` to reflect `commands/cairn-setup.md`'s new size. Always-loaded frontmatter total now 1986 B / 3000 B (up from 1957 B).
 - Bumped `.claude-plugin/plugin.json` version to `0.2.0` for the `--track`/`--untrack` roster feature above.
+- Renamed `.harness/BUDGET.roster.md` to `.harness/BUDGET.roster.txt` in the build brief and `commands/cairn-setup.md`: its content is plain lines (`# comment` and `<label> <path> <cap-bytes>`), not markdown, so `.md` was the wrong extension. Regenerated `docs/BUDGET.md` for the 1 B size shift.
 
 ## 2026-08-25
 
