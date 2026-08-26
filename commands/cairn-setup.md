@@ -14,9 +14,7 @@ Templates: `${CLAUDE_PLUGIN_ROOT}/skills/task-assets/assets/` (relative below).
 3. Else read `claude-md-marker.md`, show the exact text, ask before appending (blank line first if needed).
 4. Observe the codebase against the four sections. Show each candidate with an evidence count (e.g. "3/4 services"), ask approve/edit/drop.
 5. For `architecture.md`, `standards.md`, `environment.md`, `workflow.md`: read the template, fill with confirmed rules, write to `.harness/<name>`, header unchanged.
-6. Write `.harness/BUDGET.md`: line count, cap (40/40/30/30), headroom, plus `.harness/BUDGET.roster.txt`'s rows if present (today: `claude-md-marker`, marker bytes vs. cap). Regenerated every run, never read back.
-
-Refines, never overrides — tightens a check, never asserts what the project lacks.
+6. Stale `.harness/BUDGET.roster.md` (pre-`0.2.1`), `.txt` absent → rename it. Write `.harness/BUDGET.md`: line count, cap (40/40/30/30), headroom, plus `.harness/BUDGET.roster.txt`'s rows if present (today: `claude-md-marker`, marker bytes vs. cap). Regenerated every run, never read back.
 
 ## Track mode
 

@@ -25,7 +25,15 @@ if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -f "$manifest" ]; then
   version="$(jq -r '.version // "unknown"' "$manifest" 2>/dev/null)"
 fi
 
+log="$cairn_dir/sessions.log"
+prev_version=""
+[ -f "$log" ] && prev_version="$(tail -n 1 "$log" 2>/dev/null | cut -f2)"
+
 timestamp="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-printf '%s\t%s\t%s\n' "$timestamp" "$version" "$session_id" >> "$cairn_dir/sessions.log" 2>/dev/null
+printf '%s\t%s\t%s\n' "$timestamp" "$version" "$session_id" >> "$log" 2>/dev/null
+
+if [ -n "$prev_version" ] && [ "$prev_version" != "$version" ] && [ "$version" != "unknown" ]; then
+  printf 'cairn updated %s -> %s. Run /cairn-setup or /cairn-doctor to refresh harness state.\n' "$prev_version" "$version"
+fi
 
 exit 0

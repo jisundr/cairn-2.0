@@ -24,6 +24,12 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 - Regenerated `docs/BUDGET.md` to reflect `commands/cairn-setup.md`'s new size. Always-loaded frontmatter total now 1986 B / 3000 B (up from 1957 B).
 - Bumped `.claude-plugin/plugin.json` version to `0.2.0` for the `--track`/`--untrack` roster feature above.
 - Renamed `.harness/BUDGET.roster.md` to `.harness/BUDGET.roster.txt` in the build brief and `commands/cairn-setup.md`: its content is plain lines (`# comment` and `<label> <path> <cap-bytes>`), not markdown, so `.md` was the wrong extension. Regenerated `docs/BUDGET.md` for the 1 B size shift.
+- Wired `commands/cairn-setup.md` Default mode step 6 to rename a stale pre-`0.2.1` `.harness/BUDGET.roster.md` to `.roster.txt` on every run, silently — no confirmation, since it's cairn's own file being corrected to what it always should have been. Freed the byte budget by dropping a "Refines, never overrides" sentence that duplicated a principle the build brief already states in §B3c. Landed at 2038 B, still under the 2048 B hard cap.
+- Added a `/cairn-doctor` step reporting a stale `.harness/BUDGET.roster.md` if found, pointing at `/cairn-setup` to fix it — doctor still never writes (§B9). Renumbered the local-layer step from #5 to #6 accordingly.
+- Extended `hooks/session-start.sh`: before appending the session log line, reads the previous line's logged version; if it differs from the current plugin version, prints a one-line nudge to run `/cairn-setup` or `/cairn-doctor`. All existing early-exits (`jq`, session id, marker block) are unaffected — the check runs only after them, so a fresh/un-set-up project still gets a silent no-op. Verified by simulating a version change against a scratch project.
+- Amended `Cairn 2.0 build brief.md`: §B3d notes the automatic `0.2.1` roster migration; §B9's `/cairn-doctor` row adds the stale-roster report to its list; §B10's hooks paragraph now names the version-change nudge instead of saying "nothing else" beyond the self-check and log line.
+- Regenerated `docs/BUDGET.md` for the setup/doctor/hook size changes above. Always-loaded frontmatter total now 1993 B / 3000 B (up from 1986 B).
+- Bumped `.claude-plugin/plugin.json` version to `0.2.1` — patch, fixing/migrating the `0.2.0` roster feature rather than adding new user-facing capability.
 
 ## 2026-08-25
 

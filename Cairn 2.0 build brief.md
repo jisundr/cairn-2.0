@@ -313,6 +313,8 @@ Failure semantics are uniform: a check whose command can't run counts as **faile
 
 Root `CLAUDE.md` is not tracked by default — cairn owns nothing in it beyond the marker block, and asserting a size opinion about the rest of the project's own file is out of bounds. A team that wants the installed marker block measured opts in explicitly: `/cairn-setup --track claude-md-marker` appends a line to `.harness/BUDGET.roster.txt` (created with its header comment if absent) and regenerates `.harness/BUDGET.md` immediately to include the row; `/cairn-setup --untrack claude-md-marker` removes it the same way. Once added, every later `/cairn-setup` run reads the roster and keeps the row current without asking again. `claude-md-marker` — measured as the exact substring between `<!-- cairn:start -->` and `<!-- cairn:end -->`, capped at 400 B — is the only recognized label; the roster's line format (`<label> <path> <cap-bytes>`) leaves room for a future label, but no measurement logic beyond `claude-md-marker` exists, and none should be added speculatively (§A8).
 
+A pre-`0.2.1` `.harness/BUDGET.roster.md` (the original, wrongly-named file) is renamed to `.roster.txt` automatically the next time `/cairn-setup` runs; `/cairn-doctor` reports it as stale until then.
+
 ### B3e. The local layer — `.harness/local/`
 
 The four team files answer *what must be true of this codebase*. They are committed, and everyone shares them. But a lot of what shapes a session is neither team truth nor framework logic — it's one developer's preference, and it has no business in a shipped skill or in a file the team reviews.
@@ -562,12 +564,12 @@ Four, all thin:
 | `/cairn-setup` | Offers the marker block (shows exact text, asks). Then observe-then-confirm harness generation (§B3c). Refuses to create a `CLAUDE.md` that doesn't exist. Idempotent. |
 | `/cairn-setup --local` | Writes `.harness/local/preferences.md` and its self-ignoring `.gitignore`, after showing the exact contents (§B3e). Never touches the team files. |
 | `/cairn-teardown` | Removes the marker block and `.cairn/`; reports what it left and why — including `.harness/local/`, which is the developer's own; points at `/plugin uninstall` for the rest. |
-| `/cairn-doctor` | Reports: plugin version, marker-block presence, harness presence and per-file status, `.cairn/` state, and the local layer line by line — active, inert (no lever), unrecognised, or ignored by the ceiling. The only place an ignored preference is ever surfaced (§B3e). Reports only — installs nothing, fixes nothing, gates nothing. |
+| `/cairn-doctor` | Reports: plugin version, marker-block presence, harness presence and per-file status, `.cairn/` state, a stale pre-`0.2.1` `.harness/BUDGET.roster.md` if found, and the local layer line by line — active, inert (no lever), unrecognised, or ignored by the ceiling. The only place an ignored preference is ever surfaced (§B3e). Reports only — installs nothing, fixes nothing, gates nothing. |
 | `/cairn-tokens` | Runs the token report and relays it verbatim. |
 
 ## B10. Hooks, CI, and token metering
 
-**Hooks — advisory only.** `SessionStart` for a structural self-check and a version log line, nothing else. Every script `set -uo pipefail` and `exit 0` on every path, degrading silently when `jq`, a marker file, or a session id is missing. The version log writes only if the project opted in (marker block present) — an un-set-up project gets a silent no-op, which is the correct non-invasive behaviour. No `PreToolUse` deny rules: a predecessor's blanket Bash denier rejected combined commands where only part matched, which reads as the wrong tool being blocked and cost more than it saved. Hooks nudge; they never gate.
+**Hooks — advisory only.** `SessionStart` for a structural self-check, a version log line, and a one-line nudge when the logged version changes, nothing else. Every script `set -uo pipefail` and `exit 0` on every path, degrading silently when `jq`, a marker file, or a session id is missing. The version log writes only if the project opted in (marker block present) — an un-set-up project gets a silent no-op, which is the correct non-invasive behaviour. No `PreToolUse` deny rules: a predecessor's blanket Bash denier rejected combined commands where only part matched, which reads as the wrong tool being blocked and cost more than it saved. Hooks nudge; they never gate.
 
 **CI — where the teeth are.** Neither predecessor had CI beyond manifest validation, and both drifted. On every push and PR, all blocking:
 
