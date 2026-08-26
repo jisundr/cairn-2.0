@@ -6,8 +6,17 @@ cairn is a guest in every project it enters: it leaves one line behind, it reads
 
 ## Install
 
+This repo is private. The `owner/repo` shorthand below uses SSH by default, so it works as-is once `github.com` is in your `known_hosts` and your SSH key is loaded in `ssh-agent`:
+
 ```
 /plugin marketplace add jisundr/cairn-2.0
+/plugin install cairn@cairn-marketplace
+```
+
+If SSH isn't set up yet, or you'd rather be explicit, use the full SSH URL instead:
+
+```
+/plugin marketplace add git@github.com:jisundr/cairn-2.0.git
 /plugin install cairn@cairn-marketplace
 ```
 
