@@ -19,6 +19,10 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 - Wired `skills/scope/reference/vague-request.md` for unattended dispatch: don't interview (its usual escalation, `cairn:brainstorm`, is itself interactive and unreachable) — name the most conservative `goal`/`paths`/`done_when` directly and flag the assumption; if `goal` still isn't nameable, write `needs-human` to `key_info` and stop.
 - Added an "Attendance modes" section to `README.md`: the three-mode table (interactive/attended/unattended), how to actually run unattended (confirm once, hand off to an isolated worktree plus a headless or scheduled run), and how to check back (cold-resume reads `STATE.md`, the `key_info` stop-marker says why it stopped).
 - Regenerated `docs/BUDGET.md` to reflect the build-brief amendment and the four attendance-mode file edits above. Always-loaded frontmatter total now 1957 B / 3000 B (down from 1999 B).
+- Added `Cairn 2.0 build brief.md` §B3d paragraph and §B2b write-allowlist row for `.harness/BUDGET.roster.md` — an opt-in roster, off by default, that lets a team ask `/cairn-setup --track claude-md-marker` to have `.harness/BUDGET.md` also measure the installed CLAUDE.md marker block (bytes between `<!-- cairn:start -->`/`<!-- cairn:end -->`) against its 400 B cap; `--untrack` removes it. The roster's line format leaves room for a future label, but only `claude-md-marker` has measurement logic today, per §A8.
+- Wired `commands/cairn-setup.md` with a new Track mode (`--track`/`--untrack claude-md-marker`) that edits only `.harness/BUDGET.roster.md` and reruns the BUDGET.md regeneration step; Default mode's step 6 now also reads the roster, if present, and adds its rows. Landed at 2045 B, over its 1500 B soft cap — justified by the added mode's prose; still well under the 2048 B hard cap.
+- Regenerated `docs/BUDGET.md` to reflect `commands/cairn-setup.md`'s new size. Always-loaded frontmatter total now 1986 B / 3000 B (up from 1957 B).
+- Bumped `.claude-plugin/plugin.json` version to `0.2.0` for the `--track`/`--untrack` roster feature above.
 
 ## 2026-08-25
 
