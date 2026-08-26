@@ -5,6 +5,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 ## 2026-08-26
 
 - Bumped `.claude-plugin/plugin.json` version to `0.3.0` for the `/cairn-setup <path>` addition, matching the minor bump the `--track`/`--untrack` addition got.
+- Added a rule to `CLAUDE.md`'s "Discipline for every change": bump `.claude-plugin/plugin.json`'s version whenever a change affects the plugin's behavior (new/changed command, skill, agent, or hook), not for docs-only or internal-refactor changes.
 
 - Bumped `.claude-plugin/plugin.json` version to `0.1.1` so installed marketplace copies pick up the hooks-manifest fix on upgrade.
 - Removed the redundant `hooks` key from `.claude-plugin/plugin.json`: Claude Code auto-loads `hooks/hooks.json` by convention, so pointing `manifest.hooks` at the same file caused a "Duplicate hooks file detected" load error on install. Found via live installation on a fresh machine.
