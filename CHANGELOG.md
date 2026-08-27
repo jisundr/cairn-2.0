@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-27
 
+- Added an ambiguity check-in to `cairn:scope`'s escalation trigger — asks via `AskUserQuestion` when default vs. escalated is genuinely unclear, instead of guessing. Bumped `.claude-plugin/plugin.json` version to `0.11.0`.
 - Added `skills/review-pr/reference/draft-template.md` — the structured findings-draft format (header, one block per finding, a dated section per re-review round) `review-pr`'s First review step 3 and Re-review step 3 now present findings in, wired into the skill's new `## Reference` table. Generalizes a user-supplied GitLab-flavored template to cover GitHub PRs too. Bumped `.claude-plugin/plugin.json` version to `0.10.0`.
 
 ## 2026-08-26
