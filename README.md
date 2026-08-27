@@ -65,7 +65,7 @@ In a consuming project, cairn writes **only** these paths — everything else is
 | Path | When | Whose content |
 |---|---|---|
 | One marker block in root `CLAUDE.md` | `/cairn-setup`, on confirmation | cairn's, removable exactly |
-| `.harness/*.md` | `/cairn-setup`, per-rule confirmation | the project's — cairn drafts, the team owns |
+| `.harness/*.md` | `/cairn-setup` or `/cairn-retro`, per-rule confirmation | the project's — cairn drafts, the team owns |
 | `.harness/local/` | `/cairn-setup --local`, on confirmation | this developer's — never committed |
 | `docs/tasks/<slug>/` | escalated path only | the project's |
 | `.cairn/` | runtime state | cairn's, self-ignoring |
