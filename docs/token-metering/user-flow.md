@@ -2,6 +2,35 @@
 
 Companion to `requirements.md` (what/why) and `architecture.md` (how). This traces what a developer actually does and sees, end to end.
 
+## Diagram
+
+```mermaid
+%%{init: {'theme': 'neutral'}}%%
+flowchart TD
+    A[Developer runs a cairn session] --> B[Session ends: Stop event fires]
+    B --> C[hooks/stop-tokens.sh fires silently]
+    C --> D[.cairn/tokens.db updated]
+
+    D --> E["/cairn-tokens"]
+    E --> F[Dashboard server starts, browser opens]
+    F --> G[Per-day / per-agent rollups]
+
+    G --> H[Select a session]
+    H --> I[Per-session view: one rollup row per agent]
+    I --> J[Expand an agent's row]
+    J --> K[Call-by-call trace: tokens / cost / duration]
+
+    F -. usage-limit event recorded .-> L[Warning banner shown]
+
+    F --> M[Dashboard polls on an interval]
+    M --> G
+    M -. or .-> N[Manual refresh]
+    N --> G
+
+    F --> O[Developer presses Ctrl-C]
+    O --> P[Server exits — capture unaffected]
+```
+
 ## Flow 1: Passive capture (no user action)
 
 1. Developer runs a normal cairn session — asks for a feature, cairn dispatches `planner`/`builder`/`reviewer`/`scribe` as needed.
