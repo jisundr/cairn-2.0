@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-28
 
+- Added `docs/token-metering/user-flow.md` — end-to-end developer flows (passive capture, opening the dashboard, drilling into a session, the usage-limit warning, live refresh, stopping the server) as a companion to `requirements.md`/`architecture.md`; updated `Cairn 2.0 build brief.md` §B10's pointers. Docs-only — no version bump.
 - Split `docs/token-metering/requirements.md` into a pure PRD (Problem/Goals/Non-goals/Stakeholders/Constraints/Success criteria, stripped of implementation detail) and a new `docs/token-metering/architecture.md` design doc (Architecture/Components/Data flow/Error handling/Testing, `cairn:spec` shape) holding the tech-stack, schema, and hook mechanics; updated `Cairn 2.0 build brief.md` §B10's pointers. Docs-only — no version bump.
 - Flattened `docs/token-metering/requirements/requirements.md` to `docs/token-metering/requirements.md` — dropped the redundant `requirements/` subfolder now that the feature folder is per-topic; updated `Cairn 2.0 build brief.md` §B10's pointer to match. Docs-only — no version bump.
 - Renamed `docs/token-metering/requirements/token-metering.md` to `docs/token-metering/requirements/requirements.md` — the filename repeated the folder name; updated `Cairn 2.0 build brief.md` §B10's pointer to match. Docs-only — no version bump.
