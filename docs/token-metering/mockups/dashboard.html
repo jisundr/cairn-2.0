@@ -1,0 +1,1727 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Token Metering — dashboard wireframe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #eef0ee;
+    --paper-line: #d7dbd8;
+    --ink: #2a2d2c;
+    --ink-soft: #6b706e;
+    --graphite: #9aa19e;
+    --block: #dde1de;
+    --block-line: #b7bdb9;
+    --window: #ffffff;
+    --blue: #4f6f92;
+    --blue-soft: #e4eaf1;
+    --flag: #a94a3d;
+    --flag-soft: #f4e3e0;
+    --font-label: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --font-body: "Archivo", -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle, var(--paper-line) 1px, transparent 1px);
+    background-size: 22px 22px;
+    padding: 40px 20px 60px;
+  }
+
+  .page-head {
+    max-width: 1180px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .page-head h1 {
+    font-family: var(--font-label);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .page-head p {
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* fake browser chrome around the mockup, since this ships in a real browser tab */
+  .window {
+    max-width: 1180px;
+    margin: 0 auto;
+    background: var(--window);
+    border: 1px solid var(--block-line);
+    border-radius: 10px;
+    box-shadow: 0 1px 0 var(--paper-line);
+  }
+
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px;
+    background: var(--block);
+    border-bottom: 1px solid var(--block-line);
+    border-radius: 9px 9px 0 0;
+  }
+
+  .chrome .dots { display: flex; gap: 6px; }
+  .chrome .dots span {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--block-line);
+    display: inline-block;
+  }
+  .chrome .url {
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: var(--ink-soft);
+    background: var(--window);
+    border: 1px solid var(--block-line);
+    border-radius: 5px;
+    padding: 4px 10px;
+    flex: 1;
+    max-width: 320px;
+  }
+
+  .app {
+    padding: 26px 28px 34px;
+  }
+
+  .app-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand .mark {
+    width: 28px; height: 28px;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    position: relative;
+    flex: none;
+  }
+  .brand .mark::before,
+  .brand .mark::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    background: var(--ink);
+    transform: translateX(-50%);
+  }
+  .brand .mark::before { width: 2px; top: 5px; bottom: 5px; }
+  .brand .mark::after { height: 2px; left: 5px; right: 5px; top: 50%; width: auto; transform: translateY(-50%); }
+
+  .brand-text h2 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .brand-text span {
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .status-cluster {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+  }
+
+  .pill {
+    border: 1px solid var(--block-line);
+    background: var(--block);
+    border-radius: 999px;
+    padding: 5px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    border: 1.5px solid var(--blue);
+    color: var(--blue);
+    font-family: var(--font-label);
+    font-size: 10px;
+    font-weight: 700;
+    flex: none;
+  }
+
+  .warning-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1.5px dashed var(--flag);
+    background: var(--flag-soft);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 13.5px;
+  }
+  .warning-banner strong { font-weight: 600; }
+  .warning-banner .flag-icon {
+    width: 20px; height: 20px;
+    border: 1.5px solid var(--flag);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: var(--flag);
+    flex: none;
+  }
+  .warning-banner a {
+    margin-left: auto;
+    color: var(--flag);
+    font-family: var(--font-label);
+    font-size: 12px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--flag);
+    white-space: nowrap;
+  }
+
+  .rollups {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+
+  .panel {
+    border: 1px solid var(--block-line);
+    border-radius: 8px;
+    padding: 16px 18px 18px;
+    background: #fff;
+  }
+
+  .panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    font-family: var(--font-label);
+    margin-bottom: 14px;
+  }
+
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 108px;
+  }
+
+  .bar-chart .col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .bar-chart .val {
+    font-family: var(--font-label);
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+
+  .bar-chart .bar {
+    width: 100%;
+    background: var(--block);
+    border: 1px solid var(--block-line);
+    border-radius: 3px 3px 0 0;
+    position: relative;
+  }
+  .bar-chart .col { cursor: pointer; }
+  input.day-radio { position: absolute; opacity: 0; width: 0; height: 0; }
+  input.day-radio:checked + .col .bar {
+    background: var(--blue-soft);
+    border-color: var(--blue);
+  }
+
+  .bar-chart .day {
+    font-family: var(--font-label);
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+
+  .bar-chart.hourly { gap: 3px; }
+  .bar-chart.spark { gap: 2px; }
+  .bar-chart.spark .col { cursor: default; gap: 0; }
+  .bar-chart.spark .bar { border-radius: 1px 1px 0 0; }
+
+  .chart-set { display: none; }
+  body:has(#range-today:checked) .chart-set-today,
+  body:has(#range-7d:checked) .chart-set-7d,
+  body:has(#range-30d:checked) .chart-set-30d,
+  body:has(#range-month:checked) .chart-set-30d,
+  body:has(#range-6m:checked) .chart-set-90d,
+  body:has(#range-life:checked) .chart-set-90d { display: block; }
+
+  .chart-tabs {
+    display: flex;
+    margin-bottom: 14px;
+    font-family: var(--font-label);
+    font-size: 10.5px;
+  }
+  .chart-tabs input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .chart-tabs label {
+    cursor: pointer;
+    padding: 5px 11px;
+    border: 1px solid var(--block-line);
+    border-left: none;
+    background: var(--paper);
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    user-select: none;
+  }
+  .chart-tabs label:first-of-type { border-left: 1px solid var(--block-line); border-radius: 5px 0 0 5px; }
+  .chart-tabs label:last-of-type { border-radius: 0 5px 5px 0; }
+  .chart-tabs input:checked + label {
+    background: var(--window);
+    color: var(--ink);
+    font-weight: 700;
+    border-color: var(--blue);
+    position: relative;
+    z-index: 1;
+  }
+
+  .chart-headline {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .chart-headline-sub {
+    display: block;
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 3px;
+  }
+  .chart-headline-num {
+    font-size: 22px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .chart-delta {
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #3f8a5c;
+  }
+
+  .day-detail {
+    margin-top: 14px;
+    border: 1px solid var(--block-line);
+    border-radius: 7px;
+    background: var(--paper);
+    padding: 12px 14px;
+  }
+  .day-detail-panel { display: none; }
+  body:has(#day-1:checked) .day-detail-1,
+  body:has(#day-2:checked) .day-detail-2,
+  body:has(#day-3:checked) .day-detail-3,
+  body:has(#day-4:checked) .day-detail-4,
+  body:has(#day-5:checked) .day-detail-5,
+  body:has(#day-6:checked) .day-detail-6,
+  body:has(#day-7:checked) .day-detail-7,
+  body:has(#day-8:checked) .day-detail-8,
+  body:has(#day-9:checked) .day-detail-9,
+  body:has(#day-10:checked) .day-detail-10,
+  body:has(#day-11:checked) .day-detail-11,
+  body:has(#day-12:checked) .day-detail-12,
+  body:has(#day-13:checked) .day-detail-13,
+  body:has(#day-14:checked) .day-detail-14,
+  body:has(#day-15:checked) .day-detail-15,
+  body:has(#day-16:checked) .day-detail-16,
+  body:has(#day-17:checked) .day-detail-17,
+  body:has(#day-18:checked) .day-detail-18,
+  body:has(#day-19:checked) .day-detail-19 { display: block; }
+  .day-detail-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .day-detail-total { color: var(--ink-soft); font-weight: 400; }
+  .day-detail-row {
+    display: grid;
+    grid-template-columns: 8px 1fr 60px 70px;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-label);
+    font-size: 11px;
+    padding: 3px 0;
+  }
+  .day-detail-row .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .day-detail-row .model-cost,
+  .day-detail-row .model-tok { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+  .day-detail-empty { margin: 0; font-size: 11.5px; color: var(--ink-soft); }
+
+  .hbar-list { display: flex; flex-direction: column; gap: 10px; }
+  .hbar-row { display: grid; grid-template-columns: minmax(76px, auto) 1fr 54px; align-items: center; gap: 10px; }
+  .hbar-row .label {
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    color: var(--ink);
+  }
+
+  .hbar-group-label {
+    font-family: var(--font-label);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--graphite);
+    margin: 0 0 8px;
+  }
+  .hbar-list + .hbar-group-label { margin-top: 14px; }
+
+  .heatmap { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; }
+  .heatmap-hours,
+  .heatmap-row { display: grid; grid-template-columns: 26px repeat(24, 1fr); gap: 3px; align-items: center; }
+  .heatmap-hours { font-family: var(--font-label); font-size: 8.5px; color: var(--ink-soft); margin-bottom: 1px; }
+  .heatmap-row .dow {
+    font-family: var(--font-label);
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+  .heatmap-cell { aspect-ratio: 1; border-radius: 2px; }
+  .hm-0 { background: var(--paper); border: 1px solid var(--paper-line); }
+  .hm-1 { background: #d7e0ea; }
+  .hm-2 { background: #a9c0d6; }
+  .hm-3 { background: #6f93b5; }
+  .hm-4 { background: var(--blue); }
+  .heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    font-family: var(--font-label);
+    font-size: 9.5px;
+    color: var(--ink-soft);
+  }
+  .hm-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .hbar-track {
+    height: 12px;
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .hbar-fill {
+    height: 100%;
+    background: var(--block);
+    border-right: 1px solid var(--block-line);
+  }
+  .hbar-row .count {
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sessions {
+    margin-bottom: 22px;
+  }
+
+  table.sessions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  table.sessions-table th {
+    text-align: left;
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    font-weight: 400;
+    padding: 0 10px 8px;
+    border-bottom: 1px solid var(--block-line);
+  }
+  table.sessions-table td {
+    padding: 9px 10px;
+    border-bottom: 1px dashed var(--paper-line);
+    font-variant-numeric: tabular-nums;
+  }
+  table.sessions-table tr.selected td {
+    background: var(--blue-soft);
+  }
+  table.sessions-table tr.selected td:first-child {
+    border-left: 3px solid var(--blue);
+    padding-left: 7px;
+  }
+  .flag-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--flag);
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .drilldown {
+    border: 1px solid var(--block-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .drilldown-head {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--block-line);
+    background: var(--block);
+    border-radius: 7px 7px 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .drilldown-head .session-id {
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .drilldown-head .session-meta {
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+  }
+
+  details.agent-row { border-bottom: 1px solid var(--paper-line); }
+  details.agent-row:last-child { border-bottom: none; }
+
+  details.agent-row summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: 18px 110px 1fr 90px 90px 70px;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+  }
+  details.agent-row summary::-webkit-details-marker { display: none; }
+  details.agent-row summary::before {
+    content: "▸";
+    color: var(--ink-soft);
+    font-size: 11px;
+  }
+  details.agent-row[open] summary::before { content: "▾"; color: var(--blue); }
+  details.agent-row[open] summary { background: var(--blue-soft); }
+
+  .agent-name {
+    font-weight: 600;
+  }
+  .agent-name .tag {
+    display: inline-block;
+    margin-left: 6px;
+    font-family: var(--font-label);
+    font-size: 9.5px;
+    color: var(--ink-soft);
+    border: 1px solid var(--block-line);
+    border-radius: 3px;
+    padding: 1px 5px;
+    text-transform: lowercase;
+  }
+  .mini-bar {
+    height: 8px;
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .mini-bar-fill { height: 100%; background: var(--block-line); }
+  .agent-stat {
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .agent-cost {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .trace-wrap { overflow: visible; padding: 0 18px 16px; }
+  table.trace-table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    font-family: var(--font-label);
+    font-size: 11px;
+  }
+  table.trace-table th {
+    text-align: right;
+    padding: 6px 8px;
+    color: var(--ink-soft);
+    font-weight: 400;
+    border-bottom: 1px solid var(--block-line);
+    white-space: nowrap;
+  }
+  table.trace-table th:first-child, table.trace-table td:first-child { text-align: left; }
+  table.trace-table td {
+    text-align: right;
+    padding: 6px 8px;
+    border-bottom: 1px dashed var(--paper-line);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  table.trace-table tr.callout td { background: var(--blue-soft); }
+
+  table.trace-table th:last-child, table.trace-table td:last-child { text-align: center; }
+
+  input.trace-check { position: absolute; opacity: 0; width: 0; height: 0; }
+  .trace-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 19px; height: 19px;
+    border: 1.5px dashed var(--graphite);
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--ink-soft);
+    font-size: 10px;
+    user-select: none;
+  }
+  input.trace-check:checked + .trace-toggle-btn {
+    border-style: solid;
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  /* gitlab-style detail drawer: fixed to the viewport edge, not anchored to the row */
+  .trace-drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 45, 44, 0.35);
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+  }
+  .trace-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: min(400px, 92vw);
+    background: #fff;
+    border-left: 1px solid var(--block-line);
+    box-shadow: -14px 0 34px rgba(42, 45, 44, 0.18);
+    z-index: 21;
+    transform: translateX(100%);
+    transition: transform 0.22s ease;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-body);
+  }
+  .trace-drawer-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--block-line);
+    background: var(--block);
+  }
+  .trace-drawer-eyebrow {
+    display: block;
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .trace-drawer-meta {
+    display: block;
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 3px;
+  }
+  .trace-drawer-close {
+    cursor: pointer;
+    font-size: 19px;
+    line-height: 1;
+    color: var(--ink-soft);
+    padding: 1px 4px;
+  }
+  .trace-drawer-body { padding: 20px; overflow-y: auto; flex: 1; }
+
+  body:has(#trace-toggle-1:checked) .trace-drawer-backdrop-1,
+  body:has(#trace-toggle-2:checked) .trace-drawer-backdrop-2,
+  body:has(#trace-toggle-3:checked) .trace-drawer-backdrop-3,
+  body:has(#trace-toggle-4:checked) .trace-drawer-backdrop-4 { opacity: 1; visibility: visible; }
+
+  body:has(#trace-toggle-1:checked) .trace-drawer-1,
+  body:has(#trace-toggle-2:checked) .trace-drawer-2,
+  body:has(#trace-toggle-3:checked) .trace-drawer-3,
+  body:has(#trace-toggle-4:checked) .trace-drawer-4 { transform: translateX(0); }
+
+  .trace-detail-group + .trace-detail-group { margin-top: 14px; }
+  .trace-detail-label {
+    display: block;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin-bottom: 7px;
+  }
+  .greek-line { height: 7px; background: var(--block); border-radius: 2px; margin-bottom: 6px; }
+  .greek-line:last-child { margin-bottom: 0; }
+  .trace-detail-note {
+    margin: 16px 0 0;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    border-top: 1px dashed var(--paper-line);
+    padding-top: 12px;
+    line-height: 1.5;
+  }
+  .trace-detail-note code { background: var(--block); padding: 1px 5px; border-radius: 3px; }
+
+  /* gitlab-style dual presentation: the same call is a drawer in-app, a full page on direct load */
+  .page-nav-radio { position: absolute; opacity: 0; width: 0; height: 0; }
+  .page-call-detail { display: none; }
+  body:has(#page-call-detail:checked) .page-dashboard { display: none; }
+  body:has(#page-call-detail:checked) .page-call-detail { display: block; }
+
+  .trace-drawer-head-actions { display: flex; align-items: center; gap: 14px; flex: none; }
+  .trace-drawer-fullpage-link {
+    cursor: pointer;
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--blue);
+    border-bottom: 1px solid var(--blue);
+    white-space: nowrap;
+  }
+
+  .call-page { padding: 30px 34px 38px; }
+  .call-page-back {
+    display: inline-block;
+    cursor: pointer;
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    color: var(--blue);
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--blue);
+  }
+  .call-page-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--block-line);
+    margin-bottom: 8px;
+  }
+  .call-page-head .trace-drawer-eyebrow { font-size: 18px; }
+  .call-page-head .trace-drawer-meta { font-size: 12.5px; margin-top: 5px; }
+  .call-page-stats { display: flex; gap: 8px; flex-wrap: wrap; }
+  .call-page-body {
+    display: flex;
+    gap: 34px;
+    margin-top: 22px;
+  }
+  .call-page-col { flex: 1; min-width: 0; }
+
+  .legend {
+    max-width: 1180px;
+    margin: 22px auto 0;
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .legend .item { display: flex; align-items: center; gap: 8px; }
+
+  .hint {
+    margin: -6px 0 12px;
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+
+  footer {
+    max-width: 1180px;
+    margin: 34px auto 0;
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--paper-line);
+    padding-top: 14px;
+  }
+  footer a { color: var(--blue); }
+
+  /* state toggle — this mockup shows two states of the same dashboard */
+  .state-toggle {
+    max-width: 1180px;
+    margin: 0 auto 16px;
+    display: flex;
+    font-family: var(--font-label);
+    font-size: 11px;
+  }
+  .state-toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .state-toggle label {
+    cursor: pointer;
+    padding: 7px 16px;
+    border: 1px solid var(--block-line);
+    background: var(--block);
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+  .state-toggle label:nth-of-type(1) { border-radius: 6px 0 0 6px; }
+  .state-toggle label:nth-of-type(2) { border-radius: 0 6px 6px 0; border-left: none; }
+  .state-toggle input:checked + label {
+    background: var(--window);
+    color: var(--ink);
+    font-weight: 700;
+    border-color: var(--blue);
+    position: relative;
+    z-index: 1;
+  }
+
+  .view-empty { display: none; }
+  body:has(#state-empty:checked) .view-populated { display: none; }
+  body:has(#state-empty:checked) .view-empty { display: block; }
+
+  /* scope toggle — simulates a project-scope vs. user/local-scope cairn install */
+  .scope-toggle { margin-top: -8px; }
+
+  .panel-projects { display: none; }
+  body:has(#scope-all:checked) .panel-projects { display: block; }
+
+  .project-filter {
+    display: none;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0 14px;
+  }
+  body:has(#scope-all:checked) .project-filter { display: flex; }
+  .project-filter input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .project-filter label {
+    cursor: pointer;
+    padding: 5px 12px;
+    border: 1px solid var(--block-line);
+    border-radius: 999px;
+    background: var(--block);
+    color: var(--ink-soft);
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+  .project-filter input:checked + label {
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-weight: 700;
+    border-color: var(--blue);
+  }
+
+  .col-project { display: none; }
+  body:has(#scope-all:checked) .col-project { display: table-cell; }
+
+  body:has(#scope-all:checked #proj-cairn:checked) .sessions-table tbody tr:not(.proj-cairn) { display: none; }
+  body:has(#scope-all:checked #proj-rivet:checked) .sessions-table tbody tr:not(.proj-rivet) { display: none; }
+  body:has(#scope-all:checked #proj-phito:checked) .sessions-table tbody tr:not(.proj-phito) { display: none; }
+
+  .empty-state {
+    max-width: 460px;
+    margin: 32px auto;
+    text-align: center;
+    padding: 34px 30px;
+    border: 1.5px dashed var(--block-line);
+    border-radius: 10px;
+    background: var(--paper);
+  }
+  .empty-mark {
+    width: 46px; height: 46px;
+    margin: 0 auto 16px;
+    border: 1.5px dashed var(--graphite);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-label);
+    font-size: 18px;
+    color: var(--ink-soft);
+  }
+  .empty-state h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .empty-state > p {
+    margin: 0 0 22px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .empty-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    margin-bottom: 22px;
+  }
+  .empty-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+  }
+  .step-num {
+    flex: none;
+    width: 18px; height: 18px;
+    border: 1px solid var(--block-line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-label);
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+  .empty-note {
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    border-top: 1px dashed var(--paper-line);
+    padding-top: 14px;
+  }
+  .empty-note code {
+    background: var(--block);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="page-head">
+    <h1>Lofi mockup — /cairn-tokens dashboard</h1>
+    <p>docs/token-metering/mockups/dashboard.html · structure only, not final visual design</p>
+  </div>
+
+  <input class="page-nav-radio" type="radio" name="page-nav" id="page-dashboard" checked>
+  <input class="page-nav-radio" type="radio" name="page-nav" id="page-call-detail">
+
+  <div class="page-dashboard">
+
+  <div class="state-toggle">
+    <input type="radio" name="dash-state" id="state-populated" checked>
+    <label for="state-populated">Populated</label>
+    <input type="radio" name="dash-state" id="state-empty">
+    <label for="state-empty">Empty · cold start <span class="badge">6</span></label>
+  </div>
+
+  <div class="state-toggle scope-toggle">
+    <input type="radio" name="install-scope" id="scope-project" checked>
+    <label for="scope-project">Project-scope install</label>
+    <input type="radio" name="install-scope" id="scope-all">
+    <label for="scope-all">User/local-scope install · multi-project <span class="badge">11</span></label>
+  </div>
+
+  <div class="window">
+    <div class="chrome">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url">localhost:4317</div>
+    </div>
+
+    <div class="app">
+      <div class="app-head">
+        <div class="brand">
+          <div class="mark"></div>
+          <div class="brand-text">
+            <h2>Token Metering</h2>
+            <span>cairn · local dashboard</span>
+          </div>
+        </div>
+        <div class="status-cluster">
+          <span class="badge">1</span>
+          <span class="pill">↻ auto-refresh 15s</span>
+          <span class="pill">refresh now</span>
+          <span>updated 2 min ago</span>
+        </div>
+      </div>
+
+      <div class="view view-populated">
+      <div class="warning-banner">
+        <span class="flag-icon">!</span>
+        <span><strong>Usage limit hit</strong> once in the last 7 days — Aug 27, 14:32, session <code>a1b2c9</code></span>
+        <span class="badge">2</span>
+        <a href="#drilldown">view session →</a>
+      </div>
+
+      <div class="rollups">
+        <div class="panel">
+          <div class="panel-title">Tokens / day <span class="badge">3</span> <span class="badge">9</span></div>
+
+          <div class="chart-tabs">
+            <input type="radio" name="chart-range" id="range-today"><label for="range-today">Today</label>
+            <input type="radio" name="chart-range" id="range-7d" checked><label for="range-7d">7D</label>
+            <input type="radio" name="chart-range" id="range-30d"><label for="range-30d">30D</label>
+            <input type="radio" name="chart-range" id="range-month"><label for="range-month">Month</label>
+            <input type="radio" name="chart-range" id="range-6m"><label for="range-6m">6M</label>
+            <input type="radio" name="chart-range" id="range-life"><label for="range-life">Life</label>
+          </div>
+
+          <div class="chart-set chart-set-today">
+            <div class="chart-headline">
+              <div><span class="chart-headline-sub">Today</span><span class="chart-headline-num">57K tokens</span></div>
+            </div>
+            <div class="bar-chart hourly">
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day">00</span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day">04</span></div>
+              <div class="col"><div class="bar" style="height:5%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:10%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:30%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:55%"></div><span class="day">08</span></div>
+              <div class="col"><div class="bar" style="height:73%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:90%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:100%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:83%"></div><span class="day">12</span></div>
+              <div class="col"><div class="bar" style="height:62%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:80%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:97%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:92%"></div><span class="day">16</span></div>
+              <div class="col"><div class="bar" style="height:67%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:40%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:25%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:15%"></div><span class="day">20</span></div>
+              <div class="col"><div class="bar" style="height:8%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:5%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:3%"></div><span class="day"></span></div>
+            </div>
+          </div>
+
+          <div class="chart-set chart-set-7d">
+            <div class="chart-headline">
+              <div><span class="chart-headline-sub">Last 19 days</span><span class="chart-headline-num">1.15M tokens</span></div>
+              <span class="chart-delta">↗ +8% vs prior 19d</span>
+            </div>
+
+            <div class="bar-chart">
+              <input type="radio" name="day-pick" id="day-1" class="day-radio">
+              <label class="col" for="day-1"><div class="bar" style="height:39%"></div><span class="day">08-10</span></label>
+              <input type="radio" name="day-pick" id="day-2" class="day-radio">
+              <label class="col" for="day-2"><div class="bar" style="height:17%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-3" class="day-radio">
+              <label class="col" for="day-3"><div class="bar" style="height:45%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-4" class="day-radio">
+              <label class="col" for="day-4"><div class="bar" style="height:75%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-5" class="day-radio">
+              <label class="col" for="day-5"><div class="bar" style="height:2%"></div><span class="day">08-14</span></label>
+              <input type="radio" name="day-pick" id="day-6" class="day-radio">
+              <label class="col" for="day-6"><div class="bar" style="height:13%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-7" class="day-radio">
+              <label class="col" for="day-7"><div class="bar" style="height:95%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-8" class="day-radio">
+              <label class="col" for="day-8"><div class="bar" style="height:63%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-9" class="day-radio">
+              <label class="col" for="day-9"><div class="bar" style="height:13%"></div><span class="day">08-18</span></label>
+              <input type="radio" name="day-pick" id="day-10" class="day-radio">
+              <label class="col" for="day-10"><div class="bar" style="height:39%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-11" class="day-radio">
+              <label class="col" for="day-11"><div class="bar" style="height:69%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-12" class="day-radio">
+              <label class="col" for="day-12"><div class="bar" style="height:2%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-13" class="day-radio">
+              <label class="col" for="day-13"><div class="bar" style="height:44%"></div><span class="day">08-22</span></label>
+              <input type="radio" name="day-pick" id="day-14" class="day-radio">
+              <label class="col" for="day-14"><div class="bar" style="height:27%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-15" class="day-radio">
+              <label class="col" for="day-15"><div class="bar" style="height:2%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-16" class="day-radio">
+              <label class="col" for="day-16"><div class="bar" style="height:66%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-17" class="day-radio">
+              <label class="col" for="day-17"><div class="bar" style="height:100%"></div><span class="day">08-26</span></label>
+              <input type="radio" name="day-pick" id="day-18" class="day-radio">
+              <label class="col" for="day-18"><div class="bar" style="height:74%"></div><span class="day"></span></label>
+              <input type="radio" name="day-pick" id="day-19" class="day-radio" checked>
+              <label class="col" for="day-19"><div class="bar" style="height:41%"></div><span class="day">08-28</span></label>
+            </div>
+
+            <div class="day-detail">
+              <div class="day-detail-panel day-detail-1">
+                <div class="day-detail-head"><span>Mon, Aug 10</span><span class="day-detail-total">55k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$2.79</span><span class="model-tok">48k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$0.98</span><span class="model-tok">7k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-2">
+                <div class="day-detail-head"><span>Tue, Aug 11</span><span class="day-detail-total">24k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$1.22</span><span class="model-tok">21k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$0.42</span><span class="model-tok">3k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-3">
+                <div class="day-detail-head"><span>Wed, Aug 12</span><span class="day-detail-total">63k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$3.20</span><span class="model-tok">55k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$1.12</span><span class="model-tok">8k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-4">
+                <div class="day-detail-head"><span>Thu, Aug 13</span><span class="day-detail-total">105k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$5.29</span><span class="model-tok">91k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$1.96</span><span class="model-tok">14k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-5">
+                <div class="day-detail-head"><span>Fri, Aug 14</span><span class="day-detail-total">0 tok</span></div>
+                <p class="day-detail-empty">No calls recorded.</p>
+              </div>
+              <div class="day-detail-panel day-detail-6">
+                <div class="day-detail-head"><span>Sat, Aug 15</span><span class="day-detail-total">18k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$0.93</span><span class="model-tok">16k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$0.28</span><span class="model-tok">2k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-7">
+                <div class="day-detail-head"><span>Sun, Aug 16</span><span class="day-detail-total">133k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$6.74</span><span class="model-tok">116k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$2.38</span><span class="model-tok">17k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-8">
+                <div class="day-detail-head"><span>Mon, Aug 17</span><span class="day-detail-total">88k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$4.47</span><span class="model-tok">77k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$1.54</span><span class="model-tok">11k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-9">
+                <div class="day-detail-head"><span>Tue, Aug 18</span><span class="day-detail-total">18k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$0.93</span><span class="model-tok">16k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$0.28</span><span class="model-tok">2k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-10">
+                <div class="day-detail-head"><span>Wed, Aug 19</span><span class="day-detail-total">55k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$2.79</span><span class="model-tok">48k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$0.98</span><span class="model-tok">7k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-11">
+                <div class="day-detail-head"><span>Thu, Aug 20</span><span class="day-detail-total">96k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$4.88</span><span class="model-tok">84k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$1.68</span><span class="model-tok">12k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-12">
+                <div class="day-detail-head"><span>Fri, Aug 21</span><span class="day-detail-total">0 tok</span></div>
+                <p class="day-detail-empty">No calls recorded.</p>
+              </div>
+              <div class="day-detail-panel day-detail-13">
+                <div class="day-detail-head"><span>Sat, Aug 22</span><span class="day-detail-total">61k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$3.02</span><span class="model-tok">52k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$1.26</span><span class="model-tok">9k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-14">
+                <div class="day-detail-head"><span>Sun, Aug 23</span><span class="day-detail-total">38k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$1.91</span><span class="model-tok">33k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$0.70</span><span class="model-tok">5k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-15">
+                <div class="day-detail-head"><span>Mon, Aug 24</span><span class="day-detail-total">0 tok</span></div>
+                <p class="day-detail-empty">No calls recorded.</p>
+              </div>
+              <div class="day-detail-panel day-detail-16">
+                <div class="day-detail-head"><span>Tue, Aug 25</span><span class="day-detail-total">92k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$4.69</span><span class="model-tok">81k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$1.54</span><span class="model-tok">11k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-17">
+                <div class="day-detail-head"><span>Wed, Aug 26</span><span class="day-detail-total">140k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$7.08</span><span class="model-tok">122k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$2.52</span><span class="model-tok">18k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-18">
+                <div class="day-detail-head"><span>Thu, Aug 27</span><span class="day-detail-total">104k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$5.28</span><span class="model-tok">91k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$1.82</span><span class="model-tok">13k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-19">
+                <div class="day-detail-head"><span>Fri, Aug 28</span><span class="day-detail-total">57k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$3.31</span><span class="model-tok">49k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">opus-5</span><span class="model-cost">$1.12</span><span class="model-tok">8k tok</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-set chart-set-30d">
+            <div class="chart-headline">
+              <div><span class="chart-headline-sub">Last 30 days</span><span class="chart-headline-num">1.88M tokens</span></div>
+              <span class="chart-delta">↗ +14% vs prior 30d</span>
+            </div>
+            <div class="bar-chart spark">
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:36%"></div></div>
+              <div class="col"><div class="bar" style="height:47%"></div></div>
+              <div class="col"><div class="bar" style="height:11%"></div></div>
+              <div class="col"><div class="bar" style="height:72%"></div></div>
+              <div class="col"><div class="bar" style="height:72%"></div></div>
+              <div class="col"><div class="bar" style="height:25%"></div></div>
+              <div class="col"><div class="bar" style="height:16%"></div></div>
+              <div class="col"><div class="bar" style="height:89%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:100%"></div></div>
+              <div class="col"><div class="bar" style="height:41%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:16%"></div></div>
+              <div class="col"><div class="bar" style="height:31%"></div></div>
+              <div class="col"><div class="bar" style="height:100%"></div></div>
+              <div class="col"><div class="bar" style="height:72%"></div></div>
+              <div class="col"><div class="bar" style="height:66%"></div></div>
+              <div class="col"><div class="bar" style="height:16%"></div></div>
+              <div class="col"><div class="bar" style="height:72%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:41%"></div></div>
+              <div class="col"><div class="bar" style="height:47%"></div></div>
+              <div class="col"><div class="bar" style="height:80%"></div></div>
+              <div class="col"><div class="bar" style="height:21%"></div></div>
+              <div class="col"><div class="bar" style="height:47%"></div></div>
+              <div class="col"><div class="bar" style="height:21%"></div></div>
+              <div class="col"><div class="bar" style="height:97%"></div></div>
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+            </div>
+          </div>
+
+          <div class="chart-set chart-set-90d">
+            <div class="chart-headline">
+              <div><span class="chart-headline-sub">Last 90 days</span><span class="chart-headline-num">5.90M tokens</span></div>
+              <span class="chart-delta">↗ +31% vs prior 90d</span>
+            </div>
+            <div class="bar-chart spark">
+              <div class="col"><div class="bar" style="height:34%"></div></div>
+              <div class="col"><div class="bar" style="height:13%"></div></div>
+              <div class="col"><div class="bar" style="height:94%"></div></div>
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+              <div class="col"><div class="bar" style="height:66%"></div></div>
+              <div class="col"><div class="bar" style="height:86%"></div></div>
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+              <div class="col"><div class="bar" style="height:46%"></div></div>
+              <div class="col"><div class="bar" style="height:94%"></div></div>
+              <div class="col"><div class="bar" style="height:46%"></div></div>
+              <div class="col"><div class="bar" style="height:66%"></div></div>
+              <div class="col"><div class="bar" style="height:13%"></div></div>
+              <div class="col"><div class="bar" style="height:24%"></div></div>
+              <div class="col"><div class="bar" style="height:7%"></div></div>
+              <div class="col"><div class="bar" style="height:72%"></div></div>
+              <div class="col"><div class="bar" style="height:66%"></div></div>
+              <div class="col"><div class="bar" style="height:86%"></div></div>
+              <div class="col"><div class="bar" style="height:18%"></div></div>
+              <div class="col"><div class="bar" style="height:24%"></div></div>
+              <div class="col"><div class="bar" style="height:100%"></div></div>
+              <div class="col"><div class="bar" style="height:29%"></div></div>
+              <div class="col"><div class="bar" style="height:7%"></div></div>
+              <div class="col"><div class="bar" style="height:13%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:18%"></div></div>
+              <div class="col"><div class="bar" style="height:100%"></div></div>
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+              <div class="col"><div class="bar" style="height:34%"></div></div>
+              <div class="col"><div class="bar" style="height:18%"></div></div>
+              <div class="col"><div class="bar" style="height:18%"></div></div>
+              <div class="col"><div class="bar" style="height:79%"></div></div>
+              <div class="col"><div class="bar" style="height:13%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:13%"></div></div>
+              <div class="col"><div class="bar" style="height:41%"></div></div>
+              <div class="col"><div class="bar" style="height:29%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:79%"></div></div>
+              <div class="col"><div class="bar" style="height:100%"></div></div>
+              <div class="col"><div class="bar" style="height:13%"></div></div>
+              <div class="col"><div class="bar" style="height:94%"></div></div>
+              <div class="col"><div class="bar" style="height:59%"></div></div>
+              <div class="col"><div class="bar" style="height:59%"></div></div>
+              <div class="col"><div class="bar" style="height:46%"></div></div>
+              <div class="col"><div class="bar" style="height:29%"></div></div>
+              <div class="col"><div class="bar" style="height:66%"></div></div>
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+              <div class="col"><div class="bar" style="height:86%"></div></div>
+              <div class="col"><div class="bar" style="height:59%"></div></div>
+              <div class="col"><div class="bar" style="height:79%"></div></div>
+              <div class="col"><div class="bar" style="height:94%"></div></div>
+              <div class="col"><div class="bar" style="height:7%"></div></div>
+              <div class="col"><div class="bar" style="height:94%"></div></div>
+              <div class="col"><div class="bar" style="height:59%"></div></div>
+              <div class="col"><div class="bar" style="height:94%"></div></div>
+              <div class="col"><div class="bar" style="height:79%"></div></div>
+              <div class="col"><div class="bar" style="height:29%"></div></div>
+              <div class="col"><div class="bar" style="height:46%"></div></div>
+              <div class="col"><div class="bar" style="height:34%"></div></div>
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+              <div class="col"><div class="bar" style="height:7%"></div></div>
+              <div class="col"><div class="bar" style="height:72%"></div></div>
+              <div class="col"><div class="bar" style="height:94%"></div></div>
+              <div class="col"><div class="bar" style="height:29%"></div></div>
+              <div class="col"><div class="bar" style="height:18%"></div></div>
+              <div class="col"><div class="bar" style="height:24%"></div></div>
+              <div class="col"><div class="bar" style="height:24%"></div></div>
+              <div class="col"><div class="bar" style="height:41%"></div></div>
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+              <div class="col"><div class="bar" style="height:34%"></div></div>
+              <div class="col"><div class="bar" style="height:29%"></div></div>
+              <div class="col"><div class="bar" style="height:66%"></div></div>
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+              <div class="col"><div class="bar" style="height:46%"></div></div>
+              <div class="col"><div class="bar" style="height:72%"></div></div>
+              <div class="col"><div class="bar" style="height:18%"></div></div>
+              <div class="col"><div class="bar" style="height:66%"></div></div>
+              <div class="col"><div class="bar" style="height:7%"></div></div>
+              <div class="col"><div class="bar" style="height:53%"></div></div>
+              <div class="col"><div class="bar" style="height:94%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:79%"></div></div>
+              <div class="col"><div class="bar" style="height:18%"></div></div>
+              <div class="col"><div class="bar" style="height:94%"></div></div>
+              <div class="col"><div class="bar" style="height:72%"></div></div>
+              <div class="col"><div class="bar" style="height:24%"></div></div>
+              <div class="col"><div class="bar" style="height:2%"></div></div>
+              <div class="col"><div class="bar" style="height:24%"></div></div>
+              <div class="col"><div class="bar" style="height:79%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Agents &amp; skills, 7d</div>
+          <div class="hbar-group-label">tokens by agent</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">main</span><div class="hbar-track"><div class="hbar-fill" style="width:70%"></div></div><span class="count">212k</span></div>
+            <div class="hbar-row"><span class="label">builder</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">301k</span></div>
+            <div class="hbar-row"><span class="label">planner</span><div class="hbar-track"><div class="hbar-fill" style="width:34%"></div></div><span class="count">98k</span></div>
+            <div class="hbar-row"><span class="label">reviewer</span><div class="hbar-track"><div class="hbar-fill" style="width:22%"></div></div><span class="count">63k</span></div>
+            <div class="hbar-row"><span class="label">scribe</span><div class="hbar-track"><div class="hbar-fill" style="width:7%"></div></div><span class="count">20k</span></div>
+            <div class="hbar-row"><span class="label">Explore</span><div class="hbar-track"><div class="hbar-fill" style="width:3%"></div></div><span class="count">10k</span></div>
+            <div class="hbar-row"><span class="label">general-purpose</span><div class="hbar-track"><div class="hbar-fill" style="width:1%"></div></div><span class="count">2k</span></div>
+            <div class="hbar-row"><span class="label">unknown</span><div class="hbar-track"><div class="hbar-fill" style="width:1%"></div></div><span class="count">2k</span></div>
+          </div>
+          <div class="hbar-group-label">skills invoked</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">review-pr</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">4×</span></div>
+            <div class="hbar-row"><span class="label">commit-msg-lint</span><div class="hbar-track"><div class="hbar-fill" style="width:50%"></div></div><span class="count">2×</span></div>
+            <div class="hbar-row"><span class="label">release-notes</span><div class="hbar-track"><div class="hbar-fill" style="width:25%"></div></div><span class="count">1×</span></div>
+          </div>
+        </div>
+
+        <div class="panel panel-activity">
+          <div class="panel-title">Activity <span class="badge">10</span></div>
+          <p class="hint">When calls happen, by hour of day — last 7 days.</p>
+          <div class="heatmap">
+            <div class="heatmap-hours"><span></span><span>00</span><span></span><span></span><span></span><span>04</span><span></span><span></span><span></span><span>08</span><span></span><span></span><span></span><span>12</span><span></span><span></span><span></span><span>16</span><span></span><span></span><span></span><span>20</span><span></span><span></span><span></span></div>
+            <div class="heatmap-row"><span class="dow">Mon</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Tue</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Wed</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Thu</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Fri</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Sat</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Sun</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+          </div>
+          <div class="heatmap-legend">less <span class="hm-swatch hm-0"></span><span class="hm-swatch hm-1"></span><span class="hm-swatch hm-2"></span><span class="hm-swatch hm-3"></span><span class="hm-swatch hm-4"></span> more · busiest: weekday afternoons/evenings</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Tokens / model, 7d</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">sonnet-5</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">580k</span></div>
+            <div class="hbar-row"><span class="label">opus-5</span><div class="hbar-track"><div class="hbar-fill" style="width:17%"></div></div><span class="count">100k</span></div>
+            <div class="hbar-row"><span class="label">haiku-4.5</span><div class="hbar-track"><div class="hbar-fill" style="width:5%"></div></div><span class="count">28k</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Tool calls, 7d</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">Bash</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">340</span></div>
+            <div class="hbar-row"><span class="label">Read</span><div class="hbar-track"><div class="hbar-fill" style="width:88%"></div></div><span class="count">298</span></div>
+            <div class="hbar-row"><span class="label">Edit</span><div class="hbar-track"><div class="hbar-fill" style="width:46%"></div></div><span class="count">156</span></div>
+            <div class="hbar-row"><span class="label">Agent</span><div class="hbar-track"><div class="hbar-fill" style="width:12%"></div></div><span class="count">41</span></div>
+            <div class="hbar-row"><span class="label">Grep</span><div class="hbar-track"><div class="hbar-fill" style="width:11%"></div></div><span class="count">38</span></div>
+            <div class="hbar-row"><span class="label">Write</span><div class="hbar-track"><div class="hbar-fill" style="width:6%"></div></div><span class="count">22</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">MCP calls, 7d</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">claude-in-chrome</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">52</span></div>
+            <div class="hbar-row"><span class="label">context7</span><div class="hbar-track"><div class="hbar-fill" style="width:27%"></div></div><span class="count">14</span></div>
+            <div class="hbar-row"><span class="label">ide</span><div class="hbar-track"><div class="hbar-fill" style="width:12%"></div></div><span class="count">6</span></div>
+          </div>
+        </div>
+
+        <div class="panel panel-projects">
+          <div class="panel-title">Projects <span class="badge">11</span></div>
+          <p class="hint">Only meaningful for a user- or local-scope install — a project-scope install only ever captures its own repo.</p>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">cairn-2.0</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">460k</span></div>
+            <div class="hbar-row"><span class="label">rivet-os</span><div class="hbar-track"><div class="hbar-fill" style="width:38%"></div></div><span class="count">175k</span></div>
+            <div class="hbar-row"><span class="label">phitopolis-api</span><div class="hbar-track"><div class="hbar-fill" style="width:16%"></div></div><span class="count">73k</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sessions">
+        <div class="panel-title">Sessions <span class="badge">4</span></div>
+        <p class="hint">Most recent session shown below by default — click any row to change it.</p>
+        <div class="project-filter">
+          <input type="radio" name="project-filter" id="proj-all" checked><label for="proj-all">All projects</label>
+          <input type="radio" name="project-filter" id="proj-cairn"><label for="proj-cairn">cairn-2.0</label>
+          <input type="radio" name="project-filter" id="proj-rivet"><label for="proj-rivet">rivet-os</label>
+          <input type="radio" name="project-filter" id="proj-phito"><label for="proj-phito">phitopolis-api</label>
+        </div>
+        <table class="sessions-table">
+          <thead>
+            <tr><th>Started</th><th>Session</th><th class="col-project">Project</th><th>Agents</th><th>Tokens</th><th>Est. cost</th></tr>
+          </thead>
+          <tbody>
+            <tr class="selected proj-cairn" id="drilldown">
+              <td>Aug 27, 14:02</td>
+              <td><span class="flag-dot"></span>a1b2c9</td>
+              <td class="col-project">cairn-2.0</td>
+              <td>4</td>
+              <td>96,340</td>
+              <td>$1.42</td>
+            </tr>
+            <tr class="proj-rivet">
+              <td>Aug 27, 09:11</td>
+              <td>f03d7e</td>
+              <td class="col-project">rivet-os</td>
+              <td>2</td>
+              <td>41,880</td>
+              <td>$0.58</td>
+            </tr>
+            <tr class="proj-cairn">
+              <td>Aug 26, 21:47</td>
+              <td>77e2b1</td>
+              <td class="col-project">cairn-2.0</td>
+              <td>5</td>
+              <td>139,610</td>
+              <td>$2.03</td>
+            </tr>
+            <tr class="proj-phito">
+              <td>Aug 26, 10:05</td>
+              <td>9cf441</td>
+              <td class="col-project">phitopolis-api</td>
+              <td>3</td>
+              <td>52,200</td>
+              <td>$0.77</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="drilldown">
+        <div class="drilldown-head">
+          <span class="session-id">Session a1b2c9</span>
+          <span class="session-meta">Aug 27, 2026 · 14:02–14:41 · 4 agents · 96,340 tokens · $1.42</span>
+        </div>
+
+        <details class="agent-row">
+          <summary>
+            <span></span>
+            <span class="agent-name">main</span>
+            <div class="mini-bar"><div class="mini-bar-fill" style="width:38%"></div></div>
+            <span class="agent-stat">6 calls</span>
+            <span class="agent-stat">31.1k tok</span>
+            <span class="agent-cost">$0.44</span>
+          </summary>
+        </details>
+
+        <details class="agent-row" open>
+          <summary>
+            <span></span>
+            <span class="agent-name">builder<span class="tag">subagent</span> <span class="badge">5</span></span>
+            <div class="mini-bar"><div class="mini-bar-fill" style="width:78%"></div></div>
+            <span class="agent-stat">11 calls</span>
+            <span class="agent-stat">51.4k tok</span>
+            <span class="agent-cost">$0.79</span>
+          </summary>
+          <div class="trace-wrap">
+            <table class="trace-table">
+              <thead>
+                <tr><th>#</th><th>time</th><th>model</th><th>in</th><th>out</th><th>cache r</th><th>cache w 5m</th><th>cache w 1h</th><th>cost</th><th>dur</th><th>content <span class="badge">7</span></th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td><td>14:11:02</td><td>sonnet-5</td><td>1,204</td><td>612</td><td>0</td><td>0</td><td>18,940</td><td>$0.09</td><td>6.2s</td>
+                  <td><input class="trace-check" type="checkbox" id="trace-toggle-1"><label class="trace-toggle-btn" for="trace-toggle-1">⌄</label></td>
+                </tr>
+
+                <tr class="callout">
+                  <td>2</td><td>14:11:19</td><td>sonnet-5</td><td>2</td><td>498</td><td>0</td><td>0</td><td>85,386</td><td>$0.14</td><td>3.8s</td>
+                  <td><input class="trace-check" type="checkbox" id="trace-toggle-2"><label class="trace-toggle-btn" for="trace-toggle-2">⌄</label></td>
+                </tr>
+
+                <tr>
+                  <td>3</td><td>14:12:40</td><td>sonnet-5</td><td>640</td><td>1,880</td><td>85,386</td><td>0</td><td>0</td><td>$0.05</td><td>9.1s</td>
+                  <td><input class="trace-check" type="checkbox" id="trace-toggle-3"><label class="trace-toggle-btn" for="trace-toggle-3">⌄</label></td>
+                </tr>
+
+                <tr>
+                  <td>4</td><td>14:14:03</td><td>sonnet-5</td><td>310</td><td>2,240</td><td>86,026</td><td>0</td><td>0</td><td>$0.06</td><td>7.5s</td>
+                  <td><input class="trace-check" type="checkbox" id="trace-toggle-4"><label class="trace-toggle-btn" for="trace-toggle-4">⌄</label></td>
+                </tr>
+
+                <tr><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details class="agent-row">
+          <summary>
+            <span></span>
+            <span class="agent-name">reviewer<span class="tag">subagent</span></span>
+            <div class="mini-bar"><div class="mini-bar-fill" style="width:20%"></div></div>
+            <span class="agent-stat">4 calls</span>
+            <span class="agent-stat">9.8k tok</span>
+            <span class="agent-cost">$0.13</span>
+          </summary>
+        </details>
+
+        <details class="agent-row">
+          <summary>
+            <span></span>
+            <span class="agent-name">scribe<span class="tag">subagent</span></span>
+            <div class="mini-bar"><div class="mini-bar-fill" style="width:8%"></div></div>
+            <span class="agent-stat">2 calls</span>
+            <span class="agent-stat">4.0k tok</span>
+            <span class="agent-cost">$0.06</span>
+          </summary>
+        </details>
+      </div>
+      </div>
+
+      <div class="view view-empty">
+        <div class="empty-state">
+          <div class="empty-mark">∅</div>
+          <h3>No sessions captured yet</h3>
+          <p>Looking for <code>.cairn/tokens.db</code> — it's empty or doesn't exist yet in this project.</p>
+          <div class="empty-steps">
+            <div class="empty-step"><span class="step-num">1</span> Run a normal cairn session — ask for a feature, a fix, anything that dispatches an agent.</div>
+            <div class="empty-step"><span class="step-num">2</span> Let it finish. Capture fires silently when the session ends — nothing to watch for.</div>
+            <div class="empty-step"><span class="step-num">3</span> Come back here, or leave this tab open — it polls automatically once data exists.</div>
+          </div>
+          <div class="empty-note">Capture is passive and advisory-only — it never blocks or alters a session (Flow 1).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <label class="trace-drawer-backdrop trace-drawer-backdrop-1" for="trace-toggle-1"></label>
+  <aside class="trace-drawer trace-drawer-1">
+    <div class="trace-drawer-head">
+      <div><span class="trace-drawer-eyebrow">Call #1</span><span class="trace-drawer-meta">builder · session a1b2c9 · 14:11:02 · sonnet-5</span></div>
+      <div class="trace-drawer-head-actions">
+        <label class="trace-drawer-fullpage-link" for="page-call-detail">view full page ↗</label>
+        <label class="trace-drawer-close" for="trace-toggle-1">×</label>
+      </div>
+    </div>
+    <div class="trace-drawer-body">
+      <div class="trace-detail-group"><span class="trace-detail-label">prompt</span>
+        <div class="greek-line" style="width:88%"></div>
+        <div class="greek-line" style="width:61%"></div>
+      </div>
+      <div class="trace-detail-group"><span class="trace-detail-label">response</span>
+        <div class="greek-line" style="width:94%"></div>
+        <div class="greek-line" style="width:70%"></div>
+        <div class="greek-line" style="width:45%"></div>
+      </div>
+      <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+    </div>
+  </aside>
+
+  <label class="trace-drawer-backdrop trace-drawer-backdrop-2" for="trace-toggle-2"></label>
+  <aside class="trace-drawer trace-drawer-2">
+    <div class="trace-drawer-head">
+      <div><span class="trace-drawer-eyebrow">Call #2</span><span class="trace-drawer-meta">builder · session a1b2c9 · 14:11:19 · sonnet-5</span></div>
+      <div class="trace-drawer-head-actions">
+        <label class="trace-drawer-fullpage-link" for="page-call-detail">view full page ↗</label>
+        <label class="trace-drawer-close" for="trace-toggle-2">×</label>
+      </div>
+    </div>
+    <div class="trace-drawer-body">
+      <div class="trace-detail-group"><span class="trace-detail-label">prompt</span>
+        <div class="greek-line" style="width:30%"></div>
+      </div>
+      <div class="trace-detail-group"><span class="trace-detail-label">response</span>
+        <div class="greek-line" style="width:91%"></div>
+        <div class="greek-line" style="width:83%"></div>
+        <div class="greek-line" style="width:96%"></div>
+        <div class="greek-line" style="width:58%"></div>
+      </div>
+      <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>. Tiny prompt, large cache write: this call reused ~85k tokens of prior context.</p>
+    </div>
+  </aside>
+
+  <label class="trace-drawer-backdrop trace-drawer-backdrop-3" for="trace-toggle-3"></label>
+  <aside class="trace-drawer trace-drawer-3">
+    <div class="trace-drawer-head">
+      <div><span class="trace-drawer-eyebrow">Call #3</span><span class="trace-drawer-meta">builder · session a1b2c9 · 14:12:40 · sonnet-5</span></div>
+      <div class="trace-drawer-head-actions">
+        <label class="trace-drawer-fullpage-link" for="page-call-detail">view full page ↗</label>
+        <label class="trace-drawer-close" for="trace-toggle-3">×</label>
+      </div>
+    </div>
+    <div class="trace-drawer-body">
+      <div class="trace-detail-group"><span class="trace-detail-label">prompt</span>
+        <div class="greek-line" style="width:72%"></div>
+        <div class="greek-line" style="width:55%"></div>
+      </div>
+      <div class="trace-detail-group"><span class="trace-detail-label">response</span>
+        <div class="greek-line" style="width:85%"></div>
+        <div class="greek-line" style="width:67%"></div>
+      </div>
+      <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+    </div>
+  </aside>
+
+  <label class="trace-drawer-backdrop trace-drawer-backdrop-4" for="trace-toggle-4"></label>
+  <aside class="trace-drawer trace-drawer-4">
+    <div class="trace-drawer-head">
+      <div><span class="trace-drawer-eyebrow">Call #4</span><span class="trace-drawer-meta">builder · session a1b2c9 · 14:14:03 · sonnet-5</span></div>
+      <div class="trace-drawer-head-actions">
+        <label class="trace-drawer-fullpage-link" for="page-call-detail">view full page ↗</label>
+        <label class="trace-drawer-close" for="trace-toggle-4">×</label>
+      </div>
+    </div>
+    <div class="trace-drawer-body">
+      <div class="trace-detail-group"><span class="trace-detail-label">prompt</span>
+        <div class="greek-line" style="width:80%"></div>
+      </div>
+      <div class="trace-detail-group"><span class="trace-detail-label">response</span>
+        <div class="greek-line" style="width:97%"></div>
+        <div class="greek-line" style="width:74%"></div>
+        <div class="greek-line" style="width:62%"></div>
+      </div>
+      <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+    </div>
+  </aside>
+
+  </div>
+
+  <div class="page-call-detail">
+    <div class="window">
+      <div class="chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url">localhost:4317/call/a1b2c9/2</div>
+      </div>
+      <div class="app call-page">
+        <label class="call-page-back" for="page-dashboard">← back to session a1b2c9</label>
+        <div class="call-page-head">
+          <div><span class="trace-drawer-eyebrow">Call #2</span><span class="trace-drawer-meta">builder · session a1b2c9 · 14:11:19 · sonnet-5</span></div>
+          <div class="call-page-stats">
+            <span class="pill">in 2</span>
+            <span class="pill">out 498</span>
+            <span class="pill">cache w 1h 85,386</span>
+            <span class="pill">$0.14</span>
+            <span class="pill">3.8s</span>
+          </div>
+        </div>
+        <p class="hint">Representative example, opened directly at its own route rather than in-app — same content as the drawer <span class="badge">8</span>.</p>
+        <div class="call-page-body">
+          <div class="call-page-col">
+            <div class="trace-detail-group"><span class="trace-detail-label">prompt</span>
+              <div class="greek-line" style="width:30%"></div>
+            </div>
+          </div>
+          <div class="call-page-col">
+            <div class="trace-detail-group"><span class="trace-detail-label">response</span>
+              <div class="greek-line" style="width:91%"></div>
+              <div class="greek-line" style="width:83%"></div>
+              <div class="greek-line" style="width:96%"></div>
+              <div class="greek-line" style="width:58%"></div>
+            </div>
+          </div>
+        </div>
+        <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>. Tiny prompt, large cache write: this call reused ~85k tokens of prior context.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="badge">1</span> polling refresh + manual control (Flow 5)</div>
+    <div class="item"><span class="badge">2</span> warning banner only when a usage-limit event exists (Flow 4)</div>
+    <div class="item"><span class="badge">3</span> per-day / per-agent rollups (Flow 2)</div>
+    <div class="item"><span class="badge">4</span> most recent session auto-selected by default; click any row to change it (Flow 3)</div>
+    <div class="item"><span class="badge">5</span> agent row expands into its call-by-call trace; highlighted row is the real usage sample pulled from a live transcript (2 in / 498 out / 85,386 cache-write 1h)</div>
+    <div class="item"><span class="badge">6</span> proposed resolution to the cold-start open question in user-flow.md — toggle above to compare</div>
+    <div class="item"><span class="badge">7</span> click ⌄ to open a detail drawer with that call's prompt/response, read from the transcript on demand — never stored in tokens.db (requirements.md goal)</div>
+    <div class="item"><span class="badge">8</span> "view full page ↗" — same call, same content, at its own route: a GitLab-style drawer-in-app / full-page-on-direct-load dual presentation (open question in requirements.md)</div>
+    <div class="item"><span class="badge">9</span> chart pattern modeled on CodeBurn's Trend view: range tabs swap the underlying dataset (Today = 24 hourly buckets, 7D = 19 days, 30D/Month = 30 days, 6M/Life = 90 days), each with a headline total and delta vs the prior period; 7D keeps the per-model breakdown on bar click, denser sets are sparkline-only</div>
+    <div class="item"><span class="badge">10</span> new rollup dimensions: model, tool calls, skills invoked, and MCP server calls (same hbar-list pattern as the agent breakdown, no new capture step — every dimension here is already present in the same transcript walk that produces the agent/model token rows), plus a day-of-week × hour-of-day activity heatmap surfacing when calls happen</div>
+    <div class="item"><span class="badge">11</span> cairn's capture is project-scoped by default — one repo, one `.cairn/tokens.db`, nothing to break out by project. Toggle above simulates a user- or local-scope install instead, where a single dashboard can see multiple projects: a Projects rollup panel appears, and the Sessions table gets a project column plus a pill filter. Only the Sessions table is actually filtered here to demonstrate the interaction — the other rollup panels re-scoping to the selected project, rather than staying aggregated across all of them, is an open question in requirements.md, not simulated at full depth in this file</div>
+  </div>
+
+  <footer>
+    Structure only — no color/type decisions here are final. See <a href="../requirements.md">requirements.md</a>, <a href="../architecture.md">architecture.md</a>, <a href="../user-flow.md">user-flow.md</a>.
+  </footer>
+
+</body>
+</html>
