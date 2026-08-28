@@ -23,6 +23,6 @@ A developer runs `/cairn-tokens` after a session and gets a live local dashboard
 
 This doc is the "why, in one page" — it doesn't get amended as design decisions land. Everything downstream of it does:
 
-- `02_requirements.md` — goals, non-goals, stakeholders, constraints, open questions, success criteria.
-- `03_architecture.md` — the capture/serving design and its tradeoffs.
-- `04_user-flow.md` — the end-to-end developer flows.
+- `02-requirements.md` — goals, non-goals, stakeholders, constraints, open questions, success criteria.
+- `03-architecture.md` — the capture/serving design and its tradeoffs.
+- `04-user-flow.md` — the end-to-end developer flows.

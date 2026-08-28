@@ -15,7 +15,7 @@ Dated design notes (`YYYY-MM-DD-topic.md`) written before a non-trivial change, 
 
 ## `features/`
 
-Per-feature doc folders, one per shipped or in-progress feature. Currently: `token-metering/` — the Phase 2 token-metering feature, starting from `01_intent.md` (why it exists, in one page) through `02_requirements.md`, `03_architecture.md`, and `04_user-flow.md`, plus a `mockups/` dashboard.
+Per-feature doc folders, one per shipped or in-progress feature. Currently: `token-metering/` — the Phase 2 token-metering feature, starting from `01-intent.md` (why it exists, in one page) through `02-requirements.md`, `03-architecture.md`, and `04-user-flow.md`, plus a `mockups/` dashboard.
 
 ## `tasks/`
 

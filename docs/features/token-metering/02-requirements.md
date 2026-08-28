@@ -4,7 +4,7 @@
 
 Cairn has no way to measure its own token cost. `/cairn-tokens` is listed in the commands table (build brief §B9) but was intentionally left unbuilt — it depends entirely on metering data that doesn't exist yet. Without it, the default (≤ 40k) and escalated (≤ 150k) token budgets in `skills/start/SKILL.md` are stated assumptions, not measured facts, and there's no way to tell which agent, phase, or session is driving cost on a real task.
 
-**Amends build brief §B10**, which now points here for the full requirements and to `docs/features/token-metering/03_architecture.md` for the design. The original brief called for "a self-contained HTML file — no server, no CDN"; this doc replaces that with a live local dashboard.
+**Amends build brief §B10**, which now points here for the full requirements and to `docs/features/token-metering/03-architecture.md` for the design. The original brief called for "a self-contained HTML file — no server, no CDN"; this doc replaces that with a live local dashboard.
 
 ## Goals
 
@@ -48,10 +48,10 @@ Cairn has no way to measure its own token cost. `/cairn-tokens` is listed in the
 
 - Exact polling interval for dashboard refresh (e.g. 10s vs 30s) — a tuning detail, not an architectural one.
 - What a trace row shows if its transcript file has since been moved or deleted — tokens/cost/duration still come from `tokens.db`, but the on-demand prompt/response lookup would have nothing to read.
-- **Resolved** — call-detail deep-linking: `03_architecture.md`'s Serving side now specifies a client-side `/call/<session>/<n>` route (drawer in-app, standalone page on direct load) with `server.py` serving a catch-all → `index.html` fallback.
+- **Resolved** — call-detail deep-linking: `03-architecture.md`'s Serving side now specifies a client-side `/call/<session>/<n>` route (drawer in-app, standalone page on direct load) with `server.py` serving a catch-all → `index.html` fallback.
 - **Resolved** — per-day chart range windows: no capture-side change needed, it's a query-time bucketing of `calls.timestamp`. Exact day-counts per tab are pinned down when `server.py`'s rollup queries are written (M4 in `docs/specs/2026-08-28-token-metering-milestones.md`), not before — the mockup's own tab labels and placeholder data don't fully agree (its "7D" tab shows "Last 19 days").
-- **Resolved** — model/tool/skill/MCP-server and activity-heatmap rollups: a new `tool_uses` table (one row per `tool_use` block, keyed on the block's own id for the same `INSERT OR IGNORE` idempotency as `calls.request_id`), captured in the same `parser.py` pass. Skill name and MCP server are parsed from `tool_name`/`detail` at query time, same read-time philosophy as pricing. The heatmap needs no new capture — it buckets `calls.timestamp`. Full shape in `03_architecture.md`'s Capture side.
-- **Resolved** — cross-project rollup for user/local-scope installs: shape (b), per-project `.cairn/tokens.db` unchanged, plus a `~/.claude/cairn/known-projects.json` registry appended to by the `Stop` hook, that `server.py` unions when present. Chosen over a shared machine-wide db specifically because it needs no schema change and no change to project-scoped installs (the common case). Full shape in `03_architecture.md`'s Serving side.
+- **Resolved** — model/tool/skill/MCP-server and activity-heatmap rollups: a new `tool_uses` table (one row per `tool_use` block, keyed on the block's own id for the same `INSERT OR IGNORE` idempotency as `calls.request_id`), captured in the same `parser.py` pass. Skill name and MCP server are parsed from `tool_name`/`detail` at query time, same read-time philosophy as pricing. The heatmap needs no new capture — it buckets `calls.timestamp`. Full shape in `03-architecture.md`'s Capture side.
+- **Resolved** — cross-project rollup for user/local-scope installs: shape (b), per-project `.cairn/tokens.db` unchanged, plus a `~/.claude/cairn/known-projects.json` registry appended to by the `Stop` hook, that `server.py` unions when present. Chosen over a shared machine-wide db specifically because it needs no schema change and no change to project-scoped installs (the common case). Full shape in `03-architecture.md`'s Serving side.
 
 ## Success criteria
 

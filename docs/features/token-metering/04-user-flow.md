@@ -1,6 +1,6 @@
 # User flow: token metering & dashboard (Phase 2)
 
-Companion to `02_requirements.md` (what/why) and `03_architecture.md` (how). This traces what a developer actually does and sees, end to end.
+Companion to `02-requirements.md` (what/why) and `03-architecture.md` (how). This traces what a developer actually does and sees, end to end.
 
 ## Diagram
 
@@ -74,4 +74,4 @@ flowchart TD
 
 ## Open question
 
-- Cold-start behavior (developer runs `/cairn-tokens` before any session has ever completed a `Stop` event, so `.cairn/tokens.db` is empty or missing) isn't decided yet — neither an empty-state screen nor a fallback message is specified in `02_requirements.md` or `03_architecture.md`.
+- Cold-start behavior (developer runs `/cairn-tokens` before any session has ever completed a `Stop` event, so `.cairn/tokens.db` is empty or missing) isn't decided yet — neither an empty-state screen nor a fallback message is specified in `02-requirements.md` or `03-architecture.md`.
