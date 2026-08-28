@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-28
 
+- Renamed `docs/token-metering/requirements/token-metering.md` to `docs/token-metering/requirements/requirements.md` — the filename repeated the folder name; updated `Cairn 2.0 build brief.md` §B10's pointer to match. Docs-only — no version bump.
 - Moved `docs/requirements/token-metering.md` to `docs/token-metering/requirements/token-metering.md`, starting Phase 2 token-metering as a per-feature doc folder rather than the flat `docs/requirements/` bucket; updated `Cairn 2.0 build brief.md` §B10's pointer to match. Docs-only — no version bump.
 
 ## 2026-08-27
