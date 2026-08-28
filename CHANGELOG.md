@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the model (§A4) — read by humans only.
 
+## 2026-08-28
+
+- Moved `docs/requirements/token-metering.md` to `docs/token-metering/requirements/token-metering.md`, starting Phase 2 token-metering as a per-feature doc folder rather than the flat `docs/requirements/` bucket; updated `Cairn 2.0 build brief.md` §B10's pointer to match. Docs-only — no version bump.
+
 ## 2026-08-27
 
 - Added `commands/cairn-retro.md` — reflects on the current session's conversation (not the codebase) and drafts `.harness/*.md` candidates through the same evidence-then-confirm cycle `/cairn-setup` uses, so learnings land in the project's shared harness instead of Claude's own per-user memory, which the project and team never see. No new agent, skill, or hook — a thin command mirroring `commands/cairn-setup.md`'s shape; considered and rejected a hook-based session recorder (mirrors the deferred token-metering subsystem) in favor of reasoning over the conversation already in context. Spec at `docs/specs/2026-08-27-session-retro.md` (gitignored, not committed). Bumped `.claude-plugin/plugin.json` version to `0.12.0`.
