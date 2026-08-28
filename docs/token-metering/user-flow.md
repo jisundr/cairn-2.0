@@ -13,14 +13,16 @@ flowchart TD
 
     D --> E["/cairn-tokens"]
     E --> F[Dashboard server starts, browser opens]
-    F --> G[Per-day / per-agent rollups]
+    F --> G[Per-day / per-agent rollups + session list]
 
-    G --> H[Select a session]
+    G --> H[Most recent session auto-selected]
     H --> I[Per-session view: one rollup row per agent]
+    G -. developer picks a different session .-> I
     I --> J[Expand an agent's row]
     J --> K[Call-by-call trace: tokens / cost / duration]
 
     F -. usage-limit event recorded .-> L[Warning banner shown]
+    L -. "view session" link .-> I
 
     F --> M[Dashboard polls on an interval]
     M --> G
@@ -43,13 +45,13 @@ flowchart TD
 1. Developer runs `/cairn-tokens`.
 2. Cairn starts `tools/tokens/server.py` in the background and opens the default browser to the dashboard.
 3. Terminal reports the URL and that Ctrl-C in that terminal stops it.
-4. Dashboard loads, showing per-day and per-agent rollup bars across all captured sessions.
+4. Dashboard loads, showing per-day and per-agent rollup bars (informational — not clickable, not a filter) across all captured sessions, a session list, and the most recent session's per-session view already open below it. No click is required to see a first example.
 
-## Flow 3: Drilling into a session
+## Flow 3: Changing which session is shown
 
-1. Developer selects a session from the per-day rollup.
-2. The per-session view opens: one rollup row per agent dispatched during that session (`main`, `planner`, `builder`, `reviewer`, `scribe`, `unknown`).
-3. Developer expands an agent's rollup row.
+1. Developer selects a different session from the session list, or follows the "view session" link from a usage-limit warning banner.
+2. The per-session view updates: one rollup row per agent dispatched during that session (`main`, `planner`, `builder`, `reviewer`, `scribe`, `unknown`).
+3. Developer expands an agent's rollup row (all start collapsed — no agent is auto-expanded).
 4. Row expands into that agent's call-by-call trace, in order, each entry showing tokens, cost, and duration.
 
 ## Flow 4: Usage-limit warning
