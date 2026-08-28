@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the model (§A4) — read by humans only.
 
+## 2026-08-29
+
+- Moved `Cairn 2.0 build brief.md` from the repo root into `docs/`, updating its `CLAUDE.md` and `README.md` pointers to match. Docs-only — no version bump.
+
 ## 2026-08-28
 
 - Added `tools/tokens/db.py` + `tools/tokens/test_db.py` — the `calls`/`usage_limit_events` SQLite schema and insert helpers for token-metering capture (build brief §B10, Phase 2 build order step 2), stdlib-only per `tools/budget.py`'s existing footprint. Inert until a hook writes to it — no version bump.

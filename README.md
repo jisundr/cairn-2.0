@@ -77,4 +77,4 @@ Run `/cairn-teardown` to remove the marker block and `.cairn/` and see exactly w
 
 ## Developing cairn
 
-See [`Cairn 2.0 build brief.md`](Cairn%202.0%20build%20brief.md) for the full development contract, and [`CLAUDE.md`](CLAUDE.md) for the condensed per-commit discipline.
+See [`Cairn 2.0 build brief.md`](docs/Cairn%202.0%20build%20brief.md) for the full development contract, and [`CLAUDE.md`](CLAUDE.md) for the condensed per-commit discipline.

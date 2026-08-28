@@ -8,7 +8,7 @@ cairn 2.0 is a Claude Code plugin carrying a lean, on-demand, non-invasive devel
 
 ## Source of truth
 
-`Cairn 2.0 build brief.md` at the repo root is the complete development contract and build spec. Read it before making any structural change here — this file only summarizes the parts that recur on every commit.
+`docs/Cairn 2.0 build brief.md` is the complete development contract and build spec. Read it before making any structural change here — this file only summarizes the parts that recur on every commit.
 
 ## Discipline for every change
 
