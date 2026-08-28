@@ -162,7 +162,7 @@ def test_hard_requirements_heading(tmp_path):
 
 def test_agent_tool_registry_missing_tool(tmp_path):
     w(tmp_path, "agents/builder.md", agent_md(name="builder", tools="Read, Write, Bash"))
-    w(tmp_path, "docs/registry.md", "## builder\n- Read — baseline\n- Write — authors code\n")
+    w(tmp_path, "docs/REGISTRY.md", "## builder\n- Read — baseline\n- Write — authors code\n")
     _, _, _, agents = budget.scan(tmp_path)
     findings = budget.check_registry(tmp_path, agents)
     assert any(f.rule == "agent-tool-registry" and "Bash" in f.detail for f in findings)
@@ -177,7 +177,7 @@ def test_agent_tool_registry_missing_file(tmp_path):
 
 def test_reviewer_agent_no_write(tmp_path):
     w(tmp_path, "agents/reviewer.md", agent_md(name="reviewer", description="Reviews the diff", tools="Read, Write"))
-    w(tmp_path, "docs/registry.md", "## reviewer\n- Read — baseline\n- Write — n/a\n")
+    w(tmp_path, "docs/REGISTRY.md", "## reviewer\n- Read — baseline\n- Write — n/a\n")
     _, _, _, agents = budget.scan(tmp_path)
     findings = budget.check_registry(tmp_path, agents)
     assert any(f.rule == "reviewer-read-only" for f in findings)
@@ -216,7 +216,7 @@ def test_forbidden_write_path(tmp_path):
 
 def test_report_generation(tmp_path):
     w(tmp_path, "agents/builder.md", agent_md(name="builder", description="short"))
-    w(tmp_path, "docs/registry.md", "## builder\n- Read — baseline\n- Write — authors code\n")
+    w(tmp_path, "docs/REGISTRY.md", "## builder\n- Read — baseline\n- Write — authors code\n")
     findings, rows, total = budget.gather_findings(tmp_path)
     budget.write_report(tmp_path, rows, total)
     report = (tmp_path / "docs" / "BUDGET.md").read_text()

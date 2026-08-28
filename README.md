@@ -56,7 +56,7 @@ Every artifact cairn ships is in exactly one of four load classes, tracked in [`
 | **Always loaded** | paid every turn of every context | Only: the ≤ 400 B marker block in the consuming project's root `CLAUDE.md`, and the frontmatter `description` of each agent/skill/command. Nothing else, ever. |
 | **On demand** | paid once, in one context | Agent bodies, `SKILL.md`, `reference/*.md`, `.harness/*.md`. Loaded by an explicit `Glob` + `Read` at a named step. |
 | **Executed** | ~0 tokens | Scripts. Invoked via `Bash`, return compact JSON. The model reads the output, never the source. |
-| **Never loaded** | 0 | `docs/registry.md`, `docs/BUDGET.md`, tests, CI config. Read by tooling and humans only. |
+| **Never loaded** | 0 | `docs/REGISTRY.md`, `docs/BUDGET.md`, tests, CI config. Read by tooling and humans only. |
 
 ## What cairn writes in your project
 
@@ -77,4 +77,4 @@ Run `/cairn-teardown` to remove the marker block and `.cairn/` and see exactly w
 
 ## Developing cairn
 
-See [`Cairn 2.0 build brief.md`](docs/Cairn%202.0%20build%20brief.md) for the full development contract, and [`CLAUDE.md`](CLAUDE.md) for the condensed per-commit discipline.
+See [`BUILD_BRIEF.md`](docs/BUILD_BRIEF.md) for the full development contract, and [`CLAUDE.md`](CLAUDE.md) for the condensed per-commit discipline.

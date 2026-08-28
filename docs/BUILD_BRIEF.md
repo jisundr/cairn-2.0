@@ -71,14 +71,14 @@ If none of those work, report the conflict and stop. Do not raise a cap on your 
 
 Two distinct rules share this name. Both apply.
 
-**A3a — Agent tool grants start read-only.** Every agent's `tools:` list begins as `Read, Glob, Grep`. Each additional tool must be earned, and each grant is recorded in `docs/registry.md` with a one-line justification in the same commit that adds it.
+**A3a — Agent tool grants start read-only.** Every agent's `tools:` list begins as `Read, Glob, Grep`. Each additional tool must be earned, and each grant is recorded in `docs/REGISTRY.md` with a one-line justification in the same commit that adds it.
 
 - `Write` / `Edit` go **only** to an agent whose entire purpose is authorship of a named artifact class. Name the paths it writes in its body, and keep those paths inside the §B2 allowlist.
 - `Bash` implies unrestricted shell — there is no per-command scoping at that layer. Grant it only where the agent must run the project's own verification commands, and never alongside `Write` unless authorship genuinely requires both.
 - A reviewing or auditing agent never gets `Write` or `Edit`. Omission is the enforcement; do not write prose claiming an agent won't write when the tool is present.
 - Never state a restriction that the frontmatter doesn't back. If a limit can only be prose, either drop it or label it advisory in the same sentence.
 
-`budget.py` checks: every agent's tool list is a subset of what `docs/registry.md` justifies for it, and any agent whose name or description contains `review`, `audit`, or `check` has neither `Write` nor `Edit`.
+`budget.py` checks: every agent's tool list is a subset of what `docs/REGISTRY.md` justifies for it, and any agent whose name or description contains `review`, `audit`, or `check` has neither `Write` nor `Edit`.
 
 **A3b — Framework files are read-only at runtime.** Nothing this framework ships may edit `agents/`, `skills/`, `commands/`, or `hooks/` during a session. Changes to the framework go through a normal PR into this repo, reviewed like code.
 
@@ -93,12 +93,12 @@ Every artifact is in exactly one of four load classes, and `docs/BUDGET.md` reco
 | **Always loaded** | paid every turn of every context | Only: the ≤ 400 B marker block in the consuming project's root `CLAUDE.md` (§B2), and the frontmatter `description` of each agent/skill/command. Nothing else, ever. |
 | **On demand** | paid once, in one context | Agent bodies, `SKILL.md`, `reference/*.md`, `.harness/*.md`. Loaded by an explicit `Glob` + `Read` at a named step. |
 | **Executed** | ~0 tokens | Scripts. Invoked via `Bash`, return compact JSON. The model reads the output, never the source. |
-| **Never loaded** | 0 | `docs/registry.md`, `docs/BUDGET.md`, tests, CI config. Read by tooling and humans only. |
+| **Never loaded** | 0 | `docs/REGISTRY.md`, `docs/BUDGET.md`, tests, CI config. Read by tooling and humans only. |
 
 Rules that follow:
 
 - **No `@path` imports in any `CLAUDE.md`.** An import is an always-loaded file wearing a pointer's clothes.
-- **No registry in memory.** Descriptions live in `docs/registry.md`, which only `budget.py` and humans read. This one rule is worth ~22,500 tokens per context against the heaviest predecessor.
+- **No registry in memory.** Descriptions live in `docs/REGISTRY.md`, which only `budget.py` and humans read. This one rule is worth ~22,500 tokens per context against the heaviest predecessor.
 - **No hook injects context on success.** A hook that prints on every session start is an always-loaded file with extra steps. Hooks stay silent unless something is wrong.
 - **Progressive disclosure inside every skill.** `SKILL.md` holds the 20% needed every time plus a table naming each `reference/*.md` and the condition that warrants loading it. A reference file is never loaded speculatively.
 - **Absence is never an error, with one deliberate exception.** Every on-demand read is presence-gated: `Glob` first, skip silently if missing, never suggest creating it mid-task. The exception is the `.harness/` directory as a whole, which is a precondition resolved once at the task boundary — see §B3. A *missing individual file inside a present* `.harness/` still skips silently.
@@ -141,7 +141,7 @@ Two failures this prevents: a 7-line "workflow" file whose entire content duplic
 
 ## A9. One artifact per commit
 
-Each commit adds or changes one artifact, plus its `docs/registry.md` line, plus its `CHANGELOG.md` entry. Never a sweep across many files.
+Each commit adds or changes one artifact, plus its `docs/REGISTRY.md` line, plus its `CHANGELOG.md` entry. Never a sweep across many files.
 
 A predecessor required every framework change to touch five registration sites and shipped 50 tagged releases in 29 days as a direct result. One artifact per commit keeps that fan-out visible instead of amortised into unreviewable batches.
 
@@ -370,7 +370,7 @@ The reason for the strictness: an advisory that fires on a preference the user a
 
 **Where an ignored line does become visible: `/cairn-doctor`, and only there.** Doctor is invoked explicitly — the user asked — so it's the right and only place to report which preference lines are active, which are inert and why, which are unrecognised, and whether the session model matches the recorded preference. Nothing about the local layer is ever surfaced in normal flow.
 
-The alternative to all of this — pinning `model:` in a shipped agent — is exactly what forces one person's choice onto every teammate, which is the thing this layer exists to avoid. `budget.py` fails on any shipped agent that pins `model:` without a justification recorded in `docs/registry.md`.
+The alternative to all of this — pinning `model:` in a shipped agent — is exactly what forces one person's choice onto every teammate, which is the thing this layer exists to avoid. `budget.py` fails on any shipped agent that pins `model:` without a justification recorded in `docs/REGISTRY.md`.
 
 `/cairn-setup --local` writes the file (and its self-ignoring `.gitignore`) after showing the exact contents. Neither setup nor doctor ever gates.
 
@@ -590,7 +590,7 @@ Add `CODEOWNERS` so structural rules are a review gate and not just a sentence.
 3. **Exclude synthetic error entries.** A usage-limit hit arrives as a synthetic assistant entry with `isApiErrorMessage: true` and a zeroed-but-present `usage` object. Filter those from the calls table; record them in a separate `usage_limit_events` table.
 4. **Price at report time, never at write time.** A `model → $/MTok` table whose fallback is empty, so an unrecognized model yields `cost: unknown` rather than a wrong number, and a group's cost stays `null` rather than a partial sum when any model in it is unpriced. A price change is a script edit, not a migration.
 
-**Amended:** serve a live local dashboard instead of a static report. A prebuilt frontend (React, Vite, Recharts, Tailwind, shadcn/ui, `@tanstack/react-query`) ships as compiled static assets; a Python stdlib server (`http.server` + `sqlite3`, no new pip dependency) serves them plus the JSON reads. Node/npm is a cairn-dev-time-only build step — a consuming project runs `/cairn-tokens` and never invokes it. Rollups: per-day, per-session, per-agent, with a per-session trace nested under each agent's rollup, and a visible warning when any usage-limit event was recorded. Full requirements: `docs/token-metering/requirements.md`. Design: `docs/token-metering/architecture.md`. User flow: `docs/token-metering/user-flow.md`.
+**Amended:** serve a live local dashboard instead of a static report. A prebuilt frontend (React, Vite, Recharts, Tailwind, shadcn/ui, `@tanstack/react-query`) ships as compiled static assets; a Python stdlib server (`http.server` + `sqlite3`, no new pip dependency) serves them plus the JSON reads. Node/npm is a cairn-dev-time-only build step — a consuming project runs `/cairn-tokens` and never invokes it. Rollups: per-day, per-session, per-agent, with a per-session trace nested under each agent's rollup, and a visible warning when any usage-limit event was recorded. Full requirements: `docs/features/token-metering/02_requirements.md`. Design: `docs/features/token-metering/03_architecture.md`. User flow: `docs/features/token-metering/user-flow.md`.
 
 ## B11. Build order
 
@@ -598,7 +598,7 @@ Each phase ends with the §A13 gate.
 
 1. `tools/budget.py` + `tools/test_budget.py` + CI, blocking from the first commit.
 2. `tools/tokens/` — metering, so every later decision is empirical.
-3. `.claude-plugin/` manifests, this repo's `CLAUDE.md`, `README.md`, `docs/registry.md`, `docs/BUDGET.md`.
+3. `.claude-plugin/` manifests, this repo's `CLAUDE.md`, `README.md`, `docs/REGISTRY.md`, `docs/BUDGET.md`.
 4. `skills/cairn-start/` — the entry point: harness gate (§B3a), scope trigger checklist and record shape (§B6b–c), path choice (§B8).
 5. `skills/cairn-scope/` — the resolution procedure, plus its `reference/` files for vague-request interviews and cross-submodule decomposition.
 6. `skills/task-assets/` templates — the four `.harness/` templates plus the `local/preferences.md` template, each carrying its precedence-ceiling header line.
@@ -627,12 +627,12 @@ Verify each, with numbers:
 13. **Local-layer ceiling test:** a `preferences.md` line that would disable a team requirement (skip review, lower a coverage threshold) is ignored silently — the requirement still applies, and nothing is said about it during the task. `/cairn-doctor` lists it as ignored.
 14. **Local-layer optionality test:** a project with the four team files and no `.harness/local/` runs normally and never mentions the local layer.
 15. **Single-reader test:** no agent body or `reference/*.md` contains the string `.harness/local`; a task with two dispatches reads `preferences.md` exactly once, in the main thread, and the applicable lines appear in each dispatch prompt. `STATE.md` contains nothing from the local layer.
-16. **Silent-inertness test:** with `model implementation opus` set and a sonnet session, plus one unrecognised key and one ceiling-violating line, a full task produces **zero** mentions of any of them — no notice at session start, none at dispatch, none at the end. `/cairn-doctor` then reports all three correctly: active, inert-no-lever, unrecognised, ignored-by-ceiling. No shipped agent pins `model:` without a `docs/registry.md` justification.
+16. **Silent-inertness test:** with `model implementation opus` set and a sonnet session, plus one unrecognised key and one ceiling-violating line, a full task produces **zero** mentions of any of them — no notice at session start, none at dispatch, none at the end. `/cairn-doctor` then reports all three correctly: active, inert-no-lever, unrecognised, ignored-by-ceiling. No shipped agent pins `model:` without a `docs/REGISTRY.md` justification.
 17. `grep -rE '\b(MUST|ALWAYS|NEVER|MANDATORY|NON-NEGOTIABLE)\b' agents/ skills/ commands/ hooks/` returns nothing.
 18. `grep -rE 'TODO|TBD|FIXME|<placeholder' agents/ skills/ commands/ hooks/` returns nothing.
 19. No `@path` imports in any `.md`.
 20. ≤ 4 agents; `reviewer` has no `Write` or `Edit`.
-21. Every agent's tool list matches what `docs/registry.md` justifies.
+21. Every agent's tool list matches what `docs/REGISTRY.md` justifies.
 22. Every `reference/*.md` appears in its `SKILL.md`'s Load-when table.
 23. No shipped file names a consuming-project write path outside the §B2b allowlist.
 24. Every `tools/**/*.sh --selftest` exits 0.

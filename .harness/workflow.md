@@ -4,7 +4,7 @@
 - Direct commits to `main`, no feature branches observed
 
 ## Commits / PR
-- One artifact per commit + its `docs/registry.md` line (if it adds an agent) + `CHANGELOG.md` entry — never a sweep
+- One artifact per commit + its `docs/REGISTRY.md` line (if it adds an agent) + `CHANGELOG.md` entry — never a sweep
 - Bump `.claude-plugin/plugin.json` version for any behavior-affecting change
 
 ## Gates

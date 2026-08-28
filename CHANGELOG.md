@@ -4,6 +4,13 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-29
 
+- Renamed `docs/features/token-metering/requirements.md` to `02_requirements.md` and `architecture.md` to `03_architecture.md`, extending the numbered-doc convention started by `01_intent.md`; updated pointers in `docs/BUILD_BRIEF.md` §B10, `tools/tokens/db.py`, `docs/README.md`, and the folder's own `user-flow.md`. Docs-only — no version bump.
+- Added `docs/features/token-metering/01_intent.md` — a one-page "why this exists" distilled from `requirements.md`'s Problem/Goals/Non-goals, meant to stay stable while the downstream docs amend with design decisions; updated `docs/README.md`'s description of the folder to match. Docs-only — no version bump.
+- Moved `docs/token-metering/` to `docs/features/token-metering/`, starting a `docs/features/` home for per-feature doc folders; updated pointers in `tools/tokens/db.py`, `docs/features/token-metering/requirements.md`, `docs/BUILD_BRIEF.md` §B10, and `docs/README.md`. Docs-only — no version bump.
+- Renamed `docs/ai-tips.md` to `docs/AI_TIPS.md`, matching the all-caps convention of `BUDGET.md`/`REGISTRY.md`/`BUILD_BRIEF.md`; updated the pointer in `docs/README.md`. Docs-only — no version bump.
+- Added `docs/README.md` as an index of this repo's own documentation — one line per root-level doc, plus a short description of `specs/`, `token-metering/`, and `docs/tasks/`. Docs-only — no version bump.
+- Renamed `docs/Cairn 2.0 build brief.md` to `docs/BUILD_BRIEF.md`, matching the all-caps convention of `BUDGET.md`/`REGISTRY.md` and dropping the redundant "Cairn 2.0" prefix; updated pointers in `CLAUDE.md` and `README.md`. Docs-only — no version bump.
+- Renamed `docs/registry.md` to `docs/REGISTRY.md`, updating the path used by `tools/budget.py`'s registry check, `tools/test_budget.py`'s fixtures, and pointers in the build brief, `CLAUDE.md`, `README.md`, and `.harness/workflow.md`; regenerated `docs/BUDGET.md` to match. Docs/tooling-only — no version bump.
 - Moved `Cairn 2.0 build brief.md` from the repo root into `docs/`, updating its `CLAUDE.md` and `README.md` pointers to match. Docs-only — no version bump.
 
 ## 2026-08-28

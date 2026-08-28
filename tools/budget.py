@@ -201,7 +201,7 @@ def scan(root):
             rows.append((rel, size, "B", "on-demand", headroom(size, 8192)))
             continue
 
-        if rel in ("docs/registry.md", "docs/BUDGET.md") or rel.startswith("tools/") or rel.startswith(".github/"):
+        if rel in ("docs/REGISTRY.md", "docs/BUDGET.md") or rel.startswith("tools/") or rel.startswith(".github/"):
             size = path.stat().st_size
             load_class = "executed" if rel.startswith("tools/") or rel.startswith(".github/") else "never-loaded"
             rows.append((rel, size, "B", load_class, "-"))
@@ -290,11 +290,11 @@ def check_mandate_language(root):
 
 def check_registry(root, agents):
     findings = []
-    registry_path = root / "docs" / "registry.md"
+    registry_path = root / "docs" / "REGISTRY.md"
     if not agents:
         return findings
     if not registry_path.exists():
-        return [Finding("agent-tool-registry", "docs/registry.md", "error",
+        return [Finding("agent-tool-registry", "docs/REGISTRY.md", "error",
                          "missing while agent files exist under agents/")]
     text = read_text(registry_path)
     sections = {}
@@ -315,7 +315,7 @@ def check_registry(root, agents):
         justified = sections.get(name, set())
         for tool in sorted(tools - justified):
             findings.append(Finding("agent-tool-registry", rel, "error",
-                                     f"tool '{tool}' not justified for '{name}' in docs/registry.md"))
+                                     f"tool '{tool}' not justified for '{name}' in docs/REGISTRY.md"))
         haystack = f"{name} {fields.get('description', '')}"
         if review_re.search(haystack) and ("Write" in tools or "Edit" in tools):
             findings.append(Finding("reviewer-read-only", rel, "error",

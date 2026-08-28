@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """SQLite store for cairn's token-metering feature. stdlib only (see brief §A0).
-Schema and design: docs/token-metering/requirements.md, docs/token-metering/architecture.md.
+Schema and design: docs/features/token-metering/02_requirements.md, docs/features/token-metering/03_architecture.md.
 
 Usage:
     from db import connect, insert_call, insert_usage_limit_event
