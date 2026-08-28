@@ -43,9 +43,10 @@ flowchart TD
 ## Flow 2: Opening the dashboard
 
 1. Developer runs `/cairn-tokens`.
-2. Cairn starts `tools/tokens/server.py` in the background and opens the default browser to the dashboard.
+2. Cairn starts `token-metering/server.py` in the background and opens the default browser to the dashboard.
 3. Terminal reports the URL and that Ctrl-C in that terminal stops it.
 4. Dashboard loads, showing per-day and per-agent rollup bars (informational — not clickable, not a filter) across all captured sessions, a session list, and the most recent session's per-session view already open below it. No click is required to see a first example.
+5. **Resolved** — cold start: if `/cairn-tokens` runs before any session has completed a `Stop` event, `.cairn/tokens.db` is empty or missing. The dashboard still starts and loads normally, showing an empty-state message (e.g. "No sessions captured yet — run a cairn session, then refresh") in place of the rollup bars and session list, rather than erroring or refusing to start.
 
 ## Flow 3: Changing which session is shown
 
@@ -71,7 +72,3 @@ flowchart TD
 1. Developer returns to the terminal that ran `/cairn-tokens`.
 2. Presses Ctrl-C.
 3. The server process exits; no background daemon remains. Capture (the `Stop` hook) is unaffected — it doesn't depend on the dashboard being open.
-
-## Open question
-
-- Cold-start behavior (developer runs `/cairn-tokens` before any session has ever completed a `Stop` event, so `.cairn/tokens.db` is empty or missing) isn't decided yet — neither an empty-state screen nor a fallback message is specified in `02-requirements.md` or `03-architecture.md`.

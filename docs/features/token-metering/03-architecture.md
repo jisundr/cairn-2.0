@@ -4,6 +4,8 @@
 
 Two pieces: a `Stop` hook that captures usage into SQLite (mirrors `hooks/session-start.sh`'s advisory-only, silently-degrading style), and a dashboard (Python stdlib server + prebuilt static frontend) that reads it at query time.
 
+`db.py`, `parser.py`, `pricing.py`, `server.py`, and `frontend/` all target the `token-metering` git submodule (`cairn-2.0-token-metering`), not this repo — this repo (cairn-2.0) keeps the design docs plus the two artifacts that reach across the submodule boundary to invoke that code: `hooks/stop-tokens.sh` and `commands/cairn-tokens.md`. `python tools/budget.py` gates only what ships from this repo; the submodule is gated by its own `.harness/workflow.md` (`pytest`, plus `npm run build` for the frontend). Full milestone-by-milestone breakdown in `ROADMAP.md`.
+
 **Capture side:**
 - One call can span several transcript entries (e.g. a thinking block and a text block) sharing a `requestId` and an identical `usage` snapshot — per-line counting would double-count, so `requestId` is the dedup key.
 - A dispatched subagent's calls do not appear inline in the parent transcript; they land in a sibling file, `<session_id>/subagents/agent-<agentId>.jsonl`. The subagent's own file carries an `agentId` but not its name (`planner`, etc.) — that only exists in the parent transcript's `Agent`/`Task` tool_use block's `input.subagent_type`. Attribution requires cross-referencing the parent's tool_use/tool_result pairs (the `agentId` appears embedded in the tool_result's text, `"agentId: <hex>"`, not as structured JSON) to build an `{agentId: subagent_type}` map, then tagging each call in the matching `subagents/agent-*.jsonl` file. Unmatched → `"unknown"`. Cairn's own 4 agents have no `Agent`/`Task` grant, so one level of `subagents/` is sufficient scope.
@@ -14,31 +16,33 @@ Two pieces: a `Stop` hook that captures usage into SQLite (mirrors `hooks/sessio
 
 **Serving side (over the original brief's "self-contained HTML file"):**
 - Server: Python stdlib `http.server` + `sqlite3` — no new pip dependency, matching `tools/budget.py`'s existing zero-pip footprint. Binds `localhost` only, runs in the foreground of the launching terminal, stops on Ctrl-C — no separate stop command, no background daemon.
-- Frontend: React 19 + Vite + Recharts + Tailwind + shadcn/ui (components copied into the plugin's own source, not pulled in as a runtime kit) + `@tanstack/react-query` for polling refresh. Built once by cairn's maintainers; the compiled static output (plain JS/CSS/HTML) is checked into the plugin. Node/npm is a cairn-dev-time-only dependency — a consuming project running `/cairn-tokens` never installs or builds anything.
+- Frontend: React 19 + Vite + Recharts + Tailwind + shadcn/ui (components copied into the plugin's own source, not pulled in as a runtime kit) + `@tanstack/react-query` for polling refresh, at a 15-second interval. Capture only ever happens on a `Stop` event, so polling faster than that surfaces no new data sooner in the common case; 15s still feels live when a second session's `Stop` fires while the dashboard is open, without hammering the sqlite read path. Built once by cairn's maintainers; the compiled static output (plain JS/CSS/HTML) is checked into the plugin. Node/npm is a cairn-dev-time-only dependency — a consuming project running `/cairn-tokens` never installs or builds anything.
 - Decided over CodeBurn and LangSmith as comparables: per-session drill-down (CodeBurn) and a run timeline (LangSmith) shaped the per-session/call-trace view; CodeBurn's own choice not to reach for a charting library for simple rollup bars is mirrored here (Recharts is available in the stack for the per-day trend graph, not required for the bars).
 - **Cross-project rollup** (user/local-scope installs, which can fire hooks across every project on the machine): each project keeps its own `.cairn/tokens.db` exactly as at project scope — no schema change, no shared write target. A small `~/.claude/cairn/known-projects.json`, appended to by `hooks/stop-tokens.sh` with the project's path whenever it fires outside project scope, lets `server.py` discover and union the other `.cairn/tokens.db` files it knows about. Project-scoped installs (the common case) never touch or read this file — the dashboard only ever sees its own project's db.
 - **Call-detail deep-linking**: a trace row's detail is a client-side route (`/call/<session>/<n>`) that renders as a drawer when navigated to in-app and as a standalone page on direct load or refresh, matching the GitLab issue-drawer pattern the mockup is modeled on. `server.py` serves a catch-all → `index.html` fallback for any non-API path so a direct load/refresh resolves client-side rather than 404ing on the stdlib server.
 - **Per-day chart range windows** (Today/7D/30D/Month/6M/Life): bucket size is a query-time decision over `calls.timestamp` — no new capture, no schema impact. Exact day-counts per tab (the mockup's placeholder data doesn't fully agree with its own tab labels) are pinned down when `server.py`'s rollup queries are actually written, not before.
+- **Trace-row transcript unavailable**: the on-demand prompt/response lookup endpoint reads the transcript file at request time; if it's been moved or deleted since capture, `server.py` returns a defined "unavailable" response shape rather than an error. Tokens/cost/duration are unaffected — they're already in `tokens.db` from parse time. The frontend renders this as a graceful "transcript unavailable" state in the trace-row detail (drawer/standalone page) instead of a raw error.
+- **Cold-start / empty `tokens.db`**: `server.py` starts normally even when `.cairn/tokens.db` is empty or missing — no session has completed a `Stop` event yet. The rollup/session-list endpoints return empty results rather than erroring, and the frontend renders an empty-state message in their place (see `04-user-flow.md`'s Flow 2).
 
 ## Components
 
 | Component | What it does | Depends on |
 |---|---|---|
-| `tools/tokens/db.py` | SQLite schema (`calls`, `usage_limit_events`, `tool_uses`) + connection/insert helpers | stdlib `sqlite3` |
-| `tools/tokens/parser.py` | Walks a session's transcript + its `subagents/*.jsonl` files, attributes each call and each `tool_use` block to an agent, dedups calls on `requestId` and tool uses on `tool_use_id`, routes usage-limit entries separately | `tools/tokens/db.py` |
-| `hooks/stop-tokens.sh` | `Stop` hook — mirrors `hooks/session-start.sh`'s style; shells out to a Python entry point that runs the parser against the just-ended session; appends to `~/.claude/cairn/known-projects.json` when firing outside project scope | `tools/tokens/parser.py`, `jq` |
-| `tools/tokens/prices.json` + `pricing.py` | Checked-in `model → $/MTok` price table, applied at read time | none |
-| `tools/tokens/server.py` | Local dashboard server — serves the prebuilt static frontend plus a JSON API (rollups by day/session/agent/tool/skill/MCP-server, heatmap, per-session call trace); unions other projects' dbs via `known-projects.json` when present; catch-all → `index.html` fallback for client-side routes | `tools/tokens/db.py`, `tools/tokens/pricing.py` |
-| `tools/tokens/frontend/` | Dev-time React/Vite source; compiled to `tools/tokens/static/`, which is what actually ships | React 19, Vite, Recharts, Tailwind, shadcn/ui, `@tanstack/react-query` |
-| `commands/cairn-tokens.md` | Starts `tools/tokens/server.py` in the background, opens the default browser to it | `tools/tokens/server.py` |
+| `token-metering/db.py` | SQLite schema (`calls`, `usage_limit_events`, `tool_uses`) + connection/insert helpers | stdlib `sqlite3` |
+| `token-metering/parser.py` | Walks a session's transcript + its `subagents/*.jsonl` files, attributes each call and each `tool_use` block to an agent, dedups calls on `requestId` and tool uses on `tool_use_id`, routes usage-limit entries separately | `token-metering/db.py` |
+| `hooks/stop-tokens.sh` | `Stop` hook — mirrors `hooks/session-start.sh`'s style; shells out to a Python entry point that runs the parser against the just-ended session; appends to `~/.claude/cairn/known-projects.json` when firing outside project scope | `token-metering/parser.py`, `jq` |
+| `token-metering/prices.json` + `pricing.py` | Checked-in `model → $/MTok` price table, applied at read time | none |
+| `token-metering/server.py` | Local dashboard server — serves the prebuilt static frontend plus a JSON API (rollups by day/session/agent/tool/skill/MCP-server, heatmap, per-session call trace); unions other projects' dbs via `known-projects.json` when present; catch-all → `index.html` fallback for client-side routes | `token-metering/db.py`, `token-metering/pricing.py` |
+| `token-metering/frontend/` | Dev-time React/Vite source; compiled to `token-metering/static/`, which is what actually ships | React 19, Vite, Recharts, Tailwind, shadcn/ui, `@tanstack/react-query` |
+| `commands/cairn-tokens.md` | Starts `token-metering/server.py` in the background, opens the default browser to it | `token-metering/server.py` |
 
 ## Data flow
 
 1. A cairn session runs, dispatching zero or more subagents (`planner`/`builder`/`reviewer`/`scribe`).
-2. On `Stop`, `hooks/stop-tokens.sh` fires, extracts `transcript_path`/`session_id`/`cwd`, and (if the project has opted in) invokes `tools/tokens/parser.py` against the transcript.
-3. The parser builds the `{agentId: subagent_type}` map from the main transcript, then walks the main transcript (tagged `agent="main"`) and every `subagents/agent-*.jsonl` file (tagged via the map, default `"unknown"`), inserting each unique `requestId` into `calls` (or `usage_limit_events` for synthetic error entries) via `tools/tokens/db.py`.
-4. `/cairn-tokens` starts `tools/tokens/server.py`, which opens the default browser to the dashboard.
-5. The frontend polls the server's JSON API; the server reads `.cairn/tokens.db`, applies `tools/tokens/prices.json` at query time, and returns priced rollups/traces.
+2. On `Stop`, `hooks/stop-tokens.sh` fires, extracts `transcript_path`/`session_id`/`cwd`, and (if the project has opted in) invokes `token-metering/parser.py` against the transcript.
+3. The parser builds the `{agentId: subagent_type}` map from the main transcript, then walks the main transcript (tagged `agent="main"`) and every `subagents/agent-*.jsonl` file (tagged via the map, default `"unknown"`), inserting each unique `requestId` into `calls` (or `usage_limit_events` for synthetic error entries) via `token-metering/db.py`.
+4. `/cairn-tokens` starts `token-metering/server.py`, which opens the default browser to the dashboard.
+5. The frontend polls the server's JSON API; the server reads `.cairn/tokens.db`, applies `token-metering/prices.json` at query time, and returns priced rollups/traces.
 
 ## Error handling
 
@@ -46,10 +50,12 @@ Two pieces: a `Stop` hook that captures usage into SQLite (mirrors `hooks/sessio
 - A transcript entry whose `agentId` doesn't match any `Agent`/`Task` tool_use in the parent → tagged `"unknown"` rather than dropped or failing the parse.
 - A model with no entry in `prices.json` → that call's cost reports `"unknown"`; any rollup group containing it reports `cost: null` rather than a silently partial sum.
 - A second `Stop` event re-scanning an already-recorded session → `INSERT OR IGNORE` on `request_id` means no duplication, no error.
+- A trace row's transcript file has been moved or deleted since capture → the on-demand prompt/response lookup returns a defined "unavailable" response shape rather than an error; that call's tokens/cost/duration are unaffected, since they were already captured into `tokens.db` at parse time.
+- `.cairn/tokens.db` is empty or missing when `server.py` starts (cold start, no session has completed a `Stop` event yet) → rollup/session-list endpoints return empty results rather than erroring; the frontend shows an empty-state message in their place.
 
 ## Testing
 
-- `tools/tokens/db.py`, `parser.py`, `pricing.py`, `server.py` each get unit tests under `tools/tokens/test_*.py`, mirroring `tools/test_budget.py`'s `tmp_path`-based style — including synthetic fixture transcripts for the two-file main+subagent case, a duplicate-`requestId` case, a duplicate-`tool_use_id` case, and unknown-model/partial-group-null cases for pricing.
-- `hooks/stop-tokens.sh` gets a `--selftest` mode per the repo's existing shell-script convention.
+- `token-metering/db.py`, `parser.py`, `pricing.py`, `server.py` each get unit tests under `token-metering/test_*.py`, mirroring `tools/test_budget.py`'s `tmp_path`-based style — including synthetic fixture transcripts for the two-file main+subagent case, a duplicate-`requestId` case, a duplicate-`tool_use_id` case, and unknown-model/partial-group-null cases for pricing. Gated by `pytest` inside `token-metering/`, per that repo's own `.harness/workflow.md` — not `python tools/budget.py`, which covers only this repo's own artifacts.
+- `hooks/stop-tokens.sh` gets a `--selftest` mode per the repo's existing shell-script convention, and stays gated by `python tools/budget.py` since it ships from this repo.
 - Manual end-to-end: run a real session that dispatches at least one subagent, let `Stop` fire, inspect `.cairn/tokens.db` via the `sqlite3` CLI to confirm `calls` rows exist with correct `agent` attribution, and confirm a second `Stop` doesn't duplicate them.
 - Run `/cairn-tokens`, confirm the dashboard loads, an agent's rollup row expands into its call trace, and a synthetic `usage_limit_events` row surfaces the warning banner.
