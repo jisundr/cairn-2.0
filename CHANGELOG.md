@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the
 
 ## 2026-08-29
 
+- Renamed `docs/features/token-metering/user-flow.md` to `04_user-flow.md`, completing the numbered-doc sequence started by `01_intent.md`; updated pointers in `docs/BUILD_BRIEF.md` §B10, `docs/README.md`, and `01_intent.md`. Docs-only — no version bump.
 - Renamed `docs/features/token-metering/requirements.md` to `02_requirements.md` and `architecture.md` to `03_architecture.md`, extending the numbered-doc convention started by `01_intent.md`; updated pointers in `docs/BUILD_BRIEF.md` §B10, `tools/tokens/db.py`, `docs/README.md`, and the folder's own `user-flow.md`. Docs-only — no version bump.
 - Added `docs/features/token-metering/01_intent.md` — a one-page "why this exists" distilled from `requirements.md`'s Problem/Goals/Non-goals, meant to stay stable while the downstream docs amend with design decisions; updated `docs/README.md`'s description of the folder to match. Docs-only — no version bump.
 - Moved `docs/token-metering/` to `docs/features/token-metering/`, starting a `docs/features/` home for per-feature doc folders; updated pointers in `tools/tokens/db.py`, `docs/features/token-metering/requirements.md`, `docs/BUILD_BRIEF.md` §B10, and `docs/README.md`. Docs-only — no version bump.

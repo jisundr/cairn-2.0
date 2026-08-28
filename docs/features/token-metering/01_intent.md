@@ -25,4 +25,4 @@ This doc is the "why, in one page" — it doesn't get amended as design decision
 
 - `02_requirements.md` — goals, non-goals, stakeholders, constraints, open questions, success criteria.
 - `03_architecture.md` — the capture/serving design and its tradeoffs.
-- `user-flow.md` — the end-to-end developer flows.
+- `04_user-flow.md` — the end-to-end developer flows.
