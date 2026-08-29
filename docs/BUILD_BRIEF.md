@@ -592,12 +592,14 @@ Add `CODEOWNERS` so structural rules are a review gate and not just a sentence.
 
 **Amended:** serve a live local dashboard instead of a static report. A prebuilt frontend (React, Vite, Recharts, Tailwind, shadcn/ui, `@tanstack/react-query`) ships as compiled static assets; a Python stdlib server (`http.server` + `sqlite3`, no new pip dependency) serves them plus the JSON reads. Node/npm is a cairn-dev-time-only build step — a consuming project runs `/cairn-tokens` and never invokes it. Rollups: per-day, per-session, per-agent, with a per-session trace nested under each agent's rollup, and a visible warning when any usage-limit event was recorded. Full requirements: `docs/features/token-metering/02-requirements.md`. Design: `docs/features/token-metering/03-architecture.md`. User flow: `docs/features/token-metering/04-user-flow.md`.
 
+**Amended:** implementation code (`db.py`, `parser.py`, `pricing.py`, `server.py`, `frontend/`) targets a separate `token-metering` git submodule, not `tools/tokens/` in this repo. This repo keeps the design docs plus the two artifacts that stay cairn's own — `hooks/stop-tokens.sh` and `commands/cairn-tokens.md` — which reach across the submodule boundary to invoke the submodule's code. `tools/budget.py` covers only what ships from this repo; the submodule gates itself via its own `.harness/`. Sequencing: `docs/features/token-metering/ROADMAP.md`.
+
 ## B11. Build order
 
 Each phase ends with the §A13 gate.
 
 1. `tools/budget.py` + `tools/test_budget.py` + CI, blocking from the first commit.
-2. `tools/tokens/` — metering, so every later decision is empirical.
+2. Token metering — implementation lives in the `token-metering` submodule (see B10's amendment), sequenced by `docs/features/token-metering/ROADMAP.md`'s milestones; `hooks/stop-tokens.sh` and `commands/cairn-tokens.md` land in this repo alongside it.
 3. `.claude-plugin/` manifests, this repo's `CLAUDE.md`, `README.md`, `docs/REGISTRY.md`, `docs/BUDGET.md`.
 4. `skills/cairn-start/` — the entry point: harness gate (§B3a), scope trigger checklist and record shape (§B6b–c), path choice (§B8).
 5. `skills/cairn-scope/` — the resolution procedure, plus its `reference/` files for vague-request interviews and cross-submodule decomposition.

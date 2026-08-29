@@ -6,7 +6,8 @@ Implementation code (`db.py`, `parser.py`, `pricing.py`, `server.py`, `frontend/
 
 ## Status
 
-- Done: `token-metering/db.py` schema (`calls`, `usage_limit_events`) + `test_db.py`; dashboard mockup (`mockups/dashboard.html`, intentionally not formalized into a design system — one screen, not worth the overhead yet).
+- Done: dashboard mockup (`mockups/dashboard.html`, intentionally not formalized into a design system — one screen, not worth the overhead yet).
+- **Not yet ported**: a `calls`/`usage_limit_events` schema + tests exist, but only in this repo's pre-split `tools/tokens/db.py`/`test_db.py` (committed at `9c0ff58`), plus an uncommitted `tool_uses` addition on top of that file. None of it has been ported into `token-metering/db.py`, which currently has no code at all — only `CLAUDE.md`/`README.md`/`.harness/`. Porting this (and deciding `tools/tokens/`'s fate in this repo) is Track A's M1 Step 0, not a completed prerequisite — see `GOAL-STATE.md`'s log.
 - Unbuilt: everything below.
 
 ## Milestones
@@ -50,8 +51,8 @@ Local dashboard server: Python stdlib `http.server` + `sqlite3`, binds `localhos
 Dev-time React 19 + Vite + Recharts + Tailwind + shadcn/ui + `@tanstack/react-query` (polling at a 15-second interval) source, matching the approved `mockups/dashboard.html` views/states (empty/cold-start, populated, per-session trace expansion, transcript-unavailable trace detail, usage-limit warning banner). Compiled once by maintainers to `token-metering/static/`, which is what actually ships — Node/npm never runs on a consuming project's machine.
 
 - Depends on: M4 (API shape it polls against).
-- Tests: none under `token-metering/test_*.py` (frontend, not stdlib); manual — dashboard loads from `token-metering/static/`, matches mockup states.
-- Gate: `npm run build` inside `token-metering/frontend/` regenerates `static/`, committed as its own artifact, per that repo's `.harness/workflow.md` — no `tools/budget.py`.
+- Tests: Playwright e2e suite under `token-metering/frontend/e2e/`, run against the built `static/` bundle served by `server.py` — covers every `mockups/dashboard.html` state plus the `/call/<session>/<n>` deep-link route; manual only for the 15s-poll timing check.
+- Gate: `npm run build` inside `token-metering/frontend/` regenerates `static/`, then `npx playwright test` against that build, per that repo's `.harness/workflow.md` — no `tools/budget.py`.
 
 ### M6 — `commands/cairn-tokens.md`
 
@@ -78,5 +79,6 @@ Full detail lives in `03-architecture.md`'s Capture side / Serving side and `02-
 ## Testing (cross-milestone)
 
 - Unit tests per component under `token-metering/test_*.py`, `tmp_path`-based, mirroring `tools/test_budget.py`'s style (per `03-architecture.md`'s own Testing section).
+- Playwright e2e suite under `token-metering/frontend/e2e/` for M5, run against the built `static/` bundle.
 - `hooks/stop-tokens.sh --selftest`.
 - Manual end-to-end pass after M6, per `03-architecture.md`: real session → `Stop` fires → `sqlite3` CLI inspection → `/cairn-tokens` → dashboard confirms rollups, trace expansion, warning banner, and idempotency on a second `Stop`.
