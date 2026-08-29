@@ -10,8 +10,8 @@ Definition of done — the conditions that must hold for this feature to be cons
 
 Nothing merged yet. Sprints run as three parallel tracks (full rationale: `GOAL.md`'s Sprint sequence table):
 
-- **Track A — M1** (`db.py`'s `tool_uses` table + `parser.py`): not started; blocked on porting the `tools/tokens/` carryover first (plan's Step 0) — [plan](plans/m1-schema-and-parser.md).
-- **Track B — M3** (`prices.json` + `pricing.py`): not started; unblocked, can start now in parallel with M1 — [plan](plans/m3-pricing.md).
+- **Track A — M1** (`db.py`'s `tool_uses` table + `parser.py`): PR open — https://github.com/jisundr/cairn-2.0-token-metering/pull/2 — [plan](plans/m1-schema-and-parser.md).
+- **Track B — M3** (`prices.json` + `pricing.py`): PR open — https://github.com/jisundr/cairn-2.0-token-metering/pull/1 — [plan](plans/m3-pricing.md).
 - **Track C — M2** (`hooks/stop-tokens.sh`): not started; blocked until Track A's M1 merges — [plan](plans/m2-stop-hook.md).
 - M4/M5/M6 ([plans](plans/README.md)) can't start until their "Starts after" condition in `GOAL.md`'s table is merged.
 

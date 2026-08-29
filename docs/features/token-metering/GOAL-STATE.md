@@ -5,19 +5,19 @@ Detail file, not the entry point — for current status, start at `GOAL-CONDITIO
 ## Milestones
 
 - [ ] **M0** — pre-M1 baseline. Mockup done (`mockups/dashboard.html`). Schema/tests **not done in the submodule**: `calls`/`usage_limit_events` + tests exist only in this repo's legacy `tools/tokens/db.py`/`test_db.py` (committed), plus an **uncommitted** `tool_uses` diff on top of `tools/tokens/db.py` that duplicates part of M1. `token-metering/db.py` itself has no code yet. Resolve before Track A's M1 implement step (its plan's Step 0): port (base + the uncommitted diff, or discard and redo) into `token-metering/db.py`, then decide `tools/tokens/`'s fate in this repo.
-- [ ] **M1** — `token-metering/db.py` (`tool_uses` table) + `parser.py`
-  - [ ] resolve M0's carryover (port or discard `tools/tokens/`'s contents into the submodule)
-  - [ ] `tool_uses` table + main/subagent attribution walker
-  - [ ] route `isApiErrorMessage` entries to `usage_limit_events`
-  - [ ] tests: main+subagent attribution, dup `requestId`, dup `tool_use_id`, unmatched `agentId` → `"unknown"`, synthetic error routing
+- [ ] **M1** — `token-metering/db.py` (`tool_uses` table) + `parser.py` — **PR open**: https://github.com/jisundr/cairn-2.0-token-metering/pull/2
+  - [x] resolve M0's carryover (port or discard `tools/tokens/`'s contents into the submodule)
+  - [x] `tool_uses` table + main/subagent attribution walker
+  - [x] route `isApiErrorMessage` entries to `usage_limit_events`
+  - [x] tests: main+subagent attribution, dup `requestId`, dup `tool_use_id`, unmatched `agentId` → `"unknown"`, synthetic error routing
 - [ ] **M2** — `hooks/stop-tokens.sh`
   - [ ] `Stop` hook: opt-in check, shell out to parser, silent `exit 0` on missing `jq`/field/opt-in
   - [ ] append to `~/.claude/cairn/known-projects.json` on user/local scope installs
   - [ ] `--selftest`; manual check second `Stop` doesn't duplicate rows
-- [ ] **M3** — `token-metering/prices.json` + `pricing.py`
-  - [ ] checked-in `model → $/MTok` table, applied at read time
-  - [ ] unknown model → `"unknown"`; mixed-model rollup → `null`
-  - [ ] `test_pricing.py`
+- [ ] **M3** — `token-metering/prices.json` + `pricing.py` — **PR open**: https://github.com/jisundr/cairn-2.0-token-metering/pull/1
+  - [x] checked-in `model → $/MTok` table, applied at read time
+  - [x] unknown model → `"unknown"`; mixed-model rollup → `null`
+  - [x] `test_pricing.py`
 - [ ] **M4** — `token-metering/server.py`
   - [ ] stdlib `http.server` + `sqlite3`, localhost-only, foreground
   - [ ] JSON API: rollups (day/session/agent/tool/skill/MCP-server), heatmap, per-session trace, on-demand prompt/response lookup
@@ -42,3 +42,7 @@ Detail file, not the entry point — for current status, start at `GOAL-CONDITIO
 - 2026-08-29 — Sprint-closing trigger changed: a sprint's session-level work now ends once its PR is **published** (opened) at `GOAL.md` step 5, not once it's merged — review/merge happens asynchronously, outside that session. A sprint is only marked done (checkbox flipped, downstream tracks unblocked) once a *later* session, resuming from `GOAL-CONDITION.md`, confirms that PR actually merged. Until then the milestone sits in a "PR open" state. Updated `GOAL.md`'s per-sprint steps and `GOAL-CONDITION.md`'s Current status accordingly. No milestone has reached this state yet (nothing started).
 - 2026-08-29 — Added the mid-sprint bug-logging mechanism: a one-line entry in `GOAL-CONDITION.md`'s new "Known issues" section (checked first on resume) plus the full repro/detail as a dated log entry here. `GOAL.md`'s per-sprint step 5 amended with the rule and its "don't open a PR against an unresolved Known-issues entry" constraint.
 - 2026-08-29 — Drift review: the six `plans/mN-*.md` files still had pre-track "Sprint N" titles and "Done when" footers left over from the parallel-track restructuring, with M1's and M2's footers logically wrong (implying a linear M1→M2→M3… chain instead of the actual Track A/B/C sequencing). Retitled all six to `Track X / MN` and rewrote each footer to name the correct next sprint (or "track done" for M2/M3) and require the PR having *merged*, not just opened, consistent with the publish-vs-closed distinction above. Also fixed two stale "Sprint 1" references in living text: `GOAL-STATE.md`'s M0 line and `ROADMAP.md`'s Status section, both now pointing to "Track A's M1 Step 0." Cross-checked and confirmed still accurate: `GOAL-CONDITION.md`'s Per-milestone gate wording matches `ROADMAP.md`'s Gate lines exactly; `plans/README.md`'s Track column matches the corrected plan titles; current git state (`token-metering/db.py` still empty, `tools/tokens/db.py` still carries its uncommitted 22-line `tool_uses` diff) still matches Current status's "nothing started" claim. No other drift found.
+- 2026-08-29 — Ran Track A's M1 and Track B's M3 to their sprint stopping point (PR open), in parallel, each in its own worktree/submodule-branch per `GOAL.md`'s worktree-per-track rule.
+  - **M3**: ported nothing (no carryover needed), built `prices.json` + `pricing.py` via `cairn:builder`. Caught and removed 6 fabricated model IDs (`claude-mythos-5`, `claude-opus-4-6/4-7/4-8`, `claude-opus-4-5-20251101`, `claude-sonnet-4-6`) the builder had invented but that aren't confirmed real Claude model IDs — `prices.json` is meant to reflect real prices, not stub data. `pytest test_pricing.py` → 4 passed. PR: https://github.com/jisundr/cairn-2.0-token-metering/pull/1.
+  - **M1**: Step 0 ported the legacy `tools/tokens/db.py`/`test_db.py` (plus its uncommitted `tool_uses` diff) into `token-metering/db.py`/`test_db.py`, then removed `tools/tokens/` from this repo. Built `parser.py`/`test_parser.py`. The dispatched `cairn:builder` agent's filesystem calls all failed mid-run (worktree-sandbox binding follows the parent session's *current* worktree dynamically — switching tracks while it was still running broke it), but it had already fully drafted both files in its output; applied that drafted content directly rather than re-dispatching. `pytest test_db.py test_parser.py` → 18 passed. The plan's mandated manual test (running `parse_session` against a real transcript with 2 subagent dispatches) then caught a real bug the unit tests missed: `parse_session` looked for subagent files directly under the transcript's parent directory, but the real `~/.claude/projects/<project>/` layout nests them under `<session-id>/subagents/agent-*.jsonl` (a directory named for the transcript's stem, sibling to the `.jsonl` file) — the synthetic test fixtures had encoded the same wrong assumption, so only real-transcript testing surfaced it. Fixed in `parse_session` and the two affected test fixtures before opening the PR (no Known-issues entry needed — resolved on the spot per `GOAL.md`'s rule). Re-verified: 18 passed, correct main/subagent attribution against the real transcript, idempotent on re-run. PR: https://github.com/jisundr/cairn-2.0-token-metering/pull/2.
+  - Both PRs are now open, nothing merged yet. Checked `GOAL.md`'s Sprint sequence table for newly-unblocked tracks: Track C's M2 needs M1 *merged*, and Track A's M4 needs both M1 and M3 *merged* — PR-open isn't enough for either, so no further track is unblocked yet. Session's goal-directed work is complete until a human merges one or both PRs.
