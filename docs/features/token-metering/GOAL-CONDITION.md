@@ -57,3 +57,9 @@ Each milestone's own condition — pulled from `ROADMAP.md`. A milestone isn't d
 - Metering a session cairn's hooks didn't capture.
 - A shared/remote datastore or multi-machine access.
 - A native desktop app.
+
+## Backlog (deferred, not scheduled to a milestone)
+
+Ideas raised during the build that aren't part of any milestone's scope — pick up only if explicitly prioritized later.
+
+- **`prices.json` staleness**: M3 ships it as a hand-maintained, checked-in table with no update trigger — a rate that drifts from Anthropic's published pricing goes undetected (only a model *absent* from the table hits the `"unknown"` path). No mechanism today beyond M3's one-time manual spot-check (`plans/m3-pricing.md` step 4). If ever prioritized: a periodic reminder, a script diffing `prices.json` against the published pricing page, or a live pricing API lookup — the last of which would need to be reconciled with the read-time-only, no-migration invariant above.
