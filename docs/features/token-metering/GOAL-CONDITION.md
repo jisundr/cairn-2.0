@@ -8,12 +8,12 @@ Definition of done — the conditions that must hold for this feature to be cons
 
 **On resume, before starting anything new: for any track below marked "PR open," check whether that PR has merged** (a sprint is published when its PR opens, but only closes on merge — see `GOAL.md`'s per-sprint steps). If merged, update this section and `GOAL-STATE.md` per `GOAL.md`'s resume instructions, then proceed; if not, work a different unblocked track or stop here.
 
-M1 and M3 merged. Sprints run as three parallel tracks (full rationale: `GOAL.md`'s Sprint sequence table):
+M1, M2, M3, and M4 merged. Sprints run as three parallel tracks (full rationale: `GOAL.md`'s Sprint sequence table):
 
-- **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). Track A continues into **M4** (`server.py`) — unblocked now that M1 **and** M3 are both merged — [plan](plans/m4-server.md).
+- **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). **M4** (`server.py`) also merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/3), including a same-day follow-up fix for 6 correctness bugs found in review. Track A continues into **M5** (`frontend/`) — unblocked now that M4 is merged — [plan](plans/m5-frontend.md).
 - **Track B — M3**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/1). Track B is done — it had only the one sprint.
-- **Track C — M2** (`hooks/stop-tokens.sh`): unblocked now that M1 is merged — [plan](plans/m2-stop-hook.md).
-- M5/M6 ([plans](plans/README.md)) still can't start until their own "Starts after" condition in `GOAL.md`'s table is merged.
+- **Track C — M2**: merged (https://github.com/jisundr/cairn-2.0/pull/1). Track C is done — it had only the one sprint.
+- M6 ([plans](plans/README.md)) still can't start until Track A's M5 **and** Track C's M2 are both merged — M2 is done, so M6 is unblocked once M5 merges.
 
 Full history and reasoning behind each of these: `GOAL-STATE.md`'s Log.
 

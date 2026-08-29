@@ -7,8 +7,8 @@ Implementation code (`db.py`, `parser.py`, `pricing.py`, `server.py`, `frontend/
 ## Status
 
 - Done: dashboard mockup (`mockups/dashboard.html`, intentionally not formalized into a design system — one screen, not worth the overhead yet).
-- **Not yet ported**: a `calls`/`usage_limit_events` schema + tests exist, but only in this repo's pre-split `tools/tokens/db.py`/`test_db.py` (committed at `9c0ff58`), plus an uncommitted `tool_uses` addition on top of that file. None of it has been ported into `token-metering/db.py`, which currently has no code at all — only `CLAUDE.md`/`README.md`/`.harness/`. Porting this (and deciding `tools/tokens/`'s fate in this repo) is Track A's M1 Step 0, not a completed prerequisite — see `GOAL-STATE.md`'s log.
-- Unbuilt: everything below.
+- Done: M1 (`db.py`/`parser.py`), M2 (`hooks/stop-tokens.sh`), M3 (`prices.json`/`pricing.py`), M4 (`server.py`) — all merged; see `GOAL-CONDITION.md`'s Current status and `GOAL-STATE.md`'s Log for PR links and detail.
+- Unbuilt: M5 (`frontend/`), M6 (`commands/cairn-tokens.md`).
 
 ## Milestones
 

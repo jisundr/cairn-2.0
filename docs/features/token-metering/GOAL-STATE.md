@@ -10,20 +10,20 @@ Detail file, not the entry point — for current status, start at `GOAL-CONDITIO
   - [x] `tool_uses` table + main/subagent attribution walker
   - [x] route `isApiErrorMessage` entries to `usage_limit_events`
   - [x] tests: main+subagent attribution, dup `requestId`, dup `tool_use_id`, unmatched `agentId` → `"unknown"`, synthetic error routing
-- [ ] **M2** — `hooks/stop-tokens.sh`
-  - [ ] `Stop` hook: opt-in check, shell out to parser, silent `exit 0` on missing `jq`/field/opt-in
-  - [ ] append to `~/.claude/cairn/known-projects.json` on user/local scope installs
-  - [ ] `--selftest`; manual check second `Stop` doesn't duplicate rows
+- [x] **M2** — `hooks/stop-tokens.sh` — merged: https://github.com/jisundr/cairn-2.0/pull/1
+  - [x] `Stop` hook: opt-in check, shell out to parser, silent `exit 0` on missing `jq`/field/opt-in
+  - [x] append to `~/.claude/cairn/known-projects.json` on user/local scope installs
+  - [x] `--selftest`; manual check second `Stop` doesn't duplicate rows
 - [x] **M3** — `token-metering/prices.json` + `pricing.py` — merged: https://github.com/jisundr/cairn-2.0-token-metering/pull/1
   - [x] checked-in `model → $/MTok` table, applied at read time
   - [x] unknown model → `"unknown"`; mixed-model rollup → `null`
   - [x] `test_pricing.py`
-- [ ] **M4** — `token-metering/server.py`
-  - [ ] stdlib `http.server` + `sqlite3`, localhost-only, foreground
-  - [ ] JSON API: rollups (day/session/agent/tool/skill/MCP-server), heatmap, per-session trace, on-demand prompt/response lookup
-  - [ ] cross-project union via `known-projects.json`; cold-start + transcript-unavailable response shapes
-  - [ ] catch-all → `index.html` fallback
-  - [ ] `test_server.py`
+- [x] **M4** — `token-metering/server.py` — merged: https://github.com/jisundr/cairn-2.0-token-metering/pull/3
+  - [x] stdlib `http.server` + `sqlite3`, localhost-only, foreground
+  - [x] JSON API: rollups (day/session/agent/tool/skill/MCP-server), heatmap, per-session trace, on-demand prompt/response lookup
+  - [x] cross-project union via `known-projects.json`; cold-start + transcript-unavailable response shapes
+  - [x] catch-all → `index.html` fallback
+  - [x] `test_server.py`
 - [ ] **M5** — `token-metering/frontend/`
   - [ ] React 19 + Vite + Recharts + Tailwind + shadcn/ui + react-query (15s poll), matching `mockups/dashboard.html`
   - [ ] compiled to `token-metering/static/` via `npm run build`
@@ -48,3 +48,4 @@ Detail file, not the entry point — for current status, start at `GOAL-CONDITIO
   - Both PRs are now open, nothing merged yet. Checked `GOAL.md`'s Sprint sequence table for newly-unblocked tracks: Track C's M2 needs M1 *merged*, and Track A's M4 needs both M1 and M3 *merged* — PR-open isn't enough for either, so no further track is unblocked yet. Session's goal-directed work is complete until a human merges one or both PRs.
 - 2026-08-29 — Filed a backlog idea per user request: `prices.json` (M3) has no update trigger — it's a static, hand-maintained table, and a rate drifting from Anthropic's actual published pricing goes undetected (only a model missing entirely from the table surfaces as `"unknown"`). Added a new "Backlog (deferred, not scheduled to a milestone)" section to `GOAL-CONDITION.md` to hold this and any future such ideas, rather than scheduling it to a milestone or expanding M3's scope after the fact.
 - 2026-08-29 — User confirmed both open PRs merged; verified via `gh pr view` (M3 #1 merged 01:24:42Z, M1 #2 merged 01:25:24Z). Flipped M1 and M3 to done above. Per `GOAL.md`'s resume instructions: Track B is now fully done (M3 was its only sprint). Newly unblocked: Track C's M2 (needed M1 merged) and Track A's M4 (needed M1 **and** M3 merged) — both conditions now satisfied. Starting both next: Track A continues its critical path into M4 (`server.py`); Track C starts M2 (`hooks/stop-tokens.sh`), each in a fresh worktree per `GOAL.md`'s "removed once that sprint's PR merges" rule (the M1/M3 worktrees are retired).
+- 2026-08-29 — Full doc-sync reconciliation ("let's sync everything"). Verified via `gh pr view` across both repos: Track C's M2 merged (`jisundr/cairn-2.0` PR #1, merged 02:40:00Z) and Track A's M4 merged (`jisundr/cairn-2.0-token-metering` PR #3, merged 03:56:37Z) — the latter after a same-day follow-up commit fixing 6 correctness bugs (label-collision disambiguation, null-agent rollup crash, unresolved-detail bucketing, tool-result-echo prompt extraction, sub-second timestamp boundary, unpadded-date day-detail lookup) found via `cairn:review-pr` review of the PR, verified independently, and posted as the PR's review comment before the user merged it. Flipped M2 and M4 to done above. Discovered in the process that a prior session's M1/M3 doc-sync (the "User confirmed both open PRs merged" entry above) had been drafted correctly on a `track-a-m1` worktree but never actually merged into `main` — that worktree had been force-removed earlier for being considered discarded, and while `git worktree remove --force` doesn't delete the underlying branch, its 4 commits (schema/parser port, `tools/tokens/` removal, doc updates, backlog note) sat unmerged until this reconciliation surfaced the gap. Auto-mode's permission classifier initially blocked merging that branch as an unrequested change to a shared branch given the earlier "discard" framing; re-confirmed specifically with the user, then merged (fast-forward, no conflicts). Track A continues into M5 (`frontend/`), now unblocked; Track C (M2) and Track B (M3) are both fully done.
