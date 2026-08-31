@@ -14,20 +14,22 @@ A given sprint (one milestone) still runs exactly as described below — this on
 
 Each sprint:
 
-1. **Implement** the milestone's artifact(s) — `cairn:builder` (writes code and its tests together, no separate test pass).
-2. **Run the build/gate workflow** for what that milestone touches — `token-metering/`'s own `pytest`/`--selftest` per its `.harness/workflow.md`, plus `python tools/budget.py` for anything shipping from this repo (hooks, commands). Gate specifics per milestone are in `ROADMAP.md`'s Gate lines and mirrored in `GOAL-CONDITION.md`.
-3. **Test manually** — `cairn:run` to launch whatever the milestone makes runnable (the hook, the server, the dashboard, `/cairn-tokens` itself once M6 lands), exercising the milestone's own manual-test note in `ROADMAP.md`.
-4. **Confirm tests exist** for the milestone's automated coverage (already produced in step 1 — this is the checkpoint, not a separate writing pass).
-5. **Open a PR for review** — `cairn:review-pr` / the `reviewer` agent, against the milestone's diff only. This is where the session's work on this sprint ends — review and merge happen asynchronously, outside this run.
+1. **Plan** — resolve scope with `cairn:scope` if not already active for this milestone (goal/paths/done_when from `ROADMAP.md`'s milestone entry; `source` set to the milestone's `plans/mN-*.md`; `path: escalated` — every milestone in this feature runs the escalated path regardless of whether it individually trips `cairn:start`'s own escalation trigger, given the feature's existing per-milestone PR/gate/worktree structure). Then dispatch `cairn:planner` to turn that scope into `docs/tasks/<slug>/STATE.md` + a plan referencing paths and contracts, using the milestone's `plans/mN-*.md` as its primary input rather than re-deriving from nothing. **Present the plan for approval** before dispatching `builder` — `planner` never proceeds past this on its own.
+2. **Implement** the milestone's artifact(s) — `cairn:builder`, escalated path (reads the task folder's plan; writes code and its tests together, no separate test pass).
+3. **Run the build/gate workflow** for what that milestone touches — `token-metering/`'s own `pytest`/`--selftest` per its `.harness/workflow.md`, plus `python tools/budget.py` for anything shipping from this repo (hooks, commands). Gate specifics per milestone are in `ROADMAP.md`'s Gate lines and mirrored in `GOAL-CONDITION.md`.
+4. **Test manually** — `cairn:run` to launch whatever the milestone makes runnable (the hook, the server, the dashboard, `/cairn-tokens` itself once M6 lands), exercising the milestone's own manual-test note in `ROADMAP.md`.
+5. **Confirm tests exist** for the milestone's automated coverage (already produced in step 2 — this is the checkpoint, not a separate writing pass).
+6. **Review** — dispatch the `cairn:reviewer` agent (never the `cairn:review-pr` skill, which reviews an already-open PR — this project's own convention is review before a PR exists) against the diff, scoped to the milestone only. Fail → the main thread dispatches `builder` again with the findings, back to step 2. Pass → proceed to step 7; `reviewer` never opens a PR itself.
+7. **Open the PR** — the main thread opens it, diff scoped to the milestone only. This is where the session's work on this sprint ends — merge happens asynchronously, outside this run.
 
-A sprint is **published** once its PR is opened at step 5 — that's the session's own stopping point, and enough to mark that milestone's checkbox in `GOAL-STATE.md` as PR-open (not yet done) and note it in `GOAL-CONDITION.md`'s Current status. It is **closed** only once that PR is actually merged.
+A sprint is **published** once its PR is opened at step 7 — that's the session's own stopping point, and enough to mark that milestone's checkbox in `GOAL-STATE.md` as PR-open (not yet done) and note it in `GOAL-CONDITION.md`'s Current status. It is **closed** only once that PR is actually merged.
 
 The next session that resumes (starting at `GOAL-CONDITION.md`) checks, for any track showing a PR-open sprint: has it merged?
 
 - **Merged** — flip that milestone's checkbox to done in `GOAL-STATE.md`, log it, update `GOAL-CONDITION.md`'s Current status to reflect whatever's now unblocked, and start the next sprint on that track (or a newly-unblocked track).
 - **Not yet merged** — don't start a new sprint on that track. Work a different unblocked track if one exists, or end the session with nothing new to start; re-check on the next invocation.
 
-**Bug hit mid-sprint (steps 1–4) that isn't fixed on the spot** — before ending the session: add a one-line entry to `GOAL-CONDITION.md`'s "Known issues" section (track/milestone, one-line symptom, pointer to the detail below), and write the full detail (repro, what's affected, any fix attempted) as a dated `GOAL-STATE.md` log entry. The next session reads Known issues first and addresses (or consciously re-defers) it before starting new work on that track — don't open a PR for a sprint with an unresolved Known-issues entry against it.
+**Bug hit mid-sprint (steps 2–5) that isn't fixed on the spot** — before ending the session: add a one-line entry to `GOAL-CONDITION.md`'s "Known issues" section (track/milestone, one-line symptom, pointer to the detail below), and write the full detail (repro, what's affected, any fix attempted) as a dated `GOAL-STATE.md` log entry. The next session reads Known issues first and addresses (or consciously re-defers) it before starting new work on that track — don't open a PR for a sprint with an unresolved Known-issues entry against it.
 
 ## Sprint sequence
 
@@ -50,6 +52,7 @@ Each **track** runs in its own git worktree (not each sprint) — up to three ca
 - Track A's and B's sprints touching `token-metering/` (M1, M3, M4, M5) need a branch inside the submodule too — a worktree of the outer repo doesn't branch a submodule for you; each worktree initializes its own submodule checkout independently, so parallel submodule branches (e.g. Track A's M1 branch and Track B's M3 branch) don't collide. Set up the submodule branch before implementing.
 - Within a single track, sprints stay sequential — don't start a track's next sprint until that track's current sprint's PR is merged.
 - Across tracks, only start a sprint once its "Starts after" condition in the table above is actually merged — the table is the gate, not calendar time.
+- `docs/tasks/<slug>/` (the Plan step's task folder) is written in the outer repo's worktree for that track, regardless of which submodule the milestone's code touches.
 
 ## Notes
 
