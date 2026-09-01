@@ -5,7 +5,7 @@ done_when: backend files (server.py, db.py, parser.py, pricing.py, prices.json, 
 out_of_scope: [token-metering/frontend/ source and its build tooling (stays in submodule), changing Claude Code's own plugin-install submodule behavior]
 path: escalated
 phase: reviewed
-key_info: Actionables 1-3 committed (be3a9c6, 494ae38, 02dd7ef, 9b32ca9). Phase-gate green. Reviewer: PASS, no findings. Manual check (Actionable 6): /cairn-tokens verified against a fresh clone with submodule uninitialized — dashboard served correctly from tools/tokens/. PR next.
+key_info: Actionables 1-6 done. Phase-gate green, reviewer PASS. Manual check: /cairn-tokens verified w/ submodule uninitialized. PR next.
 flags:
   - "plugin.json bump: patch, not minor (unattended call)."
 ---
