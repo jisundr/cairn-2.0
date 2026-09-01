@@ -6,7 +6,7 @@ if [ "${1:-}" = --selftest ]; then
   t(){ if "$@"; then p=$((p+1)); else f=$((f+1)); fi; }
   t bash -n "$0"
   kj=".claude/cairn/known-projects.json"
-  stub(){ s="$1/token-metering"; mkdir -p "$s"; printf 'def parse_session(*a):\n (a[0]/"z").touch()\n' >"$s/parser.py"; }
+  stub(){ s="$1/tools/tokens"; mkdir -p "$s"; printf 'def parse_session(*a):\n (a[0]/"z").touch()\n' >"$s/parser.py"; }
   run(){ CLAUDE_PLUGIN_ROOT="$1" HOME="$2" "$0" <<<'{"session_id":"a","transcript_path":"tp","cwd":"'"$3"'"}' >/dev/null 2>&1; }
   w=$(mktemp -d); echo x >"$w/CLAUDE.md"
   o=$("$0" <<<"{\"session_id\":\"a\",\"transcript_path\":\"b\",\"cwd\":\"$w\"}" 2>&1)
@@ -48,6 +48,6 @@ try:
   k=Path(kp);k.parent.mkdir(parents=True,exist_ok=True);d=json.loads(k.read_text()) if k.exists() else []
   if cw not in d:d.append(cw);k.write_text(json.dumps(d)+chr(10))
 except Exception:pass
-' "$pr/token-metering" "$cd" "$tp" "$si" "$cwd" "$kp" >/dev/null 2>&1
+' "$pr/tools/tokens" "$cd" "$tp" "$si" "$cwd" "$kp" >/dev/null 2>&1
 
 exit 0

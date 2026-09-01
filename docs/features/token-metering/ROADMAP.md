@@ -2,13 +2,14 @@
 
 Delivery plan for the remainder of build brief §B10's token-metering feature. Design detail lives in `03-architecture.md`; this doc sequences it into shippable, independently-gated milestones. Kept here (not under `docs/specs/`, which is gitignored) so it stays a committed, citable reference.
 
-Implementation code (`db.py`, `parser.py`, `pricing.py`, `server.py`, `frontend/`) targets the `token-metering` git submodule (`cairn-2.0-token-metering`), not `tools/tokens/` in this repo. This repo keeps the design docs plus the two artifacts that stay cairn's own — `hooks/stop-tokens.sh` (M2) and `commands/cairn-tokens.md` (M6) — which reach across the submodule boundary to invoke the code. `tools/budget.py`'s gate covers only what ships from this repo; it doesn't run against the submodule.
+Milestones M1–M6 below were built against implementation code (`db.py`, `parser.py`, `pricing.py`, `server.py`, `frontend/`) in the `token-metering` git submodule (`cairn-2.0-token-metering`), described as they happened. The backend (everything but `frontend/`) has since been vendored into `tools/tokens/` in this repo — see `docs/tasks/vendor-token-metering-backend/` — so `tools/budget.py`'s walk and `pytest tools/` now gate it directly, and `token-metering/frontend/` (the dev-time React/Vite build) is the only piece still reached across the submodule boundary, by maintainers only.
 
 ## Status
 
 - Done: dashboard mockup (`mockups/dashboard.html`, intentionally not formalized into a design system — one screen, not worth the overhead yet).
 - Done: M1 (`db.py`/`parser.py`), M2 (`hooks/stop-tokens.sh`), M3 (`prices.json`/`pricing.py`), M4 (`server.py`), M5 (`frontend/`), M6 (`commands/cairn-tokens.md`) — all merged; see `GOAL-CONDITION.md`'s Current status and `GOAL-STATE.md`'s Log for PR links and detail.
 - Feature complete — no milestones remain unbuilt.
+- Post-completion: the backend (M1/M3/M4, i.e. everything but `frontend/`) relocated from the `token-metering` submodule to `tools/tokens/` in this repo, fixing `/cairn-tokens` on installs where the submodule never gets recursed — see `docs/tasks/vendor-token-metering-backend/`.
 
 ## Milestones
 

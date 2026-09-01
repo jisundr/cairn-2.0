@@ -48,7 +48,7 @@ Each milestone's own condition — pulled from `ROADMAP.md`. A milestone isn't d
 - No prompt/response text is duplicated into `tokens.db` — always read on demand from the transcript file.
 - Pricing is applied at read time only, never at write time — a price-table update never requires a data migration.
 - Data and server stay local to the developer's machine — no shared or remote datastore, even when unioning across projects at user/local install scope.
-- `tools/budget.py` covers only artifacts shipping from this repo (`hooks/`, `commands/`) — the submodule gates itself.
+- `tools/budget.py` covers only artifacts shipping from this repo (`hooks/`, `commands/`, and now the vendored backend at `tools/tokens/`) — only `token-metering/frontend/` still gates itself via the submodule's own `.harness/`.
 
 ## Explicitly out of scope (not a failure to satisfy these)
 
