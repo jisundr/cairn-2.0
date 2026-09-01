@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the model (§A4) — read by humans only.
 
+## 2026-09-01
+
+- Added `commands/cairn-tokens.md` (Track A / M6 of the token-metering feature, the feature's last milestone) — starts `token-metering/server.py` in the background against the session's project root, waits for its own readiness line rather than a fixed sleep, opens the reported `http://` URL in the default browser, and reports the background task id as the stop mechanism (this command backgrounds the server as a session task, not a foreground terminal process, so Ctrl-C doesn't apply). No changes to the `token-metering` submodule itself. Bumped `.claude-plugin/plugin.json` version to `0.14.0`.
+
 ## 2026-08-29
 
 - Added `hooks/stop-tokens.sh` (Track C / M2 of the token-metering feature) — a `Stop` hook mirroring `hooks/session-start.sh`'s advisory-only, silently-degrading style: on opt-in (`<!-- cairn:start -->` in the project's `CLAUDE.md`), shells out to `token-metering/parser.py`'s `parse_session` to capture the just-ended session's usage into `.cairn/tokens.db`, and appends the project path to `~/.claude/cairn/known-projects.json` when the install is scoped outside the project (detected by checking whether `CLAUDE_PLUGIN_ROOT` falls inside `cwd`). Registered as a new `Stop` entry in `hooks/hooks.json`, sibling to `SessionStart`. No changes to the `token-metering` submodule itself. Bumped `.claude-plugin/plugin.json` version to `0.13.0`.
