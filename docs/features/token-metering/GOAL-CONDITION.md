@@ -13,7 +13,7 @@ M1–M5 merged. Sprints run as three parallel tracks (full rationale: `GOAL.md`'
 - **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). **M4** (`server.py`) also merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/3), including a same-day follow-up fix for 6 correctness bugs found in review. **M5** (`frontend/`) merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/4) — the manual check (15s-poll, mockup-visual pass) was completed by the user directly against the live built `static/` bundle, which also caught a post-review UI fix (trace-row detail-toggle icon changed from a dropdown chevron to an ellipsis, landed as a follow-up commit before merge) — [plan](plans/m5-frontend.md). Track A is now unblocked into **M6** (Track C's M2 prerequisite was already merged).
 - **Track B — M3**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/1). Track B is done — it had only the one sprint.
 - **Track C — M2**: merged (https://github.com/jisundr/cairn-2.0/pull/1). Track C is done — it had only the one sprint.
-- M6 ([plans](plans/README.md)) is unblocked — both prerequisites (Track A's M5, Track C's M2) are merged. Track A's M6 sprint is starting now, in a fresh `track-a-m6` worktree.
+- M6 ([plans](plans/README.md)) is unblocked — both prerequisites (Track A's M5, Track C's M2) are merged. Track A's M6 sprint reached its stopping point: PR open (https://github.com/jisundr/cairn-2.0/pull/2), not yet merged. M6 is the feature's last milestone — once this merges, the only remaining step is closing out the overall Done-when checklist below.
 
 Full history and reasoning behind each of these: `GOAL-STATE.md`'s Log.
 
