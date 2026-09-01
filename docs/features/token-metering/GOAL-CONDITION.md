@@ -10,7 +10,7 @@ Definition of done — the conditions that must hold for this feature to be cons
 
 M1, M2, M3, and M4 merged. Sprints run as three parallel tracks (full rationale: `GOAL.md`'s Sprint sequence table):
 
-- **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). **M4** (`server.py`) also merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/3), including a same-day follow-up fix for 6 correctness bugs found in review. Track A continues into **M5** (`frontend/`) — unblocked now that M4 is merged — [plan](plans/m5-frontend.md).
+- **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). **M4** (`server.py`) also merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/3), including a same-day follow-up fix for 6 correctness bugs found in review. **M5** (`frontend/`) — PR open, not yet merged: https://github.com/jisundr/cairn-2.0-token-metering/pull/4. Gate green (`npm run build` clean, `npx playwright test` 13/13, backend `pytest` 52/52 no regression), `cairn:reviewer` passed with two non-blocking follow-ups (no `popstate` handling on the client-side route; usage-limit banner's 7d window vs. session flag-dot's life-window). The 15s-poll/mockup-visual manual check couldn't be completed this session (browser-automation tool unavailable) — [plan](plans/m5-frontend.md).
 - **Track B — M3**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/1). Track B is done — it had only the one sprint.
 - **Track C — M2**: merged (https://github.com/jisundr/cairn-2.0/pull/1). Track C is done — it had only the one sprint.
 - M6 ([plans](plans/README.md)) still can't start until Track A's M5 **and** Track C's M2 are both merged — M2 is done, so M6 is unblocked once M5 merges.
@@ -21,7 +21,8 @@ Full history and reasoning behind each of these: `GOAL-STATE.md`'s Log.
 
 Bugs hit mid-sprint that weren't fixed on the spot — a resuming session should address or consciously re-defer these before starting a new sprint on the affected track. Empty means none open.
 
-*(none open)*
+- **Track A / M5**: no client-side `popstate` handling — browser Back/Forward after opening the trace drawer or a direct `/call/<session>/<n>` load leaves the URL out of sync with React state. Not a plan requirement, found in review, not fixed on the spot. Detail: `GOAL-STATE.md`'s 2026-09-01 log entry.
+- **Track A / M5**: usage-limit warning banner queries `range: "7d"` while a session row's flag-dot is computed over `range: "life"` — a hit older than 7 days shows the flag-dot but not the banner. Plausibly intentional, found in review, not confirmed either way. Detail: `GOAL-STATE.md`'s 2026-09-01 log entry.
 
 ## Done when (overall)
 
