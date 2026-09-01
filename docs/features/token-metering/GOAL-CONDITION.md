@@ -13,9 +13,7 @@ M1–M5 merged. Sprints run as three parallel tracks (full rationale: `GOAL.md`'
 - **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). **M4** (`server.py`) also merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/3), including a same-day follow-up fix for 6 correctness bugs found in review. **M5** (`frontend/`) merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/4) — the manual check (15s-poll, mockup-visual pass) was completed by the user directly against the live built `static/` bundle, which also caught a post-review UI fix (trace-row detail-toggle icon changed from a dropdown chevron to an ellipsis, landed as a follow-up commit before merge) — [plan](plans/m5-frontend.md). Track A is now unblocked into **M6** (Track C's M2 prerequisite was already merged).
 - **Track B — M3**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/1). Track B is done — it had only the one sprint.
 - **Track C — M2**: merged (https://github.com/jisundr/cairn-2.0/pull/1). Track C is done — it had only the one sprint.
-- M6 ([plans](plans/README.md)) is unblocked — both prerequisites (Track A's M5, Track C's M2) are merged. Not yet started.
-
-**Worktree cleanup pending**: this feature's active worktree (`worktree-track-a-m5`, outer repo) is stale now that M5 merged — per `GOAL.md`'s "removed once that sprint's PR merges" rule it should be removed and a fresh one cut for M6. A session running *inside* that worktree cannot remove it (git refuses to delete the worktree it's currently in); do this from the main `cairn-2.0` checkout: `git worktree remove .claude/worktrees/track-a-m5` (after confirming its outer-repo commits are all pushed to `main`) then `git branch -d worktree-track-a-m5`.
+- M6 ([plans](plans/README.md)) is unblocked — both prerequisites (Track A's M5, Track C's M2) are merged. Track A's M6 sprint reached its stopping point: PR open (https://github.com/jisundr/cairn-2.0/pull/2), not yet merged. M6 is the feature's last milestone — once this merges, the only remaining step is closing out the overall Done-when checklist below.
 
 Full history and reasoning behind each of these: `GOAL-STATE.md`'s Log.
 
@@ -23,8 +21,7 @@ Full history and reasoning behind each of these: `GOAL-STATE.md`'s Log.
 
 Bugs hit mid-sprint that weren't fixed on the spot — a resuming session should address or consciously re-defer these before starting a new sprint on the affected track. Empty means none open.
 
-- **Track A / M5**: no client-side `popstate` handling — browser Back/Forward after opening the trace drawer or a direct `/call/<session>/<n>` load leaves the URL out of sync with React state. Not a plan requirement, found in review, not fixed on the spot. Detail: `GOAL-STATE.md`'s 2026-09-01 log entry.
-- **Track A / M5**: usage-limit warning banner queries `range: "7d"` while a session row's flag-dot is computed over `range: "life"` — a hit older than 7 days shows the flag-dot but not the banner. Plausibly intentional, found in review, not confirmed either way. Detail: `GOAL-STATE.md`'s 2026-09-01 log entry.
+*(none open — the two M5 follow-ups below were consciously re-deferred to Backlog rather than fixed, since neither blocks M6 and reopening merged M5 scope is outside M6's PR)*
 
 ## Done when (overall)
 
@@ -66,3 +63,5 @@ Each milestone's own condition — pulled from `ROADMAP.md`. A milestone isn't d
 Ideas raised during the build that aren't part of any milestone's scope — pick up only if explicitly prioritized later.
 
 - **`prices.json` staleness**: M3 ships it as a hand-maintained, checked-in table with no update trigger — a rate that drifts from Anthropic's published pricing goes undetected (only a model *absent* from the table hits the `"unknown"` path). No mechanism today beyond M3's one-time manual spot-check (`plans/m3-pricing.md` step 4). If ever prioritized: a periodic reminder, a script diffing `prices.json` against the published pricing page, or a live pricing API lookup — the last of which would need to be reconciled with the read-time-only, no-migration invariant above.
+- **M5 frontend: no client-side `popstate` handling**: browser Back/Forward after opening the trace drawer or a direct `/call/<session>/<n>` load leaves the URL out of sync with React state. Found in M5's `cairn:reviewer` pass, not a plan requirement, not fixed on the spot. Re-deferred here (rather than fixed) when starting M6, since it doesn't block M6 and M5's PR is already merged. Detail: `GOAL-STATE.md`'s 2026-09-01 log entry.
+- **M5 frontend: usage-limit banner/flag-dot range mismatch**: the warning banner queries `range: "7d"` while a session row's flag-dot is computed over `range: "life"` — a hit older than 7 days shows the flag-dot but not the banner. Plausibly intentional (matches the 7d convention used elsewhere), found in M5's `cairn:reviewer` pass, not confirmed either way. Re-deferred here for the same reason as above. Detail: `GOAL-STATE.md`'s 2026-09-01 log entry.
