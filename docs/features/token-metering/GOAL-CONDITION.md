@@ -8,12 +8,14 @@ Definition of done — the conditions that must hold for this feature to be cons
 
 **On resume, before starting anything new: for any track below marked "PR open," check whether that PR has merged** (a sprint is published when its PR opens, but only closes on merge — see `GOAL.md`'s per-sprint steps). If merged, update this section and `GOAL-STATE.md` per `GOAL.md`'s resume instructions, then proceed; if not, work a different unblocked track or stop here.
 
-M1, M2, M3, and M4 merged. Sprints run as three parallel tracks (full rationale: `GOAL.md`'s Sprint sequence table):
+M1–M5 merged. Sprints run as three parallel tracks (full rationale: `GOAL.md`'s Sprint sequence table):
 
-- **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). **M4** (`server.py`) also merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/3), including a same-day follow-up fix for 6 correctness bugs found in review. Track A continues into **M5** (`frontend/`) — unblocked now that M4 is merged — [plan](plans/m5-frontend.md).
+- **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). **M4** (`server.py`) also merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/3), including a same-day follow-up fix for 6 correctness bugs found in review. **M5** (`frontend/`) merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/4) — the manual check (15s-poll, mockup-visual pass) was completed by the user directly against the live built `static/` bundle, which also caught a post-review UI fix (trace-row detail-toggle icon changed from a dropdown chevron to an ellipsis, landed as a follow-up commit before merge) — [plan](plans/m5-frontend.md). Track A is now unblocked into **M6** (Track C's M2 prerequisite was already merged).
 - **Track B — M3**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/1). Track B is done — it had only the one sprint.
 - **Track C — M2**: merged (https://github.com/jisundr/cairn-2.0/pull/1). Track C is done — it had only the one sprint.
-- M6 ([plans](plans/README.md)) still can't start until Track A's M5 **and** Track C's M2 are both merged — M2 is done, so M6 is unblocked once M5 merges.
+- M6 ([plans](plans/README.md)) is unblocked — both prerequisites (Track A's M5, Track C's M2) are merged. Not yet started.
+
+**Worktree cleanup pending**: this feature's active worktree (`worktree-track-a-m5`, outer repo) is stale now that M5 merged — per `GOAL.md`'s "removed once that sprint's PR merges" rule it should be removed and a fresh one cut for M6. A session running *inside* that worktree cannot remove it (git refuses to delete the worktree it's currently in); do this from the main `cairn-2.0` checkout: `git worktree remove .claude/worktrees/track-a-m5` (after confirming its outer-repo commits are all pushed to `main`) then `git branch -d worktree-track-a-m5`.
 
 Full history and reasoning behind each of these: `GOAL-STATE.md`'s Log.
 
@@ -21,7 +23,8 @@ Full history and reasoning behind each of these: `GOAL-STATE.md`'s Log.
 
 Bugs hit mid-sprint that weren't fixed on the spot — a resuming session should address or consciously re-defer these before starting a new sprint on the affected track. Empty means none open.
 
-*(none open)*
+- **Track A / M5**: no client-side `popstate` handling — browser Back/Forward after opening the trace drawer or a direct `/call/<session>/<n>` load leaves the URL out of sync with React state. Not a plan requirement, found in review, not fixed on the spot. Detail: `GOAL-STATE.md`'s 2026-09-01 log entry.
+- **Track A / M5**: usage-limit warning banner queries `range: "7d"` while a session row's flag-dot is computed over `range: "life"` — a hit older than 7 days shows the flag-dot but not the banner. Plausibly intentional, found in review, not confirmed either way. Detail: `GOAL-STATE.md`'s 2026-09-01 log entry.
 
 ## Done when (overall)
 
