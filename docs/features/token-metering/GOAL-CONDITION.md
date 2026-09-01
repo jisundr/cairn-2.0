@@ -8,12 +8,12 @@ Definition of done — the conditions that must hold for this feature to be cons
 
 **On resume, before starting anything new: for any track below marked "PR open," check whether that PR has merged** (a sprint is published when its PR opens, but only closes on merge — see `GOAL.md`'s per-sprint steps). If merged, update this section and `GOAL-STATE.md` per `GOAL.md`'s resume instructions, then proceed; if not, work a different unblocked track or stop here.
 
-M1–M5 merged. Sprints run as three parallel tracks (full rationale: `GOAL.md`'s Sprint sequence table):
+M1–M6 merged — the feature is complete. Sprints ran as three parallel tracks (full rationale: `GOAL.md`'s Sprint sequence table):
 
-- **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). **M4** (`server.py`) also merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/3), including a same-day follow-up fix for 6 correctness bugs found in review. **M5** (`frontend/`) merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/4) — the manual check (15s-poll, mockup-visual pass) was completed by the user directly against the live built `static/` bundle, which also caught a post-review UI fix (trace-row detail-toggle icon changed from a dropdown chevron to an ellipsis, landed as a follow-up commit before merge) — [plan](plans/m5-frontend.md). Track A is now unblocked into **M6** (Track C's M2 prerequisite was already merged).
+- **Track A — M1**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/2). **M4** (`server.py`) also merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/3), including a same-day follow-up fix for 6 correctness bugs found in review. **M5** (`frontend/`) merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/4) — the manual check (15s-poll, mockup-visual pass) was completed by the user directly against the live built `static/` bundle, which also caught a post-review UI fix (trace-row detail-toggle icon changed from a dropdown chevron to an ellipsis, landed as a follow-up commit before merge) — [plan](plans/m5-frontend.md). **M6** (`commands/cairn-tokens.md`) merged (https://github.com/jisundr/cairn-2.0/pull/2) — the feature's last milestone.
 - **Track B — M3**: merged (https://github.com/jisundr/cairn-2.0-token-metering/pull/1). Track B is done — it had only the one sprint.
 - **Track C — M2**: merged (https://github.com/jisundr/cairn-2.0/pull/1). Track C is done — it had only the one sprint.
-- M6 ([plans](plans/README.md)) is unblocked — both prerequisites (Track A's M5, Track C's M2) are merged. Track A's M6 sprint reached its stopping point: PR open (https://github.com/jisundr/cairn-2.0/pull/2), not yet merged. M6 is the feature's last milestone — once this merges, the only remaining step is closing out the overall Done-when checklist below.
+- All milestones are merged and the overall Done-when checklist below is satisfied by M6's own manual end-to-end test. The token-metering & dashboard feature is complete; no further milestones remain.
 
 Full history and reasoning behind each of these: `GOAL-STATE.md`'s Log.
 
@@ -25,11 +25,11 @@ Bugs hit mid-sprint that weren't fixed on the spot — a resuming session should
 
 ## Done when (overall)
 
-- [ ] Running `/cairn-tokens` after a cairn session spanning multiple agent dispatches starts a local dashboard whose per-day/per-agent rollups sum to a plausible total against the transcript.
-- [ ] Expanding an agent's rollup row in the per-session view reveals its call-by-call trace, in order, with per-call tokens/cost/duration.
-- [ ] A deliberately triggered usage-limit event surfaces in the dashboard's warning banner rather than being folded into ordinary usage.
-- [ ] Re-processing an already-recorded session's data does not double-count (idempotent on `request_id` / `tool_use_id`).
-- [ ] No `npm`/`node` invocation is required on the machine running `/cairn-tokens`.
+- [x] Running `/cairn-tokens` after a cairn session spanning multiple agent dispatches starts a local dashboard whose per-day/per-agent rollups sum to a plausible total against the transcript.
+- [x] Expanding an agent's rollup row in the per-session view reveals its call-by-call trace, in order, with per-call tokens/cost/duration.
+- [x] A deliberately triggered usage-limit event surfaces in the dashboard's warning banner rather than being folded into ordinary usage.
+- [x] Re-processing an already-recorded session's data does not double-count (idempotent on `request_id` / `tool_use_id`).
+- [x] No `npm`/`node` invocation is required on the machine running `/cairn-tokens`.
 
 ## Per-milestone gate
 

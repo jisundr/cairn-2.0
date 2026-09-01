@@ -7,8 +7,8 @@ Implementation code (`db.py`, `parser.py`, `pricing.py`, `server.py`, `frontend/
 ## Status
 
 - Done: dashboard mockup (`mockups/dashboard.html`, intentionally not formalized into a design system — one screen, not worth the overhead yet).
-- Done: M1 (`db.py`/`parser.py`), M2 (`hooks/stop-tokens.sh`), M3 (`prices.json`/`pricing.py`), M4 (`server.py`), M5 (`frontend/`) — all merged; see `GOAL-CONDITION.md`'s Current status and `GOAL-STATE.md`'s Log for PR links and detail.
-- Unbuilt: M6 (`commands/cairn-tokens.md`).
+- Done: M1 (`db.py`/`parser.py`), M2 (`hooks/stop-tokens.sh`), M3 (`prices.json`/`pricing.py`), M4 (`server.py`), M5 (`frontend/`), M6 (`commands/cairn-tokens.md`) — all merged; see `GOAL-CONDITION.md`'s Current status and `GOAL-STATE.md`'s Log for PR links and detail.
+- Feature complete — no milestones remain unbuilt.
 
 ## Milestones
 
