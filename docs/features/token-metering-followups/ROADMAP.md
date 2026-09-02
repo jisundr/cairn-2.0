@@ -10,7 +10,7 @@ The remaining two issues (2, 5) touch only `token-metering/frontend/`, which isn
 
 ## Status
 
-Wave 1 done (commits `f87eaa8`, `6e31ae1`): issue 6's vendoring drift guard (`tools/tokens/check_vendoring_sync.py` + the `vendoring-drift` CI job) and issue 7's `03-architecture.md` correction are merged. Waves 2-4 (issues 1-5) not started.
+All four waves done. Wave 1 (commits `f87eaa8`, `6e31ae1`): issue 6's vendoring drift guard (`tools/tokens/check_vendoring_sync.py` + the `vendoring-drift` CI job) and issue 7's `03-architecture.md` correction. Wave 2 (commits `aec41ce`, `b69c24a`): issue 1's ghost-project cleanup in `discover_projects()` and issue 3's session-scoped indexes + bounded query path. Wave 3 (commit `94ccbae`): issue 4's `global_position` call-ordering contract, with `SessionDrilldown.tsx`'s duplicated client-side sort deleted in the same change. Wave 4 (commits `4771739`, `16b2f87` + submodule `7319ff1`): issue 2's agent-row badge wrap and `HbarList` row cap, and issue 5's UTC-to-local time rendering plus the `/api/heatmap` wire-shape redesign (raw per-call rows, client-side local bucketing) to handle DST transitions correctly. All seven issues in `requirements.md` are closed.
 
 ## Waves
 
