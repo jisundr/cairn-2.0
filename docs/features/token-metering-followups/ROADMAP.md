@@ -10,7 +10,7 @@ The remaining two issues (2, 5) touch only `token-metering/frontend/`, which isn
 
 ## Status
 
-Not started — this roadmap and the specs it sequences are documentation only (`requirements.md`'s Non-goals). No wave has been built yet.
+Wave 1 done (commits `f87eaa8`, `6e31ae1`): issue 6's vendoring drift guard (`tools/tokens/check_vendoring_sync.py` + the `vendoring-drift` CI job) and issue 7's `03-architecture.md` correction are merged. Waves 2-4 (issues 1-5) not started.
 
 ## Waves
 
