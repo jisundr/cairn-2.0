@@ -24,3 +24,14 @@ jobs:
       - run: |
           shopt -s nullglob globstar
           for s in tools/**/*.sh; do "$s" --selftest || exit 1; done
+
+  vendoring-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python tools/tokens/check_vendoring_sync.py

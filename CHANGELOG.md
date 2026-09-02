@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the model (§A4) — read by humans only.
 
+## 2026-09-02
+
+- Added `tools/tokens/check_vendoring_sync.py` (`docs/features/token-metering-followups/specs/06-vendoring-drift-guard.md`) — a standalone stdlib script that fails if `tools/tokens/` and the `token-metering` submodule's frozen backend copy disagree, byte-for-byte, on any of the nine files that should stay in sync (`db.py`, `parser.py`, `pricing.py`, `prices.json`, `server.py`, and their four `test_*.py` files); not wired into `python tools/budget.py` or `pytest tools/`, since both intentionally run without the submodule checked out. Added a new `vendoring-drift` job to `.github/workflows/ci.yml`, sibling to the existing `budget` job, that checks out the submodule (`submodules: true`) and runs the script — the two jobs get independent checkouts, so `budget`'s own submodule-absent checkout is untouched. No version bump — new CI tooling, not a plugin capability change.
+
 ## 2026-09-01
 
 - Regenerated `docs/BUDGET.md` (`python tools/budget.py --report`) to reflect the size deltas from the two preceding token-metering-relocation commits (`commands/cairn-tokens.md`, `hooks/stop-tokens.sh`). Docs-only, no version bump.
