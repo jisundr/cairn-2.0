@@ -1,0 +1,1647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Token Metering — dashboard baseline</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #eef0ee;
+    --paper-line: #d7dbd8;
+    --ink: #2a2d2c;
+    --ink-soft: #6b706e;
+    --graphite: #9aa19e;
+    --block: #dde1de;
+    --block-line: #b7bdb9;
+    --window: #ffffff;
+    --blue: #4f6f92;
+    --blue-soft: #e4eaf1;
+    --amber: #b98a4e;
+    --violet: #7d6f9e;
+    --flag: #a94a3d;
+    --flag-soft: #f4e3e0;
+    --font-label: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --font-body: "Archivo", -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle, var(--paper-line) 1px, transparent 1px);
+    background-size: 22px 22px;
+    padding: 40px 20px 60px;
+  }
+
+  .page-head {
+    max-width: 1180px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .page-head h1 {
+    font-family: var(--font-label);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .page-head p {
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .window {
+    max-width: 1180px;
+    margin: 0 auto;
+    background: var(--window);
+    border: 1px solid var(--block-line);
+    border-radius: 10px;
+    box-shadow: 0 1px 0 var(--paper-line);
+  }
+
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px;
+    background: var(--block);
+    border-bottom: 1px solid var(--block-line);
+    border-radius: 9px 9px 0 0;
+  }
+
+  .chrome .dots { display: flex; gap: 6px; }
+  .chrome .dots span {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--block-line);
+    display: inline-block;
+  }
+  .chrome .url {
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: var(--ink-soft);
+    background: var(--window);
+    border: 1px solid var(--block-line);
+    border-radius: 5px;
+    padding: 4px 10px;
+    flex: 1;
+    max-width: 320px;
+  }
+
+  .app {
+    padding: 26px 28px 34px;
+  }
+
+  .app-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand .mark {
+    width: 28px; height: 28px;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    position: relative;
+    flex: none;
+  }
+  .brand .mark::before,
+  .brand .mark::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    background: var(--ink);
+    transform: translateX(-50%);
+  }
+  .brand .mark::before { width: 2px; top: 5px; bottom: 5px; }
+  .brand .mark::after { height: 2px; left: 5px; right: 5px; top: 50%; width: auto; transform: translateY(-50%); }
+
+  .brand-text h2 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .brand-text span {
+    display: block;
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .brand-text .brand-scope-all { display: none; }
+  body:has(#scope-all:checked) .brand-text .brand-scope-project { display: none; }
+  body:has(#scope-all:checked) .brand-text .brand-scope-all { display: block; }
+
+  .status-cluster {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+  }
+
+  .pill {
+    border: 1px solid var(--block-line);
+    background: var(--block);
+    border-radius: 999px;
+    padding: 5px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    border: 1.5px solid var(--blue);
+    color: var(--blue);
+    font-family: var(--font-label);
+    font-size: 10px;
+    font-weight: 700;
+    flex: none;
+  }
+  .badge.flag { border-color: var(--flag); color: var(--flag); }
+
+  .app-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--paper-line);
+    font-family: var(--font-label);
+    font-size: 12px;
+  }
+  .app-tabs a {
+    cursor: pointer;
+    padding: 8px 3px 10px;
+    margin-bottom: -1px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    user-select: none;
+  }
+  /* tab state is the URL hash (#tab-dashboard/#tab-sessions targeting the
+     panel below), not JS or radio state — deep links and back/forward work. */
+  body:not(:has(#tab-sessions:target)) .app-tabs .tab-dashboard-link,
+  body:has(#tab-sessions:target) .app-tabs .tab-sessions-link {
+    color: var(--ink);
+    font-weight: 700;
+    border-bottom-color: var(--blue);
+  }
+
+  .warning-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1.5px dashed var(--flag);
+    background: var(--flag-soft);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 13.5px;
+  }
+  .warning-banner strong { font-weight: 600; }
+  .warning-banner code { background: rgba(169,74,61,0.1); padding: 1px 5px; border-radius: 3px; }
+  .warning-banner .flag-icon {
+    width: 20px; height: 20px;
+    border: 1.5px solid var(--flag);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-label);
+    font-size: 12px;
+    color: var(--flag);
+    flex: none;
+  }
+  .warning-banner a,
+  .warning-banner-link {
+    margin-left: auto;
+    cursor: pointer;
+    color: var(--flag);
+    font-family: var(--font-label);
+    font-size: 12px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--flag);
+    white-space: nowrap;
+  }
+
+  .rollups {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+
+  .panel {
+    border: 1px solid var(--block-line);
+    border-radius: 8px;
+    padding: 16px 18px 18px;
+    background: #fff;
+  }
+
+  .panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    font-family: var(--font-label);
+    margin-bottom: 14px;
+  }
+
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 108px;
+  }
+
+  .bar-chart .col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .bar-chart .bar {
+    width: 100%;
+    background: var(--block);
+    border: 1px solid var(--block-line);
+    border-radius: 3px 3px 0 0;
+    position: relative;
+  }
+  .bar-chart .col { cursor: pointer; }
+  input.day-radio { position: absolute; opacity: 0; width: 0; height: 0; }
+  input.day-radio:checked + .col .bar {
+    background: var(--blue-soft);
+    border-color: var(--blue);
+  }
+
+  .bar-chart .day {
+    font-family: var(--font-label);
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+
+  .bar-chart.hourly { gap: 3px; }
+  .bar-chart.spark { gap: 2px; }
+  .bar-chart.spark .col { cursor: default; gap: 0; }
+  .bar-chart.spark .bar { border-radius: 1px 1px 0 0; }
+  .bar-chart.daily { gap: 4px; }
+  .bar-chart.monthly { gap: 14px; }
+  .bar-chart.monthly .col { cursor: default; }
+
+  .chart-set { display: none; }
+  body:has(#range-today:checked) .chart-set-today,
+  body:has(#range-daily:checked) .chart-set-daily,
+  body:has(#range-monthly:checked) .chart-set-monthly { display: block; }
+
+  .chart-tabs {
+    display: flex;
+    margin-bottom: 14px;
+    font-family: var(--font-label);
+    font-size: 10.5px;
+  }
+  .chart-tabs input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .chart-tabs label {
+    cursor: pointer;
+    padding: 5px 11px;
+    border: 1px solid var(--block-line);
+    border-left: none;
+    background: var(--paper);
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    user-select: none;
+  }
+  .chart-tabs label:first-of-type { border-left: 1px solid var(--block-line); border-radius: 5px 0 0 5px; }
+  .chart-tabs label:last-of-type { border-radius: 0 5px 5px 0; }
+  .chart-tabs input:checked + label {
+    background: var(--window);
+    color: var(--ink);
+    font-weight: 700;
+    border-color: var(--blue);
+    position: relative;
+    z-index: 1;
+  }
+
+  .chart-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-bottom: 14px;
+  }
+  .chart-controls .chart-tabs { margin-bottom: 0; }
+
+  .chart-headline {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .chart-headline-sub {
+    display: block;
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 3px;
+  }
+  .chart-headline-num {
+    font-size: 22px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .day-detail {
+    margin-top: 14px;
+    border: 1px solid var(--block-line);
+    border-radius: 7px;
+    background: var(--paper);
+    padding: 12px 14px;
+  }
+  .day-detail-panel { display: none; }
+  body:has(#day-1:checked) .day-detail-1,
+  body:has(#day-2:checked) .day-detail-2,
+  body:has(#day-3:checked) .day-detail-3,
+  body:has(#day-4:checked) .day-detail-4,
+  body:has(#day-5:checked) .day-detail-5,
+  body:has(#day-6:checked) .day-detail-6,
+  body:has(#day-7:checked) .day-detail-7,
+  body:has(#day-8:checked) .day-detail-8,
+  body:has(#day-9:checked) .day-detail-9,
+  body:has(#day-10:checked) .day-detail-10,
+  body:has(#day-11:checked) .day-detail-11,
+  body:has(#day-12:checked) .day-detail-12,
+  body:has(#day-13:checked) .day-detail-13,
+  body:has(#day-14:checked) .day-detail-14,
+  body:has(#day-15:checked) .day-detail-15,
+  body:has(#day-16:checked) .day-detail-16,
+  body:has(#day-17:checked) .day-detail-17,
+  body:has(#day-18:checked) .day-detail-18,
+  body:has(#day-19:checked) .day-detail-19,
+  body:has(#day-20:checked) .day-detail-20 { display: block; }
+  .day-detail-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .day-detail-total { color: var(--ink-soft); font-weight: 400; }
+  .day-detail-row {
+    display: grid;
+    grid-template-columns: 8px 1fr 60px 70px;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-label);
+    font-size: 11px;
+    padding: 3px 0;
+  }
+  .day-detail-row .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .day-detail-row .model-cost,
+  .day-detail-row .model-tok { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+  .day-detail-empty { margin: 0; font-size: 11.5px; color: var(--ink-soft); }
+
+  .hbar-list { display: flex; flex-direction: column; gap: 10px; }
+  .hbar-row { display: grid; grid-template-columns: minmax(76px, auto) 1fr 54px; align-items: center; gap: 10px; }
+  .hbar-row .label {
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    color: var(--ink);
+  }
+
+  .hbar-group-label {
+    font-family: var(--font-label);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--graphite);
+    margin: 0 0 8px;
+  }
+  .hbar-list + .hbar-group-label { margin-top: 14px; }
+  .hbar-more {
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .hbar-empty {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .heatmap { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; }
+  .heatmap-hours,
+  .heatmap-row { display: grid; grid-template-columns: 26px repeat(24, 1fr); gap: 3px; align-items: center; }
+  .heatmap-hours { font-family: var(--font-label); font-size: 8.5px; color: var(--ink-soft); margin-bottom: 1px; }
+  .heatmap-row .dow {
+    font-family: var(--font-label);
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+  .heatmap-cell { aspect-ratio: 1; border-radius: 2px; }
+  .hm-0 { background: var(--paper); border: 1px solid var(--paper-line); }
+  .hm-1 { background: #d7e0ea; }
+  .hm-2 { background: #a9c0d6; }
+  .hm-3 { background: #6f93b5; }
+  .hm-4 { background: var(--blue); }
+  .heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    font-family: var(--font-label);
+    font-size: 9.5px;
+    color: var(--ink-soft);
+  }
+  .hm-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .hbar-track {
+    height: 12px;
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .hbar-fill {
+    height: 100%;
+    background: var(--block);
+    border-right: 1px solid var(--block-line);
+  }
+  .hbar-row .count {
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sessions {
+    margin-bottom: 22px;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 14px;
+  }
+  .pill-row .pill-item {
+    padding: 5px 12px;
+    border: 1px solid var(--block-line);
+    border-radius: 999px;
+    background: var(--block);
+    color: var(--ink-soft);
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .pill-row .pill-item.active {
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-weight: 700;
+    border-color: var(--blue);
+  }
+
+  .flag-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--flag);
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .sessions-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .sessions-detail-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  .sessions-scroll {
+    max-height: 420px;
+    overflow-y: auto;
+    border: 1px solid var(--block-line);
+    border-radius: 8px;
+  }
+
+  .session-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .session-item {
+    cursor: pointer;
+    padding: 10px 12px;
+    border-bottom: 1px dashed var(--paper-line);
+  }
+  .session-item:last-child { border-bottom: none; }
+  .session-item.selected {
+    background: var(--blue-soft);
+    border-left: 3px solid var(--blue);
+    padding-left: 9px;
+  }
+  .session-item-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 3px;
+  }
+  .session-item-top .flag-dot {
+    flex-shrink: 0;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: 0;
+  }
+  .session-label {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .session-item-meta {
+    display: block;
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .item-project { display: none; }
+  body:has(#scope-all:checked) .item-project { display: inline; }
+
+  .drilldown {
+    border: 1px solid var(--block-line);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .drilldown-head {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--block-line);
+    background: var(--block);
+    border-radius: 7px 7px 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .drilldown-head .session-title {
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .drilldown-head .session-meta {
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+  }
+
+  .agent-select-list { border-bottom: 1px solid var(--block-line); }
+
+  .agent-select {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .agent-row {
+    cursor: pointer;
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: 18px 110px 1fr 90px 90px 70px;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .agent-select-list .agent-row:last-of-type { border-bottom: none; }
+  .agent-row::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    border: 1.5px solid var(--block-line);
+  }
+  .agent-select:checked + .agent-row { background: var(--blue-soft); }
+  .agent-select:checked + .agent-row::before { background: var(--blue); border-color: var(--blue); }
+  .agent-select:focus-visible + .agent-row { outline: 2px solid var(--blue); outline-offset: -2px; }
+
+  #agent-select-main:checked + .agent-row::before { background: var(--blue); border-color: var(--blue); }
+  #agent-select-builder:checked + .agent-row::before { background: var(--amber); border-color: var(--amber); }
+  #agent-select-reviewer:checked + .agent-row::before { background: var(--violet); border-color: var(--violet); }
+
+  .agent-name {
+    font-weight: 600;
+  }
+  .agent-name .agent-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+  .agent-name .tag {
+    display: inline-block;
+    margin-left: 6px;
+    font-family: var(--font-label);
+    font-size: 9.5px;
+    color: var(--ink-soft);
+    border: 1px solid var(--block-line);
+    border-radius: 3px;
+    padding: 1px 5px;
+    text-transform: lowercase;
+  }
+  .mini-bar {
+    height: 8px;
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .mini-bar-fill { height: 100%; background: var(--block-line); }
+  .mini-bar-fill.mini-bar-main { background: var(--blue); }
+  .mini-bar-fill.mini-bar-builder { background: var(--amber); }
+  .mini-bar-fill.mini-bar-reviewer { background: var(--violet); }
+  .agent-stat {
+    font-family: var(--font-label);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .agent-cost {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chat-thread {
+    margin: 4px 18px 16px;
+    padding: 16px 18px 4px;
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    border-radius: 8px;
+  }
+  .chat-thread-label {
+    font-family: var(--font-label);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .chat-turn {
+    padding-bottom: 16px;
+    padding-left: 11px;
+    border-left: 3px solid var(--block-line);
+    transition: opacity 0.15s ease;
+  }
+  .chat-turn + .chat-turn {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--paper-line);
+  }
+  .chat-turn-main { border-left-color: var(--blue); }
+  .chat-turn-builder { border-left-color: var(--amber); }
+  .chat-turn-reviewer { border-left-color: var(--violet); }
+  body:has(.agent-select:checked) .chat-turn { opacity: 0.32; }
+  body:has(#agent-select-main:checked) .chat-turn-main,
+  body:has(#agent-select-builder:checked) .chat-turn-builder,
+  body:has(#agent-select-reviewer:checked) .chat-turn-reviewer {
+    opacity: 1;
+  }
+  .chat-turn-meta {
+    font-family: var(--font-label);
+    font-size: 10px;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .chat-turn-meta .chat-turn-agent { font-weight: 700; }
+  .chat-turn-main .chat-turn-agent { color: var(--blue); }
+  .chat-turn-builder .chat-turn-agent { color: var(--amber); }
+  .chat-turn-reviewer .chat-turn-agent { color: var(--violet); }
+  .chat-msg { max-width: 80%; margin-bottom: 10px; }
+  .chat-msg:last-child { margin-bottom: 0; }
+  .chat-msg-prompt { margin-right: auto; }
+  .chat-msg-response { margin-left: auto; }
+  .chat-msg-role {
+    display: block;
+    font-family: var(--font-label);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .chat-msg-response .chat-msg-role { text-align: right; }
+  .chat-bubble {
+    background: #fff;
+    border: 1px solid var(--paper-line);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .chat-msg-response .chat-bubble { background: var(--blue-soft); border-color: var(--blue-soft); }
+
+  .greek-line { height: 7px; background: var(--block); border-radius: 2px; margin-bottom: 6px; }
+  .greek-line:last-child { margin-bottom: 0; }
+  .trace-detail-note {
+    margin: 16px 0 0;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    border-top: 1px dashed var(--paper-line);
+    padding-top: 12px;
+    line-height: 1.5;
+  }
+  .trace-detail-note code { background: var(--block); padding: 1px 5px; border-radius: 3px; }
+  .trace-detail-unavailable {
+    margin: 0;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    border: 1px dashed var(--block-line);
+    border-radius: 6px;
+    padding: 10px 12px;
+    line-height: 1.5;
+  }
+
+  .legend {
+    max-width: 1180px;
+    margin: 22px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .legend .item { display: flex; align-items: baseline; gap: 8px; }
+  .legend .item .n {
+    flex: none;
+    color: var(--graphite);
+  }
+
+  .hint {
+    margin: -6px 0 12px;
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+
+  .notes-box {
+    max-width: 1180px;
+    margin: 22px auto 0;
+    border: 1.5px dashed var(--block-line);
+    border-radius: 8px;
+    padding: 16px 18px;
+    background: #fff;
+  }
+  .notes-box .panel-title { margin-bottom: 8px; }
+  .notes-box p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  footer {
+    max-width: 1180px;
+    margin: 22px auto 0;
+    font-family: var(--font-label);
+    font-size: 11px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--paper-line);
+    padding-top: 14px;
+  }
+  footer a, footer code { color: var(--blue); }
+
+  .state-toggle {
+    max-width: 1180px;
+    margin: 0 auto 16px;
+    display: flex;
+    font-family: var(--font-label);
+    font-size: 11px;
+  }
+  .state-toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .state-toggle label {
+    cursor: pointer;
+    padding: 7px 16px;
+    border: 1px solid var(--block-line);
+    background: var(--block);
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+  .state-toggle label:nth-of-type(1) { border-radius: 6px 0 0 6px; }
+  .state-toggle label:nth-of-type(2) { border-radius: 0 6px 6px 0; border-left: none; }
+  .state-toggle input:checked + label {
+    background: var(--window);
+    color: var(--ink);
+    font-weight: 700;
+    border-color: var(--blue);
+    position: relative;
+    z-index: 1;
+  }
+
+  .view-empty { display: none; }
+  body:has(#state-empty:checked) .view-populated { display: none; }
+  body:has(#state-empty:checked) .view-empty { display: block; }
+
+  .tab-panel-sessions { display: none; }
+  body:has(#tab-sessions:target) .tab-panel-dashboard { display: none; }
+  body:has(#tab-sessions:target) .tab-panel-sessions { display: block; }
+  /* clamps the native jump-to-#anchor scroll to the top of the page instead
+     of scrolling the tab panel to the very top of the viewport, which would
+     hide the chrome/tab bar above it */
+  #tab-dashboard, #tab-sessions { scroll-margin-top: 9999px; }
+
+  .scope-toggle { margin-top: -8px; }
+
+  .panel-projects { display: none; }
+  body:has(#scope-all:checked) .panel-projects { display: block; }
+
+  .project-filter {
+    display: none;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 14px;
+  }
+  body:has(#scope-all:checked) .project-filter { display: flex; }
+  .project-filter input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .project-filter label {
+    cursor: pointer;
+    padding: 5px 12px;
+    border: 1px solid var(--block-line);
+    border-radius: 999px;
+    background: var(--block);
+    color: var(--ink-soft);
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+  .project-filter input:checked + label {
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-weight: 700;
+    border-color: var(--blue);
+  }
+
+  body:has(#scope-all:checked #proj-cairn:checked) .session-list li:not(.proj-cairn) { display: none; }
+  body:has(#scope-all:checked #proj-rivet:checked) .session-list li:not(.proj-rivet) { display: none; }
+  body:has(#scope-all:checked #proj-phito:checked) .session-list li:not(.proj-phito) { display: none; }
+
+  .empty-state {
+    max-width: 460px;
+    margin: 32px auto;
+    text-align: center;
+    padding: 34px 30px;
+    border: 1.5px dashed var(--block-line);
+    border-radius: 10px;
+    background: var(--paper);
+  }
+  .empty-mark {
+    width: 46px; height: 46px;
+    margin: 0 auto 16px;
+    border: 1.5px dashed var(--graphite);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-label);
+    font-size: 18px;
+    color: var(--ink-soft);
+  }
+  .empty-state h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .empty-state > p {
+    margin: 0 0 22px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .empty-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    margin-bottom: 22px;
+  }
+  .empty-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+  }
+  .step-num {
+    flex: none;
+    width: 18px; height: 18px;
+    border: 1px solid var(--block-line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-label);
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+  .empty-note {
+    font-family: var(--font-label);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    border-top: 1px dashed var(--paper-line);
+    padding-top: 14px;
+  }
+  .empty-note code {
+    background: var(--block);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="page-head">
+    <h1>Baseline mockup — token metering dashboard</h1>
+    <p>docs/features/token-metering-dashboard-ui/mockups/dashboard.html · mirrors the built dashboard, 2026-09-03 · mark up here to propose changes</p>
+  </div>
+
+  <div class="state-toggle">
+    <input type="radio" name="dash-state" id="state-populated" checked>
+    <label for="state-populated">Populated</label>
+    <input type="radio" name="dash-state" id="state-empty">
+    <label for="state-empty">Empty · cold start</label>
+  </div>
+
+  <div class="state-toggle scope-toggle">
+    <input type="radio" name="install-scope" id="scope-project" checked>
+    <label for="scope-project">Project-scope install</label>
+    <input type="radio" name="install-scope" id="scope-all">
+    <label for="scope-all">User/local-scope install · multi-project</label>
+  </div>
+
+  <div class="window">
+    <div class="chrome">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url">127.0.0.1:4317</div>
+    </div>
+
+    <div class="app">
+      <div class="app-head">
+        <div class="brand">
+          <div class="mark"></div>
+          <div class="brand-text">
+            <h2>Token Metering</h2>
+            <span class="brand-scope brand-scope-project">cairn-2.0 · local dashboard</span>
+            <span class="brand-scope brand-scope-all">cairn · local dashboard · multi-project</span>
+          </div>
+        </div>
+        <div class="status-cluster">
+          <span class="pill">↻ auto-refresh 15s</span>
+          <span class="pill">refresh now</span>
+          <span>updated 12s ago</span>
+        </div>
+      </div>
+
+      <div class="view view-populated">
+      <div class="app-tabs">
+        <a href="#tab-dashboard" class="tab-dashboard-link">Dashboard</a>
+        <a href="#tab-sessions" class="tab-sessions-link">Sessions</a>
+      </div>
+
+      <div class="tab-panel-dashboard" id="tab-dashboard">
+      <div class="warning-banner">
+        <span class="flag-icon">!</span>
+        <span><strong>Usage limit hit</strong> 2 times — session <code>0e17c6d4-8a3f-4b52-9d6c-1e8f4a2b7c95</code></span>
+        <span class="badge flag">2</span>
+        <a href="#tab-sessions" class="warning-banner-link">view session →</a>
+      </div>
+
+      <div class="rollups">
+        <div class="panel">
+          <div class="panel-title">Tokens / day</div>
+
+          <div class="chart-controls">
+            <div class="chart-tabs">
+              <input type="radio" name="chart-range" id="range-today"><label for="range-today">Today</label>
+              <input type="radio" name="chart-range" id="range-daily" checked><label for="range-daily">Daily</label>
+              <input type="radio" name="chart-range" id="range-monthly"><label for="range-monthly">Monthly</label>
+            </div>
+          </div>
+
+          <div class="chart-set chart-set-today">
+            <div class="chart-headline">
+              <div><span class="chart-headline-sub">Today</span><span class="chart-headline-num">254k tokens</span></div>
+            </div>
+            <div class="bar-chart hourly">
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day">00</span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day">04</span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day">08</span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:100%"></div><span class="day">12</span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day">16</span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day">20</span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+            </div>
+          </div>
+
+          <div class="chart-set chart-set-daily">
+            <div class="chart-headline">
+              <div><span class="chart-headline-sub">Last 20 days</span><span class="chart-headline-num">678M tokens</span></div>
+            </div>
+
+            <div class="bar-chart daily">
+              <input type="radio" name="day-pick" id="day-1" class="day-radio">
+              <label class="col" for="day-1"><div class="bar" style="height:22%"></div><span class="day">15</span></label>
+              <input type="radio" name="day-pick" id="day-2" class="day-radio">
+              <label class="col" for="day-2"><div class="bar" style="height:58%"></div><span class="day">16</span></label>
+              <input type="radio" name="day-pick" id="day-3" class="day-radio">
+              <label class="col" for="day-3"><div class="bar" style="height:2%"></div><span class="day">17</span></label>
+              <input type="radio" name="day-pick" id="day-4" class="day-radio">
+              <label class="col" for="day-4"><div class="bar" style="height:45%"></div><span class="day">18</span></label>
+              <input type="radio" name="day-pick" id="day-5" class="day-radio">
+              <label class="col" for="day-5"><div class="bar" style="height:67%"></div><span class="day">19</span></label>
+              <input type="radio" name="day-pick" id="day-6" class="day-radio">
+              <label class="col" for="day-6"><div class="bar" style="height:2%"></div><span class="day">20</span></label>
+              <input type="radio" name="day-pick" id="day-7" class="day-radio">
+              <label class="col" for="day-7"><div class="bar" style="height:30%"></div><span class="day">21</span></label>
+              <input type="radio" name="day-pick" id="day-8" class="day-radio">
+              <label class="col" for="day-8"><div class="bar" style="height:88%"></div><span class="day">22</span></label>
+              <input type="radio" name="day-pick" id="day-9" class="day-radio">
+              <label class="col" for="day-9"><div class="bar" style="height:2%"></div><span class="day">23</span></label>
+              <input type="radio" name="day-pick" id="day-10" class="day-radio">
+              <label class="col" for="day-10"><div class="bar" style="height:52%"></div><span class="day">24</span></label>
+              <input type="radio" name="day-pick" id="day-11" class="day-radio">
+              <label class="col" for="day-11"><div class="bar" style="height:20%"></div><span class="day">25</span></label>
+              <input type="radio" name="day-pick" id="day-12" class="day-radio">
+              <label class="col" for="day-12"><div class="bar" style="height:95%"></div><span class="day">26</span></label>
+              <input type="radio" name="day-pick" id="day-13" class="day-radio">
+              <label class="col" for="day-13"><div class="bar" style="height:40%"></div><span class="day">27</span></label>
+              <input type="radio" name="day-pick" id="day-14" class="day-radio">
+              <label class="col" for="day-14"><div class="bar" style="height:10%"></div><span class="day">28</span></label>
+              <input type="radio" name="day-pick" id="day-15" class="day-radio">
+              <label class="col" for="day-15"><div class="bar" style="height:100%"></div><span class="day">29</span></label>
+              <input type="radio" name="day-pick" id="day-16" class="day-radio">
+              <label class="col" for="day-16"><div class="bar" style="height:2%"></div><span class="day">30</span></label>
+              <input type="radio" name="day-pick" id="day-17" class="day-radio">
+              <label class="col" for="day-17"><div class="bar" style="height:2%"></div><span class="day">31</span></label>
+              <input type="radio" name="day-pick" id="day-18" class="day-radio">
+              <label class="col" for="day-18"><div class="bar" style="height:6%"></div><span class="day">01</span></label>
+              <input type="radio" name="day-pick" id="day-19" class="day-radio">
+              <label class="col" for="day-19"><div class="bar" style="height:73%"></div><span class="day">02</span></label>
+              <input type="radio" name="day-pick" id="day-20" class="day-radio" checked>
+              <label class="col" for="day-20"><div class="bar" style="height:2%"></div><span class="day">03</span></label>
+            </div>
+
+            <div class="day-detail">
+              <div class="day-detail-panel day-detail-1">
+                <div class="day-detail-head"><span>Sat, Aug 15</span><span class="day-detail-total">21.1M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$101.29</span><span class="model-tok">21.0M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.10</span><span class="model-tok">106k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-2">
+                <div class="day-detail-head"><span>Sun, Aug 16</span><span class="day-detail-total">55.7M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$267.04</span><span class="model-tok">55.4M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.26</span><span class="model-tok">278k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-3">
+                <div class="day-detail-head"><span>Mon, Aug 17</span><span class="day-detail-total">0 tok</span></div>
+                <p class="day-detail-empty">No calls recorded.</p>
+              </div>
+              <div class="day-detail-panel day-detail-4">
+                <div class="day-detail-head"><span>Tue, Aug 18</span><span class="day-detail-total">43.2M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$207.18</span><span class="model-tok">43.0M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.21</span><span class="model-tok">216k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-5">
+                <div class="day-detail-head"><span>Wed, Aug 19</span><span class="day-detail-total">64.3M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$308.47</span><span class="model-tok">64.0M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.31</span><span class="model-tok">322k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-6">
+                <div class="day-detail-head"><span>Thu, Aug 20</span><span class="day-detail-total">0 tok</span></div>
+                <p class="day-detail-empty">No calls recorded.</p>
+              </div>
+              <div class="day-detail-panel day-detail-7">
+                <div class="day-detail-head"><span>Fri, Aug 21</span><span class="day-detail-total">28.8M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$138.12</span><span class="model-tok">28.7M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.14</span><span class="model-tok">144k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-8">
+                <div class="day-detail-head"><span>Sat, Aug 22</span><span class="day-detail-total">84.5M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$405.16</span><span class="model-tok">84.1M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.40</span><span class="model-tok">422k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-9">
+                <div class="day-detail-head"><span>Sun, Aug 23</span><span class="day-detail-total">0 tok</span></div>
+                <p class="day-detail-empty">No calls recorded.</p>
+              </div>
+              <div class="day-detail-panel day-detail-10">
+                <div class="day-detail-head"><span>Mon, Aug 24</span><span class="day-detail-total">49.9M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$239.41</span><span class="model-tok">49.7M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.24</span><span class="model-tok">250k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-11">
+                <div class="day-detail-head"><span>Tue, Aug 25</span><span class="day-detail-total">19.2M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$92.08</span><span class="model-tok">19.1M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.09</span><span class="model-tok">96k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-12">
+                <div class="day-detail-head"><span>Wed, Aug 26</span><span class="day-detail-total">91.2M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$437.39</span><span class="model-tok">90.7M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.43</span><span class="model-tok">456k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-13">
+                <div class="day-detail-head"><span>Thu, Aug 27</span><span class="day-detail-total">38.4M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$184.16</span><span class="model-tok">38.2M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.18</span><span class="model-tok">192k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-14">
+                <div class="day-detail-head"><span>Fri, Aug 28</span><span class="day-detail-total">9.5M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$45.60</span><span class="model-tok">9.4M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.08</span><span class="model-tok">80k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-15">
+                <div class="day-detail-head"><span>Sat, Aug 29</span><span class="day-detail-total">96.2M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$461.70</span><span class="model-tok">95.9M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.21</span><span class="model-tok">300k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-16">
+                <div class="day-detail-head"><span>Sun, Aug 30</span><span class="day-detail-total">0 tok</span></div>
+                <p class="day-detail-empty">No calls recorded.</p>
+              </div>
+              <div class="day-detail-panel day-detail-17">
+                <div class="day-detail-head"><span>Mon, Aug 31</span><span class="day-detail-total">0 tok</span></div>
+                <p class="day-detail-empty">No calls recorded.</p>
+              </div>
+              <div class="day-detail-panel day-detail-18">
+                <div class="day-detail-head"><span>Tue, Sep 1</span><span class="day-detail-total">5.3M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$25.20</span><span class="model-tok">5.2M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.04</span><span class="model-tok">40k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-19">
+                <div class="day-detail-head"><span>Wed, Sep 2</span><span class="day-detail-total">70.4M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$337.90</span><span class="model-tok">70.1M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.19</span><span class="model-tok">280k tok</span></div>
+              </div>
+              <div class="day-detail-panel day-detail-20">
+                <div class="day-detail-head"><span>Thu, Sep 3</span><span class="day-detail-total">254k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$0.39</span><span class="model-tok">254k tok</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-set chart-set-monthly">
+            <div class="chart-headline">
+              <div><span class="chart-headline-sub">All time, by month</span><span class="chart-headline-num">4.96B tokens</span></div>
+            </div>
+            <div class="bar-chart monthly">
+              <div class="col"><div class="bar" style="height:38%"></div><span class="day">Oct</span></div>
+              <div class="col"><div class="bar" style="height:52%"></div><span class="day">Nov</span></div>
+              <div class="col"><div class="bar" style="height:71%"></div><span class="day">Dec</span></div>
+              <div class="col"><div class="bar" style="height:45%"></div><span class="day">Jan</span></div>
+              <div class="col"><div class="bar" style="height:60%"></div><span class="day">Feb</span></div>
+              <div class="col"><div class="bar" style="height:84%"></div><span class="day">Mar</span></div>
+              <div class="col"><div class="bar" style="height:67%"></div><span class="day">Apr</span></div>
+              <div class="col"><div class="bar" style="height:92%"></div><span class="day">May</span></div>
+              <div class="col"><div class="bar" style="height:78%"></div><span class="day">Jun</span></div>
+              <div class="col"><div class="bar" style="height:100%"></div><span class="day">Jul</span></div>
+              <div class="col"><div class="bar" style="height:89%"></div><span class="day">Aug</span></div>
+              <div class="col"><div class="bar" style="height:24%"></div><span class="day">Sep</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Agents &amp; skills, 7d</div>
+          <div class="hbar-group-label">tokens by agent</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">main</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">130M</span></div>
+            <div class="hbar-row"><span class="label">cairn:builder</span><div class="hbar-track"><div class="hbar-fill" style="width:25%"></div></div><span class="count">32.1M</span></div>
+            <div class="hbar-row"><span class="label">cairn:reviewer</span><div class="hbar-track"><div class="hbar-fill" style="width:8%"></div></div><span class="count">9.8M</span></div>
+            <div class="hbar-row"><span class="label">unknown</span><div class="hbar-track"><div class="hbar-fill" style="width:5%"></div></div><span class="count">6.1M</span></div>
+            <div class="hbar-row"><span class="label">cairn:scribe</span><div class="hbar-track"><div class="hbar-fill" style="width:2%"></div></div><span class="count">2.4M</span></div>
+            <div class="hbar-row"><span class="label">Explore</span><div class="hbar-track"><div class="hbar-fill" style="width:1%"></div></div><span class="count">1.1M</span></div>
+          </div>
+          <div class="hbar-more">+2 more</div>
+          <div class="hbar-group-label">skills invoked</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">cairn:shared</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">20×</span></div>
+            <div class="hbar-row"><span class="label">cairn:scope</span><div class="hbar-track"><div class="hbar-fill" style="width:45%"></div></div><span class="count">9×</span></div>
+            <div class="hbar-row"><span class="label">cairn:start</span><div class="hbar-track"><div class="hbar-fill" style="width:25%"></div></div><span class="count">5×</span></div>
+            <div class="hbar-row"><span class="label">code-review</span><div class="hbar-track"><div class="hbar-fill" style="width:15%"></div></div><span class="count">3×</span></div>
+          </div>
+          <div class="hbar-more">+3 more</div>
+        </div>
+
+        <div class="panel panel-activity">
+          <div class="panel-title">Activity</div>
+          <p class="hint">When calls happen, by hour of day — last 7 days, bucketed in the viewer's local timezone.</p>
+          <div class="heatmap">
+            <div class="heatmap-hours"><span></span><span>00</span><span></span><span></span><span></span><span>04</span><span></span><span></span><span></span><span>08</span><span></span><span></span><span></span><span>12</span><span></span><span></span><span></span><span>16</span><span></span><span></span><span></span><span>20</span><span></span><span></span><span></span></div>
+            <div class="heatmap-row"><span class="dow">Mon</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Tue</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Wed</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Thu</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Fri</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-2"></span><span class="heatmap-cell hm-4"></span><span class="heatmap-cell hm-3"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Sat</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-1"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+            <div class="heatmap-row"><span class="dow">Sun</span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span><span class="heatmap-cell hm-0"></span></div>
+          </div>
+          <div class="heatmap-legend">less <span class="hm-swatch hm-0"></span><span class="hm-swatch hm-1"></span><span class="hm-swatch hm-2"></span><span class="hm-swatch hm-3"></span><span class="hm-swatch hm-4"></span> more · hover a cell for its call count</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Tokens / model, 7d</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">sonnet-5</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">180.6M</span></div>
+            <div class="hbar-row"><span class="label">haiku-4.5</span><div class="hbar-track"><div class="hbar-fill" style="width:1%"></div></div><span class="count">700k</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Tool calls, 7d</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">Bash</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">2,311</span></div>
+            <div class="hbar-row"><span class="label">Read</span><div class="hbar-track"><div class="hbar-fill" style="width:35%"></div></div><span class="count">817</span></div>
+            <div class="hbar-row"><span class="label">Edit</span><div class="hbar-track"><div class="hbar-fill" style="width:17%"></div></div><span class="count">392</span></div>
+            <div class="hbar-row"><span class="label">Write</span><div class="hbar-track"><div class="hbar-fill" style="width:5%"></div></div><span class="count">121</span></div>
+            <div class="hbar-row"><span class="label">Agent</span><div class="hbar-track"><div class="hbar-fill" style="width:3%"></div></div><span class="count">63</span></div>
+            <div class="hbar-row"><span class="label">Grep</span><div class="hbar-track"><div class="hbar-fill" style="width:2%"></div></div><span class="count">56</span></div>
+            <div class="hbar-row"><span class="label">AskUserQuestion</span><div class="hbar-track"><div class="hbar-fill" style="width:2%"></div></div><span class="count">42</span></div>
+            <div class="hbar-row"><span class="label">Glob</span><div class="hbar-track"><div class="hbar-fill" style="width:2%"></div></div><span class="count">37</span></div>
+          </div>
+          <div class="hbar-more">+14 more — full list isn't paginated in-panel</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">MCP calls, 7d</div>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">claude-in-chrome</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">16</span></div>
+          </div>
+        </div>
+
+        <div class="panel panel-projects">
+          <div class="panel-title">Projects</div>
+          <p class="hint">Only meaningful for a user- or local-scope install — a project-scope install only ever captures its own repo. Summed client-side from the fetched session rows.</p>
+          <div class="hbar-list">
+            <div class="hbar-row"><span class="label">cairn-2.0</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="count">130M</span></div>
+            <div class="hbar-row"><span class="label">rivet-os</span><div class="hbar-track"><div class="hbar-fill" style="width:9%"></div></div><span class="count">12.1M</span></div>
+            <div class="hbar-row"><span class="label">phitopolis-api</span><div class="hbar-track"><div class="hbar-fill" style="width:2%"></div></div><span class="count">2.6M</span></div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="sessions tab-panel-sessions" id="tab-sessions">
+        <div class="panel-title">Sessions</div>
+        <p class="hint">Most recent session shown below by default — click any row to change it.</p>
+
+        <div class="pill-row">
+          <span class="pill-item active">Last 30 days</span>
+          <span class="pill-item">All time</span>
+        </div>
+
+        <div class="project-filter">
+          <input type="radio" name="project-filter" id="proj-all" checked><label for="proj-all">All projects</label>
+          <input type="radio" name="project-filter" id="proj-cairn"><label for="proj-cairn">cairn-2.0</label>
+          <input type="radio" name="project-filter" id="proj-rivet"><label for="proj-rivet">rivet-os</label>
+          <input type="radio" name="project-filter" id="proj-phito"><label for="proj-phito">phitopolis-api</label>
+        </div>
+
+        <div class="sessions-layout">
+          <div class="sessions-scroll">
+            <ul class="session-list">
+              <li class="session-item proj-cairn">
+                <div class="session-item-top"><span class="session-label">Fix agent-row badge overflow</span></div>
+                <span class="session-item-meta"><span class="item-project">cairn-2.0 · </span>Sep 3, 12:37 · 1 agent · 254k tok · $0.39</span>
+              </li>
+              <li class="session-item selected proj-cairn">
+                <div class="session-item-top"><span class="session-label">Localize heatmap bucketing to viewer's timezone</span></div>
+                <span class="session-item-meta"><span class="item-project">cairn-2.0 · </span>Sep 2, 14:01 · 3 agents · 14.1M tok · $5.34</span>
+              </li>
+              <li class="session-item proj-rivet">
+                <div class="session-item-top"><span class="session-label">Refactor ingest pipeline retry logic</span></div>
+                <span class="session-item-meta"><span class="item-project">rivet-os · </span>Sep 2, 07:52 · 4 agents · 56.3M tok · $20.43</span>
+              </li>
+              <li class="session-item proj-cairn">
+                <div class="session-item-top"><span class="session-label">Mark Waves 2-4 done in ROADMAP.md</span></div>
+                <span class="session-item-meta"><span class="item-project">cairn-2.0 · </span>Sep 1, 14:46 · 1 agent · 2.6M tok · $0.99</span>
+              </li>
+              <li class="session-item proj-phito">
+                <div class="session-item-top"><span class="session-label">Add rate-limit middleware to auth service</span></div>
+                <span class="session-item-meta"><span class="item-project">phitopolis-api · </span>Aug 29, 12:16 · 2 agents · 9.5M tok · $5.05</span>
+              </li>
+              <li class="session-item proj-cairn">
+                <div class="session-item-top"><span class="session-label">Bump token-metering submodule: sessions bounding + drilldown fix</span><span class="flag-dot"></span></div>
+                <span class="session-item-meta"><span class="item-project">cairn-2.0 · </span>Aug 29, 08:44 · 3 agents · 96.2M tok · $35.34</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sessions-detail-col">
+            <div class="drilldown" id="drilldown">
+              <div class="drilldown-head">
+                <span class="session-title">Localize heatmap bucketing to viewer's timezone</span>
+                <span class="session-meta">9f2a44c1 · 5m 26s runtime · main dominant (68% of tokens)</span>
+              </div>
+
+              <div class="agent-select-list">
+                <input type="checkbox" class="agent-select" id="agent-select-main">
+                <label class="agent-row" for="agent-select-main">
+                  <span class="agent-name"><span class="agent-dot" style="background:var(--blue)"></span>main</span>
+                  <div class="mini-bar"><div class="mini-bar-fill mini-bar-main" style="width:100%"></div></div>
+                  <span class="agent-stat">3 calls</span>
+                  <span class="agent-stat">9.6M tok</span>
+                  <span class="agent-cost">$3.62</span>
+                </label>
+                <input type="checkbox" class="agent-select" id="agent-select-builder">
+                <label class="agent-row" for="agent-select-builder">
+                  <span class="agent-name"><span class="agent-dot" style="background:var(--amber)"></span>cairn:builder <span class="tag">subagent</span></span>
+                  <div class="mini-bar"><div class="mini-bar-fill mini-bar-builder" style="width:35%"></div></div>
+                  <span class="agent-stat">3 calls</span>
+                  <span class="agent-stat">3.4M tok</span>
+                  <span class="agent-cost">$1.24</span>
+                </label>
+                <input type="checkbox" class="agent-select" id="agent-select-reviewer">
+                <label class="agent-row" for="agent-select-reviewer">
+                  <span class="agent-name"><span class="agent-dot" style="background:var(--violet)"></span>cairn:reviewer <span class="tag">subagent</span></span>
+                  <div class="mini-bar"><div class="mini-bar-fill mini-bar-reviewer" style="width:12%"></div></div>
+                  <span class="agent-stat">2 calls</span>
+                  <span class="agent-stat">1.1M tok</span>
+                  <span class="agent-cost">$0.48</span>
+                </label>
+              </div>
+
+              <div class="chat-thread">
+                <div class="chat-thread-label">full transcript — check an agent above to highlight its calls</div>
+
+                <div class="chat-turn chat-turn-main">
+                  <div class="chat-turn-meta"><span class="chat-turn-agent">main</span> · #1 · 14:01:03 · sonnet-5 · 420,000 in / 180,000 out · $0.22 · 38.4s</div>
+                  <div class="chat-msg chat-msg-prompt">
+                    <span class="chat-msg-role">prompt</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:85%"></div>
+                      <div class="greek-line" style="width:52%"></div>
+                    </div>
+                  </div>
+                  <div class="chat-msg chat-msg-response">
+                    <span class="chat-msg-role">response</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:90%"></div>
+                      <div class="greek-line" style="width:64%"></div>
+                    </div>
+                  </div>
+                  <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+                </div>
+
+                <div class="chat-turn chat-turn-builder">
+                  <div class="chat-turn-meta"><span class="chat-turn-agent">cairn:builder</span> · #1 · 14:01:47 · sonnet-5 · 380,000 in / 210,000 out · $0.21 · 41s</div>
+                  <div class="chat-msg chat-msg-prompt">
+                    <span class="chat-msg-role">prompt</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:70%"></div>
+                    </div>
+                  </div>
+                  <div class="chat-msg chat-msg-response">
+                    <span class="chat-msg-role">response</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:95%"></div>
+                      <div class="greek-line" style="width:88%"></div>
+                      <div class="greek-line" style="width:40%"></div>
+                    </div>
+                  </div>
+                  <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+                </div>
+
+                <div class="chat-turn chat-turn-builder">
+                  <div class="chat-turn-meta"><span class="chat-turn-agent">cairn:builder</span> · #2 · 14:02:35 · sonnet-5 · 1,150,000 in / 640,000 out · $0.64 · 1m 58s</div>
+                  <div class="chat-msg chat-msg-prompt">
+                    <span class="chat-msg-role">prompt</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:60%"></div>
+                    </div>
+                  </div>
+                  <div class="chat-msg chat-msg-response">
+                    <span class="chat-msg-role">response</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:97%"></div>
+                      <div class="greek-line" style="width:91%"></div>
+                      <div class="greek-line" style="width:76%"></div>
+                      <div class="greek-line" style="width:54%"></div>
+                    </div>
+                  </div>
+                  <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+                </div>
+
+                <div class="chat-turn chat-turn-reviewer">
+                  <div class="chat-turn-meta"><span class="chat-turn-agent">cairn:reviewer</span> · #1 · 14:03:41 · sonnet-5 · 240,000 in / 95,000 out · $0.15 · 26s</div>
+                  <div class="chat-msg chat-msg-prompt">
+                    <span class="chat-msg-role">prompt</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:55%"></div>
+                    </div>
+                  </div>
+                  <div class="chat-msg chat-msg-response">
+                    <span class="chat-msg-role">response</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:80%"></div>
+                      <div class="greek-line" style="width:42%"></div>
+                    </div>
+                  </div>
+                  <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+                </div>
+
+                <div class="chat-turn chat-turn-reviewer">
+                  <div class="chat-turn-meta"><span class="chat-turn-agent">cairn:reviewer</span> · #2 · 14:04:12 · sonnet-5 · 520,000 in / 245,000 out · $0.33 · 58s</div>
+                  <div class="trace-detail-unavailable">Transcript unavailable — the session transcript has been moved or deleted since this call was captured. Token counts, cost, and duration above are unaffected; they were already recorded at parse time.</div>
+                </div>
+
+                <div class="chat-turn chat-turn-builder">
+                  <div class="chat-turn-meta"><span class="chat-turn-agent">cairn:builder</span> · #3 · 14:04:55 · sonnet-5 · 680,000 in / 340,000 out · $0.39 · 1m 12s</div>
+                  <div class="chat-msg chat-msg-prompt">
+                    <span class="chat-msg-role">prompt</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:48%"></div>
+                    </div>
+                  </div>
+                  <div class="chat-msg chat-msg-response">
+                    <span class="chat-msg-role">response</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:92%"></div>
+                      <div class="greek-line" style="width:67%"></div>
+                    </div>
+                  </div>
+                  <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+                </div>
+
+                <div class="chat-turn chat-turn-main">
+                  <div class="chat-turn-meta"><span class="chat-turn-agent">main</span> · #2 · 14:05:38 · sonnet-5 · 3,100,000 in / 1,650,000 out · $1.78 · 3m 12s</div>
+                  <div class="chat-msg chat-msg-prompt">
+                    <span class="chat-msg-role">prompt</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:76%"></div>
+                      <div class="greek-line" style="width:33%"></div>
+                    </div>
+                  </div>
+                  <div class="chat-msg chat-msg-response">
+                    <span class="chat-msg-role">response</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:99%"></div>
+                      <div class="greek-line" style="width:94%"></div>
+                      <div class="greek-line" style="width:71%"></div>
+                    </div>
+                  </div>
+                  <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+                </div>
+
+                <div class="chat-turn chat-turn-main">
+                  <div class="chat-turn-meta"><span class="chat-turn-agent">main</span> · #3 · 14:06:04 · sonnet-5 · 2,900,000 in / 1,350,000 out · $1.62 · 2m 40s</div>
+                  <div class="chat-msg chat-msg-prompt">
+                    <span class="chat-msg-role">prompt</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:40%"></div>
+                    </div>
+                  </div>
+                  <div class="chat-msg chat-msg-response">
+                    <span class="chat-msg-role">response</span>
+                    <div class="chat-bubble">
+                      <div class="greek-line" style="width:96%"></div>
+                      <div class="greek-line" style="width:89%"></div>
+                      <div class="greek-line" style="width:62%"></div>
+                    </div>
+                  </div>
+                  <p class="trace-detail-note">Read on demand from the session transcript — never duplicated into <code>tokens.db</code>.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="notes-box">
+              <div class="panel-title">also handled, not drawn out above</div>
+              <p>The full transcript is always shown below the agent rows, not tied to selecting one — check an agent's row to dim every other agent's turns in place, without hiding or reordering anything. A call whose transcript has since moved or been deleted shows an "unavailable" note instead of prompt/response text — token counts, cost, and duration are unaffected since they were already recorded at parse time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="view view-empty">
+        <div class="empty-state">
+          <div class="empty-mark">∅</div>
+          <h3>No sessions captured yet</h3>
+          <p>Looking for <code>.cairn/tokens.db</code> — it's empty or doesn't exist yet in this project.</p>
+          <div class="empty-steps">
+            <div class="empty-step"><span class="step-num">1</span> Run a normal cairn session — ask for a feature, a fix, anything that dispatches an agent.</div>
+            <div class="empty-step"><span class="step-num">2</span> Let it finish. Capture fires silently when the session ends — nothing to watch for.</div>
+            <div class="empty-step"><span class="step-num">3</span> Come back here, or leave this tab open — it polls automatically once data exists.</div>
+          </div>
+          <div class="empty-note">Capture is passive and advisory-only — it never blocks or alters a session.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="n">·</span> Dashboard and Sessions are separate tabs, addressed by URL hash (<code>#tab-dashboard</code> / <code>#tab-sessions</code>) so each is linkable/bookmarkable and back/forward works; the usage-limit warning banner's "view session →" link points at the Sessions hash instead of scrolling.</div>
+    <div class="item"><span class="n">·</span> refresh re-fetches sessions, all six rollups, heatmap, usage-limit events, and projects in one shot; "updated Ns ago" re-ticks every 30s.</div>
+    <div class="item"><span class="n">·</span> warning banner only renders when the 7-day usage-limit-events endpoint is non-empty, and shows only the most recent event's session id even when the count is higher.</div>
+    <div class="item"><span class="n">·</span> 7D bar height is <code>max(pct, 2%)</code> so a near-zero day (like today's 254k against a 96M day) still shows a visible sliver instead of vanishing.</div>
+    <div class="item"><span class="n">·</span> the activity heatmap buckets client-side in the viewer's local timezone, not the server's UTC day/hour.</div>
+    <div class="item"><span class="n">·</span> most recent session is auto-selected on load and after each refresh, unless the current selection is still present in the range.</div>
+    <div class="item"><span class="n">·</span> the token-dominant agent auto-expands in the drilldown; every other agent starts collapsed.</div>
+    <div class="item"><span class="n">·</span> in the Sessions tab, per-call stats (model, tokens, cost, duration) live in the full transcript's turn labels, not a separate table; checking an agent row dims every other agent's turns in place instead of filtering them out.</div>
+    <div class="item"><span class="n">·</span> the Projects panel, project filter pills, and Project column only appear for a user/local-scope install — a project-scope install only ever captures its own repo.</div>
+    <div class="item"><span class="n">·</span> a project-scope install names its own repo in the header subtitle instead — there's only ever one project, so the per-session project pill/column would be redundant.</div>
+    <div class="item"><span class="n">·</span> the tool-calls panel truncates to the top rows with a "+N more" note; the full list isn't paginated in-panel.</div>
+    <div class="item"><span class="n">·</span> Date-range pills are Today / Daily / Monthly — Daily shows one continuous bar per day (20 days at a glance, click any bar to drill into that day's model breakdown below); Monthly aggregates one bar per calendar month across all recorded history.</div>
+  </div>
+
+  <div class="notes-box">
+    <div class="panel-title">Proposed changes</div>
+    <p>— nothing yet — mark up above or add notes here —</p>
+  </div>
+
+  <footer>
+    Structure only — data above is illustrative, not a real capture. Source of truth is <code>frontend/src/Dashboard.tsx</code> and its components; see also the original wireframe at <a href="../../token-metering/mockups/dashboard.html">../../token-metering/mockups/dashboard.html</a>.
+  </footer>
+
+</body>
+</html>
