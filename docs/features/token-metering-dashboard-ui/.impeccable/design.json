@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-04T02:03:18Z",
+  "title": "Design System: Token Metering — Dashboard (mockup)",
+  "extensions": {
+    "colorMeta": {
+      "signal": { "role": "primary", "displayName": "Signal Amber", "canonical": "#c1741c", "tonalRamp": ["#3d2408", "#5c3610", "#7a4816", "#986218", "#b56d19", "#c1741c", "#d99a52", "#ecdcb6"] },
+      "bone": { "role": "neutral", "displayName": "Bone", "canonical": "#f1ebda", "tonalRamp": ["#1a1811", "#38331f", "#5c5230", "#8a7b48", "#b6a468", "#d8c990", "#f1ebda", "#faf7ef"] },
+      "window": { "role": "neutral", "displayName": "Window Glass", "canonical": "#f8f3e5", "tonalRamp": ["#1c1a13", "#3a3521", "#5e5533", "#8c7d4c", "#b8a76e", "#dbcda0", "#f8f3e5", "#fdfbf6"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#1a2233", "tonalRamp": ["#0a0d13", "#131a26", "#1a2233", "#2c3650", "#4e5871", "#90939f", "#c8cad1", "#e9eaed"] },
+      "ink-soft": { "role": "neutral", "displayName": "Ink Soft", "canonical": "#4e5871", "tonalRamp": ["#151923", "#232a3a", "#3a415a", "#4e5871", "#6d7690", "#9298ab", "#c0c4d0", "#e5e7ec"] },
+      "ch1": { "role": "data-series", "displayName": "Channel 1 (Ink)", "canonical": "#1a2233", "tonalRamp": ["#0a0d13", "#131a26", "#1a2233", "#2c3650", "#4e5871", "#90939f", "#c8cad1", "#e9eaed"] },
+      "ch2": { "role": "data-series", "displayName": "Channel 2", "canonical": "#5c6478", "tonalRamp": ["#20232b", "#333947", "#485064", "#5c6478", "#767d8e", "#9297a4", "#b3b7bf", "#dcdee2"] },
+      "ch3": { "role": "data-series", "displayName": "Channel 3", "canonical": "#838a9b", "tonalRamp": ["#2b2d33", "#454955", "#5f6472", "#7a7f8d", "#838a9b", "#a0a5b2", "#c1c4cd", "#e4e6ea"] },
+      "ch4": { "role": "data-series", "displayName": "Channel 4", "canonical": "#aeb2bd", "tonalRamp": ["#38393e", "#54565d", "#71737c", "#8e919b", "#aeb2bd", "#c4c7cf", "#dadce1", "#f0f1f3"] }
+    },
+    "typographyMeta": {
+      "label": { "displayName": "Label (Big Shoulders)", "purpose": "Panel titles, tab text, meter labels, chart-tab text — anything naming a control. Always uppercase, always tracked." },
+      "body": { "displayName": "Body (Public Sans)", "purpose": "Read content: transcript text, descriptions, headings that function as content rather than controls." },
+      "readout": { "displayName": "Readout (Martian Mono)", "purpose": "Every trusted number: costs, tokens, counts, timestamps, durations. Always tabular-nums." }
+    },
+    "shadows": [
+      { "name": "window-hairline", "value": "0 1px 0 var(--paper-line-soft)", "purpose": "The system's only shadow: a single hairline under the outer instrument window, not a diffuse elevation cue." }
+    ],
+    "motion": [
+      { "name": "lamp-pulse", "value": "2.4s ease-in-out infinite, opacity 1→.5, box-shadow ring 2px→4px→transparent", "purpose": "Status lamp breathing animation signaling the dashboard is live/auto-refreshing." },
+      { "name": "chat-turn-fade", "value": "opacity .15s ease, .32 when an unrelated agent is filtered", "purpose": "De-emphasizes chat turns not matching the selected agent filter in the drilldown." }
+    ],
+    "breakpoints": [
+      { "name": "rollup-grid-auto-fit", "value": "minmax(300px, 1fr)", "purpose": "Rollup panel grid reflows column count with no explicit breakpoint." },
+      { "name": "sessions-layout-stack", "value": "confirmed by mobile review screenshot: 1fr 2fr session/drilldown grid collapses to single column on narrow viewports" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Meter Box",
+      "kind": "custom",
+      "refersTo": "meter-box",
+      "description": "Bordered instrument readout: uppercase tracked label over a large tabular-mono value, with a 2px top hairline accent.",
+      "html": "<div class=\"ds-meter-box\"><span class=\"ds-meter-label\">Total Cost (30D)</span><span class=\"ds-meter-value\">$142.87</span></div>",
+      "css": ".ds-meter-box { position: relative; flex: 1 1 170px; border: 1px solid rgba(23,30,44,.18); background: #f8f3e5; border-radius: 4px; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; } .ds-meter-box::before { content: \"\"; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: rgba(23,30,44,.09); } .ds-meter-label { font-family: 'Big Shoulders', 'Arial Narrow', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #4e5871; } .ds-meter-value { font-family: 'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace; font-size: 27px; font-weight: 600; font-variant-numeric: tabular-nums; color: #1a2233; }"
+    },
+    {
+      "name": "Dial Tab (chart range)",
+      "kind": "custom",
+      "refersTo": "chart-tab-active",
+      "description": "Segmented tab group where the active segment fills solid amber, used for chart-range and app-level navigation switches.",
+      "html": "<div class=\"ds-chart-tabs\" role=\"tablist\"><button class=\"ds-chart-tab is-active\">Today</button><button class=\"ds-chart-tab\">Daily</button><button class=\"ds-chart-tab\">Monthly</button></div>",
+      "css": ".ds-chart-tabs { display: flex; border: 1px solid rgba(23,30,44,.18); border-radius: 3px; overflow: hidden; width: fit-content; font-family: 'Big Shoulders', 'Arial Narrow', sans-serif; font-size: 10.5px; } .ds-chart-tab { cursor: pointer; padding: 6px 13px; border: none; border-right: 1px solid rgba(23,30,44,.18); background: #f8f3e5; color: #4e5871; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; } .ds-chart-tab:last-of-type { border-right: none; } .ds-chart-tab.is-active, .ds-chart-tab:focus-visible { background: #c1741c; color: #f8f3e5; } .ds-chart-tab:hover:not(.is-active) { color: #1a2233; } .ds-chart-tab:focus-visible { outline: 2px solid #c1741c; outline-offset: -2px; }"
+    },
+    {
+      "name": "Graticule Bar (single column)",
+      "kind": "custom",
+      "refersTo": "bar-chart",
+      "description": "Single bar-chart column with default and signal-selected states, meant to sit inside the graticule-gridded .bar-chart container with an SVG trace overlay drawn across all columns.",
+      "html": "<label class=\"ds-bar-col\"><input type=\"radio\" name=\"ds-day\" class=\"ds-bar-radio\" /><span class=\"ds-bar\"></span><span class=\"ds-bar-day\">12</span></label>",
+      "css": ".ds-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; cursor: pointer; position: relative; } .ds-bar-radio { position: absolute; opacity: 0; width: 0; height: 0; } .ds-bar { width: 100%; height: 60%; background: #e2d7b8; border: 1px solid rgba(23,30,44,.3); border-top: 2px solid #90939f; border-radius: 1px; position: relative; } .ds-bar-radio:checked + .ds-bar { background: #ecdcb6; border-color: #c1741c; border-top-color: #c1741c; } .ds-bar-radio:checked + .ds-bar::after { content: \"\"; position: absolute; top: -4px; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; background: #c1741c; } .ds-bar-day { font-family: 'Martian Mono', ui-monospace, monospace; font-size: 10px; color: #90939f; } .ds-bar-radio:checked ~ .ds-bar-day { color: #1a2233; font-weight: 700; }"
+    },
+    {
+      "name": "Session List Item",
+      "kind": "custom",
+      "refersTo": "session-item-selected",
+      "description": "Scrollable session-list row with dashed divider, amber-washed selected state and marker, and an optional usage-limit flag dot.",
+      "html": "<li class=\"ds-session-item is-selected\"><div class=\"ds-session-item-top\"><span class=\"ds-session-label\">Builder run — feature/tokens</span><span class=\"ds-flag-dot\"></span></div><span class=\"ds-session-meta\">2h 14m · 184.2K tok · $3.42</span></li>",
+      "css": ".ds-session-item { cursor: pointer; padding: 10px 12px; border-bottom: 1px dashed rgba(23,30,44,.18); list-style: none; } .ds-session-item.is-selected { background: #ecdcb6; } .ds-session-item-top { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 3px; } .ds-session-item.is-selected .ds-session-item-top::before { content: \"\"; width: 6px; height: 6px; background: #c1741c; border-radius: 1px; flex: none; margin-top: 4px; } .ds-session-label { font-family: 'Public Sans', sans-serif; font-size: 13px; font-weight: 600; line-height: 1.3; color: #1a2233; } .ds-flag-dot { width: 7px; height: 7px; border-radius: 50%; background: #c1741c; display: inline-block; margin-left: auto; } .ds-session-meta { display: block; font-family: 'Martian Mono', monospace; font-size: 10.5px; color: #4e5871; font-variant-numeric: tabular-nums; } .ds-session-item:hover { background: rgba(23,30,44,.04); }"
+    },
+    {
+      "name": "Warning Banner",
+      "kind": "custom",
+      "refersTo": "warning-banner",
+      "description": "Usage-limit warning: dashed signal-line border, signal-soft fill, circular flag badge, inline code treatment, right-aligned link. The one place amber fills a whole surface.",
+      "html": "<div class=\"ds-warning-banner\"><span class=\"ds-flag-icon\">!</span><span>Usage limit hit during <code>session-8f21</code>. Costs after this point may be estimated.</span><a class=\"ds-warning-link\" href=\"#\">View session</a></div>",
+      "css": ".ds-warning-banner { display: flex; align-items: center; gap: 12px; border: 1.5px dashed #a8631a; background: #ecdcb6; border-radius: 5px; padding: 12px 16px; font-family: 'Public Sans', sans-serif; font-size: 13px; color: #1a2233; } .ds-warning-banner code { font-family: 'Martian Mono', monospace; background: rgba(23,30,44,.08); padding: 1px 5px; border-radius: 3px; } .ds-flag-icon { width: 20px; height: 20px; border: 1.5px solid #a8631a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Martian Mono', monospace; font-size: 12px; color: #a8631a; flex: none; } .ds-warning-link { margin-left: auto; cursor: pointer; color: #1a2233; font-family: 'Big Shoulders', sans-serif; font-weight: 700; font-size: 12px; text-decoration: none; border-bottom: 1px solid #a8631a; white-space: nowrap; } .ds-warning-link:hover { color: #a8631a; }"
+    },
+    {
+      "name": "Empty State",
+      "kind": "custom",
+      "refersTo": "empty-state",
+      "description": "Dashed-border placeholder card with a circular mono mark and numbered onboarding steps; the system's convention for absent data.",
+      "html": "<div class=\"ds-empty-state\"><div class=\"ds-empty-mark\">∅</div><h3>No sessions yet</h3><p>Once cairn runs an agent in this project, its sessions will appear here.</p><div class=\"ds-empty-step\"><span class=\"ds-step-num\">1</span><span>Run any cairn command in a project.</span></div></div>",
+      "css": ".ds-empty-state { max-width: 460px; margin: 32px auto; text-align: center; padding: 34px 30px; border: 1.5px dashed rgba(23,30,44,.18); border-radius: 6px; background: #f8f3e5; font-family: 'Public Sans', sans-serif; } .ds-empty-mark { width: 46px; height: 46px; margin: 0 auto 16px; border: 1.5px dashed #90939f; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Martian Mono', monospace; font-size: 18px; color: #4e5871; } .ds-empty-state h3 { margin: 0 0 8px; font-size: 16px; font-weight: 700; color: #1a2233; } .ds-empty-state p { margin: 0 0 22px; font-size: 13px; color: #4e5871; line-height: 1.5; } .ds-empty-step { display: flex; align-items: flex-start; gap: 10px; text-align: left; font-size: 12.5px; } .ds-step-num { flex: none; width: 18px; height: 18px; border: 1px solid rgba(23,30,44,.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Martian Mono', monospace; font-size: 10px; color: #4e5871; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Bench Scope",
+    "overview": "This is an oscilloscope panel, not a metric-tile grid. It reads the developer's Claude Code sessions the way a technician reads a signal on a bench instrument: bone-paper ground, ink-blue-black rules and text everywhere by default, and a single amber signal color reserved for the instrument's active/triggered state. The build rejected the flat card-grid dashboard default — no colorful KPI tiles, no rainbow chart palette, no drop shadows standing in for hierarchy. Depth and hierarchy come from borders, graticule (grid) backgrounds, and tabular-numeral density, not from elevation.\nThe confirmed anti-reference is the project's own prior mockup/app treatment (muted paper/graphite, blue accent, Archivo + Space Mono) — evidence for this redesign, not visual authority carried forward. Also rejected: the \"generic AI-scaffolded dashboard\" look named directly in PRODUCT.md's principles.",
+    "keyCharacteristics": [
+      "One warm neutral ground (bone/window/block), one ink ink-scale for text and structure, one amber signal color used exclusively for triggered/selected/warning states",
+      "Graticule (faint grid) backgrounds behind every chart surface, echoing scope-screen bezels",
+      "SVG polyline + perpendicular tick overlays trace actual data over the bar charts — the signature \"calibrated trace\" device",
+      "Dial-style segmented tabs (Today/Daily/Monthly, Dashboard/Sessions) that fill solid amber when active, not underline-only",
+      "Meter-boxed readouts: bordered boxes with tracked-caps label + large tabular-mono value, styled like an instrument's numeric readout window",
+      "Engraved tracked-caps labels (uppercase, letter-spaced Big Shoulders) throughout for anything functioning as a control or field label"
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Amber appears only on a triggered, selected, active, or warning element. If nothing on a given surface is triggered, no amber is visible — the palette reads as pure bone-and-ink until something needs attention.", "section": "colors" },
+      { "name": "The Ink-Scale Data Rule", "body": "Multi-series data (per-agent bars, model breakdown dots) is colored from the ink-derived channel scale (--ch1…--ch4, blue-black to pale gray), never from hue. Series are distinguished by value/darkness, not by a rainbow — amber stays reserved for state.", "section": "colors" },
+      { "name": "The Three-Face Rule", "body": "A given string is in exactly one of the three faces by function, never mixed within one line: label face for what names a control, body face for what a person reads as prose, mono face for what represents a measured value. Mixing faces on one string is a tell that the hierarchy has broken down.", "section": "typography" },
+      { "name": "The Bezel-Not-Shadow Rule", "body": "Elevation is expressed as a surface-tone step (bone-dim recessed, window raised) plus a 1px border, never as box-shadow blur. The one exception — box-shadow: 0 1px 0 var(--paper-line-soft) on the outer window — is a single hairline, not a diffuse shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep amber (--signal family) exclusively on triggered/selected/warning/active elements; every other surface stays bone/ink.",
+      "Do route every number a developer needs to trust through Martian Mono with font-variant-numeric: tabular-nums.",
+      "Do express elevation as a surface-tone step (bone-dim/window) plus a hairline border, not a blurred shadow.",
+      "Do back chart surfaces with the 27px/paper-line-soft graticule grid so new chart types read as part of the same instrument.",
+      "Do use dashed borders only for the two established meanings: warning states and empty/placeholder states."
+    ],
+    "donts": [
+      "Don't introduce a second saturated accent color; the ink-scale channels (--ch1–--ch4) carry all multi-series data, amber stays singular.",
+      "Don't add drop shadows, blurred glows, or card-elevation effects — depth comes from the bone/bone-dim/window stack only.",
+      "Don't use a pill/fully-rounded radius anywhere except true circles (dots, lamps, the empty-state mark); the established corner range tops out at 6px.",
+      "Don't set label-face type (Big Shoulders) on body prose, or body-face type on a control/field label — each face has exactly one job."
+    ]
+  }
+}

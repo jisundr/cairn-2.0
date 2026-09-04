@@ -6,41 +6,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --paper: #eef0ee;
-    --paper-line: #d7dbd8;
-    --ink: #2a2d2c;
-    --ink-soft: #6b706e;
-    --graphite: #9aa19e;
-    --block: #dde1de;
-    --block-line: #b7bdb9;
-    --window: #ffffff;
-    --blue: #4f6f92;
-    --blue-soft: #e4eaf1;
-    --amber: #b98a4e;
-    --violet: #7d6f9e;
-    --flag: #a94a3d;
-    --flag-soft: #f4e3e0;
-    --font-label: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
-    --font-body: "Archivo", -apple-system, "Segoe UI", sans-serif;
+    --bone: #f1ebda;
+    --bone-dim: #e7ddc0;
+    --paper-line: rgba(23, 30, 44, .18);
+    --paper-line-soft: rgba(23, 30, 44, .09);
+    --ink: #1a2233;
+    --ink-soft: #4e5871;
+    --ink-faint: #90939f;
+    --window: #f8f3e5;
+    --block: #e2d7b8;
+    --block-line: rgba(23, 30, 44, .3);
+    --signal: #c1741c;
+    --signal-soft: #ecdcb6;
+    --signal-line: #a8631a;
+    --ch1: #1a2233;
+    --ch1-soft: #dfe1e8;
+    --ch2: #5c6478;
+    --ch3: #838a9b;
+    --ch4: #aeb2bd;
+    --font-label: "Big Shoulders", "Arial Narrow", sans-serif;
+    --font-body: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "Martian Mono", ui-monospace, "SF Mono", Menlo, monospace;
   }
 
   * { box-sizing: border-box; }
 
+  ::selection { background: var(--signal-soft); color: var(--ink); }
+
   html, body {
     margin: 0;
     padding: 0;
-    background: var(--paper);
+    background: var(--bone);
     color: var(--ink);
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
   }
 
   body {
     background-image:
-      radial-gradient(circle, var(--paper-line) 1px, transparent 1px);
-    background-size: 22px 22px;
+      linear-gradient(var(--paper-line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line-soft) 1px, transparent 1px);
+    background-size: 28px 28px;
     padding: 40px 20px 60px;
   }
 
@@ -53,19 +62,18 @@
     gap: 16px;
     flex-wrap: wrap;
   }
-
   .page-head h1 {
     font-family: var(--font-label);
     font-size: 15px;
-    letter-spacing: 0.06em;
+    font-weight: 700;
+    letter-spacing: .06em;
     text-transform: uppercase;
     margin: 0;
     color: var(--ink);
   }
-
   .page-head p {
-    font-family: var(--font-label);
-    font-size: 12px;
+    font-family: var(--font-body);
+    font-size: 12.5px;
     color: var(--ink-soft);
     margin: 0;
   }
@@ -75,8 +83,8 @@
     margin: 0 auto;
     background: var(--window);
     border: 1px solid var(--block-line);
-    border-radius: 10px;
-    box-shadow: 0 1px 0 var(--paper-line);
+    border-radius: 6px;
+    box-shadow: 0 1px 0 var(--paper-line-soft);
   }
 
   .chrome {
@@ -84,57 +92,51 @@
     align-items: center;
     gap: 14px;
     padding: 10px 14px;
-    background: var(--block);
+    background: var(--bone-dim);
     border-bottom: 1px solid var(--block-line);
-    border-radius: 9px 9px 0 0;
+    border-radius: 5px 5px 0 0;
   }
-
   .chrome .dots { display: flex; gap: 6px; }
   .chrome .dots span {
-    width: 9px; height: 9px; border-radius: 50%;
-    background: var(--block-line);
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ink-faint);
     display: inline-block;
+    opacity: .55;
   }
   .chrome .url {
-    font-family: var(--font-label);
-    font-size: 12px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
     color: var(--ink-soft);
     background: var(--window);
-    border: 1px solid var(--block-line);
-    border-radius: 5px;
+    border: 1px solid var(--paper-line);
+    border-radius: 3px;
     padding: 4px 10px;
     flex: 1;
     max-width: 320px;
   }
 
-  .app {
-    padding: 26px 28px 34px;
-  }
+  .app { padding: 22px 28px 34px; }
 
   .app-head {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 18px;
     flex-wrap: wrap;
     margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--paper-line);
   }
 
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
+  .brand { display: flex; align-items: center; gap: 10px; }
   .brand .mark {
-    width: 28px; height: 28px;
+    width: 26px; height: 26px;
     border: 2px solid var(--ink);
-    border-radius: 6px;
+    border-radius: 3px;
     position: relative;
     flex: none;
   }
-  .brand .mark::before,
-  .brand .mark::after {
+  .brand .mark::before, .brand .mark::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -146,40 +148,86 @@
 
   .brand-text h2 {
     margin: 0;
-    font-size: 19px;
+    font-family: var(--font-label);
+    font-size: 18px;
     font-weight: 700;
-    letter-spacing: -0.01em;
+    letter-spacing: .01em;
+    color: var(--ink);
   }
   .brand-text span {
     display: block;
     font-family: var(--font-label);
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--ink-soft);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: .07em;
+    margin-top: 1px;
   }
   .brand-text .brand-scope-all { display: none; }
   body:has(#scope-all:checked) .brand-text .brand-scope-project { display: none; }
   body:has(#scope-all:checked) .brand-text .brand-scope-all { display: block; }
+
+  .app-tabs {
+    display: flex;
+    border: 1px solid var(--paper-line);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--window);
+    font-family: var(--font-label);
+    font-size: 12px;
+  }
+  .app-tabs a {
+    cursor: pointer;
+    padding: 9px 18px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    font-weight: 600;
+    text-decoration: none;
+    border-right: 1px solid var(--paper-line);
+    user-select: none;
+  }
+  .app-tabs a:last-child { border-right: none; }
+  body:not(:has(#tab-sessions:target)) .app-tabs .tab-dashboard-link,
+  body:has(#tab-sessions:target) .app-tabs .tab-sessions-link {
+    color: var(--ink);
+    background: var(--signal-soft);
+    box-shadow: inset 0 -3px 0 var(--signal);
+  }
 
   .status-cluster {
     display: flex;
     align-items: center;
     gap: 10px;
     font-family: var(--font-label);
-    font-size: 11.5px;
+    font-size: 11px;
     color: var(--ink-soft);
   }
-
+  .lamp {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 0 2px var(--signal-soft);
+    flex: none;
+    animation: lamp-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes lamp-pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 2px var(--signal-soft); }
+    50% { opacity: .5; box-shadow: 0 0 0 4px transparent; }
+  }
   .pill {
-    border: 1px solid var(--block-line);
-    background: var(--block);
-    border-radius: 999px;
-    padding: 5px 12px;
+    border: 1px solid var(--paper-line);
+    background: var(--window);
+    border-radius: 3px;
+    padding: 4px 10px;
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-weight: 600;
   }
+  .status-updated { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-faint); }
 
   .badge {
     display: inline-flex;
@@ -187,101 +235,115 @@
     justify-content: center;
     width: 17px; height: 17px;
     border-radius: 50%;
-    border: 1.5px solid var(--blue);
-    color: var(--blue);
-    font-family: var(--font-label);
+    border: 1.5px solid var(--ink-soft);
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
     font-size: 10px;
     font-weight: 700;
     flex: none;
   }
-  .badge.flag { border-color: var(--flag); color: var(--flag); }
-
-  .app-tabs {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--paper-line);
-    font-family: var(--font-label);
-    font-size: 12px;
-  }
-  .app-tabs a {
-    cursor: pointer;
-    padding: 8px 3px 10px;
-    margin-bottom: -1px;
-    color: var(--ink-soft);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    user-select: none;
-  }
-  /* tab state is the URL hash (#tab-dashboard/#tab-sessions targeting the
-     panel below), not JS or radio state — deep links and back/forward work. */
-  body:not(:has(#tab-sessions:target)) .app-tabs .tab-dashboard-link,
-  body:has(#tab-sessions:target) .app-tabs .tab-sessions-link {
-    color: var(--ink);
-    font-weight: 700;
-    border-bottom-color: var(--blue);
-  }
+  .badge.flag { border-color: var(--signal-line); color: var(--signal-line); }
 
   .warning-banner {
     display: flex;
     align-items: center;
     gap: 12px;
-    border: 1.5px dashed var(--flag);
-    background: var(--flag-soft);
-    border-radius: 8px;
+    border: 1.5px dashed var(--signal-line);
+    background: var(--signal-soft);
+    border-radius: 5px;
     padding: 12px 16px;
     margin-bottom: 20px;
-    font-size: 13.5px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--ink);
   }
-  .warning-banner strong { font-weight: 600; }
-  .warning-banner code { background: rgba(169,74,61,0.1); padding: 1px 5px; border-radius: 3px; }
+  .warning-banner strong { font-weight: 700; }
+  .warning-banner code { font-family: var(--font-mono); background: rgba(23, 30, 44, .08); padding: 1px 5px; border-radius: 3px; }
   .warning-banner .flag-icon {
     width: 20px; height: 20px;
-    border: 1.5px solid var(--flag);
+    border: 1.5px solid var(--signal-line);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-label);
+    font-family: var(--font-mono);
     font-size: 12px;
-    color: var(--flag);
+    color: var(--signal-line);
     flex: none;
   }
-  .warning-banner a,
-  .warning-banner-link {
+  .warning-banner a, .warning-banner-link {
     margin-left: auto;
     cursor: pointer;
-    color: var(--flag);
+    color: var(--ink);
     font-family: var(--font-label);
+    font-weight: 700;
     font-size: 12px;
     text-decoration: none;
-    border-bottom: 1px solid var(--flag);
+    border-bottom: 1px solid var(--signal-line);
     white-space: nowrap;
+  }
+
+  .meter-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .meter-box {
+    flex: 1 1 170px;
+    border: 1px solid var(--paper-line);
+    background: var(--window);
+    border-radius: 4px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+  }
+  .meter-box::before {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--paper-line-soft);
+  }
+  .meter-label {
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--ink-soft);
+  }
+  .meter-value {
+    font-family: var(--font-mono);
+    font-size: 27px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
   }
 
   .rollups {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
     margin-bottom: 22px;
   }
 
   .panel {
-    border: 1px solid var(--block-line);
-    border-radius: 8px;
+    border: 1px solid var(--paper-line);
+    border-radius: 4px;
     padding: 16px 18px 18px;
-    background: #fff;
+    background: var(--window);
   }
+  .panel-chart-full { margin-bottom: 22px; }
 
   .panel-title {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-soft);
     font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--ink);
     margin-bottom: 14px;
   }
 
@@ -290,8 +352,21 @@
     align-items: flex-end;
     gap: 10px;
     height: 108px;
+    position: relative;
+    background-image:
+      linear-gradient(var(--paper-line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line-soft) 1px, transparent 1px);
+    background-size: 100% 27px, 8.33% 100%;
   }
-
+  .trace-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .trace-line { fill: none; stroke: var(--ink-soft); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+  .trace-tick { stroke: var(--ink-faint); stroke-width: 1; vector-effect: non-scaling-stroke; }
   .bar-chart .col {
     flex: 1;
     display: flex;
@@ -300,32 +375,41 @@
     gap: 6px;
     height: 100%;
     justify-content: flex-end;
+    cursor: pointer;
+    position: relative;
   }
-
   .bar-chart .bar {
     width: 100%;
     background: var(--block);
     border: 1px solid var(--block-line);
-    border-radius: 3px 3px 0 0;
+    border-top: 2px solid var(--ink-faint);
+    border-radius: 1px;
     position: relative;
   }
-  .bar-chart .col { cursor: pointer; }
   input.day-radio { position: absolute; opacity: 0; width: 0; height: 0; }
   input.day-radio:checked + .col .bar {
-    background: var(--blue-soft);
-    border-color: var(--blue);
+    background: var(--signal-soft);
+    border-color: var(--signal);
+    border-top-color: var(--signal);
   }
+  input.day-radio:checked + .col .bar::after {
+    content: "";
+    position: absolute; top: -4px; left: 50%; transform: translateX(-50%);
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--signal);
+  }
+  input.day-radio:checked + .col .day { color: var(--ink); font-weight: 700; }
 
   .bar-chart .day {
-    font-family: var(--font-label);
+    font-family: var(--font-mono);
     font-size: 10px;
-    color: var(--ink-soft);
+    color: var(--ink-faint);
   }
 
   .bar-chart.hourly { gap: 3px; }
   .bar-chart.spark { gap: 2px; }
   .bar-chart.spark .col { cursor: default; gap: 0; }
-  .bar-chart.spark .bar { border-radius: 1px 1px 0 0; }
+  .bar-chart.spark .bar { border-radius: 1px; }
   .bar-chart.daily { gap: 4px; }
   .bar-chart.monthly { gap: 14px; }
   .bar-chart.monthly .col { cursor: default; }
@@ -338,31 +422,27 @@
   .chart-tabs {
     display: flex;
     margin-bottom: 14px;
+    border: 1px solid var(--paper-line);
+    border-radius: 3px;
+    overflow: hidden;
+    width: fit-content;
     font-family: var(--font-label);
     font-size: 10.5px;
   }
   .chart-tabs input { position: absolute; opacity: 0; width: 0; height: 0; }
   .chart-tabs label {
     cursor: pointer;
-    padding: 5px 11px;
-    border: 1px solid var(--block-line);
-    border-left: none;
-    background: var(--paper);
+    padding: 6px 13px;
+    border-right: 1px solid var(--paper-line);
+    background: var(--window);
     color: var(--ink-soft);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: .05em;
+    font-weight: 700;
     user-select: none;
   }
-  .chart-tabs label:first-of-type { border-left: 1px solid var(--block-line); border-radius: 5px 0 0 5px; }
-  .chart-tabs label:last-of-type { border-radius: 0 5px 5px 0; }
-  .chart-tabs input:checked + label {
-    background: var(--window);
-    color: var(--ink);
-    font-weight: 700;
-    border-color: var(--blue);
-    position: relative;
-    z-index: 1;
-  }
+  .chart-tabs label:last-of-type { border-right: none; }
+  .chart-tabs input:checked + label { background: var(--signal); color: var(--window); }
 
   .chart-controls {
     display: flex;
@@ -388,20 +468,22 @@
     font-size: 10.5px;
     color: var(--ink-soft);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: .06em;
     margin-bottom: 3px;
   }
   .chart-headline-num {
-    font-size: 22px;
-    font-weight: 700;
+    font-family: var(--font-mono);
+    font-size: 24px;
+    font-weight: 600;
     font-variant-numeric: tabular-nums;
+    color: var(--ink);
   }
 
   .day-detail {
     margin-top: 14px;
-    border: 1px solid var(--block-line);
-    border-radius: 7px;
-    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    border-radius: 4px;
+    background: var(--bone-dim);
     padding: 12px 14px;
   }
   .day-detail-panel { display: none; }
@@ -430,69 +512,74 @@
     align-items: baseline;
     justify-content: space-between;
     font-family: var(--font-label);
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 700;
+    letter-spacing: .01em;
     margin-bottom: 8px;
+    color: var(--ink);
   }
-  .day-detail-total { color: var(--ink-soft); font-weight: 400; }
+  .day-detail-total { font-family: var(--font-mono); color: var(--ink-soft); font-weight: 400; font-variant-numeric: tabular-nums; }
   .day-detail-row {
     display: grid;
     grid-template-columns: 8px 1fr 60px 70px;
     align-items: center;
     gap: 8px;
     font-family: var(--font-label);
-    font-size: 11px;
+    font-size: 11.5px;
     padding: 3px 0;
+    color: var(--ink);
   }
   .day-detail-row .dot { width: 8px; height: 8px; border-radius: 50%; }
   .day-detail-row .model-cost,
-  .day-detail-row .model-tok { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
-  .day-detail-empty { margin: 0; font-size: 11.5px; color: var(--ink-soft); }
+  .day-detail-row .model-tok {
+    font-family: var(--font-mono);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+  }
+  .day-detail-empty { margin: 0; font-family: var(--font-body); font-size: 11.5px; color: var(--ink-soft); }
 
   .hbar-list { display: flex; flex-direction: column; gap: 10px; }
   .hbar-row { display: grid; grid-template-columns: minmax(76px, auto) 1fr 54px; align-items: center; gap: 10px; }
   .hbar-row .label {
     font-family: var(--font-label);
-    font-size: 11.5px;
+    font-size: 12px;
     color: var(--ink);
   }
-
   .hbar-group-label {
     font-family: var(--font-label);
     font-size: 10px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--graphite);
+    letter-spacing: .06em;
+    color: var(--ink-soft);
     margin: 0 0 8px;
   }
   .hbar-list + .hbar-group-label { margin-top: 14px; }
   .hbar-more {
     font-family: var(--font-label);
     font-size: 10.5px;
-    color: var(--ink-soft);
+    color: var(--ink-faint);
     margin-top: 2px;
   }
-  .hbar-empty {
-    font-size: 11.5px;
-    color: var(--ink-soft);
-    margin: 0;
-  }
+  .hbar-empty { margin: 0; font-family: var(--font-body); font-size: 11.5px; color: var(--ink-soft); }
 
   .heatmap { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; }
   .heatmap-hours,
   .heatmap-row { display: grid; grid-template-columns: 26px repeat(24, 1fr); gap: 3px; align-items: center; }
-  .heatmap-hours { font-family: var(--font-label); font-size: 8.5px; color: var(--ink-soft); margin-bottom: 1px; }
+  .heatmap-hours { font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); margin-bottom: 1px; }
   .heatmap-row .dow {
     font-family: var(--font-label);
     font-size: 10px;
+    font-weight: 600;
     color: var(--ink-soft);
   }
-  .heatmap-cell { aspect-ratio: 1; border-radius: 2px; }
-  .hm-0 { background: var(--paper); border: 1px solid var(--paper-line); }
-  .hm-1 { background: #d7e0ea; }
-  .hm-2 { background: #a9c0d6; }
-  .hm-3 { background: #6f93b5; }
-  .hm-4 { background: var(--blue); }
+  .heatmap-cell { aspect-ratio: 1; border-radius: 1px; }
+  .hm-0 { background: var(--bone-dim); border: 1px solid var(--paper-line); }
+  .hm-1 { background: #cec4a5; }
+  .hm-2 { background: #9c9482; }
+  .hm-3 { background: #5e5f68; }
+  .hm-4 { background: var(--ink); }
   .heatmap-legend {
     display: flex;
     align-items: center;
@@ -500,60 +587,52 @@
     margin-top: 10px;
     font-family: var(--font-label);
     font-size: 9.5px;
-    color: var(--ink-soft);
+    color: var(--ink-faint);
   }
-  .hm-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .hm-swatch { width: 10px; height: 10px; border-radius: 1px; display: inline-block; }
+
   .hbar-track {
-    height: 12px;
-    background: var(--paper);
+    height: 10px;
+    background: var(--bone-dim);
     border: 1px solid var(--paper-line);
-    border-radius: 3px;
+    border-radius: 2px;
     overflow: hidden;
   }
-  .hbar-fill {
-    height: 100%;
-    background: var(--block);
-    border-right: 1px solid var(--block-line);
-  }
+  .hbar-fill { height: 100%; background: var(--ink-soft); }
   .hbar-row .count {
-    font-family: var(--font-label);
+    font-family: var(--font-mono);
     font-size: 10.5px;
     color: var(--ink-soft);
     text-align: right;
     font-variant-numeric: tabular-nums;
   }
 
-  .sessions {
-    margin-bottom: 22px;
-  }
+  .sessions { margin-bottom: 22px; }
 
-  .pill-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: 0 0 14px;
-  }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
   .pill-row .pill-item {
     padding: 5px 12px;
-    border: 1px solid var(--block-line);
-    border-radius: 999px;
-    background: var(--block);
+    border: 1px solid var(--paper-line);
+    border-radius: 3px;
+    background: var(--window);
     color: var(--ink-soft);
     font-family: var(--font-label);
     font-size: 10.5px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
+    cursor: pointer;
   }
   .pill-row .pill-item.active {
-    background: var(--blue-soft);
-    color: var(--blue);
+    background: var(--signal);
+    color: var(--window);
     font-weight: 700;
-    border-color: var(--blue);
+    border-color: var(--signal);
   }
 
   .flag-dot {
     width: 7px; height: 7px; border-radius: 50%;
-    background: var(--flag);
+    background: var(--signal);
     display: inline-block;
     margin-right: 6px;
     vertical-align: middle;
@@ -565,57 +644,39 @@
     gap: 18px;
     align-items: start;
   }
-
-  .sessions-detail-col {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    min-width: 0;
-  }
-
+  .sessions-detail-col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
   .sessions-scroll {
     max-height: 420px;
     overflow-y: auto;
-    border: 1px solid var(--block-line);
-    border-radius: 8px;
+    border: 1px solid var(--paper-line);
+    border-radius: 4px;
   }
+  .sessions-scroll::-webkit-scrollbar { width: 8px; }
+  .sessions-scroll::-webkit-scrollbar-track { background: var(--bone-dim); }
+  .sessions-scroll::-webkit-scrollbar-thumb { background: var(--ink-faint); border-radius: 4px; }
 
-  .session-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+  .session-list { list-style: none; margin: 0; padding: 0; }
   .session-item {
     cursor: pointer;
     padding: 10px 12px;
     border-bottom: 1px dashed var(--paper-line);
   }
   .session-item:last-child { border-bottom: none; }
-  .session-item.selected {
-    background: var(--blue-soft);
-    border-left: 3px solid var(--blue);
-    padding-left: 9px;
+  .session-item.selected { background: var(--signal-soft); }
+  .session-item-top { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 3px; }
+  .session-item.selected .session-item-top::before {
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--signal);
+    border-radius: 1px;
+    flex: none;
+    margin-top: 4px;
   }
-  .session-item-top {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    margin-bottom: 3px;
-  }
-  .session-item-top .flag-dot {
-    flex-shrink: 0;
-    margin-top: 5px;
-    margin-left: auto;
-    margin-right: 0;
-  }
-  .session-label {
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.3;
-  }
+  .session-item-top .flag-dot { flex-shrink: 0; margin-top: 5px; margin-left: auto; margin-right: 0; }
+  .session-label { font-family: var(--font-body); font-size: 13px; font-weight: 600; line-height: 1.3; color: var(--ink); }
   .session-item-meta {
     display: block;
-    font-family: var(--font-label);
+    font-family: var(--font-mono);
     font-size: 10.5px;
     color: var(--ink-soft);
     font-variant-numeric: tabular-nums;
@@ -623,40 +684,22 @@
   .item-project { display: none; }
   body:has(#scope-all:checked) .item-project { display: inline; }
 
-  .drilldown {
-    border: 1px solid var(--block-line);
-    border-radius: 8px;
-    background: #fff;
-  }
+  .drilldown { border: 1px solid var(--paper-line); border-radius: 4px; background: var(--window); }
   .drilldown-head {
     padding: 14px 18px;
-    border-bottom: 1px solid var(--block-line);
-    background: var(--block);
-    border-radius: 7px 7px 0 0;
+    border-bottom: 1px solid var(--paper-line);
+    background: var(--bone-dim);
+    border-radius: 3px 3px 0 0;
     display: flex;
     align-items: baseline;
     gap: 10px;
     flex-wrap: wrap;
   }
-  .drilldown-head .session-title {
-    font-family: var(--font-label);
-    font-size: 13px;
-    font-weight: 700;
-  }
-  .drilldown-head .session-meta {
-    font-family: var(--font-label);
-    font-size: 11.5px;
-    color: var(--ink-soft);
-  }
+  .drilldown-head .session-title { font-family: var(--font-body); font-size: 13.5px; font-weight: 700; color: var(--ink); }
+  .drilldown-head .session-meta { font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); }
 
-  .agent-select-list { border-bottom: 1px solid var(--block-line); }
-
-  .agent-select {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+  .agent-select-list { border-bottom: 1px solid var(--paper-line); }
+  .agent-select { position: absolute; opacity: 0; width: 0; height: 0; }
   .agent-row {
     cursor: pointer;
     padding: 12px 18px;
@@ -664,68 +707,60 @@
     grid-template-columns: 18px 110px 1fr 90px 90px 70px;
     align-items: center;
     gap: 12px;
+    font-family: var(--font-body);
     font-size: 13px;
-    border-bottom: 1px solid var(--paper-line);
+    border-bottom: 1px solid var(--paper-line-soft);
   }
   .agent-select-list .agent-row:last-of-type { border-bottom: none; }
   .agent-row::before {
     content: "";
-    width: 9px;
-    height: 9px;
+    width: 9px; height: 9px;
     border-radius: 2px;
-    border: 1.5px solid var(--block-line);
+    border: 1.5px solid var(--ink-faint);
+    background: transparent;
   }
-  .agent-select:checked + .agent-row { background: var(--blue-soft); }
-  .agent-select:checked + .agent-row::before { background: var(--blue); border-color: var(--blue); }
-  .agent-select:focus-visible + .agent-row { outline: 2px solid var(--blue); outline-offset: -2px; }
+  .agent-select:checked + .agent-row { background: var(--bone-dim); }
+  .agent-select:focus-visible + .agent-row,
+  a:focus-visible, button:focus-visible, label:focus-visible, input:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: -2px;
+  }
 
-  #agent-select-main:checked + .agent-row::before { background: var(--blue); border-color: var(--blue); }
-  #agent-select-builder:checked + .agent-row::before { background: var(--amber); border-color: var(--amber); }
-  #agent-select-reviewer:checked + .agent-row::before { background: var(--violet); border-color: var(--violet); }
+  #agent-select-main:checked + .agent-row::before { background: var(--ch1); border-color: var(--ch1); }
+  #agent-select-builder:checked + .agent-row::before { background: var(--ch3); border-color: var(--ch3); }
+  #agent-select-reviewer:checked + .agent-row::before { background: var(--ch4); border-color: var(--ch4); }
 
-  .agent-name {
-    font-weight: 600;
-  }
-  .agent-name .agent-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 6px;
-  }
+  .agent-name { font-weight: 600; color: var(--ink); }
+  .agent-name .agent-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
   .agent-name .tag {
     display: inline-block;
     margin-left: 6px;
     font-family: var(--font-label);
     font-size: 9.5px;
-    color: var(--ink-soft);
-    border: 1px solid var(--block-line);
+    color: var(--ink-faint);
+    border: 1px solid var(--paper-line);
     border-radius: 3px;
     padding: 1px 5px;
-    text-transform: lowercase;
+    text-transform: uppercase;
+    letter-spacing: .04em;
   }
-  .mini-bar {
-    height: 8px;
-    background: var(--paper);
-    border: 1px solid var(--paper-line);
-    border-radius: 2px;
-    overflow: hidden;
-  }
+  .mini-bar { height: 8px; background: var(--bone-dim); border: 1px solid var(--paper-line); border-radius: 2px; overflow: hidden; }
   .mini-bar-fill { height: 100%; background: var(--block-line); }
-  .mini-bar-fill.mini-bar-main { background: var(--blue); }
-  .mini-bar-fill.mini-bar-builder { background: var(--amber); }
-  .mini-bar-fill.mini-bar-reviewer { background: var(--violet); }
+  .mini-bar-fill.mini-bar-main { background: var(--ch1); }
+  .mini-bar-fill.mini-bar-builder { background: var(--ch3); }
+  .mini-bar-fill.mini-bar-reviewer { background: var(--ch4); }
   .agent-stat {
-    font-family: var(--font-label);
+    font-family: var(--font-mono);
     font-size: 11.5px;
     color: var(--ink-soft);
     text-align: right;
     font-variant-numeric: tabular-nums;
   }
   .agent-cost {
-    font-family: var(--font-label);
+    font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 700;
+    color: var(--ink);
     text-align: right;
     font-variant-numeric: tabular-nums;
   }
@@ -733,48 +768,48 @@
   .chat-thread {
     margin: 4px 18px 16px;
     padding: 16px 18px 4px;
-    background: var(--paper);
+    background: var(--bone-dim);
     border: 1px solid var(--paper-line);
-    border-radius: 8px;
+    border-radius: 4px;
   }
   .chat-thread-label {
     font-family: var(--font-label);
     font-size: 9.5px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: .07em;
     color: var(--ink-soft);
     margin-bottom: 16px;
   }
   .chat-turn {
     padding-bottom: 16px;
-    padding-left: 11px;
-    border-left: 3px solid var(--block-line);
-    transition: opacity 0.15s ease;
+    padding-left: 13px;
+    border-left: 1px solid var(--paper-line);
+    transition: opacity .15s ease;
   }
   .chat-turn + .chat-turn {
     margin-top: 16px;
     padding-top: 16px;
     border-top: 1px dashed var(--paper-line);
   }
-  .chat-turn-main { border-left-color: var(--blue); }
-  .chat-turn-builder { border-left-color: var(--amber); }
-  .chat-turn-reviewer { border-left-color: var(--violet); }
-  body:has(.agent-select:checked) .chat-turn { opacity: 0.32; }
+  body:has(.agent-select:checked) .chat-turn { opacity: .32; }
   body:has(#agent-select-main:checked) .chat-turn-main,
   body:has(#agent-select-builder:checked) .chat-turn-builder,
-  body:has(#agent-select-reviewer:checked) .chat-turn-reviewer {
-    opacity: 1;
-  }
+  body:has(#agent-select-reviewer:checked) .chat-turn-reviewer { opacity: 1; }
   .chat-turn-meta {
-    font-family: var(--font-label);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
     font-size: 10px;
     color: var(--ink-soft);
     margin-bottom: 10px;
+    font-variant-numeric: tabular-nums;
   }
-  .chat-turn-meta .chat-turn-agent { font-weight: 700; }
-  .chat-turn-main .chat-turn-agent { color: var(--blue); }
-  .chat-turn-builder .chat-turn-agent { color: var(--amber); }
-  .chat-turn-reviewer .chat-turn-agent { color: var(--violet); }
+  .chat-turn-meta .chat-turn-agent { font-family: var(--font-label); font-weight: 700; }
+  .chat-turn-main .chat-turn-agent { color: var(--ch1); }
+  .chat-turn-builder .chat-turn-agent { color: var(--ch3); }
+  .chat-turn-reviewer .chat-turn-agent { color: var(--ch4); }
   .chat-msg { max-width: 80%; margin-bottom: 10px; }
   .chat-msg:last-child { margin-bottom: 0; }
   .chat-msg-prompt { margin-right: auto; }
@@ -784,36 +819,39 @@
     font-family: var(--font-label);
     font-size: 9px;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--ink-soft);
+    letter-spacing: .05em;
+    color: var(--ink-faint);
     margin-bottom: 4px;
   }
   .chat-msg-response .chat-msg-role { text-align: right; }
   .chat-bubble {
-    background: #fff;
+    font-family: var(--font-body);
+    background: var(--window);
     border: 1px solid var(--paper-line);
-    border-radius: 10px;
+    border-radius: 4px;
     padding: 10px 12px;
   }
-  .chat-msg-response .chat-bubble { background: var(--blue-soft); border-color: var(--blue-soft); }
+  .chat-msg-response .chat-bubble { background: var(--ch1-soft); border-color: var(--ch1-soft); }
 
   .greek-line { height: 7px; background: var(--block); border-radius: 2px; margin-bottom: 6px; }
   .greek-line:last-child { margin-bottom: 0; }
   .trace-detail-note {
     margin: 16px 0 0;
-    font-size: 10.5px;
+    font-family: var(--font-body);
+    font-size: 11px;
     color: var(--ink-soft);
     border-top: 1px dashed var(--paper-line);
     padding-top: 12px;
     line-height: 1.5;
   }
-  .trace-detail-note code { background: var(--block); padding: 1px 5px; border-radius: 3px; }
+  .trace-detail-note code { font-family: var(--font-mono); background: var(--block); padding: 1px 5px; border-radius: 3px; }
   .trace-detail-unavailable {
     margin: 0;
+    font-family: var(--font-body);
     font-size: 11.5px;
     color: var(--ink-soft);
-    border: 1px dashed var(--block-line);
-    border-radius: 6px;
+    border: 1px dashed var(--paper-line);
+    border-radius: 4px;
     padding: 10px 12px;
     line-height: 1.5;
   }
@@ -824,49 +862,42 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    font-family: var(--font-label);
-    font-size: 11px;
+    font-family: var(--font-body);
+    font-size: 11.5px;
     color: var(--ink-soft);
   }
   .legend .item { display: flex; align-items: baseline; gap: 8px; }
-  .legend .item .n {
-    flex: none;
-    color: var(--graphite);
-  }
+  .legend .item .n { flex: none; font-family: var(--font-mono); color: var(--ink-faint); }
 
   .hint {
     margin: -6px 0 12px;
-    font-family: var(--font-label);
-    font-size: 11px;
-    color: var(--ink-soft);
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    color: var(--ink-faint);
   }
 
   .notes-box {
     max-width: 1180px;
     margin: 22px auto 0;
-    border: 1.5px dashed var(--block-line);
-    border-radius: 8px;
+    border: 1.5px dashed var(--paper-line);
+    border-radius: 4px;
     padding: 16px 18px;
-    background: #fff;
+    background: var(--window);
   }
   .notes-box .panel-title { margin-bottom: 8px; }
-  .notes-box p {
-    margin: 0;
-    font-size: 13px;
-    color: var(--ink-soft);
-    font-style: italic;
-  }
+  .notes-box p { margin: 0; font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); font-style: italic; }
 
   footer {
     max-width: 1180px;
     margin: 22px auto 0;
-    font-family: var(--font-label);
-    font-size: 11px;
-    color: var(--ink-soft);
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    color: var(--ink-faint);
     border-top: 1px solid var(--paper-line);
     padding-top: 14px;
   }
-  footer a, footer code { color: var(--blue); }
+  footer a, footer code { color: var(--ink-soft); }
+  footer code { font-family: var(--font-mono); }
 
   .state-toggle {
     max-width: 1180px;
@@ -874,33 +905,25 @@
     display: flex;
     font-family: var(--font-label);
     font-size: 11px;
+    width: fit-content;
+    border: 1px solid var(--paper-line);
+    border-radius: 3px;
+    overflow: hidden;
   }
-  .state-toggle input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+  .state-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
   .state-toggle label {
     cursor: pointer;
     padding: 7px 16px;
-    border: 1px solid var(--block-line);
-    background: var(--block);
+    background: var(--window);
     color: var(--ink-soft);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    user-select: none;
-  }
-  .state-toggle label:nth-of-type(1) { border-radius: 6px 0 0 6px; }
-  .state-toggle label:nth-of-type(2) { border-radius: 0 6px 6px 0; border-left: none; }
-  .state-toggle input:checked + label {
-    background: var(--window);
-    color: var(--ink);
+    letter-spacing: .05em;
     font-weight: 700;
-    border-color: var(--blue);
-    position: relative;
-    z-index: 1;
+    user-select: none;
+    border-right: 1px solid var(--paper-line);
   }
+  .state-toggle label:last-of-type { border-right: none; }
+  .state-toggle input:checked + label { background: var(--signal); color: var(--window); }
 
   .view-empty { display: none; }
   body:has(#state-empty:checked) .view-populated { display: none; }
@@ -909,9 +932,6 @@
   .tab-panel-sessions { display: none; }
   body:has(#tab-sessions:target) .tab-panel-dashboard { display: none; }
   body:has(#tab-sessions:target) .tab-panel-sessions { display: block; }
-  /* clamps the native jump-to-#anchor scroll to the top of the page instead
-     of scrolling the tab panel to the very top of the viewport, which would
-     hide the chrome/tab bar above it */
   #tab-dashboard, #tab-sessions { scroll-margin-top: 9999px; }
 
   .scope-toggle { margin-top: -8px; }
@@ -919,106 +939,80 @@
   .panel-projects { display: none; }
   body:has(#scope-all:checked) .panel-projects { display: block; }
 
-  .project-filter {
-    display: none;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: 0 0 14px;
-  }
+  .project-filter { display: none; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
   body:has(#scope-all:checked) .project-filter { display: flex; }
   .project-filter input { position: absolute; opacity: 0; width: 0; height: 0; }
   .project-filter label {
     cursor: pointer;
     padding: 5px 12px;
-    border: 1px solid var(--block-line);
-    border-radius: 999px;
-    background: var(--block);
+    border: 1px solid var(--paper-line);
+    border-radius: 3px;
+    background: var(--window);
     color: var(--ink-soft);
     font-family: var(--font-label);
     font-size: 10.5px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: .05em;
     user-select: none;
   }
   .project-filter input:checked + label {
-    background: var(--blue-soft);
-    color: var(--blue);
+    background: var(--signal);
+    color: var(--window);
     font-weight: 700;
-    border-color: var(--blue);
+    border-color: var(--signal);
   }
 
   body:has(#scope-all:checked #proj-cairn:checked) .session-list li:not(.proj-cairn) { display: none; }
   body:has(#scope-all:checked #proj-rivet:checked) .session-list li:not(.proj-rivet) { display: none; }
   body:has(#scope-all:checked #proj-phito:checked) .session-list li:not(.proj-phito) { display: none; }
 
-  .empty-state {
-    max-width: 460px;
-    margin: 32px auto;
-    text-align: center;
-    padding: 34px 30px;
-    border: 1.5px dashed var(--block-line);
-    border-radius: 10px;
-    background: var(--paper);
-  }
+  .empty-state { max-width: 460px; margin: 32px auto; text-align: center; padding: 34px 30px; border: 1.5px dashed var(--paper-line); border-radius: 6px; background: var(--window); }
   .empty-mark {
     width: 46px; height: 46px;
     margin: 0 auto 16px;
-    border: 1.5px dashed var(--graphite);
+    border: 1.5px dashed var(--ink-faint);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-label);
+    font-family: var(--font-mono);
     font-size: 18px;
     color: var(--ink-soft);
   }
-  .empty-state h3 {
-    margin: 0 0 8px;
-    font-size: 16px;
-    font-weight: 600;
-  }
-  .empty-state > p {
-    margin: 0 0 22px;
-    font-size: 13px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-  }
-  .empty-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: left;
-    margin-bottom: 22px;
-  }
-  .empty-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 12.5px;
-  }
+  .empty-state h3 { margin: 0 0 8px; font-family: var(--font-body); font-size: 16px; font-weight: 700; color: var(--ink); }
+  .empty-state > p { margin: 0 0 22px; font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+  .empty-steps { display: flex; flex-direction: column; gap: 10px; text-align: left; margin-bottom: 22px; }
+  .empty-step { display: flex; align-items: flex-start; gap: 10px; font-family: var(--font-body); font-size: 12.5px; }
   .step-num {
     flex: none;
     width: 18px; height: 18px;
-    border: 1px solid var(--block-line);
+    border: 1px solid var(--paper-line);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-label);
+    font-family: var(--font-mono);
     font-size: 10px;
     color: var(--ink-soft);
   }
   .empty-note {
-    font-family: var(--font-label);
+    font-family: var(--font-body);
     font-size: 10.5px;
-    color: var(--ink-soft);
+    color: var(--ink-faint);
     border-top: 1px dashed var(--paper-line);
     padding-top: 14px;
   }
-  .empty-note code {
-    background: var(--block);
-    padding: 1px 5px;
-    border-radius: 3px;
+  .empty-note code { font-family: var(--font-mono); background: var(--block); padding: 1px 5px; border-radius: 3px; }
+
+  @media (max-width: 760px) {
+    .rollups { grid-template-columns: 1fr; }
+    .meter-row { flex-direction: column; }
+    .sessions-layout { grid-template-columns: 1fr; }
+    .app-head { flex-direction: column; align-items: flex-start; }
+    .agent-row { grid-template-columns: 18px 1fr; grid-template-areas: "dot name" "dot bars" "dot stats"; row-gap: 4px; }
+    .chat-msg { max-width: 92%; }
+    .heatmap-hours, .heatmap-row { grid-template-columns: 20px repeat(24, 1fr); font-size: 7px; }
   }
 </style>
 </head>
@@ -1059,18 +1053,20 @@
             <span class="brand-scope brand-scope-all">cairn · local dashboard · multi-project</span>
           </div>
         </div>
+        <div class="app-tabs">
+          <a href="#tab-dashboard" class="tab-dashboard-link">Dashboard</a>
+          <a href="#tab-sessions" class="tab-sessions-link">Sessions</a>
+        </div>
+
         <div class="status-cluster">
-          <span class="pill">↻ auto-refresh 15s</span>
+          <span class="lamp" aria-hidden="true"></span>
+          <span class="pill">auto-refresh 15s</span>
           <span class="pill">refresh now</span>
-          <span>updated 12s ago</span>
+          <span class="status-updated">updated 12s ago</span>
         </div>
       </div>
 
       <div class="view view-populated">
-      <div class="app-tabs">
-        <a href="#tab-dashboard" class="tab-dashboard-link">Dashboard</a>
-        <a href="#tab-sessions" class="tab-sessions-link">Sessions</a>
-      </div>
 
       <div class="tab-panel-dashboard" id="tab-dashboard">
       <div class="warning-banner">
@@ -1080,9 +1076,23 @@
         <a href="#tab-sessions" class="warning-banner-link">view session →</a>
       </div>
 
-      <div class="rollups">
-        <div class="panel">
-          <div class="panel-title">Tokens / day</div>
+      <div class="meter-row">
+        <div class="meter-box">
+          <span class="meter-label">Tokens today</span>
+          <span class="meter-value">254K</span>
+        </div>
+        <div class="meter-box">
+          <span class="meter-label">Cost today</span>
+          <span class="meter-value">$0.39</span>
+        </div>
+        <div class="meter-box">
+          <span class="meter-label">Tokens 7D</span>
+          <span class="meter-value">181.3M</span>
+        </div>
+      </div>
+
+      <div class="panel panel-chart-full">
+        <div class="panel-title">Tokens / day</div>
 
           <div class="chart-controls">
             <div class="chart-tabs">
@@ -1121,6 +1131,7 @@
               <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
               <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
               <div class="col"><div class="bar" style="height:2%"></div><span class="day"></span></div>
+              <svg class="trace-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline class="trace-line" points="2.083,98 6.25,98 10.417,98 14.583,98 18.75,98 22.917,98 27.083,98 31.25,98 35.417,98 39.583,98 43.75,98 47.917,98 52.083,0 56.25,98 60.417,98 64.583,98 68.75,98 72.917,98 77.083,98 81.25,98 85.417,98 89.583,98 93.75,98 97.917,98" vector-effect="non-scaling-stroke"/><line class="trace-tick" x1="2.083" y1="94" x2="2.083" y2="100"/><line class="trace-tick" x1="6.25" y1="94" x2="6.25" y2="100"/><line class="trace-tick" x1="10.417" y1="94" x2="10.417" y2="100"/><line class="trace-tick" x1="14.583" y1="94" x2="14.583" y2="100"/><line class="trace-tick" x1="18.75" y1="94" x2="18.75" y2="100"/><line class="trace-tick" x1="22.917" y1="94" x2="22.917" y2="100"/><line class="trace-tick" x1="27.083" y1="94" x2="27.083" y2="100"/><line class="trace-tick" x1="31.25" y1="94" x2="31.25" y2="100"/><line class="trace-tick" x1="35.417" y1="94" x2="35.417" y2="100"/><line class="trace-tick" x1="39.583" y1="94" x2="39.583" y2="100"/><line class="trace-tick" x1="43.75" y1="94" x2="43.75" y2="100"/><line class="trace-tick" x1="47.917" y1="94" x2="47.917" y2="100"/><line class="trace-tick" x1="52.083" y1="0" x2="52.083" y2="4"/><line class="trace-tick" x1="56.25" y1="94" x2="56.25" y2="100"/><line class="trace-tick" x1="60.417" y1="94" x2="60.417" y2="100"/><line class="trace-tick" x1="64.583" y1="94" x2="64.583" y2="100"/><line class="trace-tick" x1="68.75" y1="94" x2="68.75" y2="100"/><line class="trace-tick" x1="72.917" y1="94" x2="72.917" y2="100"/><line class="trace-tick" x1="77.083" y1="94" x2="77.083" y2="100"/><line class="trace-tick" x1="81.25" y1="94" x2="81.25" y2="100"/><line class="trace-tick" x1="85.417" y1="94" x2="85.417" y2="100"/><line class="trace-tick" x1="89.583" y1="94" x2="89.583" y2="100"/><line class="trace-tick" x1="93.75" y1="94" x2="93.75" y2="100"/><line class="trace-tick" x1="97.917" y1="94" x2="97.917" y2="100"/></svg>
             </div>
           </div>
 
@@ -1170,18 +1181,19 @@
               <label class="col" for="day-19"><div class="bar" style="height:73%"></div><span class="day">02</span></label>
               <input type="radio" name="day-pick" id="day-20" class="day-radio" checked>
               <label class="col" for="day-20"><div class="bar" style="height:2%"></div><span class="day">03</span></label>
+              <svg class="trace-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline class="trace-line" points="2.5,78 7.5,42 12.5,98 17.5,55 22.5,33 27.5,98 32.5,70 37.5,12 42.5,98 47.5,48 52.5,80 57.5,5 62.5,60 67.5,90 72.5,0 77.5,98 82.5,98 87.5,94 92.5,27 97.5,98" vector-effect="non-scaling-stroke"/><line class="trace-tick" x1="2.5" y1="74" x2="2.5" y2="82"/><line class="trace-tick" x1="7.5" y1="38" x2="7.5" y2="46"/><line class="trace-tick" x1="12.5" y1="94" x2="12.5" y2="100"/><line class="trace-tick" x1="17.5" y1="51" x2="17.5" y2="59"/><line class="trace-tick" x1="22.5" y1="29" x2="22.5" y2="37"/><line class="trace-tick" x1="27.5" y1="94" x2="27.5" y2="100"/><line class="trace-tick" x1="32.5" y1="66" x2="32.5" y2="74"/><line class="trace-tick" x1="37.5" y1="8" x2="37.5" y2="16"/><line class="trace-tick" x1="42.5" y1="94" x2="42.5" y2="100"/><line class="trace-tick" x1="47.5" y1="44" x2="47.5" y2="52"/><line class="trace-tick" x1="52.5" y1="76" x2="52.5" y2="84"/><line class="trace-tick" x1="57.5" y1="1" x2="57.5" y2="9"/><line class="trace-tick" x1="62.5" y1="56" x2="62.5" y2="64"/><line class="trace-tick" x1="67.5" y1="86" x2="67.5" y2="94"/><line class="trace-tick" x1="72.5" y1="0" x2="72.5" y2="4"/><line class="trace-tick" x1="77.5" y1="94" x2="77.5" y2="100"/><line class="trace-tick" x1="82.5" y1="94" x2="82.5" y2="100"/><line class="trace-tick" x1="87.5" y1="90" x2="87.5" y2="98"/><line class="trace-tick" x1="92.5" y1="23" x2="92.5" y2="31"/><line class="trace-tick" x1="97.5" y1="94" x2="97.5" y2="100"/></svg>
             </div>
 
             <div class="day-detail">
               <div class="day-detail-panel day-detail-1">
                 <div class="day-detail-head"><span>Sat, Aug 15</span><span class="day-detail-total">21.1M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$101.29</span><span class="model-tok">21.0M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.10</span><span class="model-tok">106k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$101.29</span><span class="model-tok">21.0M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.10</span><span class="model-tok">106k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-2">
                 <div class="day-detail-head"><span>Sun, Aug 16</span><span class="day-detail-total">55.7M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$267.04</span><span class="model-tok">55.4M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.26</span><span class="model-tok">278k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$267.04</span><span class="model-tok">55.4M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.26</span><span class="model-tok">278k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-3">
                 <div class="day-detail-head"><span>Mon, Aug 17</span><span class="day-detail-total">0 tok</span></div>
@@ -1189,13 +1201,13 @@
               </div>
               <div class="day-detail-panel day-detail-4">
                 <div class="day-detail-head"><span>Tue, Aug 18</span><span class="day-detail-total">43.2M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$207.18</span><span class="model-tok">43.0M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.21</span><span class="model-tok">216k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$207.18</span><span class="model-tok">43.0M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.21</span><span class="model-tok">216k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-5">
                 <div class="day-detail-head"><span>Wed, Aug 19</span><span class="day-detail-total">64.3M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$308.47</span><span class="model-tok">64.0M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.31</span><span class="model-tok">322k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$308.47</span><span class="model-tok">64.0M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.31</span><span class="model-tok">322k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-6">
                 <div class="day-detail-head"><span>Thu, Aug 20</span><span class="day-detail-total">0 tok</span></div>
@@ -1203,13 +1215,13 @@
               </div>
               <div class="day-detail-panel day-detail-7">
                 <div class="day-detail-head"><span>Fri, Aug 21</span><span class="day-detail-total">28.8M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$138.12</span><span class="model-tok">28.7M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.14</span><span class="model-tok">144k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$138.12</span><span class="model-tok">28.7M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.14</span><span class="model-tok">144k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-8">
                 <div class="day-detail-head"><span>Sat, Aug 22</span><span class="day-detail-total">84.5M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$405.16</span><span class="model-tok">84.1M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.40</span><span class="model-tok">422k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$405.16</span><span class="model-tok">84.1M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.40</span><span class="model-tok">422k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-9">
                 <div class="day-detail-head"><span>Sun, Aug 23</span><span class="day-detail-total">0 tok</span></div>
@@ -1217,33 +1229,33 @@
               </div>
               <div class="day-detail-panel day-detail-10">
                 <div class="day-detail-head"><span>Mon, Aug 24</span><span class="day-detail-total">49.9M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$239.41</span><span class="model-tok">49.7M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.24</span><span class="model-tok">250k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$239.41</span><span class="model-tok">49.7M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.24</span><span class="model-tok">250k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-11">
                 <div class="day-detail-head"><span>Tue, Aug 25</span><span class="day-detail-total">19.2M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$92.08</span><span class="model-tok">19.1M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.09</span><span class="model-tok">96k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$92.08</span><span class="model-tok">19.1M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.09</span><span class="model-tok">96k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-12">
                 <div class="day-detail-head"><span>Wed, Aug 26</span><span class="day-detail-total">91.2M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$437.39</span><span class="model-tok">90.7M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.43</span><span class="model-tok">456k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$437.39</span><span class="model-tok">90.7M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.43</span><span class="model-tok">456k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-13">
                 <div class="day-detail-head"><span>Thu, Aug 27</span><span class="day-detail-total">38.4M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$184.16</span><span class="model-tok">38.2M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.18</span><span class="model-tok">192k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$184.16</span><span class="model-tok">38.2M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.18</span><span class="model-tok">192k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-14">
                 <div class="day-detail-head"><span>Fri, Aug 28</span><span class="day-detail-total">9.5M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$45.60</span><span class="model-tok">9.4M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.08</span><span class="model-tok">80k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$45.60</span><span class="model-tok">9.4M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.08</span><span class="model-tok">80k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-15">
                 <div class="day-detail-head"><span>Sat, Aug 29</span><span class="day-detail-total">96.2M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$461.70</span><span class="model-tok">95.9M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.21</span><span class="model-tok">300k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$461.70</span><span class="model-tok">95.9M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.21</span><span class="model-tok">300k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-16">
                 <div class="day-detail-head"><span>Sun, Aug 30</span><span class="day-detail-total">0 tok</span></div>
@@ -1255,17 +1267,17 @@
               </div>
               <div class="day-detail-panel day-detail-18">
                 <div class="day-detail-head"><span>Tue, Sep 1</span><span class="day-detail-total">5.3M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$25.20</span><span class="model-tok">5.2M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.04</span><span class="model-tok">40k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$25.20</span><span class="model-tok">5.2M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.04</span><span class="model-tok">40k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-19">
                 <div class="day-detail-head"><span>Wed, Sep 2</span><span class="day-detail-total">70.4M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$337.90</span><span class="model-tok">70.1M tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--graphite)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.19</span><span class="model-tok">280k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$337.90</span><span class="model-tok">70.1M tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch2)"></span><span class="model-name">haiku-4.5</span><span class="model-cost">$0.19</span><span class="model-tok">280k tok</span></div>
               </div>
               <div class="day-detail-panel day-detail-20">
                 <div class="day-detail-head"><span>Thu, Sep 3</span><span class="day-detail-total">254k tok</span></div>
-                <div class="day-detail-row"><span class="dot" style="background:var(--blue)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$0.39</span><span class="model-tok">254k tok</span></div>
+                <div class="day-detail-row"><span class="dot" style="background:var(--ch1)"></span><span class="model-name">sonnet-5</span><span class="model-cost">$0.39</span><span class="model-tok">254k tok</span></div>
               </div>
             </div>
           </div>
@@ -1287,10 +1299,13 @@
               <div class="col"><div class="bar" style="height:100%"></div><span class="day">Jul</span></div>
               <div class="col"><div class="bar" style="height:89%"></div><span class="day">Aug</span></div>
               <div class="col"><div class="bar" style="height:24%"></div><span class="day">Sep</span></div>
+              <svg class="trace-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline class="trace-line" points="4.167,62 12.5,48 20.833,29 29.167,55 37.5,40 45.833,16 54.167,33 62.5,8 70.833,22 79.167,0 87.5,11 95.833,76" vector-effect="non-scaling-stroke"/><line class="trace-tick" x1="4.167" y1="58" x2="4.167" y2="66"/><line class="trace-tick" x1="12.5" y1="44" x2="12.5" y2="52"/><line class="trace-tick" x1="20.833" y1="25" x2="20.833" y2="33"/><line class="trace-tick" x1="29.167" y1="51" x2="29.167" y2="59"/><line class="trace-tick" x1="37.5" y1="36" x2="37.5" y2="44"/><line class="trace-tick" x1="45.833" y1="12" x2="45.833" y2="20"/><line class="trace-tick" x1="54.167" y1="29" x2="54.167" y2="37"/><line class="trace-tick" x1="62.5" y1="4" x2="62.5" y2="12"/><line class="trace-tick" x1="70.833" y1="18" x2="70.833" y2="26"/><line class="trace-tick" x1="79.167" y1="0" x2="79.167" y2="4"/><line class="trace-tick" x1="87.5" y1="7" x2="87.5" y2="15"/><line class="trace-tick" x1="95.833" y1="72" x2="95.833" y2="80"/></svg>
             </div>
           </div>
         </div>
+      </div>
 
+      <div class="rollups">
         <div class="panel">
           <div class="panel-title">Agents &amp; skills, 7d</div>
           <div class="hbar-group-label">tokens by agent</div>
@@ -1427,7 +1442,7 @@
               <div class="agent-select-list">
                 <input type="checkbox" class="agent-select" id="agent-select-main">
                 <label class="agent-row" for="agent-select-main">
-                  <span class="agent-name"><span class="agent-dot" style="background:var(--blue)"></span>main</span>
+                  <span class="agent-name"><span class="agent-dot" style="background:var(--ch1)"></span>main</span>
                   <div class="mini-bar"><div class="mini-bar-fill mini-bar-main" style="width:100%"></div></div>
                   <span class="agent-stat">3 calls</span>
                   <span class="agent-stat">9.6M tok</span>
@@ -1435,7 +1450,7 @@
                 </label>
                 <input type="checkbox" class="agent-select" id="agent-select-builder">
                 <label class="agent-row" for="agent-select-builder">
-                  <span class="agent-name"><span class="agent-dot" style="background:var(--amber)"></span>cairn:builder <span class="tag">subagent</span></span>
+                  <span class="agent-name"><span class="agent-dot" style="background:var(--ch3)"></span>cairn:builder <span class="tag">subagent</span></span>
                   <div class="mini-bar"><div class="mini-bar-fill mini-bar-builder" style="width:35%"></div></div>
                   <span class="agent-stat">3 calls</span>
                   <span class="agent-stat">3.4M tok</span>
@@ -1443,7 +1458,7 @@
                 </label>
                 <input type="checkbox" class="agent-select" id="agent-select-reviewer">
                 <label class="agent-row" for="agent-select-reviewer">
-                  <span class="agent-name"><span class="agent-dot" style="background:var(--violet)"></span>cairn:reviewer <span class="tag">subagent</span></span>
+                  <span class="agent-name"><span class="agent-dot" style="background:var(--ch4)"></span>cairn:reviewer <span class="tag">subagent</span></span>
                   <div class="mini-bar"><div class="mini-bar-fill mini-bar-reviewer" style="width:12%"></div></div>
                   <span class="agent-stat">2 calls</span>
                   <span class="agent-stat">1.1M tok</span>
