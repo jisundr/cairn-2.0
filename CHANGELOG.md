@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the model (§A4) — read by humans only.
 
+## 2026-09-05
+
+- Re-vendored `tools/tokens/static/` from `token-metering/static/` (`docs/tasks/dashboard-verification-and-vendor-sync/`, Wave 5 of the token-metering-dashboard-ui port) — the prior copy (from the 2026-09-02 vendor sync) predated Waves 1-4's frontend restyle (`DESIGN.md`'s oscilloscope visual system: tokens/primitives, chrome & readouts, charts, sessions & drilldown), so `tools/tokens/server.py` — what a consuming project's `/cairn-tokens` actually serves — was still serving the pre-restyle build. Byte-for-byte copy from a fresh `npm run build` at `token-metering`'s merged `origin/main` tip (`e3cae6c`); no content edits. Adds a `fonts/` subdirectory (`BigShoulders`, `MartianMono`, `PublicSans` weights) absent from the prior vendored copy, since Wave 1 introduced custom typefaces — `server.py`'s static serving is already generic path-based, so no server change was needed. No version bump — asset sync, not a plugin capability change, matching the 2026-09-02 precedent (`54b2c31`).
+
 ## 2026-09-02
 
 - Re-vendored `tools/tokens/static/` from `token-metering/static/` (one-time copy, `docs/tasks/vendor-token-metering-backend/`) — the prior copy predated Waves 3-4's frontend changes (`global_position`-based ordering, agent-row badge wrap, `HbarList` row cap, local time rendering, the `/api/heatmap` wire-shape redesign), so `tools/tokens/server.py` — what a consuming project's `/cairn-tokens` actually serves — was serving a stale build calling the old heatmap response shape against new client code. This gap was named but left unaddressed by `docs/features/token-metering-followups/specs/07-architecture-doc-staleness.md`'s Components-table correction (no automated guard catches `static/` drift, unlike the nine backend files `check_vendoring_sync.py` covers). No version bump — asset sync, not a plugin capability change.
