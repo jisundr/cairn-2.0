@@ -14,6 +14,8 @@ Track B (Wave 3 — charts) is **merged** — PR #8 (https://github.com/jisundr/
 
 Track B's Wave 4 (sessions & drilldown) is **merged** — PR #9 (https://github.com/jisundr/cairn-2.0-token-metering/pull/9, branch `wave-4-sessions-and-drilldown`) merged 2026-09-05 via merge commit `e3cae6c`, source branch deleted. Built in `token-metering/.claude/worktrees/track-b`. `cairn:reviewer` PASSed on the first round, gates green (build clean, playwright 26/26, pytest 62/62); the manual check (Actionable 11 — default-session drilldown, selected-row marker/wash, non-dominant agent-row expand, trace drawer for both an available- and an unavailable-transcript call) confirmed no visual or console/page errors. Surfaced the pre-existing `toFixed` crash logged under Known issues while doing that check; worked around it in the manual check by using `e2e-session-main` instead of the affected `e2e-session-other`, since the crash's cause is out of this wave's scope. Detail in `docs/tasks/dashboard-sessions-and-drilldown/STATE.md`. Closed.
 
+Track A's Wave 5 (verification & vendor sync) is **done** — no PR, committed directly to this outer repo's `main` (commits `9e581ba` re-vendor, `e116b63` docs, `28db3b1` STATE.md trim fix). The full gate ran clean against the merged `token-metering` tip: `pytest test_*.py` 62/62, `npm run build` clean, `npx playwright test` 26/26 across both fixture states. The manual `cairn:run` smoke test matched all four reference screenshots (`.impeccable/review/{desktop,mobile,sessions-interaction,empty-state}.png`) with no regression. `tools/tokens/static/` was re-vendored byte-for-byte from a fresh build of the merged tree, including a new `fonts/` subtree for Wave 1's custom typefaces; `tools/tokens/server.py`'s static serving needed no code changes since it's already generic/path-based. `cairn:reviewer` initially FAILed on a STATE.md size overage, fixed and re-reviewed to PASS. Actionable 4's manual smoke test found no regression, so Actionable 5 (branch-and-fix) and its associated submodule PR were skipped entirely. `python tools/budget.py` is clean on the re-vendored commit. Detail in `docs/tasks/dashboard-verification-and-vendor-sync/STATE.md`. Closed — this closes the token-metering-dashboard-ui port in full.
+
 ## Known issues
 
 - Track B, hit during Wave 4's manual check (pre-existing, not a Wave 4 regression — `server.py`, `frontend/src/lib/format.ts`, and `frontend/src/api/*` are byte-identical to `origin/main`): selecting a session whose trace has an unpriced call crashes `SessionDrilldown` with `TypeError: e.toFixed is not a function`. `server.py`'s `pricing.call_cost(row)` can return the literal string `"unknown"` for a per-call `cost`, but `format.ts`'s `formatCost`/`formatDuration` only guard `=== null` (matching their `number | null` TS signature, which doesn't account for the `"unknown"` string the backend actually emits) before calling `.toFixed()`. Repro: seed the `populated` e2e fixture, select `e2e-session-other` (its one call has `"cost": "unknown"`). Both `pricing.py`/`server.py` (backend) and `format.ts`/`api/*` (data-fetching) are out of scope for this visual-restyle port per this doc's Invariants — needs its own fix (either `pricing.call_cost` never returning a non-numeric sentinel, or `format.ts` guarding non-numeric values) outside this port.
@@ -22,11 +24,11 @@ Track B's Wave 4 (sessions & drilldown) is **merged** — PR #9 (https://github.
 
 Pulled directly from `requirements.md`'s Success criteria:
 
-- [ ] No file under `token-metering/frontend/src/` references `--paper`, `--blue`, `--flag`, `--graphite`, `Archivo`, or `Space Mono`.
-- [ ] Every component under `token-metering/frontend/src/components/` visually matches its `DESIGN.md`-named counterpart when compared against the reviewed mockup evidence (`.impeccable/review/{desktop,mobile,sessions-interaction,empty-state}.png`).
-- [ ] `pytest test_*.py`, `npm run build`, and `npx playwright test` are all green inside `token-metering/`, with no assertion left referencing the old token system.
-- [ ] `tools/tokens/static/` in this repo matches a fresh `npm run build` of the ported `token-metering/frontend/`, confirmed by re-running the existing re-vendor step.
-- [ ] Exercised live via `cairn:run` against a real session: a cold-start/empty project, a populated project, a session mid-usage-limit warning, and an agent-select interaction in the drilldown all render correctly in the new system.
+- [x] No file under `token-metering/frontend/src/` references `--paper`, `--blue`, `--flag`, `--graphite`, `Archivo`, or `Space Mono`.
+- [x] Every component under `token-metering/frontend/src/components/` visually matches its `DESIGN.md`-named counterpart when compared against the reviewed mockup evidence (`.impeccable/review/{desktop,mobile,sessions-interaction,empty-state}.png`).
+- [x] `pytest test_*.py`, `npm run build`, and `npx playwright test` are all green inside `token-metering/`, with no assertion left referencing the old token system.
+- [x] `tools/tokens/static/` in this repo matches a fresh `npm run build` of the ported `token-metering/frontend/`, confirmed by re-running the existing re-vendor step.
+- [x] Exercised live via `cairn:run` against a real session: a cold-start/empty project, a populated project, a session mid-usage-limit warning, and an agent-select interaction in the drilldown all render correctly in the new system.
 
 ## Per-wave gate
 
@@ -36,7 +38,7 @@ Mirrors `ROADMAP.md`'s wave Gate lines — the authoritative copy is there; this
 - [x] Wave 2 — chrome & readouts: `npm run build && npx playwright test`. Merged (PR #7, commit `b84ad1d`).
 - [x] Wave 3 — charts: `npm run build && npx playwright test`. Merged (PR #8, commit `4df7bed2`).
 - [x] Wave 4 — sessions & drilldown: `npm run build && npx playwright test`. Merged (PR #9, commit `e3cae6c`).
-- [ ] Wave 5 — verification & vendor sync: `pytest test_*.py`; `npm run build && npx playwright test`; this repo's `python tools/budget.py` clean on the re-vendored commit.
+- [x] Wave 5 — verification & vendor sync: `pytest test_*.py`; `npm run build && npx playwright test`; this repo's `python tools/budget.py` clean on the re-vendored commit. Done (commits `9e581ba`, `e116b63`, `28db3b1`).
 
 ## Invariants
 
