@@ -16,17 +16,17 @@ out_of_scope:
   - state/routing/data-fetching, index.css
 source: docs/features/token-metering-dashboard-ui/plans/04-sessions-and-drilldown.md
 path: escalated
-phase: review
+phase: merged
 key_info: Plan at docs/tasks/dashboard-sessions-and-drilldown/plan.md, 13 actionables,
   all complete. Worktree track-b, branch wave-4-sessions-and-drilldown off
-  origin/main, PR #9 open (https://github.com/jisundr/cairn-2.0-token-metering/pull/9),
-  not yet merged. Gates green (build clean, playwright 26/26, pytest 62/62);
+  origin/main. Gates green (build clean, playwright 26/26, pytest 62/62);
   cairn:reviewer PASSed on the first round. Manual check done against
   e2e-session-main (default selection, non-dominant agent-row expand, trace
   drawer for an available and an unavailable transcript) - e2e-session-other
   was avoided because selecting it hits the pre-existing toFixed crash logged
-  in GOAL-CONDITION.md's Known issues (out of this wave's scope). A future
-  session should confirm the merge and update GOAL-CONDITION.md accordingly.
+  in GOAL-CONDITION.md's Known issues (out of this wave's scope). PR #9
+  (https://github.com/jisundr/cairn-2.0-token-metering/pull/9) merged
+  2026-09-05 via merge commit e3cae6c, source branch deleted. Wave 4 closed.
 flags:
   - "Stale tokens (--blue/-soft,--flag,--block-line,--paper,--graphite) absent from index.css; mapped per-site to current tokens, index.css untouched (out of scope)."
   - "--ch1-soft (chat-thread response bubble) also absent; --bone-dim substituted in TraceDetailContent."
