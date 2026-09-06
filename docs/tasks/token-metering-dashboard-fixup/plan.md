@@ -1,6 +1,6 @@
 # Plan — token-metering dashboard fixup (correction wave)
 
-Design: `docs/features/token-metering-dashboard-ui/DESIGN.md`'s Layout section (bezel), Dial
+Design: `docs/DESIGN.md`'s Layout section (bezel), Dial
 Tabs component (app-level variant), and Session List/Drilldown component (Agent-select rows,
 Chat thread) — DESIGN.md lines ~133-137, ~155-156, ~161-166. Concrete reference: the frozen
 `docs/features/token-metering-dashboard-ui/mockups/dashboard.html` (never edited) — `.chrome`/
@@ -30,7 +30,7 @@ were torn down 2026-09-05 per `GOAL-CONDITION.md`'s Current status).
   expose what's needed — see Actionable 4)
 - `token-metering/frontend/src/index.css` (one additive token — see Actionable 5)
 - `token-metering/frontend/e2e/populated/dashboard.spec.ts`
-- `docs/features/token-metering-dashboard-ui/DESIGN.md`
+- `docs/DESIGN.md`
 - `docs/features/token-metering-dashboard-ui/GOAL-CONDITION.md`
 - `tools/tokens/static/` (re-vendor only, no hand-edit)
 

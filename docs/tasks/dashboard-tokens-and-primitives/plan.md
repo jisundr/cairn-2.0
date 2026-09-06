@@ -1,6 +1,6 @@
 # Plan — Track A / Wave 1: tokens & primitives
 
-Design: `docs/features/token-metering-dashboard-ui/DESIGN.md` (full authority — palette, type
+Design: `docs/DESIGN.md` (full authority — palette, type
 scale, elevation/shape rules) + its frozen `mockups/dashboard.html` (concrete reference source —
 never edited). Source plan: `docs/features/token-metering-dashboard-ui/plans/01-tokens-and-primitives.md`,
 which already resolves font hosting → self-host `.woff2`.

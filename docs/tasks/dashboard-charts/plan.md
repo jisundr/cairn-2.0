@@ -1,6 +1,6 @@
 # Plan — Track B / Wave 3: charts
 
-Design: `../../features/token-metering-dashboard-ui/DESIGN.md`'s Graticule Bar Charts component
+Design: `../../DESIGN.md`'s Graticule Bar Charts component
 section (Components; also the Ink-Scale Data Rule under Colors, and the Readout-face rule under
 Typography). Concrete reference: the frozen `mockups/dashboard.html` (never edited) — graticule/
 trace CSS at lines 350-415, the today/daily chart markup (incl. a full worked SVG trace overlay)

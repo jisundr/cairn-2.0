@@ -1,6 +1,6 @@
 # Plan — Track B / Wave 4: sessions & drilldown restyle
 
-Design: `docs/features/token-metering-dashboard-ui/DESIGN.md`'s Session List/Drilldown and
+Design: `docs/DESIGN.md`'s Session List/Drilldown and
 Meter/Progress Bars component sections (also One Signal Rule, Ink-Scale Data Rule, Three-Face
 Rule, Bezel-Not-Shadow Rule, Shapes' dashed-border/no-pill-radius rules — all under Colors/
 Typography/Elevation/Shapes). Concrete reference: the frozen

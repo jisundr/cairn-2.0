@@ -1,6 +1,6 @@
 # Plan — Track A / Wave 2: chrome & readouts
 
-Design: `../../features/token-metering-dashboard-ui/DESIGN.md` — Meter Boxes, Empty State, Warning
+Design: `../../DESIGN.md` — Meter Boxes, Empty State, Warning
 Banner sections; Header chrome follows the same corner/border/elevation vocabulary Wave 1 already
 applied to the `ui/` primitives (`button.tsx`, `badge.tsx`, `panel.tsx`, `tabs.tsx`, all live in this
 worktree). Concrete reference: the frozen `mockups/dashboard.html` (never edited). Source plan:
