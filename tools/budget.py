@@ -91,7 +91,7 @@ def headroom(measured, hard, unit="B"):
     return f"{hard - measured} {unit}"
 
 
-IGNORED_DIR_PARTS = (".git", "__pycache__", ".pytest_cache")
+IGNORED_DIR_PARTS = (".git", "__pycache__", ".pytest_cache", "node_modules")
 
 
 def all_files(root):
@@ -225,7 +225,7 @@ def is_text_file(path):
 def check_at_imports(root):
     findings = []
     for path in sorted(root.rglob("*.md")):
-        if ".git" in path.parts:
+        if any(part in IGNORED_DIR_PARTS for part in path.relative_to(root).parts):
             continue
         rel = path.relative_to(root).as_posix()
         for m in AT_IMPORT_RE.finditer(read_text(path)):
