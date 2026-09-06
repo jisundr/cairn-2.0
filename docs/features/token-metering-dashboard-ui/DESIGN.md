@@ -101,7 +101,7 @@ A single warm-paper neutral scale carries the whole surface; amber is the only s
 
 ### Neutral
 - **Bone** (`#f1ebda`): the page ground, with a faint 28px graticule grid printed into it via a repeating linear-gradient.
-- **Bone Dim** (`#e7ddc0`): recessed surfaces — the browser-chrome bar, day-detail box, drilldown head, chat-thread background, hbar track.
+- **Bone Dim** (`#e7ddc0`): recessed surfaces — day-detail box, drilldown head, chat-thread background, hbar track.
 - **Window** (`#f8f3e5`): the raised/active panel surface — meter boxes, panels, tab bar background, chat bubbles, empty-state card. Lighter than bone; reads as "glass" against the bone bezel.
 - **Block** (`#e2d7b8`): default (unselected) bar-chart fill and the greek-line placeholder color.
 - **Ink** (`#1a2233`): primary text, borders on brand mark, headline numerals. Doubles as `--ch1`, the first data-series color.
@@ -132,7 +132,7 @@ A single warm-paper neutral scale carries the whole surface; amber is the only s
 
 ## Layout
 
-The whole dashboard renders inside a single bordered "instrument window" (`max-width: 1180px`), itself framed by a fake browser-chrome strip (traffic-dot circles + a mono URL field) that sits on the bone-dim ground before the app content begins — a screen-within-a-bezel device, not a bare page.
+The whole dashboard renders inside a single bordered "instrument window" (`max-width: 1180px`).
 
 Internal rhythm runs on an approximate 4px/6px-stepped scale (6, 8, 10, 12, 14, 16, 18, 22px) rather than a single fixed unit; panel gaps land at 16–18px, section margins at 22px. Rollup panels lay out in a `repeat(auto-fit, minmax(300px, 1fr))` grid that reflows from multi-column to single-column with no explicit breakpoint. The Sessions tab uses a fixed two-column grid (`1fr 2fr`: session list, drilldown) that the mobile review confirms collapses to a stacked single column below the desktop width. The page background itself carries a 28px graticule grid printed with the paper-line-soft hairline color, visible through every panel that doesn't cover it.
 

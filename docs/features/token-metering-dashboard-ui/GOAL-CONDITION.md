@@ -59,7 +59,7 @@ Pulled from `requirements.md`'s Non-goals:
 - Replacing `recharts` with a fully bespoke charting engine (default assumption is customizing `recharts`; only reconsidered if Wave 3's plan concludes that's the only way to hit the graticule/trace device).
 - Rewriting state management, routing, or data-fetching.
 - General font-hosting infrastructure beyond serving Big Shoulders/Public Sans/Martian Mono to this one app.
-- Reproducing the mockup's CSS-only (`:target`/`:has()`/`:checked`, no-JS) interaction mechanism — the live app's real React interactivity is preserved as-is.
+- Reproducing the mockup's CSS-only (`:target`/`:has()`/`:checked`, no-JS) interaction mechanism itself — the app-level Dashboard/Sessions tabs, agent-select rows, and chat-thread that mechanism drives are themselves in scope and are ported as real React state/interactivity, not literal CSS selectors.
 
 ## Backlog
 
