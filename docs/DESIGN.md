@@ -77,11 +77,11 @@ components:
     rounded: "{rounded.md}"
     padding: "6px 10px"
   badge-count:
-    backgroundColor: "transparent"
-    textColor: "{colors.ink-soft}"
+    backgroundColor: "{colors.ink-soft}"
+    textColor: "{colors.surface}"
     rounded: "{rounded.full}"
-    width: "17px"
-    height: "17px"
+    minWidth: "18px"
+    height: "18px"
   warning-banner:
     backgroundColor: "{colors.warn-soft}"
     textColor: "{colors.ink}"
@@ -198,7 +198,7 @@ Corners run small: 2px on skeletons and small chart marks, 2–3px on the active
 The dashboard's headline readout: a `--surface` card (same shape as a Panel) holding an 11px medium `--ink-soft` label above a 27px semibold Martian Mono value in `--ink`, tabular-nums. Flex-wraps in a row at the top of the dashboard tab. Loading state swaps the value for a `Skeleton` sized to match (`h-[27px] w-16`) rather than showing a zero.
 
 ### Chips / Badges
-- **Count badge:** a 17×17px circle, `--ink-soft` 1px border, mono bold text — used for the warning banner's event count.
+- **Count badge:** an 18px-tall filled pill (`--ink-soft` fill, `--surface` text by default; the warning banner overrides it to `--warn` fill/`--warn-soft` text so the count reads as part of the warning, not a neutral chip), mono bold, min-width 18px so multi-digit counts stay a pill rather than stretching a circle.
 - **Inline code chip:** `--surface` background pill (`rounded px-1 py-0.5`), Martian Mono text — used for session IDs and file-path references inside prose.
 
 ### Tooltips
