@@ -8,14 +8,15 @@ colors:
   block: "#e2d7b8"
   ink: "#1a2233"
   ink-soft: "#4e5871"
-  ink-faint: "#90939f"
+  ink-faint: "#5b5e69"
   signal: "#c1741c"
   signal-soft: "#ecdcb6"
   signal-line: "#a8631a"
+  signal-ink: "#161c2a"
   ch1: "#1a2233"
-  ch2: "#5c6478"
-  ch3: "#838a9b"
-  ch4: "#aeb2bd"
+  ch2: "#38496e"
+  ch3: "#415680"
+  ch4: "#4a6191"
 typography:
   label:
     fontFamily: "Big Shoulders, Arial Narrow, sans-serif"
@@ -53,7 +54,7 @@ components:
     padding: "12px 16px"
   chart-tab-active:
     backgroundColor: "{colors.signal}"
-    textColor: "{colors.window}"
+    textColor: "{colors.signal-ink}"
     rounded: "{rounded.sm}"
     padding: "6px 13px"
   session-item-selected:
@@ -67,7 +68,7 @@ components:
     padding: "12px 16px"
   pill-active:
     backgroundColor: "{colors.signal}"
-    textColor: "{colors.window}"
+    textColor: "{colors.signal-ink}"
     rounded: "{rounded.sm}"
     padding: "5px 12px"
 ---
@@ -98,6 +99,7 @@ A single warm-paper neutral scale carries the whole surface; amber is the only s
 - **Signal Amber** (`#c1741c`): the one accent. Used only for: active tab fill, selected session-item marker + background wash, active chart-range tab, active pill/filter, warning-banner border and text, the pulsing status lamp, checked day-marker dot on bar charts, day-detail dot for the highest-cost model. Never used for default/at-rest chrome.
 - **Signal Soft** (`#ecdcb6`): amber's low-saturation wash — selected-row background, warning-banner fill, text-selection highlight. Amber's presence without amber's weight.
 - **Signal Line** (`#a8631a`): amber's darker edge, used for warning-banner dashed border and the flag badge/icon stroke.
+- **Signal Ink** (`#161c2a`): the only text color guaranteed AA-contrast (4.5:1) on a solid Signal Amber fill — used for the active chart-range tab's and active pill/filter's label text, replacing Window there.
 
 ### Neutral
 - **Bone** (`#f1ebda`): the page ground, with a faint 28px graticule grid printed into it via a repeating linear-gradient.
@@ -106,13 +108,13 @@ A single warm-paper neutral scale carries the whole surface; amber is the only s
 - **Block** (`#e2d7b8`): default (unselected) bar-chart fill and the greek-line placeholder color.
 - **Ink** (`#1a2233`): primary text, borders on brand mark, headline numerals. Doubles as `--ch1`, the first data-series color.
 - **Ink Soft** (`#4e5871`): secondary text — meter labels, tab labels at rest, metadata rows, agent stat numerals.
-- **Ink Faint** (`#90939f`): tertiary/disabled-weight text — day labels under bars, timestamps, status-updated caption, empty-mark border.
+- **Ink Faint** (`#5b5e69`): tertiary/disabled-weight text — day labels under bars, timestamps, status-updated caption, empty-mark border.
 - **Paper Line** (`rgba(23,30,44,.18)`) / **Paper Line Soft** (`rgba(23,30,44,.09)`): the two hairline-border opacities used for every panel/box/divider edge and for the graticule grid lines themselves.
 
 ### Named Rules
 **The One Signal Rule.** Amber appears only on a triggered, selected, active, or warning element. If nothing on a given surface is triggered, no amber is visible — the palette reads as pure bone-and-ink until something needs attention.
 
-**The Ink-Scale Data Rule.** Multi-series data (per-agent bars, model breakdown dots) is colored from the ink-derived channel scale (`--ch1`…`--ch4`, blue-black to pale gray), never from hue. Series are distinguished by value/darkness, not by a rainbow — amber stays reserved for state.
+**The Ink-Scale Data Rule.** Multi-series data (per-agent bars, model breakdown dots) is colored from the ink-derived channel scale (`--ch1`…`--ch4`, blue-black to slate blue — one hue family, lightness-stepped so each series individually clears 4.5:1 against window/bone/bone-dim), never from hue. Series are distinguished by value/darkness, not by a rainbow — amber stays reserved for state.
 
 ## Typography
 
