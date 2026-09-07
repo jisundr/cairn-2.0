@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the model (§A4) — read by humans only.
 
+## 2026-09-07
+
+- Re-vendored `tools/tokens/` (backend + `static/`) from `token-metering` at merged `origin/main` tip `a771f91` (`docs/tasks/2026-09-07-0701-dashboard-contrast-and-transcript/`) — fixes two readability problems: WCAG-AA contrast failures in `--ink-faint`/`--ch2`/`--ch3`/`--ch4` and window-text-on-`--signal` (added `--signal-ink`), and the session drilldown's chat thread redisplaying the same walked-back human prompt across a turn's tool-round-trip calls with blank bubbles for tool-only responses — replaced with a turn-grouped thread showing each prompt once, inline tool-action lines, and no dangling empty bubble. `server.py`'s `/call/<session>/<n>` gains an additive `tool_calls` field (no schema change); the frontend's "view full detail" surface (`TraceDetailContent`/`TraceDrawer`/`CallPage`) is removed, its endpoint kept. `DESIGN.md` synced to the new token values. No version bump — asset/doc sync and a bugfix port from an already-reviewed and merged submodule PR, not a plugin capability change.
+
 ## 2026-09-05
 
 - Re-vendored `tools/tokens/static/` from `token-metering/static/` (`docs/tasks/dashboard-verification-and-vendor-sync/`, Wave 5 of the token-metering-dashboard-ui port) — the prior copy (from the 2026-09-02 vendor sync) predated Waves 1-4's frontend restyle (`DESIGN.md`'s oscilloscope visual system: tokens/primitives, chrome & readouts, charts, sessions & drilldown), so `tools/tokens/server.py` — what a consuming project's `/cairn-tokens` actually serves — was still serving the pre-restyle build. Byte-for-byte copy from a fresh `npm run build` at `token-metering`'s merged `origin/main` tip (`e3cae6c`); no content edits. Adds a `fonts/` subdirectory (`BigShoulders`, `MartianMono`, `PublicSans` weights) absent from the prior vendored copy, since Wave 1 introduced custom typefaces — `server.py`'s static serving is already generic path-based, so no server change was needed. No version bump — asset sync, not a plugin capability change, matching the 2026-09-02 precedent (`54b2c31`).
