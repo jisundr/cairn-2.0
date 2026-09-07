@@ -31,7 +31,7 @@ Unlike hosted usage/analytics dashboards, this reads session transcripts already
 - Local-only tool. No accounts, no multi-user access, no cloud sync — never implies telemetry leaving the machine.
 - Transcript content is read on demand from the session file and never duplicated into the metering database; a call whose transcript has since moved or been deleted shows an explicit "unavailable" state rather than failing silently.
 - Cost/token numbers are already computed and authoritative by the time they reach this UI — the UI's job is legible presentation and drill-down, not calculation.
-- Real implementation lives in `token-metering/frontend/src` (Vite + React + Tailwind + Recharts); `docs/features/token-metering-dashboard-ui/mockups/dashboard.html` is a static proposal surface used to design and review changes before they're built. **This design-system pass is scoped to that mockup only** — the React app is a separate follow-up, not part of this pass.
+- Real implementation lives in `token-metering/frontend/src` (Vite + React + Tailwind + Recharts); `docs/features/token-metering-dashboard-ui/mockups/dashboard.html` is a frozen historical reference, not a build target — design changes land directly in the React app.
 
 ## Evidence on Hand
 
@@ -41,7 +41,7 @@ Unlike hosted usage/analytics dashboards, this reads session transcripts already
 
 ## Product Principles
 
-1. Local-first, zero cloud dependency — the design should never read like a hosted SaaS product asking for trust it hasn't earned.
+1. Local-first, zero cloud dependency — never imply telemetry, accounts, or trust-seeking chrome a local tool hasn't earned, even where the visual language (per the user's explicit "Clean minimal SaaS" direction commitment — restrained neutrals, one accent, generous whitespace, in the register of Linear/Vercel) borrows the polish of hosted dashboards.
 2. Dense numbers read fast and precisely — cost, tokens, durations, and per-agent splits are the actual content; the system exists to make that scannable, not to decorate it.
 3. Full-fidelity trust — drilldown always shows the real transcript and real per-call numbers; nothing is obscured behind an aggregate the developer can't verify.
 4. Built for one operator, not a team — no collaboration chrome, sharing affordances, or multi-user cues.
