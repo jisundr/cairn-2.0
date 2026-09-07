@@ -1,0 +1,60 @@
+# Requirements: dashboard contrast + transcript readability fixup
+
+Two independent readability problems reported against the live `token-metering/frontend/` dashboard (post "Bench Scope" port). This doc precedes and supersedes the draft `plan.md` in this folder for scoping purposes — that plan's technical choices (e.g. a new `--signal-ink` token, a client-side-only dedup mechanism) are candidate solutions, not settled requirements, until reconciled against this doc.
+
+File:line references checked against `token-metering/` at this session's `HEAD` (`c232667`).
+
+## Problem
+
+**Contrast.** Several of `DESIGN.md`'s palette tokens fail WCAG AA where they're actually used as text in `token-metering/frontend/src/index.css`. Measured this session (standard relative-luminance formula): `--ink-faint` (#90939f) on `--window`/`--bone`/`--bone-dim` = 2.76/2.57/2.26:1 (needs 4.5:1); `--ch3` (#838a9b) = 3.12/2.55:1; `--ch4` (#aeb2bd) = 1.91/1.57:1; `--window`-colored text on a `--signal` fill (the active chart-tab/pill state) = 3.28:1 at the 9–15px label sizes `DESIGN.md`'s typography spec calls for (AA-large's lower 3:1 bar only applies at ≥18px, or ≥14px bold). These tokens carry timestamps, day-under-bar labels, per-agent channel-series color/text, and active tab/pill label text — exactly the elements the user described as "hard to look at." `--ink`, `--ink-soft`, `--ch1`, `--ch2` already clear 5.2–14.3:1 and are not part of the problem.
+
+**Transcript.** `SessionDrilldown.tsx`'s chat-thread view renders one prompt/response bubble pair per raw API call (`server.py`'s `_extract_call_content`, keyed by `request_id`), not one per human conversational turn, and shows only text — tool use is invisible. Consequences the user hit directly: (1) several consecutive tool-round-trip calls within a single human turn all walk backward to, and redisplay in full, the *same* human prompt — with nothing distinguishing a repeat from a new message ("I cannot identify where is the human prompt. It's quite mixed"); (2) a call whose assistant turn is pure tool-use (no text) legitimately has an empty response string, which the UI renders as a blank bubble with no explanation ("some items don't have response... feels broken"). Resolved in this round: the fix isn't a patch to the existing per-call bubble list — the user wants the drilldown re-thought as one continuous chatbot-style conversation, turn-grouped by human message, with the assistant's tool actions shown inline (e.g. "Read file.py", "Ran tests") rather than hidden or rendered as blank text bubbles.
+
+## Goals
+
+1. Every color token used for text content in the dashboard clears WCAG AA at the size it's actually rendered — 4.5:1, or 3:1 only where the text is genuinely ≥18px (or ≥14px bold) per `DESIGN.md`'s type scale. Concretely: `--ink-faint`, `--ch3`, `--ch4` against every background they're paired with as text; whatever text sits on a `--signal` fill (chart-tab-active, pill-active).
+2. The existing darkness/lightness ordering is preserved after the fix: `ink` < `ink-soft` < `ink-faint` in darkness, and `ch1` < `ch2` < `ch3` < `ch4` in lightness — these encode real meaning (text priority; channel identity) that a contrast fix must not collapse or invert.
+3. `--ch3`/`--ch4`'s new values apply everywhere those tokens are used — including non-text swatch/marker fills (agent-select checkboxes, mini-bars) — not just at text use-sites. One token, one value, no split between a "text-safe" and "fill" variant.
+4. The session drilldown renders as a single continuous conversation, turn-grouped by human message: each human-authored prompt appears exactly once, never repeated across the tool-round-trip calls that follow it. A repeated prompt is omitted outright when a turn continues — no "···continued" marker or other placeholder takes its place.
+5. Within a human turn, the assistant's tool calls are shown inline as compact, human-readable action lines (e.g. "Read file.py", "Ran tests") in the order they occurred, followed by the assistant's final text reply if that turn produced one. A turn that ends in tool use with no trailing text (e.g. mid-session) shows its action lines with no dangling empty-text bubble — the no-text-response confusion is resolved by no longer rendering tool-only calls as text bubbles at all, not by labeling them.
+6. Showing tool actions requires the API to expose, per call, enough to render an action line for a tool-use call — at minimum the tool name and a short human-readable summary of its primary input (e.g. a file path or command) — in addition to the prompt/response text `CallDetail` already returns. This is extracted the same way prompt/response text already is: read on demand from the Claude Code transcript JSONL at request time (`server.py`'s existing `_extract_call_content`/`lookup_transcript_content` path), not persisted into `tokens.db`.
+7. Neither fix touches the token/cost/session capture pipeline (`db.py`/`parser.py`/`pricing.py`) or its SQLite schema — the new tool-call data is surfaced purely by extending the existing on-demand transcript-read layer in `server.py`, the same guarantee that already governs prompt/response text.
+8. Per-call metadata (agent, timestamp, model, tokens in/out, cost, duration) stays visible at a glance next to each turn/action, not hidden behind "view full detail" — this is a cost/token metering dashboard, and losing that at-a-glance figure would undercut its purpose even as the thread becomes conversational.
+9. "View full detail" is removed: once the drilldown thread shows each turn's prompt, its tool actions inline, its final reply, and per-call metadata (Goal 8) directly in place, `TraceDetailContent.tsx` has nothing left to add over the inline thread — confirmed by inspection, it only re-renders the same prompt/response text plus an availability note. Confirmed by a full-repo reference check, what's deleted is the *frontend single-call UI surface*, not the API it calls:
+   - Deleted: `TraceDetailContent.tsx`, `TraceDrawer.tsx`, `CallPage.tsx`; the "view full detail" button and its `view-full-detail-*` testid in `SessionDrilldown.tsx`'s `ChatTurn`; the `/call/<session>/<n>` hand-rolled route (`routing.ts`'s `CALL_ROUTE_RE`/`parseCallRoute`/`callRoutePath`, and `App.tsx`'s `standaloneCall` state, `pushState` call, and `<CallPage>` render branch); the `onOpenCall`/`drawerCall`/`onCloseDrawer`/`onViewFullPage` prop plumbing through `Dashboard.tsx`; the now-unused singular `useCallDetail` hook in `api/hooks.ts` (its only two callers, `TraceDrawer`/`CallPage`, are both deleted).
+   - Kept unchanged: the backend `/call/<session>/<n>` API endpoint (`server.py`) and the plural `useCallDetails` hook + `api.callDetail` client call — the drilldown thread still fetches each call's detail (now including Goal 6's tool-call field) through this same endpoint; only its two other UI consumers go away.
+   - `e2e/populated/dashboard.spec.ts`'s drawer/full-page/standalone-load tests (view-full-detail click, `trace-drawer-fullpage-link`, direct `/call/e2e-session-main/1` and `/2` loads) are removed, since the UI they exercise no longer exists.
+   - `e2e/populated/timezone.spec.ts` uses a direct `/call/tz-demo/1` load specifically to test `formatTimeOfDay` rendering — with that route gone, this coverage moves to a test surface that still renders a timestamp with `formatTimeOfDay` (e.g. the drilldown thread's inline per-call metadata, Goal 8) rather than being dropped outright.
+
+## Non-goals
+
+- Redesigning the "Bench Scope" visual language, layout, or instrument-panel metaphor outside the transcript/call-detail surfaces this doc names.
+- Changing any already-passing token's value: `--ink`, `--ink-soft`, `--ch1`, `--signal`, `--signal-soft`, `--signal-line`, `--window`, `--bone`, `--bone-dim`, `--block`. **Exception discovered and approved mid-build:** `--ch2` (#5c6478) actually measures 4.37:1 against `--bone-dim` — just under AA, contradicting this doc's original Problem measurement of "5.2–14.3:1" (which didn't check that pairing) — and its luminance (0.1275) leaves no room for `--ch3` to be both lighter than it (Goal 2) and AA-compliant against `--bone-dim` (Goal 1). The user approved also darkening `--ch2` slightly, re-deriving the whole ch1–ch4 ramp so ordering and AA both hold.
+- Any change to `pricing.py`/`parser.py`/`db.py` or the SQLite schema — see Goal 7.
+- `mockups/dashboard.html` — stays the frozen design reference per existing convention.
+- Any *other* deep-linking or shareable-URL mechanism to replace `/call/<session>/<position>` — the user chose outright removal (Goal 9), not a repurposed link; nothing new is built in its place.
+
+## Stakeholders
+
+Single stakeholder: the solo developer who runs this dashboard locally — the same primary-user scope already locked for the rest of this feature (`docs/features/token-metering-dashboard-ui/requirements.md`).
+
+## Constraints & assumptions
+
+- Frontend stack is fixed (React 19 + Vite 8 + Tailwind v4 + `recharts` + `@tanstack/react-query`, per the existing requirements doc) — no new dependency for either fix.
+- Gated by `token-metering/.harness/workflow.md`: `pytest test_*.py` clean, `npm run build` (regenerates `static/`, commit the rebuild), `npx playwright test` clean; then re-vendor `tools/tokens/static/` and confirm `python tools/budget.py` clean in the outer repo.
+- Assumed: `--ink`, `--ink-soft`, `--ch1` need no change — confirmed by this session's measurements, not re-verified per-file. `--ch2` was wrongly assumed to need no change; see the Non-goals exception above.
+- Target bar is WCAG AA (4.5:1 / 3:1-large), not AAA — settled by the user this round ("AA is fine. Need to make it dev friendly."), i.e. clear the measurable failures without over-darkening the palette beyond what AA requires.
+- Grouping calls into human turns must use each agent's own chronological call order (never the merged, cross-agent `global_position` order) — a subagent's calls come from a separate transcript file and can't share a walked-back prompt with a different agent's call. (Carried over from the set-aside plan's investigation; still true under the turn-grouping goal.)
+- `CallDetail`'s response shape grows a new field for tool-call info (Goal 6) — this is a deliberate, in-scope API change, not something to avoid; existing `prompt`/`response`/`available` fields are unchanged. The backend `/call/<session>/<n>` endpoint and `CallDetail` type are kept and extended, not removed (Goal 9) — only their `TraceDrawer`/`CallPage`/`TraceDetailContent` frontend consumers go away; `SessionDrilldown.tsx` keeps fetching through the same endpoint via `useCallDetails`.
+
+## Open questions
+
+None outstanding — all five original open questions plus the follow-on tool-visibility, metadata-density, and detail-view-scope questions are resolved above.
+
+## Success criteria
+
+- A contrast-checking script (not eyeballing) confirms every token used for text meets its target ratio against every background it's paired with, and `--ch3`/`--ch4` read correctly wherever else they're used as fills.
+- Opening the drilldown for a real captured session containing a multi-tool-call human turn shows: that turn's human prompt exactly once, its tool calls as inline action lines in order, its final text reply (if any), and per-call metadata (cost/tokens/model/duration) — all inline, with no blank text bubble anywhere in the thread.
+- No "view full detail" control, `/call/<session>/<n>` frontend route, or `TraceDetailContent`/`TraceDrawer`/`CallPage` component remains in the built frontend; the backend `/call/<session>/<n>` endpoint still works and still backs the drilldown's per-call fetches.
+- `pytest`, `npm run build`, and `npx playwright test` stay green: `dashboard.spec.ts`'s drawer/standalone-page tests are removed, and `timezone.spec.ts`'s `formatTimeOfDay` coverage is ported to a surviving surface rather than dropped.
+- A manual read-through confirms nothing that previously read clearly now reads worse (in particular, the new active-tab/pill text and the darkened faint/channel colors).
