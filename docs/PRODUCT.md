@@ -29,6 +29,7 @@ Unlike hosted usage/analytics dashboards, this reads session transcripts already
 ## Capabilities and Constraints
 
 - Local-only tool. No accounts, no multi-user access, no cloud sync — never implies telemetry leaving the machine.
+- The server binds `127.0.0.1` only and has no authentication — by design, for a single-operator local tool. It must never be exposed beyond localhost (e.g. bound to `0.0.0.0` or reverse-proxied), since it serves live session transcript content to whoever can reach it.
 - Transcript content is read on demand from the session file and never duplicated into the metering database; a call whose transcript has since moved or been deleted shows an explicit "unavailable" state rather than failing silently.
 - Cost/token numbers are already computed and authoritative by the time they reach this UI — the UI's job is legible presentation and drill-down, not calculation.
 - Real implementation lives in `token-metering/frontend/src` (Vite + React + Tailwind + Recharts); `docs/features/token-metering-dashboard-ui/mockups/dashboard.html` is a frozen historical reference, not a build target — design changes land directly in the React app.
