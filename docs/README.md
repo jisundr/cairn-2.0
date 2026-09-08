@@ -4,7 +4,6 @@ Index of this repo's own documentation — for developing cairn, not for a consu
 
 | File | What it is |
 |---|---|
-| [`BUILD_BRIEF.md`](BUILD_BRIEF.md) | The complete development contract and build spec — source of truth for structural changes to this repo. |
 | [`REGISTRY.md`](REGISTRY.md) | Justification for every tool an agent's frontmatter grants. Checked by `tools/budget.py`, never loaded by the model. |
 | [`BUDGET.md`](BUDGET.md) | Generated size/load-class report for every budgeted artifact. Regenerate with `python tools/budget.py --report`. |
 | [`AI_TIPS.md`](AI_TIPS.md) | Notes from experience working with AI coding agents — the practices this repo's own discipline is built on. |

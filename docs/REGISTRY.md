@@ -1,6 +1,6 @@
 # Agent tool registry
 
-Never loaded by the model (§A4) — read by `tools/budget.py` and humans only.
+Never loaded by the model — read by `tools/budget.py` and humans only.
 
 Every tool an agent's frontmatter grants must be justified here, one section per agent:
 

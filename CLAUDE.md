@@ -8,7 +8,7 @@ cairn 2.0 is a Claude Code plugin carrying a lean, on-demand, non-invasive devel
 
 ## Source of truth
 
-`docs/BUILD_BRIEF.md` is the complete development contract and build spec. Read it before making any structural change here — this file only summarizes the parts that recur on every commit.
+`.harness/*.md` (architecture, standards, environment, workflow) holds this repo's development rules; `docs/REGISTRY.md` justifies each agent's tool grants. This file summarizes the parts that recur on every commit.
 
 ## Discipline for every change
 
@@ -25,7 +25,7 @@ At the end of each build phase, run and paste the results of:
 ```
 python tools/budget.py
 python -m pytest tools/
-for s in tools/**/*.sh; do "$s" --selftest; done
+for s in hooks/*.sh; do "$s" --selftest; done
 python tools/budget.py --report && tail -5 docs/BUDGET.md
 ```
 

@@ -1,6 +1,11 @@
 # Changelog
 
-Reverse-chronological, one entry per artifact-commit (§A9). Never loaded by the model (§A4) — read by humans only.
+Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
+
+## 2026-09-09
+
+- Retired `docs/BUILD_BRIEF.md` (671 lines, the original development contract/build spec) — an audit confirmed everything it specified was already built and gate-passing, so its remaining process rules (size-cap policy, the cap-raise procedure) were folded into `.harness/standards.md` and a broken phase-gate command it originated (`for s in tools/**/*.sh` — a silent no-op, since no `.sh` files live directly under `tools/`) was fixed in `.harness/workflow.md` and `CLAUDE.md` alike (now `hooks/*.sh`). `CLAUDE.md`'s "Source of truth" section, `README.md`'s "Developing cairn" link, and `docs/README.md`'s doc-index row were repointed at `.harness/*.md`/`docs/REGISTRY.md`; `tools/budget.py`'s docstring and three dangling `§`-citations (`docs/REGISTRY.md`, `commands/cairn-doctor.md`, `skills/start/reference/unattended.md`) were reworded to stop citing a file that no longer exists. Part B's design rationale (agent-count justification, harness-gate/scope-resolution sub-mechanics, the skill template, acceptance criteria, non-goals) had no other home in this repo and is not preserved beyond what `docs/REGISTRY.md`/`.harness/architecture.md` already capture — an accepted loss, not an oversight. No version bump — docs/process cleanup, not a plugin capability change.
+- Security-hardened the working tree ahead of making this repo public: folded `.gitignore` patterns that were previously only enforced via the local, unshared `.git/info/exclude` (`.impeccable/` caches, `docs/features/`, several `.claude/` runtime-state paths) into the tracked `.gitignore` so they're excluded for every clone, not just this machine; added an explicit line to `docs/PRODUCT.md` stating the token-metering server binds `127.0.0.1` only with no auth and must never be exposed beyond localhost (the code already enforced this — no CLI flag exists to override the bind host — this is a documentation clarification); and updated `README.md`'s Install section, which assumed a private SSH-only repo, to the plain public/HTTPS marketplace-add form. A full-tree secret/credential/PII sweep found nothing to remediate. No version bump — hardening and docs, not a plugin capability change.
 
 ## 2026-09-07
 

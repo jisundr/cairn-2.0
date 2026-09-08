@@ -1,6 +1,6 @@
 # Running unattended
 
-Unattended forces the escalated path (§B8a) — the default path holds nothing on disk, so there'd be nothing to check once the run detaches.
+Unattended forces the escalated path — the default path holds nothing on disk, so there'd be nothing to check once the run detaches.
 
 ## Before dispatch: isolation
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Budget gate for the cairn plugin repo. Checks the size and structure rules
-in Part A of the build brief. stdlib only (see brief §A0).
+in .harness/standards.md. stdlib only.
 
 Usage:
     python tools/budget.py            human-readable findings, exit 0/1/2
