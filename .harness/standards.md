@@ -11,7 +11,11 @@
 
 ## Testing
 - Python: `pytest`, `tmp_path`-based fixtures, one `test_*.py` per module
-- Shell: every `tools/**/*.sh` requires `--selftest`, enforced by `tools/budget.py`
+- Shell: every `.sh` requires `--selftest`, enforced by `tools/budget.py`
 
 ## Logging
 - None by design — advisory-only philosophy, no logging framework
+
+## Size caps
+- Caps live as constants in `tools/budget.py` (source of truth); measured sizes land in `docs/BUDGET.md`. When something won't fit: move detail to `reference/*.md`, replace prose with a script, or cut the behavior and say so — never split a file just to dodge the number.
+- Raising a cap: state the artifact + current/needed size + what was tried, then stop and ask. Never raise one on your own authority.

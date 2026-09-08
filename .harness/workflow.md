@@ -9,5 +9,5 @@
 
 ## Gates
 - `python tools/budget.py` clean after every file
-- Phase-end: `budget.py` + `pytest tools/` + every `--selftest` + `budget.py --report`
+- Phase-end: `budget.py` + `pytest tools/` + `for s in hooks/*.sh; do "$s" --selftest; done` + `budget.py --report`
 - No mandate language (MUST/ALWAYS/NEVER/MANDATORY/NON-NEGOTIABLE) in shipped artifacts
