@@ -5,7 +5,7 @@
 
 ## Commits / PR
 - One artifact per commit + its `docs/REGISTRY.md` line (if it adds an agent) + `CHANGELOG.md` entry — never a sweep
-- Bump `.claude-plugin/plugin.json` version for any behavior-affecting change
+- Bump `.claude-plugin/plugin.json` version on every commit, including docs-only — the marketplace re-syncs a consuming project's install on version change, not on content diff, so an un-bumped change never reaches installs. Patch for docs/fixes, minor for a new capability.
 
 ## Gates
 - `python tools/budget.py` clean after every file
