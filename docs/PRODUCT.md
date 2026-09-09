@@ -8,42 +8,54 @@ web
 
 ## Users
 
-A solo developer running cairn locally on their own machine, checking in on their Claude Code agent token usage and cost periodically (not a continuously-watched surface). They already know the terminology (agents, subagents, sessions, tokens, calls) from using cairn day to day.
+Two audiences, both already fluent in Claude Code's own vocabulary (agents, skills, subagents, sessions, tokens):
+
+1. An individual developer browsing GitHub or a plugin marketplace, deciding whether to run `/plugin install` on their own project.
+2. A team lead or senior engineer deciding whether cairn is the right shared workflow convention to standardize on across a team's repos.
 
 ## Product Purpose
 
-Give a cairn user transparent, accurate local accounting of what their Claude Code sessions actually cost — in tokens and dollars — broken down by agent, model, skill, tool, and MCP call, with the ability to drill into any session's real transcript to verify the numbers.
+cairn is a Claude Code plugin that gives a project a lean, on-demand, non-invasive development workflow: a fixed builder → reviewer (with an opt-in planner) pipeline, run under a disclosed token budget, that reads a project's own `.harness/` rules instead of imposing its own conventions, and that a project can remove without a trace.
 
 ## Positioning
 
-Unlike hosted usage/analytics dashboards, this reads session transcripts already on disk and computes cost locally via a pricing table — nothing leaves the machine, and every rollup traces back to a real, inspectable transcript rather than an opaque aggregate.
+Unlike heavier agent-orchestration frameworks that add persistent scaffolding, dependencies, and standing token overhead to a project, cairn's entire footprint in a consuming project is one ≤ 400 B marker line in `CLAUDE.md`; everything else (agents, skills, budgets, docs) lives in the plugin itself and loads only on demand, in one of four explicit load classes tracked in `docs/BUDGET.md`. It is provably cheap (≤ 40k tokens default path, ≤ 150k escalated) rather than cheap by assertion, and provably removable rather than removable by promise.
 
 ## Operating Context
 
-- Runs as a local server (`127.0.0.1:<port>`) started alongside a cairn install; viewed in a browser, not embedded in the CLI.
-- Two install shapes change what's shown: **project-scope** (one repo, no cross-project chrome) and **user/local-scope** (all projects on the machine, adds a Projects panel and project filter pills).
-- Two tabs: **Dashboard** (rollups — tokens/day, agents & skills, activity heatmap, tokens/model, tool calls, MCP calls, projects) and **Sessions** (session list + drilldown into one session's per-agent totals and full transcript).
-- Auto-refreshes on an interval; the developer may also refresh on demand.
-- A usage-limit warning banner surfaces when the account has hit a rate/usage limit recently, linking straight to the offending session.
+- Installed via the Claude Code plugin marketplace (`/plugin marketplace add`, `/plugin install`), then activated per-project with `/cairn-setup`.
+- Two workflow paths: a two-hop default (`builder` → `reviewer` → PR) and an opt-in escalated path (`planner` → `builder` → `reviewer` → PR) for changes that span submodules, alter a published contract, or can't be described in two sentences.
+- Three attendance postures over the same chain: interactive, attended, and unattended (escalated-path only; stops at `done` / `needs-human` / `stalled`; never auto-publishes).
+- `/cairn-teardown` reverses installation, removing the marker block and `.cairn/` and reporting exactly what's left behind and why.
+- Ships one optional feature, a local token-metering dashboard (`cairn:cairn-tokens`), for a solo developer checking their own Claude Code session cost/token usage in a browser. It has its own established visual system, design record, and audience distinct from cairn's own marketing surfaces — see `token-metering/frontend/src` and the dashboard's design record; do not fold its "clean minimal SaaS" instrument-panel language into a cairn-brand surface, and do not let cairn-brand work edit its components.
 
 ## Capabilities and Constraints
 
-- Local-only tool. No accounts, no multi-user access, no cloud sync — never implies telemetry leaving the machine.
-- The server binds `127.0.0.1` only and has no authentication — by design, for a single-operator local tool. It must never be exposed beyond localhost (e.g. bound to `0.0.0.0` or reverse-proxied), since it serves live session transcript content to whoever can reach it.
-- Transcript content is read on demand from the session file and never duplicated into the metering database; a call whose transcript has since moved or been deleted shows an explicit "unavailable" state rather than failing silently.
-- Cost/token numbers are already computed and authoritative by the time they reach this UI — the UI's job is legible presentation and drill-down, not calculation.
-- Real implementation lives in `token-metering/frontend/src` (Vite + React + Tailwind + Recharts); `docs/features/token-metering-dashboard-ui/mockups/dashboard.html` is a frozen historical reference, not a build target — design changes land directly in the React app.
+- Writes only a fixed, disclosed set of paths in a consuming project (marker block, `.harness/*.md`, `.harness/local/`, `docs/tasks/<slug>/`, `.cairn/`, and the files a task actually asks it to change) — never `.claude/settings*`, agents/skills/commands/hooks directories, the project's own `.gitignore`, CI config, manifests, lockfiles, or git internals.
+- No accounts, no hosted service, no telemetry — everything runs locally inside the user's own Claude Code session.
+- Pre-1.0 (`0.14.1` as of this writing), single-maintainer, open source on GitHub — no enterprise/paid tier.
+
+## Brand Commitments
+
+- Name is always lowercase in running prose: "cairn", never "Cairn" as a proper noun (headings/titles may still capitalize per normal title-case).
+- Voice, established by the existing README: plain, direct, technical-confident — claims are backed by a specific number or file path rather than an adjective.
 
 ## Evidence on Hand
 
-- Existing component structure: `token-metering/frontend/src/Dashboard.tsx` and its children (`Header`, `SessionsTable`, `SessionDrilldown`, `ActivityHeatmap`, `TokensPerDayPanel`, `HbarList`, `ProjectsPanel`, `WarningBanner`, `TraceDrawer`, `EmptyState`).
-- The current mockup/app visual treatment (muted paper/graphite palette, blue accent, Archivo body + Space Mono labels) — confirmed by the user as **not binding**; treated as evidence/anti-reference for this redesign, not visual authority to preserve.
-- No existing brand name, logo, or marketing assets beyond the plain "Token Metering" label — nothing to preserve there.
+- No stars, testimonials, or case studies to cite — a cairn-brand surface's proof must come from the mechanism itself, never from invented third-party endorsement. But real, measured before/after numbers exist and are the strongest available proof:
+  - **cairn's own predecessor → cairn 2.0** (this repo, measured directly): 18 agents (278 KB) → 4 agents (5.5 KB); 10 skills (87 KB) → 10 skills (14.6 KB); baseline tokens loaded before a user types anything, ~9k → ~800 (marker block + always-loaded frontmatter, counted from this repo's current `agents/`, `commands/`, `skills/*/SKILL.md`); tokens spent per feature, 200–400k → ≤ 40k (default path) / ≤ 150k (escalated path).
+  - **Two other, unnamed agent frameworks evaluated during this redesign** (kept anonymous — private projects, not public products, cited only for their measured numbers): one ran ~52k baseline tokens before any work began and 0.7–1.5M+ tokens for one medium feature, driven by a large always-loaded registry and 10+ agent hops per task; the other proved that a ~1–2k token baseline is achievable with almost no framework at all, at the cost of near-zero enforcement (no CI, no blocking checks).
+  - Source data for all of the above lives in a private local comparison document, not committed to this repo (it names and paths those other projects); only the numbers above, and cairn's own measured figures, are for public use.
+- Real facts and voice to draw from: `README.md`, `CLAUDE.md`, `docs/BUDGET.md`, `docs/REGISTRY.md`.
+- No existing logo or visual brand asset beyond the plain lowercase wordmark "cairn".
 
 ## Product Principles
 
-1. Local-first, zero cloud dependency — never imply telemetry, accounts, or trust-seeking chrome a local tool hasn't earned, even where the visual language (per the user's explicit "Clean minimal SaaS" direction commitment — restrained neutrals, one accent, generous whitespace, in the register of Linear/Vercel) borrows the polish of hosted dashboards.
-2. Dense numbers read fast and precisely — cost, tokens, durations, and per-agent splits are the actual content; the system exists to make that scannable, not to decorate it.
-3. Full-fidelity trust — drilldown always shows the real transcript and real per-call numbers; nothing is obscured behind an aggregate the developer can't verify.
-4. Built for one operator, not a team — no collaboration chrome, sharing affordances, or multi-user cues.
-5. A distinct, considered visual identity — not the generic default look of an AI-scaffolded dashboard.
+1. Cheap by default, not cheap by claim — every cost statement on a cairn-brand surface must trace to a real number already published in the repo.
+2. Non-invasive is the core trust argument — what cairn will never touch deserves equal prominence to what a user gets.
+3. Two audiences, one page — speak to the solo evaluator's "will this cost me tokens/attention" and the team lead's "is this a convention worth standardizing on," without forking into two separate pages.
+4. No invented social proof — stars, quotes, or logos that don't exist yet stay absent rather than faked.
+
+## Accessibility & Inclusion
+
+No project-specific requirement established beyond standard web accessibility; cairn itself is a CLI/plugin with no GUI to evaluate separately.
