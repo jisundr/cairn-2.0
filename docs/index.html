@@ -438,12 +438,22 @@
         Measured against two other agent frameworks evaluated during this redesign, kept unnamed since they're private projects and cited only for their numbers. One carried a ~52k-token baseline before any work began and 0.7–1.5M+ tokens for a single medium feature, driven by a large always-loaded registry and 10+ agent hops per task. The other proved a ~1–2k token baseline is possible with almost no framework at all, at the cost of near-zero enforcement. cairn 2.0's target came from holding both extremes against each other: a small, disclosed baseline <em>and</em> a bounded cost per feature.
       </p>
 
-      <div class="lockfile-card" style="margin-top:20px;">
-        <p class="file-label">/cairn-tokens</p>
-        <p style="font-size:14px;color:var(--ink-soft);margin:0;">
-          Don't take cairn's numbers on faith either. Run <code>/cairn-tokens</code> to start a local dashboard showing exactly what your own sessions cost: tokens and dollars, per agent, per model, per call, with drill-down into the real transcript behind every number. Local-only, no accounts, no cloud sync, nothing leaves your machine.
-        </p>
+    </div>
+  </section>
+
+  <section id="tokens">
+    <div class="wrap">
+      <h2>See what your own sessions cost</h2>
+      <p class="lede" style="margin-bottom:24px;">Don't take cairn's numbers on faith either. Run <code>/cairn-tokens</code> to start a local dashboard, scoped to your own machine, showing exactly what your sessions cost: tokens and dollars, per agent, per model, per skill, per call.</p>
+
+      <div class="diff-panel">
+        <div class="diff-tab"><span class="dot"></span> 127.0.0.1 · token metering</div>
+        <img src="assets/token-dashboard.webp" alt="cairn's local token-metering dashboard, showing today's tokens and cost, a 7-day chart, and per-agent and per-skill breakdowns" style="display:block;width:100%;height:auto;">
       </div>
+
+      <p class="anon-note">
+        The real dashboard UI, running against illustrative demo data (not a real session's numbers). It's local-only: no accounts, no cloud sync, nothing leaves your machine.
+      </p>
     </div>
   </section>
 
