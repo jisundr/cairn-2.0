@@ -49,6 +49,10 @@ Every artifact cairn ships falls into exactly one of four load classes, tracked 
 | **Executed** | ~0 tokens | Scripts. Invoked via `Bash`, return compact JSON. The model reads the output, never the source. |
 | **Never loaded** | 0 | `docs/REGISTRY.md`, `docs/BUDGET.md`, tests, CI config. Read by tooling and humans only. |
 
+## Seeing what it actually costs
+
+Run `/cairn-tokens` to start a local dashboard at `http://127.0.0.1:<port>` showing exactly what your Claude Code sessions have cost — tokens and dollars, broken down by agent, model, skill, tool, and MCP call — with drill-down into any session's real transcript to verify the numbers yourself. It's local-only: no accounts, no cloud sync, nothing leaves your machine.
+
 ## What cairn writes in your project
 
 In a consuming project, cairn writes **only** the paths below — everything else is out of bounds, including paths that would otherwise be convenient:
