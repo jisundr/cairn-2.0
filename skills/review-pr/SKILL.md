@@ -21,10 +21,10 @@ Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading
 
 ## First review
 
-1. Run `Skill(skill: "code-review", args: "<target> --comment")` for the full correctness/reuse/simplification/efficiency pass.
+1. Run `Skill(skill: "code-review", args: "<target>")` for the full correctness/reuse/simplification/efficiency pass — no `--comment`, so nothing posts yet.
 2. Load `Skill(skill: "cairn:shared")` and check the diff against its `reference/security-checklist.md` — a Critical or High finding fails the review. Tag any reuse/simplification/efficiency finding from step 1 with `reference/fix-lanes.md`'s Lane A/B — classification only, nothing auto-applied.
 3. Present the combined findings as a draft, in the template's First review format; iterate freely, no gate yet.
-4. `AskUserQuestion` — confirm before posting anything. On yes, post via step 1's own `--comment` mechanism.
+4. `AskUserQuestion` — confirm before posting anything. On yes, post directly via `gh`/`glab` (the host resolved above).
 5. Offer to keep monitoring the MR going forward. Declining is a clean no-op — no watcher, no state left behind.
 
 ## Re-review

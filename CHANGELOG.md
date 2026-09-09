@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
 
+## 2026-09-10
+
+- Fixed `skills/review-pr/SKILL.md`'s First/Re-review step 1: it invoked `Skill(skill: "code-review", args: "<target> --comment")`, but `code-review`'s `--comment` flag posts findings to the live PR/MR immediately, before step 4's `AskUserQuestion` gate was ever reached — so the confirmation gate was unreachable for anything `code-review` posted (GitHub issue #4, live-observed: a findings comment posted to a real MR with no confirmation prompt). Step 1 now invokes `code-review` without `--comment` (draft only); step 4 posts directly via `gh`/`glab` — the host already resolved at the top of the skill — after confirmation, matching how the skill's own Approval-step summary comment is already posted. Bumped `.claude-plugin/plugin.json` to `0.14.3` (patch).
+
 ## 2026-09-09
 
 - Changed the version-bump rule in `.harness/workflow.md` and `CLAUDE.md` from "bump for behavior-affecting changes only" to "bump on every commit, docs-only included" — a consuming project's plugin install re-syncs on version change, not on content diff, so the prior rule left every "no version bump" commit (the landing page, README, `BUILD_BRIEF.md` retirement, `.gitignore` hardening, etc.) invisible to already-installed consumers even though they were merged to `main`. Bumped `.claude-plugin/plugin.json` to `0.14.2` (patch) under the new rule.
