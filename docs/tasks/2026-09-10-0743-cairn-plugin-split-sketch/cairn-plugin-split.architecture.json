@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Splitting cairn into three plugins",
+    "output": "cairn-plugin-split.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "registry", "type": "cloud", "label": "REGISTRY.md", "sublabel": "tool grants", "pos": [220, 260], "size": [85, 70] },
+    { "id": "consumer", "type": "external", "label": "Consuming project", "sublabel": ".claude/ install", "pos": [40, 90], "size": [170, 64] },
+    { "id": "cairnReview", "type": "backend", "label": "cairn-review", "sublabel": "reviewer agent + review-pr skill", "pos": [340, 90], "size": [240, 60] },
+    { "id": "cairnCore", "type": "backend", "label": "cairn-core", "sublabel": "builder agent + start/scope/shared skills", "pos": [340, 255], "size": [240, 80] },
+    { "id": "cairnDocs", "type": "backend", "label": "cairn-docs", "sublabel": "scribe + planner agents + doc skills + retro/tokens", "pos": [340, 420], "size": [240, 60] },
+    { "id": "harnessContract", "type": "external", "label": ".harness/*.md", "sublabel": "project's source of truth", "pos": [620, 90], "size": [190, 370] }
+  ],
+  "boundaries": [
+    { "kind": "security-group", "label": "cairn-core plugin (required)", "wraps": ["cairnCore"], "pad": 15 },
+    { "kind": "security-group", "label": "cairn-review plugin (optional)", "wraps": ["cairnReview"], "pad": 10 },
+    { "kind": "security-group", "label": "cairn-docs plugin (optional)", "wraps": ["cairnDocs"], "pad": 10 }
+  ],
+  "connections": [
+    { "id": "install-core", "from": "consumer", "to": "cairnCore", "label": "installs (required)", "variant": "emphasis", "fromSide": "right", "labelDx": 55 },
+    { "id": "install-review", "from": "consumer", "to": "cairnReview", "label": "installs (optional)", "variant": "dashed", "fromSide": "right", "toSide": "left" },
+    { "id": "install-docs", "from": "consumer", "to": "cairnDocs", "label": "installs (optional)", "variant": "dashed", "fromSide": "right", "toSide": "left", "via": [[315, 122], [315, 250], [180, 250], [180, 450]], "labelDx": -55 },
+    { "id": "review-depends-core", "from": "cairnReview", "to": "cairnCore", "label": "depends on", "variant": "dashed", "labelDy": 24 },
+    { "id": "docs-depends-core", "from": "cairnDocs", "to": "cairnCore", "label": "depends on", "variant": "dashed", "labelDy": -24 },
+    { "id": "core-reads-harness", "from": "cairnCore", "to": "harnessContract", "label": "reads", "labelAt": [520, 360], "fromSide": "right", "toSide": "left", "via": [[600, 295], [600, 275]] },
+    { "id": "review-reads-harness", "from": "cairnReview", "to": "harnessContract", "label": "reads", "variant": "dashed", "labelAt": [420, 200] },
+    { "id": "docs-reads-harness", "from": "cairnDocs", "to": "harnessContract", "label": "reads", "variant": "dashed", "labelAt": [420, 375] },
+    { "id": "core-in-registry", "from": "cairnCore", "to": "registry", "label": "documented in", "fromSide": "left", "toSide": "right", "labelAt": [395, 220] }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Confirmed", "items": [
+      "Cross-plugin skill calls work — tested empirically. No platform-level gate on which plugin a skill belongs to."
+    ] },
+    { "dot": "amber", "title": "Real gap", "items": [
+      "plugin.json has no dependency field — nothing stops installing cairn-review without cairn-core."
+    ] }
+  ]
+}
