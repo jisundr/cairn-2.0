@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-10
 
+- Recorded a Boundaries rule in `.harness/architecture.md`: `review-pr` stays inside `cairn` core rather than splitting into a standalone plugin. Considered splitting it out (its coupling to core is small — `cairn:shared`'s two reference docs plus `cairn:run` — and one-directional), but decided the split isn't worth the vendoring/sync overhead unless someone actually wants PR-review without the rest of cairn's workflow; if a specialized plugin is ever split out, the rule is specialized → core, never the reverse. Bumped `.claude-plugin/plugin.json` to `0.14.4` (patch).
 - Fixed `skills/review-pr/SKILL.md`'s First/Re-review step 1: it invoked `Skill(skill: "code-review", args: "<target> --comment")`, but `code-review`'s `--comment` flag posts findings to the live PR/MR immediately, before step 4's `AskUserQuestion` gate was ever reached — so the confirmation gate was unreachable for anything `code-review` posted (GitHub issue #4, live-observed: a findings comment posted to a real MR with no confirmation prompt). Step 1 now invokes `code-review` without `--comment` (draft only); step 4 posts directly via `gh`/`glab` — the host already resolved at the top of the skill — after confirmation, matching how the skill's own Approval-step summary comment is already posted. Bumped `.claude-plugin/plugin.json` to `0.14.3` (patch).
 
 ## 2026-09-09
