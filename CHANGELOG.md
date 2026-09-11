@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
 
+## 2026-09-11
+
+- Added `docs/tasks/2026-09-11-0759-portfolio-interview-docs/requirements.md` — requirements for distilling this repo's own engineering surface into external-evaluation material (a portfolio case study, interview narratives, resume copy), framed as project-level meta documentation rather than personal notes. Docs-only; bumped `.claude-plugin/plugin.json` to `0.14.6` (patch) under the every-commit rule.
+
 ## 2026-09-10
 
 - Changed the `token-metering` submodule's `.gitmodules` URL from SSH (`git@github.com:...`) to HTTPS (`https://github.com/...`) — a user without SSH keys configured for GitHub (live-observed: `prince.reyes`) got "Host key verification failed" running `plugin marketplace add` on this public repo, because the top-level clone falls back to HTTPS but the submodule clone uses whatever URL `.gitmodules` specifies. Confirmed via the docs that plugin installers always fully clone a marketplace repo's registered submodules regardless of the plugin's `source` path, and that neither `plugin.json` nor `marketplace.json` has an author-side field to scope which files/folders get installed — `--sparse` and `git-subdir` are the only mechanisms, and neither fits a single-plugin repo with a root-level submodule. Bumped `.claude-plugin/plugin.json` to `0.14.5` (patch).
