@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-11
 
+- Added `docs/PORTFOLIO.md` — a portfolio case study distilled from this repo's own commit history and measured numbers (`docs/PRODUCT.md`, `docs/BUDGET.md`, `CHANGELOG.md`): a role classification, five design-decision/tradeoff writeups, a measured-results table, and resume-form bullets. Meta content, not a product doc, per the requirements below. Bumped `.claude-plugin/plugin.json` to `0.14.7` (patch).
 - Added `docs/tasks/2026-09-11-0759-portfolio-interview-docs/requirements.md` — requirements for distilling this repo's own engineering surface into external-evaluation material (a portfolio case study, interview narratives, resume copy), framed as project-level meta documentation rather than personal notes. Docs-only; bumped `.claude-plugin/plugin.json` to `0.14.6` (patch) under the every-commit rule.
 
 ## 2026-09-10
