@@ -88,6 +88,24 @@ def test_task_state_cap(tmp_path):
     assert any(f.rule == "task-state" and f.severity == "error" for f in findings)
 
 
+def test_task_state_cap_ignores_log_body(tmp_path):
+    w(tmp_path, "docs/tasks/foo/STATE.md", "---\ngoal: g\n---\n" + "log line\n" * 600)
+    findings, *_ = budget.gather_findings(tmp_path)
+    assert not any(f.rule == "task-state" for f in findings)
+
+
+def test_task_state_cap_counts_frontmatter(tmp_path):
+    w(tmp_path, "docs/tasks/foo/STATE.md", "---\nkey_info: " + "s" * 1500 + "\n---\nbody\n")
+    findings, *_ = budget.gather_findings(tmp_path)
+    assert any(f.rule == "task-state" and f.severity == "error" for f in findings)
+
+
+def test_task_state_cap_unclosed_frontmatter_measures_whole_file(tmp_path):
+    w(tmp_path, "docs/tasks/foo/STATE.md", "---\nkey_info: " + "s" * 1500 + "\n")
+    findings, *_ = budget.gather_findings(tmp_path)
+    assert any(f.rule == "task-state" and f.severity == "error" for f in findings)
+
+
 def test_claude_md_marker_cap(tmp_path):
     w(tmp_path, "skills/task-assets/assets/claude-md-marker.md", "m" * 500)
     findings, *_ = budget.gather_findings(tmp_path)

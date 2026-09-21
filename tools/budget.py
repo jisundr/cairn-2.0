@@ -76,6 +76,14 @@ def read_text(path):
     return path.read_text(encoding="utf-8", errors="replace")
 
 
+def frontmatter_bytes(text):
+    """Bytes in the leading frontmatter block; the whole text if it has none or is unclosed."""
+    _, body = parse_frontmatter(text)
+    if body == text:
+        return len(text.encode())
+    return len(text.encode()) - len(body.encode())
+
+
 def cap_check(rule, label, measured, unit, soft, hard):
     findings = []
     if hard is not None and measured > hard:
@@ -178,7 +186,7 @@ def scan(root):
             continue
 
         if fnmatch.fnmatch(rel, "docs/tasks/*/STATE.md"):
-            size = len(read_text(path).encode())
+            size = frontmatter_bytes(read_text(path))
             findings += cap_check("task-state", rel, size, "B", 800, 1024)
             rows.append((rel, size, "B", "on-demand (consuming project)", headroom(size, 1024)))
             continue
