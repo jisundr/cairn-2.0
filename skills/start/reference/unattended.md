@@ -11,6 +11,8 @@ Look for isolation in this order, and stop at the first one that applies:
 3. An installed worktree skill (e.g. superpowers' `using-git-worktrees`), if the project has one.
 4. Plain `git worktree add`, as a last resort.
 
+Worktrees are created only in submodules — never in the parent repo, which holds the task folders — and the dispatch names the parent-repo path of the sub-task's folder.
+
 cairn doesn't build or run any of these itself — it's a plugin that shapes a session's behavior, not a process manager. If nothing isolates the run, it just runs in place; nothing else about unattended mode changes.
 
 Get one explicit confirmation before the run actually detaches — show what will launch (which worktree/branch, what task) and wait for a yes. Not zero confirmations, and not a second round-trip once it's already been described.
