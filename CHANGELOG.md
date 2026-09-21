@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-22
 
+- Regenerated `docs/BUDGET.md` after the `budget.py` STATE.md frontmatter-only change.
 - `tools/budget.py`: the `docs/tasks/*/STATE.md` cap (soft 800 B, hard 1,024 B) now measures the frontmatter block only, so an append-only log body below it does not count; a file with no frontmatter, or an unclosed one, is still measured whole. Prepares for the frontmatter-plus-log `STATE.md` contract (task `2026-09-22-0600-solidify-task-workflow`, step A1).
 - Cleaned up `docs/`: removed the three finished `docs/tasks/` folders (dashboard contrast, dashboard warning/heatmap, plugin-split sketch — recoverable from git history), moved `PORTFOLIO.md` and `INTERVIEW-STORIES.md` into `docs/portfolio/` (updating the path references in them and in the portfolio requirements doc), and rewrote `docs/README.md` to index every current doc and drop the stale `features/` section. Deleted the gitignored local-only `docs/features/` and `docs/specs/`. Bumped `.claude-plugin/plugin.json` 0.14.9 → 0.14.10.
 - Recorded the vendored `tools/tokens/` rule in `.harness/` via `/cairn-setup`: `architecture.md` Boundaries (change it upstream in the `token-metering` submodule, then re-vendor; never edit in place), `workflow.md` (submodule bump, re-vendor, then `check_vendoring_sync.py`, as separate commits), and `environment.md` (`check_vendoring_sync.py` as a `[warning]` command). Regenerated `.harness/BUDGET.md`. Bumped `.claude-plugin/plugin.json` to `0.14.9` (patch).
