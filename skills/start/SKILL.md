@@ -19,7 +19,7 @@ Also covered by the glob: `.harness/local/preferences.md`, classified per `/cair
 
 ## Scope resolution
 
-On cold resume — a task folder's `STATE.md` holds a scope record but this session has none — read it back as the active record; no interview, no `cairn:scope`.
+On cold resume — `STATE.md` holds a scope record but this session has none — read its frontmatter as the active record, per `reference/resume.md`; no interview, no `cairn:scope`.
 
 Otherwise, resolve scope — invoke `Skill(skill: "cairn:scope")` — when any of these is true:
 
@@ -45,14 +45,14 @@ path: default | escalated
 
 Continuity test: request fits `paths`, serves `goal`, doesn't change `done_when`? Yes → continue; no → resolve again.
 
-Default path: held in the main thread, nothing written to disk. Escalated path: written into `docs/tasks/<slug>/STATE.md`.
+Default path: held in the main thread, nothing written to disk. Escalated path: written to the task folder's `STATE.md`.
 
 ## Path choice
 
 | Path | Flow | Budget |
 |---|---|---|
 | Default | `builder` → `reviewer` → PR | ≤ 40k tokens |
-| Escalated | `planner` → approval → `builder` → `reviewer` → PR, with `docs/tasks/<slug>/STATE.md` | ≤ 150k tokens |
+| Escalated | `planner` → approval → `builder` → `reviewer` → PR, with `STATE.md` | ≤ 150k tokens |
 
 Escalation trigger, verbatim: escalate when the change spans more than one submodule, alters a published contract (API, schema, or event), or can't be described in two sentences.
 
