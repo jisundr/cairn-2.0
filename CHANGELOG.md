@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
 
+## 2026-09-22
+
+- Recorded the vendored `tools/tokens/` rule in `.harness/` via `/cairn-setup`: `architecture.md` Boundaries (change it upstream in the `token-metering` submodule, then re-vendor; never edit in place), `workflow.md` (submodule bump, re-vendor, then `check_vendoring_sync.py`, as separate commits), and `environment.md` (`check_vendoring_sync.py` as a `[warning]` command). Regenerated `.harness/BUDGET.md`. Bumped `.claude-plugin/plugin.json` to `0.14.9` (patch).
+
 ## 2026-09-11
 
 - Added `docs/INTERVIEW-STORIES.md` — five STAR-format interview narratives (system design, debugging, technical depth, tradeoff, process) drawn from real commits in this changelog: the `review-pr` confirmation-gate bypass (issue #4), the token-metering vendoring-drift guard and DST heatmap bug, the v1→v2 token-budget rewrite, the `BUILD_BRIEF.md` retirement, and the version-bump rule fix. Companion to `docs/PORTFOLIO.md`. Bumped `.claude-plugin/plugin.json` to `0.14.8` (patch).
