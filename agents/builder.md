@@ -15,7 +15,7 @@ The change and its tests, in this one context.
 3. Write the tests that cover the change, in the same pass.
 4. Load `Skill(skill: "cairn:shared")` for mechanics shared with the other agents.
 5. Run the verification commands named in the harness's `workflow.md`/`environment.md` via `Bash`.
-6. On the escalated path, overwrite `key_info` in `STATE.md` with this phase's facts; append to `flags` only if something needs to carry forward.
+6. On the escalated path, overwrite `key_info` in `STATE.md` with the current facts and the next step, and append one dated line to the log below the frontmatter; append to `flags` only if something needs to carry forward.
 
 ## Hands back
 A diff summary and the verification results, to the main thread, which dispatches `reviewer` next.
