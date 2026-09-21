@@ -1,6 +1,6 @@
 # cairn 2.0 — interview stories (STAR)
 
-Companion to `docs/PORTFOLIO.md`. Five STAR-format narratives drawn from this repo's own commit history (`CHANGELOG.md`) and current state, mapped to common technical-interview question types. Not committed as part of cairn's shipped surface.
+Companion to `docs/portfolio/PORTFOLIO.md`. Five STAR-format narratives drawn from this repo's own commit history (`CHANGELOG.md`) and current state, mapped to common technical-interview question types. Not committed as part of cairn's shipped surface.
 
 ## 1. System design — rewriting for a provable cost budget
 

@@ -35,6 +35,6 @@ None outstanding.
 ## Success criteria
 
 - A stated primary role classification (proposed: AI/Agentic Systems Engineering) plus secondary framings (Platform/DevEx Engineering; Full-Stack via `token-metering/`), each backed by a specific file or number.
-- `docs/PORTFOLIO.md` exists with the case study, classification, and resume bullets.
-- `docs/INTERVIEW-STORIES.md` exists with 3–5 STAR stories.
+- `docs/portfolio/PORTFOLIO.md` exists with the case study, classification, and resume bullets.
+- `docs/portfolio/INTERVIEW-STORIES.md` exists with 3–5 STAR stories.
 - Either doc can be used directly in an application or interview without further fact-checking against the repo.
