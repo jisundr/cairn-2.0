@@ -17,6 +17,8 @@ A task folder's `STATE.md` has two parts. **Frontmatter** is the state read on r
 
 Read `workflow.md`'s `## Gates` section and `environment.md`'s typed preconditions from the already-resolved harness. Run each via `Bash`. Failure semantics are uniform: a check whose command can't run counts as failed, and a line that can't be parsed also counts as failed — no silent-skip tier. A `[blocking]` failure stops the task; a `[warning]` failure doesn't.
 
+Also measure the active task's `STATE.md` frontmatter — the folder is the one holding the scope record's `source` doc — with `awk '{print} NR>1&&/^---$/{exit}' STATE.md | wc -c`, which counts from the opening `---` through the closing one, or the whole file if there is no closing one. Over 1,024 B counts as a `[warning]` failure: name the file and its size, do not stop the task. Old oversized files therefore warn and never block.
+
 ## Reference
 
 | File | Load when |
