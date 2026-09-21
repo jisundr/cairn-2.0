@@ -9,7 +9,7 @@ Turn the request into a scope record — most of the time this needs no intervie
 
 ## Default flow
 
-0. If the request points at an existing `docs/requirements/*.md` doc rather than describing the work directly, read it first: `goal` and `done_when` come from its Goals and Success criteria, `paths` from whatever files or areas it names, and record its path as `source`. Otherwise skip to 1.
+0. If the request points at an existing requirements doc — `docs/requirements/*.md` or `docs/tasks/*/requirements.md` — rather than describing the work directly, read it first: `goal` and `done_when` come from its Goals and Success criteria, `paths` from whatever files or areas it names, and record its path as `source`. For a `docs/tasks/*/requirements.md`, that folder is the task folder. Otherwise skip to 1.
 1. From the request and conversation so far, name: `goal` (one sentence), `paths` (dirs or globs), `done_when` (checkable condition), `out_of_scope` (explicit exclusions — omit if none).
 2. Apply `cairn:start`'s escalation trigger to set `path: default` or `path: escalated`. If the call is genuinely unclear — it could plausibly read as one submodule or several, or "two sentences" would mean dropping something material — ask via `AskUserQuestion` instead of guessing.
 3. State the resolved record back in one line and continue. A resolution that produces no new information costs one sentence, not an interview.
@@ -25,7 +25,7 @@ path: default | escalated
 
 ## Escalated path
 
-Derive a short kebab-case slug from `goal` (e.g. `add-oauth-login`). Create `docs/tasks/<slug>/STATE.md` — the record above as YAML front matter, under the 1,024 B cap. Default path: the record stays in the main thread; nothing is written to disk.
+Name the folder `docs/tasks/YYYY-MM-DD-HHMM-slug/`: the current local date and time, then a short kebab-case slug from `goal` (e.g. `2026-09-22-0600-add-oauth-login`). Create it with two standard files. `STATE.md` is the record above as frontmatter, per `cairn:shared`. `requirements.md` is reused if the folder already has one; otherwise, if a task file was supplied (a ticket, a Slack thread, a doc), it holds that content and `source` names where it came from; otherwise write a short one from the record — Problem from `goal`, Goals and Success criteria from `done_when`, Non-goals from `out_of_scope`, leaving out any section the record does not supply. A small task gets only that. Dispatched unattended, write it the same way and append one `flags` line saying so. Default path: the record stays in the main thread; nothing is written to disk.
 
 ## Reference
 
