@@ -13,3 +13,6 @@ docs/features/
 .claude/agent-memory-local
 .claude/first-run
 .claude/assistant-daemon-state.json
+docs/tasks/*
+!docs/tasks/.gitkeep
+!docs/tasks/_template/
