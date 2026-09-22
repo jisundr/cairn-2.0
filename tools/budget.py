@@ -182,13 +182,11 @@ def scan(root):
         if fnmatch.fnmatch(rel, "docs/tasks/*/plan*.md"):
             size = len(read_text(path).encode())
             findings += cap_check("task-plan", rel, size, "B", 8000, 12288)
-            rows.append((rel, size, "B", "on-demand (consuming project)", headroom(size, 12288)))
             continue
 
         if fnmatch.fnmatch(rel, "docs/tasks/*/STATE.md"):
             size = frontmatter_bytes(read_text(path))
             findings += cap_check("task-state", rel, size, "B", 800, 1024)
-            rows.append((rel, size, "B", "on-demand (consuming project)", headroom(size, 1024)))
             continue
 
         if rel == "skills/task-assets/assets/claude-md-marker.md":

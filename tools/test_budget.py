@@ -88,6 +88,15 @@ def test_task_state_cap(tmp_path):
     assert any(f.rule == "task-state" and f.severity == "error" for f in findings)
 
 
+def test_task_files_are_capped_but_not_in_ledger(tmp_path):
+    w(tmp_path, "docs/tasks/foo/STATE.md", "---\nkey_info: " + "s" * 1500 + "\n---\n")
+    w(tmp_path, "docs/tasks/foo/plan.md", "p" * 100)
+    w(tmp_path, "docs/tasks/foo/01-sub/STATE.md", "---\ngoal: g\n---\n")
+    findings, rows, _ = budget.gather_findings(tmp_path)
+    assert any(f.rule == "task-state" and f.severity == "error" for f in findings)
+    assert not any(str(r[0]).startswith("docs/tasks/") for r in rows)
+
+
 def test_task_state_cap_ignores_log_body(tmp_path):
     w(tmp_path, "docs/tasks/foo/STATE.md", "---\ngoal: g\n---\n" + "log line\n" * 600)
     findings, *_ = budget.gather_findings(tmp_path)
