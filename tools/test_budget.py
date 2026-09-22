@@ -251,6 +251,19 @@ def test_report_generation(tmp_path):
     assert "agents/builder.md" in report
 
 
+def test_report_splits_consuming_project_table(tmp_path):
+    w(tmp_path, "agents/builder.md", agent_md(name="builder", description="short"))
+    w(tmp_path, "docs/REGISTRY.md", "## builder\n- Read — baseline\n- Write — authors code\n")
+    w(tmp_path, ".harness/architecture.md", "line\n")
+    findings, rows, total = budget.gather_findings(tmp_path)
+    budget.write_report(tmp_path, rows, total)
+    report = (tmp_path / "docs" / "BUDGET.md").read_text()
+    assert "## This repo" in report
+    assert "## Templates for a consuming project" in report
+    assert report.index("agents/builder.md") < report.index("## Templates for a consuming project")
+    assert report.index("## Templates for a consuming project") < report.index(".harness/architecture.md")
+
+
 def test_clean_repo_exits_zero(tmp_path):
     findings, *_ = budget.gather_findings(tmp_path)
     assert errs(findings) == []
