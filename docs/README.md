@@ -8,7 +8,7 @@ Index of this repo's own documentation — for developing cairn, not for a consu
 | [`BUDGET.md`](BUDGET.md) | Generated size/load-class report for every budgeted artifact. Regenerate with `python tools/budget.py --report`. |
 | [`AI_TIPS.md`](AI_TIPS.md) | Notes from experience working with AI coding agents — the practices this repo's own discipline is built on. |
 | [`PRODUCT.md`](PRODUCT.md), [`DESIGN.md`](DESIGN.md) | Product context and design system for the token-metering dashboard. |
-| [`DESIGN-landing.md`](DESIGN-landing.md), [`index.html`](index.html) | Design system and source for the public GitHub Pages landing page (`assets/` holds its images). |
+| [`marketing/`](marketing/) | The public GitHub Pages landing page: `DESIGN-landing.md` (design system), `index.html` (source), `assets/` (images). Deployed by `.github/workflows/pages.yml` on push, not the classic branch-source method. |
 | [`portfolio/`](portfolio/) | External-evaluation material: `PORTFOLIO.md` (case study) and `INTERVIEW-STORIES.md` (STAR narratives). |
 
 ## `specs/`
@@ -17,4 +17,4 @@ Gitignored scratch (`YYYY-MM-DD-topic.md`) — design notes written before a non
 
 ## `tasks/`
 
-Created by the escalated path (`planner` → `builder` → `reviewer`) — a `docs/tasks/<slug>/STATE.md` and plan per escalated task. Finished tasks are removed; git history keeps them.
+Gitignored (`docs/tasks/*`) — a `STATE.md` and `requirements.md` per escalated task, `docs/tasks/YYYY-MM-DD-HHMM-slug/`, written by `cairn:scope`/`planner` and never committed. `_template/` and `.gitkeep` are the two tracked exceptions: `_template/` is the reference for a task's own files, copied in by `/cairn-setup`.
