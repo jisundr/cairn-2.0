@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-22
 
+- Fixed `commands/cairn-doctor.md` step 5: it pointed at `/cairn-setup` to rename a stale `.harness/BUDGET.roster.md`, a step A10b just removed from setup. Now says to rename it by hand. Step A10d of task `2026-09-22-0600-solidify-task-workflow`; caught by a reference scan after A10b, not by the plan.
 - Removed this repo's own `.harness/BUDGET.md`: it duplicated what `tools/budget.py` already lists for every `.harness/*.md` file in `docs/BUDGET.md` (recoverable from git history). Step A10c of task `2026-09-22-0600-solidify-task-workflow`.
 - `/cairn-setup` step 6 and `/cairn-retro` step 5 now write the harness ledger to `docs/BUDGET.md` instead of `.harness/BUDGET.md`, so a project has one budget ledger. Setup leaves an existing `docs/BUDGET.md` that lacks the header `# Harness budget ledger` (cairn's own generated ledger starts `# Budget ledger`, so running setup here cannot overwrite it) and deletes a stale `.harness/BUDGET.md`. Dropped the legacy pre-`0.2.1` `BUDGET.roster.md` rename clause to fit the command's cap (2,047 of 2,048 B). Step A10b of task `2026-09-22-0600-solidify-task-workflow`.
 - `tools/budget.py`: `docs/tasks/*` plan and `STATE.md` files keep their cap findings but no longer get rows in the ledger (they are gitignored, so a row would differ per machine); covers nested sub-task folders and `docs/tasks/_template/`. New test. Step A10a of task `2026-09-22-0600-solidify-task-workflow`.

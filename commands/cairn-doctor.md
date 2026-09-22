@@ -8,7 +8,7 @@ Read-only. Never writes, never blocks.
 2. **Marker** — root `CLAUDE.md` present and contains `<!-- cairn:start -->`? Report yes/no.
 3. **Harness** — for each of `architecture.md`, `standards.md`, `environment.md`, `workflow.md` under `.harness/`: present or absent.
 4. **`.cairn/`** — present or absent; if present, `sessions.log` line count and its last line (skip anything else found there without asserting what it is).
-5. **Roster** — `.harness/BUDGET.roster.md` present? Report it stale (pre-`0.2.1` naming), point at `/cairn-setup` to rename it to `.roster.txt`. Does not rename it itself.
+5. **Roster** — `.harness/BUDGET.roster.md` present? Report it stale (pre-`0.2.1` naming) and say to rename it to `.roster.txt` by hand. Does not rename it itself.
 6. **Local layer** — `.harness/local/preferences.md` absent → say so, stop. Else classify every line:
    - `model ...` → **inert (no lever)** — no runtime lever for session model.
    - a line that would relax, skip, or disable something one of the four team files requires, or a stage cairn's own path always runs (`builder`, `reviewer`) → **ignored by ceiling**, naming the conflicting file/section or "cairn's own path".
