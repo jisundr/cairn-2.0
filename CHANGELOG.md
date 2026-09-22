@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-22
 
+- Regenerated `docs/BUDGET.md`: two tables (`## This repo`, `## Templates for a consuming project`), no `.harness/BUDGET.md` or `docs/tasks/*` rows, updated sizes for every file touched this task. Full phase gate run: `budget.py` 0 errors, `pytest tools/` 106 passed (6 pre-existing `tools/tokens` failures unrelated to this task, unchanged from task start), hook selftests pass. Closes A9 of task `2026-09-22-0600-solidify-task-workflow`.
 - `docs/BUDGET.md` now splits into two tables: `## This repo` (cairn's own always-loaded/on-demand/executed/never-loaded files) and `## Templates for a consuming project` (the `on-demand (consuming project)` rows — the five `.harness/*.md` templates, now that A10a stopped giving `docs/tasks/*` files a row), omitted when empty. `write_report`'s signature is unchanged. Step A10e of task `2026-09-22-0600-solidify-task-workflow`, requested directly.
 - Fixed `commands/cairn-doctor.md` step 5: it pointed at `/cairn-setup` to rename a stale `.harness/BUDGET.roster.md`, a step A10b just removed from setup. Now says to rename it by hand. Step A10d of task `2026-09-22-0600-solidify-task-workflow`; caught by a reference scan after A10b, not by the plan.
 - Removed this repo's own `.harness/BUDGET.md`: it duplicated what `tools/budget.py` already lists for every `.harness/*.md` file in `docs/BUDGET.md` (recoverable from git history). Step A10c of task `2026-09-22-0600-solidify-task-workflow`.
