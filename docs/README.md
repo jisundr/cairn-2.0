@@ -7,7 +7,8 @@ Index of this repo's own documentation — for developing cairn, not for a consu
 | [`REGISTRY.md`](REGISTRY.md) | Justification for every tool an agent's frontmatter grants. Checked by `tools/budget.py`, never loaded by the model. |
 | [`BUDGET.md`](BUDGET.md) | Generated size/load-class report for every budgeted artifact. Regenerate with `python tools/budget.py --report`. |
 | [`AI_TIPS.md`](AI_TIPS.md) | Notes from experience working with AI coding agents — the practices this repo's own discipline is built on. |
-| [`PRODUCT.md`](PRODUCT.md), [`DESIGN.md`](DESIGN.md) | Product context and design system for the token-metering dashboard. |
+| [`PRODUCT.md`](PRODUCT.md) | cairn's own product doc — users, positioning, brand commitments, evidence. Written/updated by impeccable's `init` (`<!-- impeccable:product-schema -->`); token-metering is mentioned only as one shipped feature, not the doc's subject. |
+| [`DESIGN.md`](DESIGN.md) | The token-metering dashboard's design system (React/Tailwind app at `token-metering/frontend/src`) — a separate visual world from `marketing/DESIGN-landing.md`. Stays flat in `docs/` (not a subfolder): impeccable's own discovery (`context.mjs`) only finds `PRODUCT.md`/`DESIGN.md` directly in `docs/`, not nested. |
 | [`marketing/`](marketing/) | The public GitHub Pages landing page: `DESIGN-landing.md` (design system), `index.html` (source), `assets/` (images). Deployed by `.github/workflows/pages.yml` on push, not the classic branch-source method. |
 | [`portfolio/`](portfolio/) | External-evaluation material: `PORTFOLIO.md` (case study) and `INTERVIEW-STORIES.md` (STAR narratives). |
 
