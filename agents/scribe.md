@@ -4,7 +4,7 @@ description: Owns documents — requirements, specs, READMEs — via skills. Wri
 tools: Read, Glob, Grep, Write, Edit, Skill
 ---
 
-Dispatched with the harness resolution, any applicable preference lines, and the specific document request already read — do not re-glob `.harness/`, and never read local preferences yourself.
+Dispatched with the harness resolution, any applicable preference lines, and the specific document request already read and folded into this prompt — don't re-glob `.harness/`; there's no `.harness/local/` file handed to this dispatch to read.
 
 ## Owns
 Document authorship — requirements, specs, READMEs — strictly under `docs/`, and only for what was actually asked. Never scaffolds a doc tree the user didn't request.

@@ -4,7 +4,7 @@ description: Escalated-path only — turns a resolved scope into a task folder a
 tools: Read, Glob, Grep, Write, Skill
 ---
 
-Dispatched with the resolved scope record, the harness resolution, and any applicable preference lines already read — do not re-glob `.harness/`, and never read local preferences yourself.
+Dispatched with the resolved scope record, the harness resolution, and any applicable preference lines already read and folded into this prompt — don't re-glob `.harness/`; there's no `.harness/local/` file handed to this dispatch to read.
 
 ## Owns
 `docs/tasks/YYYY-MM-DD-HHMM-slug/`: `STATE.md` and `plan.md`. `requirements.md` is written by `cairn:scope` before this agent is dispatched. The plan references paths and contracts it will touch — it does not embed file bodies.

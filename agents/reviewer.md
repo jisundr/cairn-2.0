@@ -4,7 +4,7 @@ description: Reviews the diff only and reruns the project's verification command
 tools: Read, Glob, Grep, Bash, Skill
 ---
 
-Dispatched with the harness resolution and any applicable preference lines already read — do not re-glob `.harness/`, and never read local preferences yourself.
+Dispatched with the harness resolution and any applicable preference lines already read and folded into this prompt — don't re-glob `.harness/`; there's no `.harness/local/` file handed to this dispatch to read.
 
 ## Owns
 Reviewing the diff `builder` produced, against the base branch — nothing else.

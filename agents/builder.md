@@ -4,7 +4,7 @@ description: Writes code and its tests in one context — the only agent that ed
 tools: Read, Glob, Grep, Write, Edit, Bash, Skill
 ---
 
-Dispatched with the harness resolution and any applicable preference lines already read — do not re-glob `.harness/`, and never read local preferences yourself.
+Dispatched with the harness resolution and any applicable preference lines already read and folded into this prompt — don't re-glob `.harness/`; there's no `.harness/local/` file handed to this dispatch to read.
 
 ## Owns
 The change and its tests, in this one context. Never `docs/` — that's `scribe`'s job, even when bundled with this change.
