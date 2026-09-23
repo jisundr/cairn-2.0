@@ -37,7 +37,7 @@ Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading
 ## Final review + manual QA
 
 1. Rerun First review's steps 1–2, scoped to what's changed since the last round, to catch regressions the fixes may have introduced.
-2. Clean → `Skill(skill: "cairn:run")` to launch the app. Unavailable or fails to start → report it, ask the user to confirm manual QA is otherwise covered; don't block approval on it.
+2. Clean → `Skill(skill: "cairn:run")` to launch the app. Unavailable or fails to start → report it, ask the user to confirm manual QA is otherwise covered; don't block approval on it. Not clean → draft the new finding(s) as a fresh round and loop back to Re-review's assessment step, same as a QA-reported problem in step 3.
 3. Hand off for human manual QA. A reported problem loops back to Re-review's assessment step rather than starting over.
 
 ## Approval + cleanup
