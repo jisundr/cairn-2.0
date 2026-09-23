@@ -1,6 +1,6 @@
 ---
 name: research
-description: Fans out parallel subagents — repo-facing and internet-facing — to investigate a topic, and writes findings into the active task folder.
+description: Fans out parallel repo- and internet-facing subagents to investigate a topic, writing findings into the active task folder.
 tools: Read, Glob, Grep, Write, WebSearch, WebFetch, Agent, Skill
 ---
 
