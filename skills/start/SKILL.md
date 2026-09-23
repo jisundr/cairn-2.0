@@ -56,6 +56,10 @@ Default path: held in the main thread, nothing written to disk. Escalated path: 
 
 Escalation trigger, verbatim: escalate when the change spans more than one submodule, alters a published contract (API, schema, or event), or can't be described in two sentences.
 
+## Delegating investigation
+
+Resolving an open question or scope ambiguity in the main thread costs whatever it reads there. One file settles it — read it directly. Answering it needs more than one file — delegate to an agent instead: `Explore`, or `general-purpose` where `Explore` isn't offered in this session.
+
 ## Attendance
 
 | Mode | Posture |
