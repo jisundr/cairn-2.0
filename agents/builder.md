@@ -7,7 +7,7 @@ tools: Read, Glob, Grep, Write, Edit, Bash, Skill
 Dispatched with the harness resolution and any applicable preference lines already read — do not re-glob `.harness/`, and never read local preferences yourself.
 
 ## Owns
-The change and its tests, in this one context.
+The change and its tests, in this one context. Never `docs/` — that's `scribe`'s job, even when bundled with this change.
 
 ## Steps
 1. On the escalated path, read the task folder's plan for the files and contracts in scope; on the default path, work from the dispatch prompt's description directly.
