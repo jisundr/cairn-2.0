@@ -46,7 +46,7 @@ Every tool an agent's frontmatter grants must be justified here, one section per
 - Read — baseline
 - Glob — baseline
 - Grep — baseline
-- Write — findings only, scoped to the active task folder
+- Write — STATE.md updates only, scoped to the active task folder; findings are handed back as text, not written by the subagent
 - WebSearch — internet-facing investigation angle
 - WebFetch — internet-facing investigation angle
 - Agent — fans out the parallel investigation subagents this capability exists for; the one agent in this repo granted it
