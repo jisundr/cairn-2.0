@@ -41,7 +41,6 @@ Every tool an agent's frontmatter grants must be justified here, one section per
 - Glob — baseline
 - Grep — baseline
 - Write — authors the task folder's STATE.md and plan under docs/tasks/<slug>/
-- AskUserQuestion — resolves a genuine open choice the scope record leaves in the plan
 - Skill — loads cairn:shared for the plan-writing mechanics shared with the other agents
 
 ## research
