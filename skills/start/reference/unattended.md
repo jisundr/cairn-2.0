@@ -19,7 +19,7 @@ Get one explicit confirmation before the run actually detaches — show what wil
 
 ## While running: no questions
 
-Anywhere the chain would normally call `AskUserQuestion` — `planner` step 5's open-choice check, `cairn:scope`'s vague-request interview — take the most conservative, most reversible reading instead, and append one `flags:` line to `STATE.md` naming the assumption. `flags` is append-only, so by the end there's a full list of what was assumed, not just the last one.
+`cairn:scope`'s vague-request interview is the one remaining place this section governs — dispatched agents (`planner`, `scribe`, …) run as Task-dispatched subagents with no `AskUserQuestion` access at all, attended or not, so their own fallbacks are unconditional and documented directly in each agent file. `cairn:scope` runs as a skill loaded into the main thread, which keeps the interactive channel — so here, specifically, take the most conservative, most reversible reading instead, and append one `flags:` line to `STATE.md` naming the assumption. `flags` is append-only, so by the end there's a full list of what was assumed, not just the last one.
 
 A `reviewer` fail redispatches `builder`; cap this at 3 attempts (matching maestro's own fix-cycle cap) before stopping — don't loop past it.
 
