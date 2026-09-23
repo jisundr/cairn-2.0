@@ -15,7 +15,9 @@ One `Glob .harness/**/*.md` call, once per task; hold the result — never re-gl
 
 ## Local preferences
 
-Also covered by the glob: `.harness/local/preferences.md`, classified per `/cairn-doctor` (active / inert / ignored-by-ceiling / unrecognised). Dispatch prompts carry only active values — never the file or its path; no agent reads it. Active `prefer-path` feeds the path choice.
+Also covered by the glob: `.harness/local/preferences.md`, classified per `/cairn-doctor` (active / inert / ignored-by-ceiling / unrecognised). Dispatch prompts carry only active values — never the file or its path; no agent reads it. Active `prefer-path` feeds the path choice. Active `model <agent> = <model>` feeds the `model` param on that role's `Agent()` dispatch call, not dispatch-prompt text — a no-op by construction for a `subagent_type: "fork"` dispatch, per `Agent`'s own documented behavior; a role with no matching line dispatches unchanged.
+
+Absent — before the first agent dispatch, offer `/cairn-setup --local`'s model-per-role step, once. Declined → stand down for the session: no more asking that session, same pattern as the Harness gate's Absent case above. No cross-session persistence — a later session re-evaluates fresh.
 
 ## Scope resolution
 
