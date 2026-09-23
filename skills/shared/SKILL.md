@@ -11,7 +11,7 @@ A task folder's `STATE.md` has two parts. **Frontmatter** is the state read on r
 
 ## Task folder
 
-`docs/tasks/YYYY-MM-DD-HHMM-slug/`, always holding `requirements.md` and `STATE.md`; `plan.md` follows once requirements exist. Working outputs (briefs, mockups, findings) live in the same folder, loose; group them in a named subfolder when several cluster. A task too big for one PR splits into numbered sub-task folders (`01-slug/`) inside it, each with its own `requirements.md` and `STATE.md`, its own branch, and its own restated `out_of_scope`; only that sub-task's session writes them. Sub-tasks run in parallel unless one names `depends_on`.
+`docs/tasks/YYYY-MM-DD-HHMM-slug/`, always holding `requirements.md` and `STATE.md`; `plan.md` follows once requirements exist. Working outputs (briefs, mockups, findings) live in the same folder, loose; group them in a named subfolder when several cluster. A task too big for one PR splits into numbered sub-task folders (`01-slug/`) inside it, each with its own `requirements.md` and `STATE.md`, its own branch, and its own restated `out_of_scope`; only that sub-task's session writes them. Sub-tasks run in parallel unless one names `depends_on`. That assumes worktree isolation, absent in a single-repo project — sub-tasks then share one working tree, where files touched only by commit convention (`plugin.json`, `CHANGELOG.md`) collide without appearing in any `paths` list. Give one sub-task, via `depends_on` on the rest, sole ownership of that bump.
 
 ## Running verification
 
