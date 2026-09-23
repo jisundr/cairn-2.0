@@ -29,5 +29,5 @@ Edits only the roster, reruns step 6; never touches team files or marker text.
 
 Never touches team files or the marker.
 
-1. Ask which local prefs to set (model per role, per agent (builder/planner/reviewer/scribe/research), skip unanswered, one `model <agent> = <model>` line each; token ceiling, narration, optional-pass, tool paths, escalation leaning); skip unwanted.
-2. Show exact contents, write `.harness/local/preferences.md` plus `.harness/local/.gitignore` containing `*`.
+1. Ask which local prefs to set: model per role (builder/planner/reviewer/scribe/research; one `model <agent> = <model>` line each), token ceiling, narration, optional-pass, tool paths, escalation leaning; skip unwanted.
+2. Show exact contents, write `.harness/local/preferences.md` (base: `local/preferences.md`) plus `.harness/local/.gitignore` containing `*`.
