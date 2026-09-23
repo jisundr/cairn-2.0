@@ -17,7 +17,6 @@ Every tool an agent's frontmatter grants must be justified here, one section per
 - Grep — baseline
 - Write — authors new documents under docs/
 - Edit — updates existing documents under docs/
-- AskUserQuestion — clarifies a document's scope or audience with the user before writing
 - Skill — loads the relevant document-type skill for the requested format
 
 ## reviewer
