@@ -26,5 +26,5 @@ Edits only the roster, rewrites `docs/BUDGET.md`; never touches team files or ma
 
 Never touches team files or the marker.
 
-1. Ask which local prefs to set: model per role (builder/planner/reviewer/scribe/research; one `model <agent> = <model>` line each), token ceiling, narration, optional-pass, tool paths, escalation leaning; skip unwanted.
+1. Ask which local prefs to set: model per role (builder/planner/reviewer/scribe/research; one `model <agent> = <model>` line each), path-choice leaning (one `prefer-path = default` or `= escalated` line), token ceiling, narration, optional-pass; skip unwanted.
 2. Show exact contents, write `.harness/local/preferences.md` (base: `local/preferences.md`) plus `.harness/local/.gitignore` containing `*`.
