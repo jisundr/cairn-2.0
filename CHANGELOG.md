@@ -4,6 +4,7 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-23
 
+- Added `agents/research.md` — a new agent that fans out parallel subagents, repo-facing (`Read`/`Glob`/`Grep`) and internet-facing (`WebSearch`/`WebFetch`), to investigate a topic and write findings into the active task folder; escalated-path in practice, since it requires that folder to already exist. Its own internal fan-out dispatches via `Agent()` with subagent type `Explore` falling back to `general-purpose`, capped at the harness's default ~10-subagent guideline — the one agent in this repo granted `Agent`. New `docs/REGISTRY.md` `## research` section justifying its tool grants. Step 1 of 3 of task `2026-09-23-0717-research-agent-local-model-prefs/01-research-agent`. Bumped `.claude-plugin/plugin.json` 0.16.12 → 0.17.0 (minor).
 - `commands/cairn-doctor.md` step 6: a well-formed `model <agent> = <model>` line (`<agent>` one of `builder`/`planner`/`reviewer`/`scribe`/`research`, `<model>` one of `sonnet`/`opus`/`haiku`/`fable`) now classifies **active** instead of the previous blanket **inert (no lever)** for every `model` line; a malformed agent or model name still falls through to **unrecognised**, and a line the ceiling would reject still classifies **ignored by ceiling** first. Step 1 of 3 of task `2026-09-23-0717-research-agent-local-model-prefs/02-local-model-preference`. Bumped `.claude-plugin/plugin.json` 0.16.11 → 0.16.12 (patch).
 
 ## 2026-09-22

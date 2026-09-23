@@ -43,3 +43,13 @@ Every tool an agent's frontmatter grants must be justified here, one section per
 - Write — authors the task folder's STATE.md and plan under docs/tasks/<slug>/
 - AskUserQuestion — resolves a genuine open choice the scope record leaves in the plan
 - Skill — loads cairn:shared for the plan-writing mechanics shared with the other agents
+
+## research
+- Read — baseline
+- Glob — baseline
+- Grep — baseline
+- Write — findings only, scoped to the active task folder
+- WebSearch — internet-facing investigation angle
+- WebFetch — internet-facing investigation angle
+- Agent — fans out the parallel investigation subagents this capability exists for; the one agent in this repo granted it
+- Skill — loads cairn:shared for the task-folder/STATE.md contract
