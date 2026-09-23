@@ -1,6 +1,6 @@
 ---
 name: research
-description: Resolves a topic and its active task folder, then hands off to the main thread to dispatch the research agent for a parallel-subagent investigation.
+description: Resolves the topic and task folder, then hands off to dispatch research.
 ---
 
 # cairn:research
