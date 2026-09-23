@@ -10,8 +10,8 @@ Read-only. Never writes, never blocks.
 4. **`.cairn/`** — present or absent; if present, `sessions.log` line count and its last line (skip anything else found there without asserting what it is).
 5. **Roster** — `.harness/BUDGET.roster.md` present? Report it stale (pre-`0.2.1` naming) and say to rename it to `.roster.txt` by hand. Does not rename it itself.
 6. **Local layer** — `.harness/local/preferences.md` absent → say so, stop. Else classify every line:
-   - `model ...` → **inert (no lever)** — no runtime lever for session model.
    - a line that would relax, skip, or disable something one of the four team files requires, or a stage cairn's own path always runs (`builder`, `reviewer`) → **ignored by ceiling**, naming the conflicting file/section or "cairn's own path".
+   - `model <agent> = <model>`, `<agent>` one of `builder`/`planner`/`reviewer`/`scribe`/`research`, `<model>` one of `sonnet`/`opus`/`haiku`/`fable`, not caught above → **active**.
    - a recognised key (`token-ceiling`, `narration`, `optional-pass`, `prefer-path`) not caught above → **active**.
    - anything else → **unrecognised**.
 

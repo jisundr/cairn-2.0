@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
 
+## 2026-09-23
+
+- `commands/cairn-doctor.md` step 6: a well-formed `model <agent> = <model>` line (`<agent>` one of `builder`/`planner`/`reviewer`/`scribe`/`research`, `<model>` one of `sonnet`/`opus`/`haiku`/`fable`) now classifies **active** instead of the previous blanket **inert (no lever)** for every `model` line; a malformed agent or model name still falls through to **unrecognised**, and a line the ceiling would reject still classifies **ignored by ceiling** first. Step 1 of 3 of task `2026-09-23-0717-research-agent-local-model-prefs/02-local-model-preference`. Bumped `.claude-plugin/plugin.json` 0.16.11 → 0.16.12 (patch).
+
 ## 2026-09-22
 
 - Reverted `e613f3f` (moving `DESIGN.md` into `docs/design/token-metering/`): impeccable's own `context.mjs` only discovers `PRODUCT.md`/`DESIGN.md` directly in `docs/` (or `.agents/context/`), not recursively, and the one override (`IMPECCABLE_CONTEXT_DIR`) is a local-only env var that wouldn't have worked for this split layout anyway — it only fires when neither file is found flat, and PRODUCT.md staying discoverable would have blocked it from ever triggering. `docs/DESIGN.md` is back at its original path. Re-applied just the accurate `docs/README.md` wording fix (PRODUCT.md and DESIGN.md were never a matched pair) without moving anything, and noted the flat-path constraint in the index itself so it isn't rediscovered the hard way again.
