@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
 
+## 2026-09-25
+
+- `skills/scope/SKILL.md` Escalated path: task folders are now named `docs/tasks/YYYY-MM-DD-HHMM-<kind>-slug/`, with `<kind>` one of `research` (a question, brainstorm, or digest of an external source — no code implied), `build` (requirements → plan → build → PR), or `review` (a PR/MR review thread, named by `review-pr`). Surfaced by dogfooding cairn on its own AI Hero comparison → triage-skill work, where a comparison-only research folder and its follow-on build folder were indistinguishable by name. `<kind>` records how the thread started and is never renamed; the example becomes `2026-09-22-0600-build-add-oauth-login`. Requirements group 1 of `docs/tasks/2026-09-25-0645-build-task-folder-naming-convention/`. Bumped `.claude-plugin/plugin.json` 0.18.1 → 0.19.0 (minor — a new classification every task folder now carries).
+
 ## 2026-09-24
 
 - Fixed `skills/review-pr/reference/draft-template.md`'s "On disk" section: it claimed `<repo-slug>`/`pr|mr`/`<number>` "come from the host/URL already resolved in 'Resolve the target'" — but that section only ever picks `gh` vs `glab`, it never parses the URL into org/repo/number, so nothing was actually pre-resolved there. Reworded to say these are parsed directly from the same PR/MR URL. Found by `cairn:reviewer`'s full-sweep review of `4279997..HEAD`, finding 2 of 2; closes the fixup pair. Bumped `.claude-plugin/plugin.json` 0.18.0 → 0.18.1 (patch).
