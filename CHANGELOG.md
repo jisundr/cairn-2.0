@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/scope/SKILL.md` Default flow step 0 settles two edge cases: a source doc inside a sub-task folder (e.g. `X/01-a/findings.md`) applies the same rule to that sub-task, so new work nests one level deeper (`X/01-a/01-.../`) rather than becoming a sibling; and a loose doc without Goals/Success criteria (a `findings.md`, a `comparison.md`) inherits its folder's `goal` and `done_when`. Review follow-up (L4). Note (L5): this file is now 3837 B — over its 3000 B soft cap since this task's step-0 commit, 259 B under the 4096 B hard cap; whoever edits it next has little room. Bumped `.claude-plugin/plugin.json` 0.19.15 → 0.19.16 (patch).
+
 - `skills/shared/SKILL.md` STATE.md stage rule: a `research` folder expects no PR, so it is done when its `key_info` says so rather than never — otherwise `cairn:scope` step 0's "stage isn't done" check always held for research folders and nesting always fell through to goal-fit. Review follow-up (L3). Bumped `.claude-plugin/plugin.json` 0.19.14 → 0.19.15 (patch).
 
 - `skills/review-pr/reference/draft-template.md` On disk: a First review seeds `DRAFT.md` from the bundled `${CLAUDE_PLUGIN_ROOT}/skills/task-assets/assets/tasks/_template/DRAFT.md` when the project's `docs/tasks/_template/DRAFT.md` doesn't exist yet — an install set up before review folders moved under `docs/tasks/` has only `docs/reviews/_template/` until `/cairn-setup` reruns. Review follow-up (M2). Bumped `.claude-plugin/plugin.json` 0.19.13 → 0.19.14 (patch).
