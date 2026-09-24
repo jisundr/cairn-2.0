@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: Reviews an open PR/MR from the main thread — delegates finding-work to the native code-review skill, checks the diff against cairn's security checklist and fix-lane tags, and gates posting behind explicit confirmation.
+description: Reviews an open PR/MR from the main thread — delegates finding-work to the native code-review skill, checks cairn's security checklist and fix-lane tags, and gates posting behind explicit confirmation.
 ---
 
 # cairn:review-pr
@@ -17,7 +17,7 @@ Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading
 
 | File | Load when |
 |---|---|
-| reference/draft-template.md | Drafting findings (First review step 3) or round replies (Re-review step 3) — the format to present and, once confirmed, post. |
+| reference/draft-template.md | Drafting findings (First review step 3) or round replies (Re-review step 3) — format, on-disk path, and how to post. |
 
 ## First review
 
@@ -27,7 +27,7 @@ Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading
 
 **Create Review Draft**
 
-3. Present the combined findings as a draft, in the template's First review format.
+3. Write the combined findings as a draft, per `reference/draft-template.md` (format and on-disk path).
 
 **Post (if allowed) or Edit**
 
@@ -44,7 +44,7 @@ Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading
 
 **Update Review Draft**
 
-3. Append a dated round section to the same draft: a reply per prior finding (ack fixes, hold open what isn't) plus any new finding from step 2, in the template's round format — each finding keeps its `Posting plan` line (new top-level comment/discussion vs. reply to thread #n).
+3. Append a dated round section to the same on-disk draft: a reply per prior finding (ack fixes, hold open what isn't) plus any new finding from step 2, in the template's round format — each finding keeps its `Posting plan` line (new top-level comment/discussion vs. reply to thread #n).
 
 **Post or Reply or Edit**
 
@@ -64,5 +64,5 @@ Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading
 
 1. Stop whatever Final review's `cairn:run` started.
 2. Approve the MR and post a final summary comment, using the merge method / push-safety convention from `workflow.md`'s `## Commits / PR`. Convention undocumented → ask once; never guess a merge command.
-3. Stop referencing the findings draft — nothing is persisted to disk to clean up.
+3. The draft file is gitignored; report its path — nothing else to clean up.
 4. Report done.

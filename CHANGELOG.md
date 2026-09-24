@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-24
 
+- `skills/review-pr/reference/draft-template.md`: new `## On disk` section — the draft now lives at `docs/reviews/<repo-slug>-<pr|mr>-<number>/DRAFT.md`, seeded from `docs/reviews/_template/DRAFT.md` on first write, appended to (never overwritten) on re-review, and left as-is at Approval since it's gitignored. `skills/review-pr/SKILL.md`'s Create/Update Review Draft and Approval+cleanup steps now point at this instead of the old "nothing is persisted to disk" line, closing the scaffolding gap the new `docs/reviews/` folder would otherwise have been. Bumped `.claude-plugin/plugin.json` 0.17.33 → 0.17.34 (patch).
+
 - Applied the `/cairn-setup` review-folder setup to this repo, same as the earlier `docs/tasks/` rollout: `docs/reviews/.gitkeep`, `docs/reviews/_template/DRAFT.md`, and the `.gitignore` rules `docs/reviews/*`, `!docs/reviews/.gitkeep`, `!docs/reviews/_template/`. Verified with `git check-ignore` — a scratch `docs/reviews/<name>/DRAFT.md` path is ignored, `.gitkeep` and `_template/DRAFT.md` are not. Bumped `.claude-plugin/plugin.json` 0.17.32 → 0.17.33 (patch).
 
 - `commands/cairn-setup.md` Default mode step 5: now also follows `reviews/setup.md`, alongside the existing `tasks/setup.md` — `/cairn-setup` sets up `docs/reviews/` in a consuming project the same way it already sets up `docs/tasks/`. Bumped `.claude-plugin/plugin.json` 0.17.31 → 0.17.32 (patch).

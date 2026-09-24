@@ -7,6 +7,14 @@ description: The structured format review-pr presents combined findings in befor
 
 `SEVERITY` is Critical/High/Medium/Low from `reference/security-checklist.md` for a security finding, or Blocking/Suggestion for anything else. `CATEGORY` is the finding's own category — the security checklist's category name, or the code-review category with its fix-lane in parentheses (e.g. `simplification (Lane A)`).
 
+## On disk
+
+Path: `docs/reviews/<repo-slug>-<pr|mr>-<number>/DRAFT.md` — `<repo-slug>` is the URL's `org/repo` with `/` → `-`; `pr`/`mr` and `<number>` come from the host/URL already resolved in "Resolve the target".
+
+File absent → seed it from `docs/reviews/_template/DRAFT.md`, then fill in. Already there (same machine, later round) → its contents are the starting draft, not a blank one. Re-review appends new dated sections to this file; never overwrite a prior round.
+
+The file is gitignored (`docs/reviews/*` in the root `.gitignore`) — leaving it after Approval is harmless, nothing to clean up on the PR/MR side.
+
 ## First review
 
 ````markdown
