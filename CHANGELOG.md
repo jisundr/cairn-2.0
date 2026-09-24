@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/review-pr/reference/draft-template.md` On disk: a First review seeds `DRAFT.md` from the bundled `${CLAUDE_PLUGIN_ROOT}/skills/task-assets/assets/tasks/_template/DRAFT.md` when the project's `docs/tasks/_template/DRAFT.md` doesn't exist yet — an install set up before review folders moved under `docs/tasks/` has only `docs/reviews/_template/` until `/cairn-setup` reruns. Review follow-up (M2). Bumped `.claude-plugin/plugin.json` 0.19.13 → 0.19.14 (patch).
+
 - `skills/start/reference/resume.md` "Finding the folder": a folder with no `STATE.md` — a `review` folder holding only `DRAFT.md` — is never picked up as a task to resume; `review-pr` finds its own by Glob. Review follow-up (M1) to the task-folder naming work. Bumped `.claude-plugin/plugin.json` 0.19.12 → 0.19.13 (patch).
 
 - Regenerated `docs/BUDGET.md` and closed the phase gate for the task-folder naming work (`<kind>` tag, step-0 nesting, `docs/reviews/` folded into `docs/tasks/`). `python tools/budget.py` clean (warnings only), `pytest tools/` 106 passed / 6 pre-existing `tools/tokens` failures (same 6 at `3e83761`, before this task), both hook selftests pass. Bumped `.claude-plugin/plugin.json` 0.19.11 → 0.19.12 (patch).

@@ -11,7 +11,7 @@ description: The structured format review-pr presents combined findings in befor
 
 Path: `docs/tasks/YYYY-MM-DD-HHMM-review-<repo-slug>-<pr|mr>-<number>/DRAFT.md` — a `review` task folder. `<repo-slug>`, `pr`/`mr`, and `<number>` are parsed directly from the same PR/MR URL "Resolve the target" reads for its host: `<repo-slug>` is the URL's `org/repo` with `/` → `-`; `pr`/`mr` and `<number>` come from the URL's own path/host shape.
 
-Find it with `Glob` on `docs/tasks/*-review-<repo-slug>-<pr|mr>-<number>` — the date-time prefix isn't known ahead of a re-review, and `Glob` sees gitignored paths. Zero matches → First review: create the folder with the current local date-time and seed `DRAFT.md` from `docs/tasks/_template/DRAFT.md`, then fill in. One match → Re-review: its `DRAFT.md` is the starting draft, not a blank one; append new dated sections, never overwrite a prior round. More than one → ask the user which; don't guess.
+Find it with `Glob` on `docs/tasks/*-review-<repo-slug>-<pr|mr>-<number>` — the date-time prefix isn't known ahead of a re-review, and `Glob` sees gitignored paths. Zero matches → First review: create the folder with the current local date-time and seed `DRAFT.md` from `docs/tasks/_template/DRAFT.md` — or, if that file doesn't exist yet (a project set up before review folders moved under `docs/tasks/`), from `${CLAUDE_PLUGIN_ROOT}/skills/task-assets/assets/tasks/_template/DRAFT.md` — then fill in. One match → Re-review: its `DRAFT.md` is the starting draft, not a blank one; append new dated sections, never overwrite a prior round. More than one → ask the user which; don't guess.
 
 The file is gitignored (`docs/tasks/*` in the root `.gitignore`) — leaving it after Approval is harmless, nothing to clean up on the PR/MR side.
 
