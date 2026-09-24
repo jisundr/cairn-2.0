@@ -16,6 +16,3 @@ docs/features/
 docs/tasks/*
 !docs/tasks/.gitkeep
 !docs/tasks/_template/
-docs/reviews/*
-!docs/reviews/.gitkeep
-!docs/reviews/_template/

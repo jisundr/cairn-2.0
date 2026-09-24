@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- Un-applied the review-folder setup from this repo, mirroring `e39eee6`: removed `docs/reviews/.gitkeep`, `docs/reviews/_template/DRAFT.md`, and the `.gitignore` rules `docs/reviews/*`, `!docs/reviews/.gitkeep`, `!docs/reviews/_template/`. `docs/tasks/*` already covers review folders, so no new ignore line is needed. Verified with `git check-ignore` — a scratch `docs/tasks/<date>-review-<slug>-pr-<n>/DRAFT.md` path is ignored, `docs/tasks/_template/DRAFT.md` is not. Requirements group 3. Bumped `.claude-plugin/plugin.json` 0.19.6 → 0.19.7 (patch).
+
 - Retired `skills/task-assets/assets/reviews/` (`setup.md`, `_template/DRAFT.md`) — the separate `docs/reviews/` asset bundle, now folded into `tasks/_template/`. Nothing references it after the previous commit. A consuming project's existing `docs/reviews/` is left untouched; retrofitting other projects is a non-goal. Requirements group 3. Bumped `.claude-plugin/plugin.json` 0.19.5 → 0.19.6 (patch).
 
 - `commands/cairn-setup.md` Default mode step 5: follows `tasks/setup.md` only, no longer `reviews/setup.md` — review drafts now live in `docs/tasks/` `review` folders, whose template `DRAFT.md` already rides along with `tasks/_template/`. Requirements group 3. Bumped `.claude-plugin/plugin.json` 0.19.4 → 0.19.5 (patch).
