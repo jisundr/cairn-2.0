@@ -9,7 +9,7 @@ description: The structured format review-pr presents combined findings in befor
 
 ## On disk
 
-Path: `docs/reviews/<repo-slug>-<pr|mr>-<number>/DRAFT.md` — `<repo-slug>` is the URL's `org/repo` with `/` → `-`; `pr`/`mr` and `<number>` come from the host/URL already resolved in "Resolve the target".
+Path: `docs/reviews/<repo-slug>-<pr|mr>-<number>/DRAFT.md` — parsed directly from the same PR/MR URL "Resolve the target" reads for its host: `<repo-slug>` is the URL's `org/repo` with `/` → `-`; `pr`/`mr` and `<number>` come from the URL's own path/host shape.
 
 File absent → seed it from `docs/reviews/_template/DRAFT.md`, then fill in. Already there (same machine, later round) → its contents are the starting draft, not a blank one. Re-review appends new dated sections to this file; never overwrite a prior round.
 
