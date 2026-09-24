@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-24
 
+- `commands/cairn-setup.md` Default mode step 5: now also follows `reviews/setup.md`, alongside the existing `tasks/setup.md` — `/cairn-setup` sets up `docs/reviews/` in a consuming project the same way it already sets up `docs/tasks/`. Bumped `.claude-plugin/plugin.json` 0.17.31 → 0.17.32 (patch).
+
 - Added `skills/task-assets/assets/reviews/_template/DRAFT.md` and `skills/task-assets/assets/reviews/setup.md` — the `docs/reviews/` asset bundle, structurally identical to the existing `tasks/_template/`/`tasks/setup.md` pair: create `docs/reviews/` + `.gitkeep`, copy `_template/` in, show-then-ask 3 `.gitignore` lines. `DRAFT.md`'s format is `review-pr`'s existing First-review fenced block from `reference/draft-template.md`. Not yet wired into `/cairn-setup` or `review-pr` — that's the next two commits. Bumped `.claude-plugin/plugin.json` 0.17.30 → 0.17.31 (patch).
 
 - `skills/review-pr/SKILL.md`: restructured First review and Re-review into named stages — First review is now Code Review → Create Review Draft → Post (if allowed) or Edit; Re-review is Code Review → Update Review Draft → Post or Reply or Edit. Fixes the undefined "no" branch of the old plain confirm-gate (only the yes/post path was specified) and finally wires up the draft-template's existing per-finding `Posting plan` line (new top-level comment/discussion vs. reply to thread #n) — Re-review drafts already carried it but nothing acted on the distinction. An auth/permission error from `gh`/`glab` at post time now falls back to handing over the draft as final text rather than retrying in a loop. Bumped `.claude-plugin/plugin.json` 0.17.29 → 0.17.30 (patch).
