@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- Added `docs/tasks/_template/DRAFT.md` — this repo's own copy of the review-draft template, same content as the asset bundle's, so this repo's `review` task folders seed from `docs/tasks/_template/` like everything else. Tracked via the existing `!docs/tasks/_template/` rule (confirmed with `git check-ignore`: not ignored). Requirements group 3. Bumped `.claude-plugin/plugin.json` 0.19.2 → 0.19.3 (patch).
+
 - Added `skills/task-assets/assets/tasks/_template/DRAFT.md` — `review-pr`'s review-draft template joins the `docs/tasks/` asset bundle, byte-identical to `skills/task-assets/assets/reviews/_template/DRAFT.md`. `tasks/setup.md` needs no edit: its step 2 already copies the whole `tasks/_template/`, so `DRAFT.md` rides along into a consuming project's `docs/tasks/_template/`. First step of folding `docs/reviews/` into `docs/tasks/` under a `review` kind; `review-pr` is wired to it two commits on. Requirements group 3. Bumped `.claude-plugin/plugin.json` 0.19.1 → 0.19.2 (patch).
 
 - `agents/planner.md`: its `## Owns` line and step 1's derived folder name now read `YYYY-MM-DD-HHMM-<kind>-slug`, pointing at `cairn:scope`'s Escalated path for the kind choice rather than restating the list — keeps the planner's restatement consistent with the naming pattern the previous commit introduced. Requirements group 1. Bumped `.claude-plugin/plugin.json` 0.19.0 → 0.19.1 (patch).
