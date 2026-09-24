@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-24
 
+- Applied the `/cairn-setup` review-folder setup to this repo, same as the earlier `docs/tasks/` rollout: `docs/reviews/.gitkeep`, `docs/reviews/_template/DRAFT.md`, and the `.gitignore` rules `docs/reviews/*`, `!docs/reviews/.gitkeep`, `!docs/reviews/_template/`. Verified with `git check-ignore` — a scratch `docs/reviews/<name>/DRAFT.md` path is ignored, `.gitkeep` and `_template/DRAFT.md` are not. Bumped `.claude-plugin/plugin.json` 0.17.32 → 0.17.33 (patch).
+
 - `commands/cairn-setup.md` Default mode step 5: now also follows `reviews/setup.md`, alongside the existing `tasks/setup.md` — `/cairn-setup` sets up `docs/reviews/` in a consuming project the same way it already sets up `docs/tasks/`. Bumped `.claude-plugin/plugin.json` 0.17.31 → 0.17.32 (patch).
 
 - Added `skills/task-assets/assets/reviews/_template/DRAFT.md` and `skills/task-assets/assets/reviews/setup.md` — the `docs/reviews/` asset bundle, structurally identical to the existing `tasks/_template/`/`tasks/setup.md` pair: create `docs/reviews/` + `.gitkeep`, copy `_template/` in, show-then-ask 3 `.gitignore` lines. `DRAFT.md`'s format is `review-pr`'s existing First-review fenced block from `reference/draft-template.md`. Not yet wired into `/cairn-setup` or `review-pr` — that's the next two commits. Bumped `.claude-plugin/plugin.json` 0.17.30 → 0.17.31 (patch).
