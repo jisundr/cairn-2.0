@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- Regenerated `docs/BUDGET.md` and closed the phase gate for the task-folder naming work (`<kind>` tag, step-0 nesting, `docs/reviews/` folded into `docs/tasks/`). `python tools/budget.py` clean (warnings only), `pytest tools/` 106 passed / 6 pre-existing `tools/tokens` failures (same 6 at `3e83761`, before this task), both hook selftests pass. Bumped `.claude-plugin/plugin.json` 0.19.11 → 0.19.12 (patch).
+
 - `docs/README.md` `tasks/` paragraph: the folder pattern gains `<kind>` (`research`, `build`, or `review`), a `review` folder is noted as holding `review-pr`'s `DRAFT.md`, and `_template/` is noted as also carrying `DRAFT.md` for `review` folders. Consistency only, following the previous commits. Requirements groups 1 and 3. Bumped `.claude-plugin/plugin.json` 0.19.10 → 0.19.11 (patch).
 
 - `skills/shared/SKILL.md` Task folder section: the pattern becomes `docs/tasks/YYYY-MM-DD-HHMM-<kind>-slug/`, pointing at `cairn:scope` for the kinds; a `review` folder is documented as the one exception holding `DRAFT.md` instead of `requirements.md`/`STATE.md`, per `review-pr`'s `reference/draft-template.md`; sub-task folders become `01-<kind>-slug/`; and one clause cross-references `cairn:scope` step 0 for when a follow-on goal nests as a sub-task instead of a new top-level folder. Requirements groups 1–3. Bumped `.claude-plugin/plugin.json` 0.19.9 → 0.19.10 (patch).
