@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `commands/cairn-setup.md` Default mode step 5: follows `tasks/setup.md` only, no longer `reviews/setup.md` — review drafts now live in `docs/tasks/` `review` folders, whose template `DRAFT.md` already rides along with `tasks/_template/`. Requirements group 3. Bumped `.claude-plugin/plugin.json` 0.19.4 → 0.19.5 (patch).
+
 - `skills/review-pr/reference/draft-template.md` "On disk" section: the review draft moves from `docs/reviews/<repo-slug>-<pr|mr>-<number>/DRAFT.md` to a `review` task folder, `docs/tasks/YYYY-MM-DD-HHMM-review-<repo-slug>-<pr|mr>-<number>/DRAFT.md`, with the repo-slug and PR/MR number still embedded in the folder name so a review is found without a content search. Lookup changes from a fixed path to a `Glob` on `docs/tasks/*-review-<repo-slug>-<pr|mr>-<number>` (the date-time prefix isn't known ahead of a re-review): zero matches → First review, seeded from `docs/tasks/_template/DRAFT.md`; one → Re-review, appended to; more than one → ask, don't guess. The gitignore sentence now cites `docs/tasks/*`. `skills/review-pr/SKILL.md`'s "draft file is gitignored; report its path" stays true, unedited. Requirements group 3. Bumped `.claude-plugin/plugin.json` 0.19.3 → 0.19.4 (patch).
 
 - Added `docs/tasks/_template/DRAFT.md` — this repo's own copy of the review-draft template, same content as the asset bundle's, so this repo's `review` task folders seed from `docs/tasks/_template/` like everything else. Tracked via the existing `!docs/tasks/_template/` rule (confirmed with `git check-ignore`: not ignored). Requirements group 3. Bumped `.claude-plugin/plugin.json` 0.19.2 → 0.19.3 (patch).

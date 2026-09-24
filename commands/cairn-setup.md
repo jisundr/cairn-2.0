@@ -13,7 +13,7 @@ Templates: `${CLAUDE_PLUGIN_ROOT}/skills/task-assets/assets/` (relative below).
 2. `CLAUDE.md` already has `<!-- cairn:start -->` → skip to 4.
 3. Else read `claude-md-marker.md`, show it, ask before appending (blank line first if needed).
 4. Follow `harness-generation.md` to observe, confirm, and write the four harness files plus `docs/BUDGET.md`; also covers the bare-`<path>` variant.
-5. Unless a bare `<path>`, follow `tasks/setup.md` and `reviews/setup.md`.
+5. Unless a bare `<path>`, follow `tasks/setup.md`.
 
 ## Track mode
 
