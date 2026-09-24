@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
 
+## 2026-09-24
+
+- `skills/review-pr/SKILL.md`: restructured First review and Re-review into named stages — First review is now Code Review → Create Review Draft → Post (if allowed) or Edit; Re-review is Code Review → Update Review Draft → Post or Reply or Edit. Fixes the undefined "no" branch of the old plain confirm-gate (only the yes/post path was specified) and finally wires up the draft-template's existing per-finding `Posting plan` line (new top-level comment/discussion vs. reply to thread #n) — Re-review drafts already carried it but nothing acted on the distinction. An auth/permission error from `gh`/`glab` at post time now falls back to handing over the draft as final text rather than retrying in a loop. Bumped `.claude-plugin/plugin.json` 0.17.29 → 0.17.30 (patch).
+
 ## 2026-09-23
 
 - `tools/tokens/check_vendoring_sync.py`: its docstring and failure message pointed at `docs/tasks/vendor-token-metering-backend/plan.md` and `docs/features/token-metering-followups/specs/06-vendoring-drift-guard.md` — both deliberately removed as superseded history in an earlier cleanup, so the guard's own "how to fix this" pointer had been dead since. Replaced with `.harness/workflow.md`'s "Commits / PR" section (still alive) and, in the failure path itself, the exact `cp token-metering/<name> tools/tokens/<name>` command per drifted file — cuts "someone has to remember to re-vendor by hand" (6 manual re-vendor commits, 2026-09-01 through 09-07, despite this guard existing) down to "run the printed command." Still just a checker, not new auto-fix tooling — `out_of_scope` for this task. Verified by simulating drift on `db.py` and restoring it. Item 12 of `docs/tasks/2026-09-23-0939-address-cairn-improvement-findings`, finding 7 of `docs/tasks/2026-09-23-0858-research-cairn-improvements/findings.md`. Bumped `.claude-plugin/plugin.json` 0.17.28 → 0.17.29 (patch).

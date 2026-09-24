@@ -21,18 +21,38 @@ Read the PR/MR's existing comments/discussions. Carries a `## Finding N` heading
 
 ## First review
 
+**Code Review**
 1. Run `Skill(skill: "code-review", args: "<target>")` for the full correctness/reuse/simplification/efficiency pass — no `--comment`, so nothing posts yet.
-2. Load `Skill(skill: "cairn:shared")` and check the diff against its `reference/security-checklist.md` — a Critical or High finding fails the review. Tag any reuse/simplification/efficiency finding from step 1 with `reference/fix-lanes.md`'s Lane A/B — classification only, nothing auto-applied.
-3. Present the combined findings as a draft, in the template's First review format; iterate freely, no gate yet.
-4. `AskUserQuestion` — confirm before posting anything. On yes, post directly via `gh`/`glab` (the host resolved above).
+2. Load `Skill(skill: "cairn:shared")`; check the diff against `reference/security-checklist.md` (Critical/High fails the review) and tag step 1's reuse/simplification/efficiency findings with `reference/fix-lanes.md`'s Lane A/B — classification only.
+
+**Create Review Draft**
+
+3. Present the combined findings as a draft, in the template's First review format.
+
+**Post (if allowed) or Edit**
+
+4. `AskUserQuestion`: **Post** or **Edit**.
+   - Edit → fold in feedback, back to step 3, ask again — no round limit.
+   - Post → post via `gh`/`glab` (host above). A CLI auth/permission error means it's not allowed: report it and hand over the draft as final text to post manually instead of retrying.
 5. Offer to keep monitoring the MR going forward. Declining is a clean no-op — no watcher, no state left behind.
 
 ## Re-review
 
+**Code Review**
 1. For each prior finding, diff the current code against it: `fixed` / `partially-fixed` / `still-open` / `disputed`.
-2. Rerun First review's steps 1–2, scoped to what changed since the last round, to catch anything new.
-3. Draft a dated round reply per prior finding (ack fixes, hold open what isn't) plus any new finding from step 2, in the template's Re-review round format.
-4. `AskUserQuestion` gate, then post — same as First review step 4.
+2. Rerun First review's Code Review steps 1–2, scoped to what changed since the last round, to catch anything new.
+
+**Update Review Draft**
+
+3. Append a dated round section to the same draft: a reply per prior finding (ack fixes, hold open what isn't) plus any new finding from step 2, in the template's round format — each finding keeps its `Posting plan` line (new top-level comment/discussion vs. reply to thread #n).
+
+**Post or Reply or Edit**
+
+4. `AskUserQuestion`: **Post**, **Reply**, or **Edit** (a round can need both; do both when present, else ask again for what's left).
+   - Edit → fold in feedback, back to step 3, ask again.
+   - Post → findings marked "new top-level comment/discussion" go as one round-summary comment via `gh`/`glab`.
+   - Reply → findings marked "reply to thread #n" go as individual thread replies via `gh`/`glab`.
+   - Same auth/permission fallback as First review's Post branch.
 
 ## Final review + manual QA
 
