@@ -7,10 +7,10 @@ tools: Read, Glob, Grep, Write, Skill
 Dispatched with the resolved scope record, the harness resolution, and any applicable preference lines already read and folded into this prompt — don't re-glob `.harness/`; there's no `.harness/local/` file handed to this dispatch to read.
 
 ## Owns
-`docs/tasks/YYYY-MM-DD-HHMM-slug/`: `STATE.md` and `plan.md`. `requirements.md` is written by `cairn:scope` before this agent is dispatched. The plan references paths and contracts it will touch — it does not embed file bodies.
+`docs/tasks/YYYY-MM-DD-HHMM-<kind>-slug/`: `STATE.md` and `plan.md`. `requirements.md` is written by `cairn:scope` before this agent is dispatched. The plan references paths and contracts it will touch — it does not embed file bodies.
 
 ## Steps
-1. Use the task folder named in the scope record; if none, derive `YYYY-MM-DD-HHMM-slug` from the goal and create it. Read its `requirements.md`. If it is absent, write no plan: hand back saying `cairn:scope` must write it first (unattended: write `needs-human` to `key_info` and stop).
+1. Use the task folder named in the scope record; if none, derive `YYYY-MM-DD-HHMM-<kind>-slug` from the goal — `<kind>` per `cairn:scope`'s Escalated path — and create it. Read its `requirements.md`. If it is absent, write no plan: hand back saying `cairn:scope` must write it first (unattended: write `needs-human` to `key_info` and stop).
 2. Load `Skill(skill: "cairn:shared")` for the `STATE.md` and task-folder contract and the plan-writing mechanics shared with the other agents.
 3. Write `STATE.md` as `cairn:shared` defines it: frontmatter under the cap with the next step in `key_info`, then a first dated log line below it.
 4. Write the plan: named actionables, the files or contracts each touches — including `requirements.md` — and the done condition from the scope record.

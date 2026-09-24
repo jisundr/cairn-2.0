@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `agents/planner.md`: its `## Owns` line and step 1's derived folder name now read `YYYY-MM-DD-HHMM-<kind>-slug`, pointing at `cairn:scope`'s Escalated path for the kind choice rather than restating the list — keeps the planner's restatement consistent with the naming pattern the previous commit introduced. Requirements group 1. Bumped `.claude-plugin/plugin.json` 0.19.0 → 0.19.1 (patch).
+
 - `skills/scope/SKILL.md` Escalated path: task folders are now named `docs/tasks/YYYY-MM-DD-HHMM-<kind>-slug/`, with `<kind>` one of `research` (a question, brainstorm, or digest of an external source — no code implied), `build` (requirements → plan → build → PR), or `review` (a PR/MR review thread, named by `review-pr`). Surfaced by dogfooding cairn on its own AI Hero comparison → triage-skill work, where a comparison-only research folder and its follow-on build folder were indistinguishable by name. `<kind>` records how the thread started and is never renamed; the example becomes `2026-09-22-0600-build-add-oauth-login`. Requirements group 1 of `docs/tasks/2026-09-25-0645-build-task-folder-naming-convention/`. Bumped `.claude-plugin/plugin.json` 0.18.1 → 0.19.0 (minor — a new classification every task folder now carries).
 
 ## 2026-09-24
