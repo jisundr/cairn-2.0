@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- Regenerated `docs/BUDGET.md` after the four review follow-up commits (M1, M2, L3, L4+L5) and reran the phase gate: `python tools/budget.py` exits 0 (warnings only), `pytest tools/` 106 passed / the same 6 pre-existing `tools/tokens` failures, both hook selftests pass. Bumped `.claude-plugin/plugin.json` 0.19.16 → 0.19.17 (patch).
+
 - `skills/scope/SKILL.md` Default flow step 0 settles two edge cases: a source doc inside a sub-task folder (e.g. `X/01-a/findings.md`) applies the same rule to that sub-task, so new work nests one level deeper (`X/01-a/01-.../`) rather than becoming a sibling; and a loose doc without Goals/Success criteria (a `findings.md`, a `comparison.md`) inherits its folder's `goal` and `done_when`. Review follow-up (L4). Note (L5): this file is now 3837 B — over its 3000 B soft cap since this task's step-0 commit, 259 B under the 4096 B hard cap; whoever edits it next has little room. Bumped `.claude-plugin/plugin.json` 0.19.15 → 0.19.16 (patch).
 
 - `skills/shared/SKILL.md` STATE.md stage rule: a `research` folder expects no PR, so it is done when its `key_info` says so rather than never — otherwise `cairn:scope` step 0's "stage isn't done" check always held for research folders and nesting always fell through to goal-fit. Review follow-up (L3). Bumped `.claude-plugin/plugin.json` 0.19.14 → 0.19.15 (patch).
