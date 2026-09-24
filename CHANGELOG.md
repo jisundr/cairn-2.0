@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `docs/README.md` `tasks/` paragraph: the folder pattern gains `<kind>` (`research`, `build`, or `review`), a `review` folder is noted as holding `review-pr`'s `DRAFT.md`, and `_template/` is noted as also carrying `DRAFT.md` for `review` folders. Consistency only, following the previous commits. Requirements groups 1 and 3. Bumped `.claude-plugin/plugin.json` 0.19.10 → 0.19.11 (patch).
+
 - `skills/shared/SKILL.md` Task folder section: the pattern becomes `docs/tasks/YYYY-MM-DD-HHMM-<kind>-slug/`, pointing at `cairn:scope` for the kinds; a `review` folder is documented as the one exception holding `DRAFT.md` instead of `requirements.md`/`STATE.md`, per `review-pr`'s `reference/draft-template.md`; sub-task folders become `01-<kind>-slug/`; and one clause cross-references `cairn:scope` step 0 for when a follow-on goal nests as a sub-task instead of a new top-level folder. Requirements groups 1–3. Bumped `.claude-plugin/plugin.json` 0.19.9 → 0.19.10 (patch).
 
 - `skills/scope/reference/decomposition.md`: sub-task folders are named `01-<kind>-slug/`, matching the top-level `<kind>` tag, and `depends_on` now takes either a sibling's number or `parent` — for a sub-task that follows the enclosing folder's own scope, as step 0's new nesting rule produces for a research → build chain. No other mechanic changes: sub-tasks still run in parallel by default, and the overlap and bump-ownership rules stay. Requirements group 2. Bumped `.claude-plugin/plugin.json` 0.19.8 → 0.19.9 (patch).
