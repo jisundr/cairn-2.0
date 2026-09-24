@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/shared/SKILL.md` STATE.md stage rule: a `research` folder expects no PR, so it is done when its `key_info` says so rather than never — otherwise `cairn:scope` step 0's "stage isn't done" check always held for research folders and nesting always fell through to goal-fit. Review follow-up (L3). Bumped `.claude-plugin/plugin.json` 0.19.14 → 0.19.15 (patch).
+
 - `skills/review-pr/reference/draft-template.md` On disk: a First review seeds `DRAFT.md` from the bundled `${CLAUDE_PLUGIN_ROOT}/skills/task-assets/assets/tasks/_template/DRAFT.md` when the project's `docs/tasks/_template/DRAFT.md` doesn't exist yet — an install set up before review folders moved under `docs/tasks/` has only `docs/reviews/_template/` until `/cairn-setup` reruns. Review follow-up (M2). Bumped `.claude-plugin/plugin.json` 0.19.13 → 0.19.14 (patch).
 
 - `skills/start/reference/resume.md` "Finding the folder": a folder with no `STATE.md` — a `review` folder holding only `DRAFT.md` — is never picked up as a task to resume; `review-pr` finds its own by Glob. Review follow-up (M1) to the task-folder naming work. Bumped `.claude-plugin/plugin.json` 0.19.12 → 0.19.13 (patch).
