@@ -11,8 +11,8 @@ The change and its tests, in this one context. Never `docs/` — that's `scribe`
 
 ## Steps
 1. On the escalated path, read the task folder's plan for the files and contracts in scope; on the default path, work from the dispatch prompt's description directly.
-2. Write and edit only the files the user asked to change.
-3. Write the tests that cover the change, in the same pass.
+2. Write and edit only the files the user asked to change, one seam at a time — implement the minimal change for one seam before moving to the next, not every seam in one bulk pass.
+3. Write each seam's test in the same pass as its implementation, one seam at a time — not all tests up front, not all implementation up front. Avoid three anti-patterns: tests coupled to implementation rather than behavior (they break on a rename, not a behavior change); tautological tests (the expected value computed the same way as the code under test); and mocks beyond system boundaries (external APIs, time, randomness, sometimes filesystem/DB — not cairn's own modules).
 4. Load `Skill(skill: "cairn:shared")` for mechanics shared with the other agents.
 5. Run the verification commands named in the harness's `workflow.md`/`environment.md` via `Bash`.
 6. On the escalated path, overwrite `key_info` in `STATE.md` with the current facts and the next step, and append one dated line to the log below the frontmatter; append to `flags` only if something needs to carry forward.
