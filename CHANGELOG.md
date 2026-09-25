@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/shared/SKILL.md`: task-folder filename references now actually read `REQUIREMENTS.md`/`PLAN.md` (stage inference and the Task folder section, 4 occurrences — 2 each, not the 5 the entry below claimed). The 0.21.13 entry below and its commit `859660e` carried only the version bump and CHANGELOG line: the edit script aborted on a wrong expected occurrence count, but the commit step still ran. This commit lands the edit. Byte-neutral case swap — file still 3973 B. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.20 → 0.21.21 (patch).
+
 - `docs/README.md`: the gitignored `docs/tasks/*` description now names `REQUIREMENTS.md` per escalated task (1 occurrence). Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.19 → 0.21.20 (patch).
 
 - `skills/start/reference/resume.md`: Approval markers now re-present `REQUIREMENTS.md` or `PLAN.md` (2 occurrences); the `awaiting requirements approval`/`awaiting plan approval` marker phrases are unchanged. Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.18 → 0.21.19 (patch).
