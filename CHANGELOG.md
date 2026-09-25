@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `docs/README.md`: the gitignored `docs/tasks/*` description now names `REQUIREMENTS.md` per escalated task (1 occurrence). Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.19 → 0.21.20 (patch).
+
 - `skills/start/reference/resume.md`: Approval markers now re-present `REQUIREMENTS.md` or `PLAN.md` (2 occurrences); the `awaiting requirements approval`/`awaiting plan approval` marker phrases are unchanged. Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.18 → 0.21.19 (patch).
 
 - `skills/requirements/SKILL.md`: the task-folder `requirements.md` reference now reads `REQUIREMENTS.md` (1 occurrence). Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.17 → 0.21.18 (patch).

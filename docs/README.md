@@ -18,4 +18,4 @@ Gitignored scratch (`YYYY-MM-DD-topic.md`) — design notes written before a non
 
 ## `tasks/`
 
-Gitignored (`docs/tasks/*`) — a `STATE.md` and `requirements.md` per escalated task, `docs/tasks/YYYY-MM-DD-HHMM-<kind>-slug/` (`<kind>` is `research`, `build`, or `review`), written by `cairn:scope`/`planner` and never committed; a `review` folder holds `review-pr`'s `DRAFT.md` instead. `_template/` and `.gitkeep` are the two tracked exceptions: `_template/` is the reference for a task's own files — including `DRAFT.md` for `review` folders — copied in by `/cairn-setup`.
+Gitignored (`docs/tasks/*`) — a `STATE.md` and `REQUIREMENTS.md` per escalated task, `docs/tasks/YYYY-MM-DD-HHMM-<kind>-slug/` (`<kind>` is `research`, `build`, or `review`), written by `cairn:scope`/`planner` and never committed; a `review` folder holds `review-pr`'s `DRAFT.md` instead. `_template/` and `.gitkeep` are the two tracked exceptions: `_template/` is the reference for a task's own files — including `DRAFT.md` for `review` folders — copied in by `/cairn-setup`.
