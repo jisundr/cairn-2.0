@@ -39,4 +39,4 @@ Keep each section to what the request actually supplies — an empty Non-goals s
 
 Hand the written path back with one line offering to continue into planning against it — a suggestion, not a trigger. The user may decline and stop here; nothing resolves scope until they ask.
 
-Also loaded by `cairn:scope` for a task folder's `requirements.md`, for this section shape only — there, `reference/requirements-approval.md` governs approval, not the closing line above.
+Also loaded by `cairn:scope` for a task folder's `REQUIREMENTS.md`, for this section shape only — there, `reference/requirements-approval.md` governs approval, not the closing line above.
