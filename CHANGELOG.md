@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `tools/budget.py`: the task-plan cap now matches `fnmatch.fnmatch(rel.lower(), "docs/tasks/*/plan*.md")`, so an uppercase `PLAN.md` is capped (8000/12288 B) the same as the old lowercase `plan.md` instead of silently escaping on a case-sensitive `fnmatch`; only the match input is lowercased, so findings still show the real path casing. `tools/test_budget.py`: new `test_task_plan_cap_uppercase` (fails if `.lower()` is reverted); existing lowercase fixtures unchanged. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.11 → 0.21.12 (patch).
+
 - `skills/shared/SKILL.md`: "approval overwrites it with the next step" now reads "approval overwrites it with `approved` plus the next step — `cairn:scope`'s reuse check depends on that word", matching `requirements-approval.md`'s "the approval and the next step" instead of leaving the literal-word requirement implicit. File now 3973 B (hard cap 4096 B — 123 B headroom left). Reviewer follow-up (Low finding 2) from docs/tasks/2026-09-25-0959-build-surface-approval-gate-stalls/. Bumped `.claude-plugin/plugin.json` 0.21.10 → 0.21.11 (patch).
 
 - `skills/start/reference/resume.md`: new "Approval markers" section, sibling to "Terminal markers", covering `awaiting requirements approval`/`awaiting plan approval` — a cold resume now re-presents the finished doc and asks for the same approval instead of treating the marker as ordinary `key_info` text or restarting grooming/planning. Reviewer follow-up (Low finding 1) from docs/tasks/2026-09-25-0959-build-surface-approval-gate-stalls/. Bumped `.claude-plugin/plugin.json` 0.21.9 → 0.21.10 (patch).

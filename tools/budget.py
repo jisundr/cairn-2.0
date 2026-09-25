@@ -179,7 +179,7 @@ def scan(root):
             rows.append((rel, n, "lines", "on-demand (consuming project)", headroom(n, 30, "lines")))
             continue
 
-        if fnmatch.fnmatch(rel, "docs/tasks/*/plan*.md"):
+        if fnmatch.fnmatch(rel.lower(), "docs/tasks/*/plan*.md"):
             size = len(read_text(path).encode())
             findings += cap_check("task-plan", rel, size, "B", 8000, 12288)
             continue

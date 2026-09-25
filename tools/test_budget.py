@@ -82,6 +82,12 @@ def test_task_plan_cap(tmp_path):
     assert any(f.rule == "task-plan" and f.severity == "error" for f in findings)
 
 
+def test_task_plan_cap_uppercase(tmp_path):
+    w(tmp_path, "docs/tasks/foo/PLAN.md", "p" * 13000)
+    findings, *_ = budget.gather_findings(tmp_path)
+    assert any(f.rule == "task-plan" and f.severity == "error" for f in findings)
+
+
 def test_task_state_cap(tmp_path):
     w(tmp_path, "docs/tasks/foo/STATE.md", "s" * 1500)
     findings, *_ = budget.gather_findings(tmp_path)
