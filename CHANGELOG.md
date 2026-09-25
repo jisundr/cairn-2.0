@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- Regenerated `docs/BUDGET.md` after the requirements/plan approval-gate work (4 commits) and reran the phase gate: `python tools/budget.py` exits 1 on one pre-existing, unrelated `[ERROR]` (a task-state file over its hard cap from an earlier task) — no new findings from this work; `pytest tools/` 106 passed / the same 6 pre-existing `tools/tokens` failures; both hook selftests pass. Bumped `.claude-plugin/plugin.json` 0.21.3 → 0.21.4 (patch).
+
 - `skills/start/SKILL.md` Path choice table: the Escalated row now reads "requirements (approved) → `planner` (approved) → `builder` → `reviewer` → PR" instead of "`planner` → approval → `builder` → …", naming both approval gates explicitly rather than only the plan one. Documentation alignment with the prior two commits; no new behavior. File now 3998 B (soft cap 3000 B, hard cap 4096 B). Bumped `.claude-plugin/plugin.json` 0.21.2 → 0.21.3 (patch).
 
 - `agents/planner.md`: `plan.md` is now written in two parts — a human-scannable **Summary** (actionables in plain language, done condition) for the approval gate, and an **Implementation** section for `builder` that references `requirements.md`'s already-resolved decisions by section instead of repeating them. Step 1's absent-`requirements.md` check now also covers "not yet approved," and the Hands-back line names this the second of the escalated path's two approval gates (the first is requirements, per the prior commit). Bumped `.claude-plugin/plugin.json` 0.21.1 → 0.21.2 (minor).
