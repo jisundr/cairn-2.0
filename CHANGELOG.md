@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/start/reference/resume.md`: Approval markers now re-present `REQUIREMENTS.md` or `PLAN.md` (2 occurrences); the `awaiting requirements approval`/`awaiting plan approval` marker phrases are unchanged. Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.18 → 0.21.19 (patch).
+
 - `skills/requirements/SKILL.md`: the task-folder `requirements.md` reference now reads `REQUIREMENTS.md` (1 occurrence). Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.17 → 0.21.18 (patch).
 
 - `skills/scope/reference/decomposition.md`: sub-task and parent `requirements.md` references now read `REQUIREMENTS.md` (2 occurrences). Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.16 → 0.21.17 (patch).
