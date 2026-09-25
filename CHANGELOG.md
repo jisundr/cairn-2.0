@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- Regenerated `docs/BUDGET.md` after `e125700` (`agents/builder.md`'s TDD-discipline edit) and the CLAUDE.md chaining-rule commit — both had landed since the last regen. Bumped `.claude-plugin/plugin.json` 0.21.26 → 0.21.27 (patch).
+
 - `agents/builder.md` Steps 2 and 3: Step 2 gains a vertical-slicing rule (process the change one seam at a time, minimal implementation per seam before moving on); Step 3 gains the matching "test in the same pass as its implementation, one seam at a time" close-the-loop clause plus three named anti-patterns to avoid — implementation-coupled tests, tautological tests, mocks beyond system boundaries. Ported from AI Hero's `/tdd` skill via docs/tasks/2026-09-25-0615-research-aihero-skills-comparison/02-build-fold-tdd-into-builder/. Left out: a seam-confirmation checkpoint (deferred — would need a change to `agents/planner.md` or a new tool grant on `builder`, revisit separately), the refactor phase, and any new skill/agent. Bumped `.claude-plugin/plugin.json` 0.21.25 → 0.21.26 (patch).
 
 - `CLAUDE.md` Discipline for every change: new bullet — chain a scripted edit to its `git commit` with `&&`/`set -e` so a failed edit step can never still produce a commit. Root-caused from docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/'s empty commit `859660e`, where builder's edit script aborted mid-rename but the shell kept going and committed anyway; reviewer flagged it Low/process, this closes the gap. Bumped `.claude-plugin/plugin.json` 0.21.24 → 0.21.25 (patch).
