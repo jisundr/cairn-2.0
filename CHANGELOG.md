@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/shared/SKILL.md` Task folder: the follow-on nesting sentence notes that a doc inside a sub-task nests inside that sub-task, matching `cairn:scope` step 0 rather than implying one level only. Final-review follow-up. Bumped `.claude-plugin/plugin.json` 0.19.19 → 0.19.20 (patch).
+
 - `skills/review-pr/reference/draft-template.md` On disk: the bundled `DRAFT.md` fallback is now `../task-assets/assets/tasks/_template/DRAFT.md`, relative to the skill's base directory, instead of `${CLAUDE_PLUGIN_ROOT}/...`. That variable appears only in `commands/` and `hooks/`, where Claude Code substitutes it; no skill or reference file uses it, and a reference file is `Read` verbatim, so nothing would expand it. Final-review follow-up. Bumped `.claude-plugin/plugin.json` 0.19.18 → 0.19.19 (patch).
 
 - `skills/scope/SKILL.md` Default flow step 0: `goal` and `done_when` now come from what the request itself asks for first, then the source doc's Goals and Success criteria, and only then the enclosing folder's values. Previously a loose doc inherited the folder's `goal` directly, so the goal-fit check that follows always passed, and a real follow-on ("build X from `findings.md`") could stay in an unfinished research folder instead of nesting as a `0N-build-...` sub-task. Final-review follow-up. File now 3852 B (hard cap 4096 B). Bumped `.claude-plugin/plugin.json` 0.19.17 → 0.19.18 (patch).
