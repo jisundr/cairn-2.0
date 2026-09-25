@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `CLAUDE.md` Discipline for every change: new bullet — chain a scripted edit to its `git commit` with `&&`/`set -e` so a failed edit step can never still produce a commit. Root-caused from docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/'s empty commit `859660e`, where builder's edit script aborted mid-rename but the shell kept going and committed anyway; reviewer flagged it Low/process, this closes the gap. Bumped `.claude-plugin/plugin.json` 0.21.24 → 0.21.25 (patch).
+
 - Regenerated `docs/BUDGET.md` after the uppercase task-doc rename (`56123d2`..`0661a6c`): the template row now reads `skills/task-assets/assets/tasks/_template/REQUIREMENTS.md`, `tools/budget.py`/`tools/test_budget.py` sizes are updated, and the `skills/shared/SKILL.md` (3973 B) and `skills/start/reference/resume.md` (2110 B) rows catch up with 0.21.10/0.21.11. `python tools/budget.py` exits 1 on the same pre-existing, unrelated task-state ERROR only; `pytest tools/` 107 passed / same 6 pre-existing `tools/tokens` failures; both hook selftests pass. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.23 → 0.21.24 (patch).
 
 - `docs/tasks/_template/requirements.md` → `REQUIREMENTS.md` — this repo's own dogfooded template copy, tracked through the `!docs/tasks/_template/` gitignore exception and separate from the shipped `skills/task-assets/` asset. Case-only `git mv`, content unchanged; `git ls-files` confirms the uppercase name is tracked. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.22 → 0.21.23 (patch).

@@ -15,6 +15,7 @@ cairn 2.0 is a Claude Code plugin carrying a lean, on-demand, non-invasive devel
 - **One artifact per commit**, plus its `docs/REGISTRY.md` line (if it adds an agent) and its `CHANGELOG.md` entry. Never a sweep across many files.
 - **Bump `.claude-plugin/plugin.json`'s version on every commit**, docs-only included — a consuming project's plugin install re-syncs on version change, not on content diff, so an un-bumped change never reaches it. Minor for a new capability, patch for everything else.
 - **Run the gate after every file**: `python tools/budget.py`. Fix findings before writing anything else.
+- **Chain a scripted edit to its commit.** When a multi-occurrence rename or similar edit runs via a script rather than `Edit`, chain the edit step and the `git commit` with `&&` (or `set -e`) so a failed edit can never still produce a commit — a shell that keeps going past a failed step is how an empty, misleading commit lands.
 - **No mandate language** (`MUST`, `ALWAYS`, `NEVER`, `MANDATORY`, `NON-NEGOTIABLE`, a `HARD REQUIREMENTS` heading) in `agents/`, `skills/`, `commands/`, or `hooks/`. Say how a rule is enforced instead — e.g. "`reviewer` has no `Write` tool."
 - **No scaffolding for later.** If nothing loads a file today, don't write it. No `TODO`/`TBD`/`FIXME`/`<placeholder>` in shipped artifacts.
 
