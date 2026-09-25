@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/scope/SKILL.md`: task-folder `requirements.md` references now read `REQUIREMENTS.md` (3 occurrences); the standalone `docs/requirements/*.md` mention is unchanged. Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.14 → 0.21.15 (patch).
+
 - `agents/planner.md`: task-folder filename references now read `REQUIREMENTS.md`/`PLAN.md` (5 occurrences); the `awaiting plan approval` marker is unchanged. Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.13 → 0.21.14 (patch).
 
 - `skills/shared/SKILL.md`: task-folder filename references now read `REQUIREMENTS.md`/`PLAN.md` (stage inference and the Task folder section, 5 occurrences). Byte-neutral case swap — file still 3973 B. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.12 → 0.21.13 (patch).
