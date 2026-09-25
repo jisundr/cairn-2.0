@@ -13,3 +13,5 @@ Read only the frontmatter of `STATE.md` — from the opening `---` to the closin
 - `done` — nothing left to compute; present the change and ask the human's merge/PR/keep-as-is call.
 - `needs-human` — surface the exact question logged alongside the marker; once answered, continue the task from where it stopped rather than restarting it.
 - `stalled` — report what the 3 failed attempts (from the log) actually hit; ask how to proceed (retry with more guidance, take over manually, abandon) rather than auto-retrying.
+
+**Approval markers.** `key_info` may instead hold one of `cairn:shared`'s two pending markers, `awaiting requirements approval` or `awaiting plan approval` — not a stop, just a paused attended-path gate (unattended never leaves one, per `reference/unattended.md`). Resuming re-presents the finished `requirements.md` or `plan.md` and asks for the same approval, rather than treating the marker as ordinary `key_info` text or restarting the grooming or planning step.
