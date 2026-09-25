@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/shared/SKILL.md` STATE.md: documents the two approval-gate `key_info` markers — `awaiting requirements approval` (written by `cairn:scope`) and `awaiting plan approval` (`planner`) — held between a finished doc and the user's explicit go-ahead, and overwritten with the next step on approval. One place to look them up; the following three commits write and read them. File now 3904 B (soft cap 3000 B, hard cap 4096 B). Bumped `.claude-plugin/plugin.json` 0.21.4 → 0.21.5 (patch).
+
 - Regenerated `docs/BUDGET.md` after the requirements/plan approval-gate work (4 commits) and reran the phase gate: `python tools/budget.py` exits 1 on one pre-existing, unrelated `[ERROR]` (a task-state file over its hard cap from an earlier task) — no new findings from this work; `pytest tools/` 106 passed / the same 6 pre-existing `tools/tokens` failures; both hook selftests pass. Bumped `.claude-plugin/plugin.json` 0.21.3 → 0.21.4 (patch).
 
 - `skills/start/SKILL.md` Path choice table: the Escalated row now reads "requirements (approved) → `planner` (approved) → `builder` → `reviewer` → PR" instead of "`planner` → approval → `builder` → …", naming both approval gates explicitly rather than only the plan one. Documentation alignment with the prior two commits; no new behavior. File now 3998 B (soft cap 3000 B, hard cap 4096 B). Bumped `.claude-plugin/plugin.json` 0.21.2 → 0.21.3 (patch).
