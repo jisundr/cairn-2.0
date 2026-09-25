@@ -54,7 +54,7 @@ Default path: held in the main thread, nothing written to disk. Escalated path: 
 | Path | Flow | Budget |
 |---|---|---|
 | Default | `builder` → `reviewer` → PR | ≤ 40k tokens |
-| Escalated | `planner` → approval → `builder` → `reviewer` → PR, with `STATE.md` | ≤ 150k tokens |
+| Escalated | requirements (approved) → `planner` (approved) → `builder` → `reviewer` → PR, with `STATE.md` | ≤ 150k tokens |
 
 Escalation trigger, verbatim: escalate when the change spans more than one submodule, alters a published contract (API, schema, or event), or can't be described in two sentences.
 

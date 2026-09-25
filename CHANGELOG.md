@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/start/SKILL.md` Path choice table: the Escalated row now reads "requirements (approved) → `planner` (approved) → `builder` → `reviewer` → PR" instead of "`planner` → approval → `builder` → …", naming both approval gates explicitly rather than only the plan one. Documentation alignment with the prior two commits; no new behavior. File now 3998 B (soft cap 3000 B, hard cap 4096 B). Bumped `.claude-plugin/plugin.json` 0.21.2 → 0.21.3 (patch).
+
 - `agents/planner.md`: `plan.md` is now written in two parts — a human-scannable **Summary** (actionables in plain language, done condition) for the approval gate, and an **Implementation** section for `builder` that references `requirements.md`'s already-resolved decisions by section instead of repeating them. Step 1's absent-`requirements.md` check now also covers "not yet approved," and the Hands-back line names this the second of the escalated path's two approval gates (the first is requirements, per the prior commit). Bumped `.claude-plugin/plugin.json` 0.21.1 → 0.21.2 (minor).
 
 - `skills/requirements/SKILL.md` body: notes it's also loaded by `cairn:scope` for a task folder's `requirements.md` section shape, and that `reference/requirements-approval.md` governs approval there instead of this file's own closing "suggestion, not a trigger" line. Added to the body, not the frontmatter `description:`, since that total is already at 2999 B against a 3000 B hard cap with zero headroom. Bumped `.claude-plugin/plugin.json` 0.21.0 → 0.21.1 (patch).
