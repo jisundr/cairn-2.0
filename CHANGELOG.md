@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/shared/SKILL.md`: "approval overwrites it with the next step" now reads "approval overwrites it with `approved` plus the next step — `cairn:scope`'s reuse check depends on that word", matching `requirements-approval.md`'s "the approval and the next step" instead of leaving the literal-word requirement implicit. File now 3973 B (hard cap 4096 B — 123 B headroom left). Reviewer follow-up (Low finding 2) from docs/tasks/2026-09-25-0959-build-surface-approval-gate-stalls/. Bumped `.claude-plugin/plugin.json` 0.21.10 → 0.21.11 (patch).
+
 - `skills/start/reference/resume.md`: new "Approval markers" section, sibling to "Terminal markers", covering `awaiting requirements approval`/`awaiting plan approval` — a cold resume now re-presents the finished doc and asks for the same approval instead of treating the marker as ordinary `key_info` text or restarting grooming/planning. Reviewer follow-up (Low finding 1) from docs/tasks/2026-09-25-0959-build-surface-approval-gate-stalls/. Bumped `.claude-plugin/plugin.json` 0.21.9 → 0.21.10 (patch).
 
 - Regenerated `docs/BUDGET.md` after the approval-gate visibility work (`a91cd7b`..`81c573e`, docs/tasks/2026-09-25-0959-build-surface-approval-gate-stalls/): `python tools/budget.py` exits 1 on the same pre-existing, unrelated task-state ERROR only; `pytest tools/` 106 passed / same 6 pre-existing `tools/tokens` failures; both hook selftests pass. Bumped `.claude-plugin/plugin.json` 0.21.8 → 0.21.9 (patch).
