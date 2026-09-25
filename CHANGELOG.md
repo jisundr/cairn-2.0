@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `skills/scope/reference/requirements-approval.md`: heading and approval example now read `REQUIREMENTS.md` ("REQUIREMENTS.md approved. Next: planner." — the word `approved` stays for the reuse check). The reference file's own name is unchanged. Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.15 → 0.21.16 (patch).
+
 - `skills/scope/SKILL.md`: task-folder `requirements.md` references now read `REQUIREMENTS.md` (3 occurrences); the standalone `docs/requirements/*.md` mention is unchanged. Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.14 → 0.21.15 (patch).
 
 - `agents/planner.md`: task-folder filename references now read `REQUIREMENTS.md`/`PLAN.md` (5 occurrences); the `awaiting plan approval` marker is unchanged. Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.13 → 0.21.14 (patch).
