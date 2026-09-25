@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- Regenerated `docs/BUDGET.md` after the three final-review follow-ups (scope step 0 goal source, draft-template fallback path, shared nesting clause) and reran the phase gate: `python tools/budget.py` exits 0 (warnings only), `pytest tools/` 106 passed / the same 6 pre-existing `tools/tokens` failures, both hook selftests pass. Bumped `.claude-plugin/plugin.json` 0.19.20 → 0.19.21 (patch).
+
 - `skills/shared/SKILL.md` Task folder: the follow-on nesting sentence notes that a doc inside a sub-task nests inside that sub-task, matching `cairn:scope` step 0 rather than implying one level only. Final-review follow-up. Bumped `.claude-plugin/plugin.json` 0.19.19 → 0.19.20 (patch).
 
 - `skills/review-pr/reference/draft-template.md` On disk: the bundled `DRAFT.md` fallback is now `../task-assets/assets/tasks/_template/DRAFT.md`, relative to the skill's base directory, instead of `${CLAUDE_PLUGIN_ROOT}/...`. That variable appears only in `commands/` and `hooks/`, where Claude Code substitutes it; no skill or reference file uses it, and a reference file is `Read` verbatim, so nothing would expand it. Final-review follow-up. Bumped `.claude-plugin/plugin.json` 0.19.18 → 0.19.19 (patch).
