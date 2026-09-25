@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `agents/planner.md`: new step 7 — once `plan.md` is final, attended runs overwrite `key_info` with `awaiting plan approval` (the `cairn:shared` marker) and append a dated log line; unattended runs write the next step instead, since there's no gate. Hands back now tells the main thread `key_info` reads `awaiting plan approval` and that the main thread overwrites it with the next step on the user's approval, before dispatching `builder` — the planner can't observe approval itself. Bumped `.claude-plugin/plugin.json` 0.21.6 → 0.21.7 (patch).
+
 - `skills/scope/reference/requirements-approval.md`: before waiting on the requirements gate, `key_info` is now overwritten with `awaiting requirements approval` (the `cairn:shared` marker); on approval it's overwritten with the approval plus the next step (e.g. "requirements.md approved. Next: planner."), which still satisfies `skills/scope/SKILL.md`'s "approved (`key_info` says so)" reuse check and `agents/planner.md` step 1. The unattended paragraph is unchanged — no marker there, since there's no gate. File now 1662 B. Bumped `.claude-plugin/plugin.json` 0.21.5 → 0.21.6 (patch).
 
 - `skills/shared/SKILL.md` STATE.md: documents the two approval-gate `key_info` markers — `awaiting requirements approval` (written by `cairn:scope`) and `awaiting plan approval` (`planner`) — held between a finished doc and the user's explicit go-ahead, and overwritten with the next step on approval. One place to look them up; the following three commits write and read them. File now 3904 B (soft cap 3000 B, hard cap 4096 B). Bumped `.claude-plugin/plugin.json` 0.21.4 → 0.21.5 (patch).
