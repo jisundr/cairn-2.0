@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-25
 
+- `agents/planner.md`: task-folder filename references now read `REQUIREMENTS.md`/`PLAN.md` (5 occurrences); the `awaiting plan approval` marker is unchanged. Byte-neutral case swap. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.13 → 0.21.14 (patch).
+
 - `skills/shared/SKILL.md`: task-folder filename references now read `REQUIREMENTS.md`/`PLAN.md` (stage inference and the Task folder section, 5 occurrences). Byte-neutral case swap — file still 3973 B. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.12 → 0.21.13 (patch).
 
 - `tools/budget.py`: the task-plan cap now matches `fnmatch.fnmatch(rel.lower(), "docs/tasks/*/plan*.md")`, so an uppercase `PLAN.md` is capped (8000/12288 B) the same as the old lowercase `plan.md` instead of silently escaping on a case-sensitive `fnmatch`; only the match input is lowercased, so findings still show the real path casing. `tools/test_budget.py`: new `test_task_plan_cap_uppercase` (fails if `.lower()` is reverted); existing lowercase fixtures unchanged. Task docs/tasks/2026-09-25-1024-build-uppercase-task-doc-names/. Bumped `.claude-plugin/plugin.json` 0.21.11 → 0.21.12 (patch).
