@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
 
+## 2026-09-26
+
+- New git submodule registered at `mission-control/` (`git@github.com:jisundr/cairn-2.0-mission-control.git`, pinned at `8ef1bbd`), carrying an initial scaffold (`CLAUDE.md`, `.harness/`, `interfaces.py`'s `typing.Protocol` stubs for `db`/`parser`/`pricing`/`backfill`/`server`, `test_interfaces.py`'s `create_autospec`-based tests) — the destination for cairn mission control's token-metering revamp and future kanban feature, per `docs/tasks/2026-09-25-1158-build-cairn-dashboard/01-build-submodule-foldin/`. `token-metering/`, `tools/tokens/`, `check_vendoring_sync.py`, `commands/cairn-tokens.md`, and `hooks/stop-tokens.sh` are untouched — `/cairn-tokens` keeps working exactly as before. Reconciling all three locations into one served path is deferred to phase 6 (`../06-build-cutover/`). Bumped `.claude-plugin/plugin.json` 0.21.27 → 0.21.28 (patch).
+
 ## 2026-09-25
 
 - Regenerated `docs/BUDGET.md` after `e125700` (`agents/builder.md`'s TDD-discipline edit) and the CLAUDE.md chaining-rule commit — both had landed since the last regen. Bumped `.claude-plugin/plugin.json` 0.21.26 → 0.21.27 (patch).

@@ -1,3 +1,6 @@
 [submodule "token-metering"]
 	path = token-metering
 	url = https://github.com/jisundr/cairn-2.0-token-metering.git
+[submodule "mission-control"]
+	path = mission-control
+	url = git@github.com:jisundr/cairn-2.0-mission-control.git
