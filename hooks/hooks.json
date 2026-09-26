@@ -10,7 +10,7 @@
     "Stop": [
       {
         "hooks": [
-          { "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/hooks/stop-tokens.sh" }
+          { "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/hooks/stop-mc.sh" }
         ]
       }
     ]

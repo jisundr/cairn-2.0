@@ -51,7 +51,7 @@ Every artifact cairn ships falls into exactly one of four load classes, tracked 
 
 ## Seeing what it actually costs
 
-Run `/cairn-tokens` to start a local dashboard at `http://127.0.0.1:<port>` showing exactly what your Claude Code sessions have cost — tokens and dollars, broken down by agent, model, skill, tool, and MCP call — with drill-down into any session's real transcript to verify the numbers yourself. It's local-only: no accounts, no cloud sync, nothing leaves your machine.
+Run `/cairn-mc` to start a local dashboard at `http://127.0.0.1:<port>` showing exactly what your Claude Code sessions have cost — tokens and dollars, broken down by agent, model, skill, tool, and MCP call — with drill-down into any session's real transcript to verify the numbers yourself. It's local-only: no accounts, no cloud sync, nothing leaves your machine.
 
 ## What cairn writes in your project
 
