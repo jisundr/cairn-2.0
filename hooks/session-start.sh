@@ -1,7 +1,22 @@
 #!/usr/bin/env bash
 set -uo pipefail
+if [ "${1:-}" = --selftest ]; then
+p=0;f=0;t(){ "$@"&&p=$((p+1))||f=$((f+1)); }
+t bash -n "$0"
+h=$(mktemp -d);d="$h/.claude/cairn/active";mkdir -p "$d"
+old="$d/old.json";echo '{}' >"$old";touch -t 202001010000 "$old"
+new="$d/new.json";echo '{}' >"$new"
+HOME="$h" "$0" <<<'{}' >/dev/null 2>&1
+t [ ! -f "$old" -a -f "$new" ]
+rm -rf "$h"
+echo "session-start.sh selftest: $p passed, $f failed"
+exit $((f>0))
+fi
 
 input="$(cat)"
+
+active_dir="${HOME:-}/.claude/cairn/active"
+[ -n "${HOME:-}" ] && [ -d "$active_dir" ] && find "$active_dir" -maxdepth 1 -name '*.json' -mtime +0 -delete 2>/dev/null
 
 command -v jq >/dev/null 2>&1 || exit 0
 
