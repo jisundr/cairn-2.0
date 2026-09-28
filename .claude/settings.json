@@ -1,5 +1,6 @@
 {
   "enabledPlugins": {
+    "cairn@cairn-marketplace": true,
     "impeccable@impeccable": true
   }
 }
