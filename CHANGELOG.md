@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `agents/reviewer.md`: the step that loads `cairn:shared` gains one clause pointing at `reference/marker-task.md` when the `SubagentStart` context names a marker file and the agent holds a sub-task folder. Bumped `.claude-plugin/plugin.json` 0.35.1 → 0.35.2.
+
 - `agents/builder.md`: the step that loads `cairn:shared` gains one clause pointing at `reference/marker-task.md` when the `SubagentStart` context names a marker file and the agent holds a sub-task folder. Bumped `.claude-plugin/plugin.json` 0.35.0 → 0.35.1.
 
 - `hooks/subagent-marker.sh`: `start` now also prints `SubagentStart` `additionalContext` naming the agent's marker file and pointing at `cairn:shared`'s `reference/marker-task.md`, so an agent holding a sub-task folder can retask its own marker. Compacted to 1496 B (under the 1500 B soft cap): the redundant `command -v jq` guard is gone (a missing `jq` leaves the ids empty, so every branch is a no-op), the selftest counts failures only, and the pointer check is one `jq` filter. Selftest covers the new output. Bumped `.claude-plugin/plugin.json` 0.34.17 → 0.35.0.
