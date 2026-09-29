@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `docs/BUDGET.md` regenerated after the session-start trim (its row now 1418 B). `hooks/stop-mc.sh` (2044 B) stays over the soft cap: a trim only reached 1910 B without dropping selftest coverage. Bumped `.claude-plugin/plugin.json` 0.34.14 → 0.34.15.
+
 - `hooks/session-start.sh` trimmed from 1850 B to 1418 B (under the 1500 B hook-script soft cap): shorter names, one combined `jq` read for `session_id` and `cwd`, leaner selftest. Behavior unchanged, checked old-vs-new across 11 scenarios (no marker, no manifest, first run, same version, version bump, bad input, pointer pruning). Bumped `.claude-plugin/plugin.json` 0.34.13 → 0.34.14.
 
 - `docs/BUDGET.md` regenerated after the start-skill trim (its row now 3794 B). Bumped `.claude-plugin/plugin.json` 0.34.12 → 0.34.13.
