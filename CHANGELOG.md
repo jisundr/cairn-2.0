@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `docs/BUDGET.md` regenerated after the subagent-marker change (new `hooks/subagent-marker.sh` row, `heartbeat-touch.sh` row gone, scope/resume sizes). Bumped `.claude-plugin/plugin.json` 0.34.5 → 0.34.6 (patch).
+
 - `skills/start/reference/resume.md`: the `Heartbeat` paragraph is now `Task pointer`, and the "stays active across turns" rationale is dropped. Same write; the pointer names the task for subagent hooks and no longer marks the card active. Bumped `.claude-plugin/plugin.json` 0.34.4 → 0.34.5 (patch).
 
 - `skills/scope/SKILL.md`: the escalated-path pointer write is described as the session's task pointer that subagent hooks read to name the task, not as an activity signal. Same write, same shape, same silent skip. Bumped `.claude-plugin/plugin.json` 0.34.3 → 0.34.4 (patch).
