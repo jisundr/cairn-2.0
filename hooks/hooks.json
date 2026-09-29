@@ -25,8 +25,7 @@
       {
         "hooks": [
           { "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/hooks/stop-mc.sh" },
-          { "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/hooks/subagent-marker.sh sweep" },
-          { "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/hooks/heartbeat-touch.sh" }
+          { "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/hooks/subagent-marker.sh sweep" }
         ]
       }
     ]

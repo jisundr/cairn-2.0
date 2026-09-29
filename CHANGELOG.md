@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `hooks/heartbeat-touch.sh` removed, with its `Stop` entry in `hooks/hooks.json`. The session pointer is no longer read as activity, so refreshing its mtime does nothing; the card is active only while a subagent marker exists. Bumped `.claude-plugin/plugin.json` 0.34.2 → 0.34.3 (patch).
+
 - `mission-control` gitlink advanced `3aaf407` → `4421b9d` (1 commit): a task card reads `active` only while a subagent marker (`~/.claude/cairn/active/<session_id>--<agent_id>.active`, written by `hooks/subagent-marker.sh`) exists, not because a session pointer was touched in the last 10 minutes. `tasks._active_heartbeats` globs `*.active`; a marker older than the 4 h ceiling (`MARKER_MAX_AGE_SECONDS`, replacing `HEARTBEAT_FRESHNESS_SECONDS`) is ignored, and a `<session>.json` pointer alone no longer counts. Tests and the kanban-liveness e2e fixture updated. Suites: pytest 204. Bumped `.claude-plugin/plugin.json` 0.34.1 → 0.34.2 (patch).
 
 - `hooks/hooks.json` now registers `subagent-marker.sh`: `start` on `SubagentStart`, `stop` on `SubagentStop`, and `sweep` on `Stop` after `stop-mc.sh`. `heartbeat-touch.sh` stays wired until its own removal. Bumped `.claude-plugin/plugin.json` 0.34.0 → 0.34.1 (patch).
