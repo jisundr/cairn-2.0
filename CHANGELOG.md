@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `skills/shared/reference/marker-task.md` added, with its Load-when row in `skills/shared/SKILL.md`: how an agent rewrites its own `SubagentStart` marker to its sub-task folder (atomic, `project` kept, skipped silently without a folder or marker name). `skills/shared/SKILL.md` trimmed to 4086 B (hard cap 4096 B) by condensing the Task folder paragraph; no rule changed. Bumped `.claude-plugin/plugin.json` 0.34.15 → 0.34.16.
+
 - `docs/BUDGET.md` regenerated after the session-start trim (its row now 1418 B). `hooks/stop-mc.sh` (2044 B) stays over the soft cap: a trim only reached 1910 B without dropping selftest coverage. Bumped `.claude-plugin/plugin.json` 0.34.14 → 0.34.15.
 
 - `hooks/session-start.sh` trimmed from 1850 B to 1418 B (under the 1500 B hook-script soft cap): shorter names, one combined `jq` read for `session_id` and `cwd`, leaner selftest. Behavior unchanged, checked old-vs-new across 11 scenarios (no marker, no manifest, first run, same version, version bump, bad input, pointer pruning). Bumped `.claude-plugin/plugin.json` 0.34.13 → 0.34.14.
