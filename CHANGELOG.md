@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `hooks/hooks.json` now registers `subagent-marker.sh`: `start` on `SubagentStart`, `stop` on `SubagentStop`, and `sweep` on `Stop` after `stop-mc.sh`. `heartbeat-touch.sh` stays wired until its own removal. Bumped `.claude-plugin/plugin.json` 0.34.0 → 0.34.1 (patch).
+
 - `hooks/subagent-marker.sh` added (not yet wired): `start`, `stop` and `sweep` modes that write, remove and expire a per-subagent marker `~/.claude/cairn/active/<session_id>--<agent_id>.active`, naming the task from the session's `cairn:scope` pointer. No pointer means no marker and a silent exit. Sweep deletes markers older than 4 h regardless of session. Selftest covers start, no-pointer, stop, stop-without-marker, and sweep keeping another session's fresh marker. Bumped `.claude-plugin/plugin.json` 0.33.3 → 0.34.0 (minor).
 
 - `mission-control` gitlink advanced `144fe58` → `3aaf407` (2 commits): a task card's last-touched time now reads in days from 24 hours on ("1d ago", "7d ago") instead of "168h ago", and a timed stamp more than 5 minutes in the future (log lines written earlier in local time and read as UTC) falls back to the day label instead of "0s ago". Only `formatLastTouched` changed; `formatRelativeToNow` and its Overview/Kanban "updated" labels are untouched. Suites: vitest 164, e2e 23. Bumped `.claude-plugin/plugin.json` 0.33.2 → 0.33.3 (patch).
