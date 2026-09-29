@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `mission-control` gitlink advanced `3aaf407` → `4421b9d` (1 commit): a task card reads `active` only while a subagent marker (`~/.claude/cairn/active/<session_id>--<agent_id>.active`, written by `hooks/subagent-marker.sh`) exists, not because a session pointer was touched in the last 10 minutes. `tasks._active_heartbeats` globs `*.active`; a marker older than the 4 h ceiling (`MARKER_MAX_AGE_SECONDS`, replacing `HEARTBEAT_FRESHNESS_SECONDS`) is ignored, and a `<session>.json` pointer alone no longer counts. Tests and the kanban-liveness e2e fixture updated. Suites: pytest 204. Bumped `.claude-plugin/plugin.json` 0.34.1 → 0.34.2 (patch).
+
 - `hooks/hooks.json` now registers `subagent-marker.sh`: `start` on `SubagentStart`, `stop` on `SubagentStop`, and `sweep` on `Stop` after `stop-mc.sh`. `heartbeat-touch.sh` stays wired until its own removal. Bumped `.claude-plugin/plugin.json` 0.34.0 → 0.34.1 (patch).
 
 - `hooks/subagent-marker.sh` added (not yet wired): `start`, `stop` and `sweep` modes that write, remove and expire a per-subagent marker `~/.claude/cairn/active/<session_id>--<agent_id>.active`, naming the task from the session's `cairn:scope` pointer. No pointer means no marker and a silent exit. Sweep deletes markers older than 4 h regardless of session. Selftest covers start, no-pointer, stop, stop-without-marker, and sweep keeping another session's fresh marker. Bumped `.claude-plugin/plugin.json` 0.33.3 → 0.34.0 (minor).
