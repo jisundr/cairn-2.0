@@ -2,6 +2,10 @@
 
 Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
 
+## 2026-09-30
+
+- `mission-control` gitlink advanced `be3edf6` → `1c5398c` (2 commits): a task card's last-touched time now reads bare-dated `STATE.md` log lines too. `_LOG_DATE_RE` also matches `YYYY-MM-DD[/DD][ HH:MM]:` with the colon required, the same rule as 01's Activity parsing, so a bare-dated folder whose last line has a time shows "3h ago" instead of its folder date; a range keeps its first day. In the drawer, Activity entries with a time show the same relative text as the card (new `formatActivityStamp`), with the exact `date HH:MM UTC` on hover; time-less entries and date ranges stay raw. `formatLastTouched`'s date-only branch now uses its injected `now`. Suites: pytest 213, vitest 169, e2e 23. Bumped `.claude-plugin/plugin.json` 0.36.4 → 0.36.5 (patch).
+
 ## 2026-09-29
 
 - `docs/BUDGET.md` regenerated after the heads-up example fix (`decomposition.md` size row). Bumped `.claude-plugin/plugin.json` 0.36.3 → 0.36.4.
