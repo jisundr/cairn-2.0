@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `hooks/session-start.sh` trimmed from 1850 B to 1418 B (under the 1500 B hook-script soft cap): shorter names, one combined `jq` read for `session_id` and `cwd`, leaner selftest. Behavior unchanged, checked old-vs-new across 11 scenarios (no marker, no manifest, first run, same version, version bump, bad input, pointer pruning). Bumped `.claude-plugin/plugin.json` 0.34.13 → 0.34.14.
+
 - `docs/BUDGET.md` regenerated after the start-skill trim (its row now 3794 B). Bumped `.claude-plugin/plugin.json` 0.34.12 → 0.34.13.
 
 - `skills/start/SKILL.md` trimmed from 4090 B to 3794 B (hard cap 4096 B): wording tightened in Local preferences, Delegating investigation and the scope-continue paragraph; no rule, trigger, table or reference pointer changed. Bumped `.claude-plugin/plugin.json` 0.34.11 → 0.34.12.
