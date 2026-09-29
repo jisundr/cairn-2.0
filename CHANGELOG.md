@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `mission-control` gitlink advanced `4421b9d` → `be3edf6` (2 commits): the task drawer's Activity list now shows every `STATE.md` log line with its time. The cause, confirmed on real folders: `parse_activity` kept only dashed `- YYYY-MM-DD` lines, so older folders that log bare `YYYY-MM-DD: …` lines showed "No activity yet", and it discarded the `HH:MM` it matched. It now also accepts bare `YYYY-MM-DD[ HH:MM]:` lines (the trailing colon is required, so a prose line starting with a date is not an entry), and each entry is `{date, time, text}` with `time` as `HH:MM` or null. The drawer renders `date HH:MM` as plain text, or the date alone. Card "Last touched" is unchanged. Suites: pytest 207, vitest 165, e2e 23. Bumped `.claude-plugin/plugin.json` 0.35.4 → 0.35.5 (patch).
+
 - `docs/BUDGET.md` regenerated after the parallel sub-task routing changes (shared skill 4086 B, hook 1496 B). Bumped `.claude-plugin/plugin.json` 0.35.3 → 0.35.4.
 
 - `skills/start/reference/dispatch-pointer.md`: the Limit paragraph is replaced by a Parallel sub-tasks one. An agent holding a sub-task folder rewrites its own marker via `cairn:shared`'s `reference/marker-task.md`; the pointer write stays the fallback for `planner` and `scribe`. Bumped `.claude-plugin/plugin.json` 0.35.2 → 0.35.3.
