@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `docs/BUDGET.md` regenerated after the parent-tasks column and its rule rewording (`skills/shared/SKILL.md` 4095 B, 1 B headroom). Bumped `.claude-plugin/plugin.json` 0.37.1 → 0.37.2.
+
 - `skills/shared/SKILL.md`: the parent-tasks clause in the stage rule now reads "has sub-tasks -> parent tasks until all are done, then done", matching the "condition -> stage" shape of the other clauses so a sub-task folder is not read as going to parent tasks. Bumped `.claude-plugin/plugin.json` 0.37.0 → 0.37.1.
 
 - `mission-control` gitlink advanced `1c5398c` → `1dfe16e` (2 commits): a folder with sub-tasks now takes its board column from its children alone. It sits in a new Parent tasks column (`parent_tasks`, leftmost) until every child is done, then moves to Done; its own merged PR, done word, blocked or approval facts no longer set its column (the needs-attention and active badges and the "N of M done" badge stay). Nested parents roll up deepest first, and `build_detail` runs the same rollup so the drawer's column matches the board; the drawer badge reads "Parent task". The board grows to 8 columns: the board shell widens to 2152px (8×248px + 7 gaps + gutters) and scrolls sideways at 1920; the e2e all-columns-visible check runs at 2160px. Suites: pytest 220, vitest 171, e2e 23. Bumped `.claude-plugin/plugin.json` 0.36.6 → 0.37.0 (minor).
