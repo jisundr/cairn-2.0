@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `hooks/subagent-marker.sh`: `start` now also prints `SubagentStart` `additionalContext` naming the agent's marker file and pointing at `cairn:shared`'s `reference/marker-task.md`, so an agent holding a sub-task folder can retask its own marker. Compacted to 1496 B (under the 1500 B soft cap): the redundant `command -v jq` guard is gone (a missing `jq` leaves the ids empty, so every branch is a no-op), the selftest counts failures only, and the pointer check is one `jq` filter. Selftest covers the new output. Bumped `.claude-plugin/plugin.json` 0.34.17 → 0.35.0.
+
 - `tools/test_marker_retask.py` added: runs the rewrite command from `skills/shared/reference/marker-task.md` against fixture markers (task rewritten and `project` kept, no stray `.active` file, missing marker and empty folder are no-ops). Bumped `.claude-plugin/plugin.json` 0.34.16 → 0.34.17.
 
 - `skills/shared/reference/marker-task.md` added, with its Load-when row in `skills/shared/SKILL.md`: how an agent rewrites its own `SubagentStart` marker to its sub-task folder (atomic, `project` kept, skipped silently without a folder or marker name). `skills/shared/SKILL.md` trimmed to 4086 B (hard cap 4096 B) by condensing the Task folder paragraph; no rule changed. Bumped `.claude-plugin/plugin.json` 0.34.15 → 0.34.16.
