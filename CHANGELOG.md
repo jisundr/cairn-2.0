@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `docs/BUDGET.md` regenerated after the subagent-marker trim (its row now under the soft cap). Bumped `.claude-plugin/plugin.json` 0.34.7 → 0.34.8.
+
 - `hooks/subagent-marker.sh` trimmed from 1946 B to 1491 B (under the 1500 B hook-script soft cap): tighter selftest helper, shorter variable names, `stop` and `sweep` folded to one line. Behavior unchanged; selftest still 6 checks. Bumped `.claude-plugin/plugin.json` 0.34.6 → 0.34.7.
 
 - `docs/BUDGET.md` regenerated after the subagent-marker change (new `hooks/subagent-marker.sh` row, `heartbeat-touch.sh` row gone, scope/resume sizes). Bumped `.claude-plugin/plugin.json` 0.34.5 → 0.34.6 (patch).
