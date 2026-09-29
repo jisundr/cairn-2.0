@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `skills/start/SKILL.md` trimmed from 4090 B to 3794 B (hard cap 4096 B): wording tightened in Local preferences, Delegating investigation and the scope-continue paragraph; no rule, trigger, table or reference pointer changed. Bumped `.claude-plugin/plugin.json` 0.34.11 → 0.34.12.
+
 - `docs/BUDGET.md` regenerated after the dispatch-pointer reference and its two pointers. Bumped `.claude-plugin/plugin.json` 0.34.10 → 0.34.11.
 
 - `skills/scope/reference/decomposition.md` now points sub-task dispatch at `cairn:start`'s `reference/dispatch-pointer.md` (bind the pointer to the sub-task or parent folder first). Bumped `.claude-plugin/plugin.json` 0.34.9 → 0.34.10.

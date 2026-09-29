@@ -15,9 +15,9 @@ One `Glob .harness/**/*.md` call, once per task; hold the result — never re-gl
 
 ## Local preferences
 
-Also covered by the glob: `.harness/local/preferences.md`, classified per `/cairn-doctor` (active / ignored-by-ceiling / unrecognised). Dispatch prompts carry only active values — never the file or its path; no agent reads it. Active `prefer-path` feeds the path choice. Active `model <agent> = <model>` feeds the `model` param on that role's `Agent()` dispatch call, not dispatch-prompt text — a no-op by construction for a `subagent_type: "fork"` dispatch, per `Agent`'s own documented behavior; a role with no matching line dispatches unchanged.
+Also covered by the glob: `.harness/local/preferences.md`, classified per `/cairn-doctor` (active / ignored-by-ceiling / unrecognised). Dispatch prompts carry only active values — never the file or its path; no agent reads it. Active `prefer-path` feeds the path choice. Active `model <agent> = <model>` sets the `model` param on that role's `Agent()` call, not prompt text — a no-op for a `subagent_type: "fork"` dispatch; a role with no line dispatches unchanged.
 
-Absent — before the first agent dispatch, offer `/cairn-setup --local`'s model-per-role step, once. Declined → stand down for the session: no more asking that session, same pattern as the Harness gate's Absent case above. No cross-session persistence — a later session re-evaluates fresh.
+Absent — before the first agent dispatch, offer `/cairn-setup --local`'s model-per-role step, once. Declined → stand down for the session, as in the Harness gate; nothing persists, so a later session re-evaluates.
 
 ## Scope resolution
 
@@ -32,7 +32,7 @@ Otherwise, resolve scope — invoke `Skill(skill: "cairn:scope")` — when any o
 5. User invalidates scope ("actually, let's…", "scrap that").
 6. Cold resume, no record to restore.
 
-Otherwise, continue without resolving — most messages: a refinement inside scope, an answer to a question you asked, an instruction you can already act on, or conversation about the work. A request that only slightly extends scope — amend the record directly instead of re-resolving.
+Otherwise, continue — most messages: a refinement inside scope, an answer to your question, an instruction you can already act on, or conversation. A request that only slightly extends scope: amend the record directly.
 
 **Scope record**, under 400 B:
 
@@ -64,7 +64,7 @@ Before each escalated dispatch, bind the task pointer per `reference/dispatch-po
 
 ## Delegating investigation
 
-Resolving an open question or scope ambiguity in the main thread costs whatever it reads there. One file settles it — read it directly. Answering it needs more than one file — delegate to an agent instead: `Explore`, or `general-purpose` where `Explore` isn't offered in this session.
+Resolving an open question or scope ambiguity in the main thread costs whatever it reads there. One file settles it — read it. More than one — delegate: `Explore`, or `general-purpose` where `Explore` isn't offered.
 
 ## Attendance
 
