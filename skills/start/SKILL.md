@@ -60,6 +60,8 @@ Escalation trigger, verbatim: escalate when the change spans more than one submo
 
 A change touching `docs/` also dispatches `scribe` — `builder` never writes there.
 
+Before each escalated dispatch, bind the task pointer per `reference/dispatch-pointer.md`.
+
 ## Delegating investigation
 
 Resolving an open question or scope ambiguity in the main thread costs whatever it reads there. One file settles it — read it directly. Answering it needs more than one file — delegate to an agent instead: `Explore`, or `general-purpose` where `Explore` isn't offered in this session.

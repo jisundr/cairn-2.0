@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `skills/start/reference/dispatch-pointer.md` added, with a one-line pointer to it in `start`'s Path choice: before each escalated planner/builder/reviewer/scribe dispatch, the main thread rewrites the task pointer to the sub-task (or parent) folder the dispatch is for. Bumped `.claude-plugin/plugin.json` 0.34.8 → 0.34.9.
+
 - `docs/BUDGET.md` regenerated after the subagent-marker trim (its row now under the soft cap). Bumped `.claude-plugin/plugin.json` 0.34.7 → 0.34.8.
 
 - `hooks/subagent-marker.sh` trimmed from 1946 B to 1491 B (under the 1500 B hook-script soft cap): tighter selftest helper, shorter variable names, `stop` and `sweep` folded to one line. Behavior unchanged; selftest still 6 checks. Bumped `.claude-plugin/plugin.json` 0.34.6 → 0.34.7.
