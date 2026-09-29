@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `mission-control` gitlink advanced `1dfe16e` → `0dcd9c1` (2 commits): images in task-folder markdown now render in the drawer's Docs tab. A new `GET /api/tasks/asset?project=&folder=&path=` serves one image from a task folder, subfolders included. It serves png, jpg, jpeg, gif and webp only, typed from a fixed extension table rather than `mimetypes`; SVG is excluded. It refuses with 404: `..` segments, absolute paths, backslashes, symlinks that resolve outside the folder, image-named symlinks to non-images (e.g. `x.png` → `STATE.md`), and missing files. Responses carry `X-Content-Type-Options: nosniff` and `Cache-Control: no-cache`. In the drawer, a `markdown-to-jsx` `img` override sends relative srcs through that route; `http(s)`, `data:` and `//host` srcs pass through unchanged. A failed image shows its alt text, and images are capped at the pane width. The e2e seed gains a `NOTES.md` with two real images; a new `doc-images.spec.ts` checks that both decode in Chromium. Suites: pytest 244, vitest 173, e2e 25. Bumped `.claude-plugin/plugin.json` 0.37.2 → 0.38.0 (minor).
+
 - `docs/BUDGET.md` regenerated after the parent-tasks column and its rule rewording (`skills/shared/SKILL.md` 4095 B, 1 B headroom). Bumped `.claude-plugin/plugin.json` 0.37.1 → 0.37.2.
 
 - `skills/shared/SKILL.md`: the parent-tasks clause in the stage rule now reads "has sub-tasks -> parent tasks until all are done, then done", matching the "condition -> stage" shape of the other clauses so a sub-task folder is not read as going to parent tasks. Bumped `.claude-plugin/plugin.json` 0.37.0 → 0.37.1.
