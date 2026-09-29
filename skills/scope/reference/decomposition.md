@@ -17,6 +17,7 @@ When a task is too big for one PR or one context window, make it a parent folder
 ```
 01 drawer-activity: parallel
 02 relative-last-touched: after 01, same TaskDrawer.tsx
+06 sequence-heads-up: after 01, plugin.json/CHANGELOG bump chain
 05 session-version: after 06, plugin.json/CHANGELOG bump chain
 ```
 

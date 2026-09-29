@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `skills/scope/reference/decomposition.md`: the sequence heads-up example gains a `06 sequence-heads-up` line above `05`, so it shows an order that differs from numbering. Bumped `.claude-plugin/plugin.json` 0.36.2 → 0.36.3.
+
 - `docs/BUDGET.md` regenerated after the sequence heads-up reference edits (`decomposition.md` 3386 B, `requirements-approval.md` 1853 B). Bumped `.claude-plugin/plugin.json` 0.36.1 → 0.36.2.
 
 - `skills/scope/reference/requirements-approval.md`: after a split, or a change to the split or to a `depends_on`, the requirements approval message now carries the sequence heads-up from `reference/decomposition.md`, so approving the requirements also approves the order. No new step; `key_info` wording unchanged. Bumped `.claude-plugin/plugin.json` 0.36.0 → 0.36.1 (patch).
