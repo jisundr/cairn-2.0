@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `docs/BUDGET.md` regenerated after the dispatch-pointer reference and its two pointers. Bumped `.claude-plugin/plugin.json` 0.34.10 → 0.34.11.
+
 - `skills/scope/reference/decomposition.md` now points sub-task dispatch at `cairn:start`'s `reference/dispatch-pointer.md` (bind the pointer to the sub-task or parent folder first). Bumped `.claude-plugin/plugin.json` 0.34.9 → 0.34.10.
 
 - `skills/start/reference/dispatch-pointer.md` added, with a one-line pointer to it in `start`'s Path choice: before each escalated planner/builder/reviewer/scribe dispatch, the main thread rewrites the task pointer to the sub-task (or parent) folder the dispatch is for. Bumped `.claude-plugin/plugin.json` 0.34.8 → 0.34.9.
