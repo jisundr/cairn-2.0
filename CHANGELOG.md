@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `skills/shared/SKILL.md`: the stage rule's first match is now `sub-tasks -> parent tasks until all are done, then done`, so a parent sits in mission-control's new Parent tasks column until every child is done. To stay under the 4096 B hard cap, the Running verification section drops its closing "Old oversized files therefore warn and never block." (already implied by the `[warning]` wording before it). File now 4091 B. Bumped `.claude-plugin/plugin.json` 0.36.5 → 0.36.6 (patch).
+
 - `mission-control` gitlink advanced `be3edf6` → `1c5398c` (2 commits): a task card's last-touched time now reads bare-dated `STATE.md` log lines too. `_LOG_DATE_RE` also matches `YYYY-MM-DD[/DD][ HH:MM]:` with the colon required, the same rule as 01's Activity parsing, so a bare-dated folder whose last line has a time shows "3h ago" instead of its folder date; a range keeps its first day. In the drawer, Activity entries with a time show the same relative text as the card (new `formatActivityStamp`), with the exact `date HH:MM UTC` on hover; time-less entries and date ranges stay raw. `formatLastTouched`'s date-only branch now uses its injected `now`. Suites: pytest 213, vitest 169, e2e 23. Bumped `.claude-plugin/plugin.json` 0.36.4 → 0.36.5 (patch).
 
 ## 2026-09-29
