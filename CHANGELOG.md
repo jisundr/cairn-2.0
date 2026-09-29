@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `docs/BUDGET.md` regenerated after the heads-up example fix (`decomposition.md` size row). Bumped `.claude-plugin/plugin.json` 0.36.3 → 0.36.4.
+
 - `skills/scope/reference/decomposition.md`: the sequence heads-up example gains a `06 sequence-heads-up` line above `05`, so it shows an order that differs from numbering. Bumped `.claude-plugin/plugin.json` 0.36.2 → 0.36.3.
 
 - `docs/BUDGET.md` regenerated after the sequence heads-up reference edits (`decomposition.md` 3386 B, `requirements-approval.md` 1853 B). Bumped `.claude-plugin/plugin.json` 0.36.1 → 0.36.2.
