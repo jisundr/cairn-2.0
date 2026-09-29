@@ -8,4 +8,4 @@ Right before each `planner`, `builder`, `reviewer`, or `scribe` dispatch on an e
 
 **Why it is enough.** `hooks/subagent-marker.sh` copies the pointer into the agent's marker at `SubagentStart`, so an agent keeps the task it started with even when the pointer moves later. The write does not itself mark a card active.
 
-**Limit.** Parallel sub-tasks share one pointer, so only the last one dispatched lights its card.
+**Parallel sub-tasks.** Sub-tasks dispatched in parallel share one pointer, so their markers all start on the same task. An agent holding a sub-task folder then rewrites its own marker to it, via `cairn:shared`'s `reference/marker-task.md`, and each card lights. The pointer write stays the fallback: `planner` and `scribe` have no `Bash` to rewrite with, and rely on it.

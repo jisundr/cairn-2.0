@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-29
 
+- `skills/start/reference/dispatch-pointer.md`: the Limit paragraph is replaced by a Parallel sub-tasks one. An agent holding a sub-task folder rewrites its own marker via `cairn:shared`'s `reference/marker-task.md`; the pointer write stays the fallback for `planner` and `scribe`. Bumped `.claude-plugin/plugin.json` 0.35.2 → 0.35.3.
+
 - `agents/reviewer.md`: the step that loads `cairn:shared` gains one clause pointing at `reference/marker-task.md` when the `SubagentStart` context names a marker file and the agent holds a sub-task folder. Bumped `.claude-plugin/plugin.json` 0.35.1 → 0.35.2.
 
 - `agents/builder.md`: the step that loads `cairn:shared` gains one clause pointing at `reference/marker-task.md` when the `SubagentStart` context names a marker file and the agent holds a sub-task folder. Bumped `.claude-plugin/plugin.json` 0.35.0 → 0.35.1.
