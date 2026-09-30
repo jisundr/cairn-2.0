@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `commands/cairn-doctor.md`: step 6 also says whether `.harness/local/preferences.md` is in the old form (per the local-layer rules) and, if so, that `/cairn-setup --local` updates it. Still read-only. File now 1668 B (hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.38.6 → 0.38.7 (patch).
+
 - `commands/cairn-setup.md`: `--local` step 1 now asks for an allow-list of models per role (`model <agent> = <model>[, <model>…]`) plus one `model default = <model>` line, with the orchestrator picking within them. Step 2: with an existing file, each single-model line becomes its list's first entry, other lines are kept, and comments come from the base template. File now 1844 B (hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.38.5 → 0.38.6 (patch).
 
 - `skills/task-assets/assets/local/preferences.md`: the model comment line becomes two: `model <agent> = <model>[, <model>…]` lists the models each role may use, with the orchestrator picking within them, and `model default = <model>` gives one model for a role with no line of its own or when there is no strong signal. Template now 5 lines, 625 B. Bumped `.claude-plugin/plugin.json` 0.38.4 → 0.38.5 (patch).
