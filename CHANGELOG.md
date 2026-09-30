@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `skills/task-assets/assets/local/preferences.md`: the `model default` comment now says it applies to a role with no line of its own and as the no-signal pick only within a list that includes it. Template still 5 lines, 645 B. Bumped `.claude-plugin/plugin.json` 0.39.1 → 0.39.2 (patch).
+
 - `commands/cairn-setup.md`: `--local` step 1 now says the one `model default = <model>` line is required whenever any model line is written, so "skip unwanted" cannot drop it. File now 1889 B (hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.39.0 → 0.39.1 (patch).
 
 - `skills/start/SKILL.md`: active `model` lines now bound the `model` param of each `Agent()` call rather than fixing it. The orchestrator picks from the role's list: its most capable model for escalated or code-writing work, its lightest for small or read-only work, and with no strong signal `model default` if listed, else the first entry. A role with no line takes `model default`; with neither, the dispatch is unchanged. The one-time offer of `/cairn-setup --local`'s model step before the first dispatch now also fires when the file is in the old form (per `/cairn-doctor`); declining still stands down for the session. The dispatch-prompt invariant (only active values, never the file or its path; no agent reads it) is unchanged. File now 4022 B (hard cap 4096). Bumped `.claude-plugin/plugin.json` 0.38.7 → 0.39.0 (minor).
