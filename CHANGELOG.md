@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `commands/cairn-setup.md`: `--local` step 1 now asks for an allow-list of models per role (`model <agent> = <model>[, <model>…]`) plus one `model default = <model>` line, with the orchestrator picking within them. Step 2: with an existing file, each single-model line becomes its list's first entry, other lines are kept, and comments come from the base template. File now 1844 B (hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.38.5 → 0.38.6 (patch).
+
 - `skills/task-assets/assets/local/preferences.md`: the model comment line becomes two: `model <agent> = <model>[, <model>…]` lists the models each role may use, with the orchestrator picking within them, and `model default = <model>` gives one model for a role with no line of its own or when there is no strong signal. Template now 5 lines, 625 B. Bumped `.claude-plugin/plugin.json` 0.38.4 → 0.38.5 (patch).
 
 - `skills/task-assets/assets/local-layer-classification.md`: `model <agent>` lines now take a comma-separated allow-list (one entry pins the role); any entry outside the model set makes the whole line unrecognised. A new `model default = <model>` line (one model, `default` reserved) covers roles with no line of their own. A closing **Old form** paragraph defines single-model lines with no `model default` line; they stay active as pins, `/cairn-doctor` names the form and `cairn:start` offers the update. Bumped `.claude-plugin/plugin.json` 0.38.3 → 0.38.4 (patch).
