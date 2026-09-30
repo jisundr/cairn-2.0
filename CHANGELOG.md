@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `mission-control` gitlink advanced `9b7efae` → `823826b` (5 commits): each session now records the cairn version it started under. `tokens.db` gains a `session_versions` table (`CREATE TABLE IF NOT EXISTS`, `SCHEMA_VERSION` 1 → 2, existing rows untouched); on each Stop, `parser.py` copies the session's first valid version (n.n.n with an optional short suffix, at most 64 chars; `unknown` and malformed lines skipped) from the `.cairn/sessions.log` line `hooks/session-start.sh` already writes, and never overwrites one already stored. `/api/rollup/session` rows and `/api/session/<id>/trace` carry `cairn_version` (string, or `null` when none was recorded). The drilldown header shows `cairn <version>` or `cairn unknown`, and the sessions list gains a `cairn` column that marks a session **older** when its version is below the newest in the loaded range. Sessions ingested before this change show `unknown`; `hooks/` is unchanged. Suites: pytest 279, vitest 184, e2e 26. Bumped `.claude-plugin/plugin.json` 0.39.5 → 0.40.0 (minor).
+
 - `docs/BUDGET.md` regenerated after the model allow-list changes (`skills/start/SKILL.md` 4059 B, `commands/cairn-setup.md` 1889 B, `commands/cairn-doctor.md` 1668 B, the preferences template 645 B, the classification file 1276 B). Bumped `.claude-plugin/plugin.json` 0.39.4 → 0.39.5.
 
 - `skills/task-assets/assets/local-layer-classification.md`: the **Old form** definition now counts only active `model <agent>` and `model default` lines, so commented or unrecognised lines do not decide the form. File now 1276 B. Bumped `.claude-plugin/plugin.json` 0.39.3 → 0.39.4 (patch).
