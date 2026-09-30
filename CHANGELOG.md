@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `docs/BUDGET.md` regenerated after the triage parent-rollup edits (`commands/cairn-triage.md` 1700 B, 348 B headroom). Bumped `.claude-plugin/plugin.json` 0.40.4 → 0.40.5.
+
 - `commands/cairn-triage.md`: the parent-rollup sentence now says "any such folder not Ready to close falls through, dated by the newest last log date among it and them", so the combined date applies to every parent that misses Ready to close, whether for its own done word or for an unfinished sub-task, and a parent with live sub-tasks is not read as Looks abandoned on a stale own log. File now 1700 B (soft cap 1500, hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.40.3 → 0.40.4 (patch).
 
 - `commands/cairn-triage.md`: Classify's Ready to close rule now also needs every sub-task folder Ready to close, deepest first, matching the board's parent rollup; a held-back parent falls through, dated by the newest last log date among it and its sub-tasks. File now 1673 B (soft cap 1500, hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.40.2 → 0.40.3 (patch).
