@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `skills/start/SKILL.md`: active `model` lines now bound the `model` param of each `Agent()` call rather than fixing it. The orchestrator picks from the role's list: its most capable model for escalated or code-writing work, its lightest for small or read-only work, and with no strong signal `model default` if listed, else the first entry. A role with no line takes `model default`; with neither, the dispatch is unchanged. The one-time offer of `/cairn-setup --local`'s model step before the first dispatch now also fires when the file is in the old form (per `/cairn-doctor`); declining still stands down for the session. The dispatch-prompt invariant (only active values, never the file or its path; no agent reads it) is unchanged. File now 4022 B (hard cap 4096). Bumped `.claude-plugin/plugin.json` 0.38.7 → 0.39.0 (minor).
+
 - `commands/cairn-doctor.md`: step 6 also says whether `.harness/local/preferences.md` is in the old form (per the local-layer rules) and, if so, that `/cairn-setup --local` updates it. Still read-only. File now 1668 B (hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.38.6 → 0.38.7 (patch).
 
 - `commands/cairn-setup.md`: `--local` step 1 now asks for an allow-list of models per role (`model <agent> = <model>[, <model>…]`) plus one `model default = <model>` line, with the orchestrator picking within them. Step 2: with an existing file, each single-model line becomes its list's first entry, other lines are kept, and comments come from the base template. File now 1844 B (hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.38.5 → 0.38.6 (patch).
