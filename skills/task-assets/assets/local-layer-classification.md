@@ -7,4 +7,4 @@
 - A recognised key (`token-ceiling`, `narration`, `optional-pass`) not caught above → **active**.
 - Anything else → **unrecognised**.
 
-**Old form:** at least one `model <agent>` line, none listing more than one model, and no `model default` line. Its lines stay active as pins; `/cairn-doctor` names it and `cairn:start` offers the update.
+**Old form:** at least one active `model <agent>` line, none listing more than one model, and no active `model default` line. Its lines stay active as pins; `/cairn-doctor` names it and `cairn:start` offers the update.

@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `skills/task-assets/assets/local-layer-classification.md`: the **Old form** definition now counts only active `model <agent>` and `model default` lines, so commented or unrecognised lines do not decide the form. File now 1276 B. Bumped `.claude-plugin/plugin.json` 0.39.3 → 0.39.4 (patch).
+
 - `skills/start/SKILL.md`: active `model` lines now bound the `model` param of each cairn agent's `Agent()` call (fork dispatches still a no-op), and the fallback pick applies with no strong signal or mixed signals: `model default` if in that list, else the first entry. Dispatch-prompt invariant unchanged. File now 4059 B (hard cap 4096). Bumped `.claude-plugin/plugin.json` 0.39.2 → 0.39.3 (patch).
 
 - `skills/task-assets/assets/local/preferences.md`: the `model default` comment now says it applies to a role with no line of its own and as the no-signal pick only within a list that includes it. Template still 5 lines, 645 B. Bumped `.claude-plugin/plugin.json` 0.39.1 → 0.39.2 (patch).
