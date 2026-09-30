@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `commands/cairn-triage.md`: the parent-rollup sentence now says "any such folder not Ready to close falls through, dated by the newest last log date among it and them", so the combined date applies to every parent that misses Ready to close, whether for its own done word or for an unfinished sub-task, and a parent with live sub-tasks is not read as Looks abandoned on a stale own log. File now 1700 B (soft cap 1500, hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.40.3 → 0.40.4 (patch).
+
 - `commands/cairn-triage.md`: Classify's Ready to close rule now also needs every sub-task folder Ready to close, deepest first, matching the board's parent rollup; a held-back parent falls through, dated by the newest last log date among it and its sub-tasks. File now 1673 B (soft cap 1500, hard cap 2048). Bumped `.claude-plugin/plugin.json` 0.40.2 → 0.40.3 (patch).
 
 - `mission-control` gitlink advanced `51dba3d` → `347b22b` (2 commits, second review-fix round for the session cairn version): the sessions list joins a version and its **older** badge with a no-break space, so the badge cannot wrap onto its own line in a narrow `cairn` cell (screen readers still hear a space; rows without a badge are unchanged); `parse_session` suppresses a `sqlite3.Error` from the rollback after a failed version step, so a failing rollback (e.g. disk I/O) no longer escapes once the token rows are committed. New tests cover that case and a later parse of the same session, which stores the version without duplicating its calls. Suites: pytest 283, vitest 184, e2e 26. Bumped `.claude-plugin/plugin.json` 0.40.1 → 0.40.2 (patch).
