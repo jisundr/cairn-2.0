@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-09-30
 
+- `skills/task-assets/assets/local/preferences.md`: the model comment line becomes two: `model <agent> = <model>[, <model>…]` lists the models each role may use, with the orchestrator picking within them, and `model default = <model>` gives one model for a role with no line of its own or when there is no strong signal. Template now 5 lines, 625 B. Bumped `.claude-plugin/plugin.json` 0.38.4 → 0.38.5 (patch).
+
 - `skills/task-assets/assets/local-layer-classification.md`: `model <agent>` lines now take a comma-separated allow-list (one entry pins the role); any entry outside the model set makes the whole line unrecognised. A new `model default = <model>` line (one model, `default` reserved) covers roles with no line of their own. A closing **Old form** paragraph defines single-model lines with no `model default` line; they stay active as pins, `/cairn-doctor` names the form and `cairn:start` offers the update. Bumped `.claude-plugin/plugin.json` 0.38.3 → 0.38.4 (patch).
 
 - `mission-control` gitlink advanced `3b16727` → `9b7efae` (1 commit): the static route no longer drops the connection on a raw NUL byte in the request path (e.g. `GET /\x00`, `GET /assets/\x00x.js`); `_safe_static_path` now catches `OSError`, `RuntimeError` and `ValueError` from `Path.resolve()` and returns `None`, so the request gets the same SPA `index.html` fallback as any other unresolvable path. The same catch also means a symlink loop inside `static/` now gets that fallback instead of dropping the connection; every other non-NUL path is unchanged. Suites: pytest 265, vitest 173, e2e 25. Bumped `.claude-plugin/plugin.json` 0.38.2 → 0.38.3.
