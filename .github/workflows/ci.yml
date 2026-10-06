@@ -16,7 +16,12 @@ jobs:
         with:
           node-version: "22"
       - run: npm install -g @anthropic-ai/claude-code
-      - run: claude plugin validate . --strict
+      - name: claude plugin validate (strict, except the root CLAUDE.md notice)
+        run: |
+          out=$(claude plugin validate . 2>&1) || { echo "$out"; exit 1; }
+          echo "$out"
+          extra=$(echo "$out" | grep -E '^\s*> ' | grep -vF 'root: CLAUDE.md at the plugin root is not loaded as project context' || true)
+          if [ -n "$extra" ]; then echo "Unexpected validator warnings:"; echo "$extra"; exit 1; fi
       - run: claude plugin validate .claude-plugin/plugin.json
       - run: pip install pytest
       - run: python tools/budget.py
