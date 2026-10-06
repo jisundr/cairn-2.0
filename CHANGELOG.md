@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-07
 
+- Product docs wired into the escalated path: `skills/scope/reference/requirements-approval.md` seeds Goals/Non-goals from the `docs/product/PRD.md` feature a task slices, and Problem cites it; `agents/planner.md` step 1 reads whichever of `docs/product/ARCHITECTURE.md`/`API.md`/`SCHEMA.md` exist and the task touches, building within them and logging any departure as a `flags` line. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.41.0 → 0.41.1 (patch).
+
 - Product-level doc templates: new `skills/task-assets/assets/product/_template/` with `BRIEF.md`, `PRD.md`, `USER-FLOW.md`, `ARCHITECTURE.md`, `API.md`, `SCHEMA.md`, `ROADMAP.md`, shaped on the token-metering feature's original doc set (`01-intent` … `04-user-flow`, `ROADMAP.md`). `product/setup.md` (new) seeds them into a consuming project's `docs/product/_template/`; `commands/cairn-setup.md` step 5 now follows it after `tasks/setup.md`. Docs are copied up into `docs/product/` only when a project needs them. Product docs answer what/why (Brief, PRD, User flow) and how (Architecture, API, Schema) once per product; task docs answer the same per task: `REQUIREMENTS.md` (header now cites the PRD feature it slices) and a new `tasks/_template/PLAN.md` (Summary/Implementation/Risks, matching `planner`'s two-part plan). impeccable keeps `docs/PRODUCT.md`/`docs/DESIGN.md`. Dogfood copies mirrored under `docs/product/_template/` and `docs/tasks/_template/`; `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.40.5 → 0.41.0 (minor).
 
 ## 2026-09-30
