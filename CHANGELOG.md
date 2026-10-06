@@ -4,6 +4,10 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-07
 
+- Product-doc readers follow the docs map: `skills/scope/reference/requirements-approval.md` and `agents/planner.md` resolve the PRD and the Architecture/API/Schema docs through `.harness/workflow.md`'s `## Docs` map, falling back to `docs/product/`; the `REQUIREMENTS.md` and `PLAN.md` template headers drop their hardcoded paths (dogfood copies synced). `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.42.0 → 0.42.1 (patch).
+
+- Docs map: `skills/task-assets/assets/product/setup.md` now checks a consuming project for existing equivalents of cairn's product docs (Brief, PRD, User flow, Architecture, API, Schema, Roadmap) by name and headings. No match takes the default under `docs/product/` silently; a match at the default path or differing only in case is kept silently; a match elsewhere gets one question per doc, keep the current path or adopt the default. Kept paths are recorded under a new `## Docs` section of the `workflow.md` harness template, one line per non-default doc; a re-run asks only about docs not yet mapped. Task docs (`docs/tasks/`, `REQUIREMENTS.md`, `PLAN.md`, `STATE.md`, `EPIC.md`) stay fixed, since `/cairn-triage` and mission-control parse them. Bumped `.claude-plugin/plugin.json` 0.41.4 → 0.42.0 (minor).
+
 - `.github/workflows/ci.yml`: `claude plugin validate . --strict` replaced by a non-strict run that still fails on any validator warning except one: "CLAUDE.md at the plugin root is not loaded as project context". This repo's root `CLAUDE.md` is the maintainer guide and carries the dogfood marker that `hooks/session-start.sh`, `hooks/stop-mc.sh` and `tools/budget.py` read there, so it stays put. Bumped `.claude-plugin/plugin.json` 0.41.3 → 0.41.4 (patch).
 
 - `hooks/hooks.json`: every hook command now wraps `${CLAUDE_PLUGIN_ROOT}/hooks/<script>.sh` in double quotes, so a plugin install path containing a space no longer splits the command. Flagged by `claude plugin validate . --strict` (Claude Code 2.1.292), which was failing CI. Bumped `.claude-plugin/plugin.json` 0.41.2 → 0.41.3 (patch).
