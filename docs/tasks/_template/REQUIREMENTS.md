@@ -1,4 +1,4 @@
-> Delete any section the task does not need. A small task needs only Problem, Goals, and Success criteria.
+> The what and why, for this task. Cites the `docs/product/PRD.md` feature it slices, when one exists. Delete any section the task does not need; a small task needs only Problem, Goals, and Success criteria.
 
 ## Problem
 
