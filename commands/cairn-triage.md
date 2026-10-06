@@ -4,7 +4,7 @@ description: Sorts task folders.
 
 Read-only; never writes or blocks. Per-folder facts: `/cairn-doctor` step 8.
 
-1. **Scan** — `Glob` `docs/tasks/**/STATE.md` (not `Grep`: `docs/tasks/` is gitignored), skipping `_template/`. Read each one's `key_info` and last `YYYY-MM-DD:` log line; none → folder-name date. No `STATE.md` (a `review` `DRAFT.md`): one trailing line.
+1. **Scan** — `Glob` `docs/tasks/**/STATE.md` (not `Grep`: `docs/tasks/` is gitignored), skipping `_template/`. Read each one's `key_info` and last `YYYY-MM-DD:` log line; none → folder-name date. No `STATE.md` (an older `review` folder, `DRAFT.md` only): one trailing line.
 2. **Branching** — `.harness/workflow.md`'s `## Branching` says commits go straight to main or no feature branches → direct-commit. Section absent → not.
 3. **Classify** — first match wins:
    - **Needs attention now** — `needs-human` or `stalled` in `key_info` (`unattended.md` Ending).
