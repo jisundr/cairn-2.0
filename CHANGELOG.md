@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-07
 
+- `hooks/hooks.json`: every hook command now wraps `${CLAUDE_PLUGIN_ROOT}/hooks/<script>.sh` in double quotes, so a plugin install path containing a space no longer splits the command. Flagged by `claude plugin validate . --strict` (Claude Code 2.1.292), which was failing CI. Bumped `.claude-plugin/plugin.json` 0.41.2 → 0.41.3 (patch).
+
 - Renamed the task-level sub-task tracker `ROADMAP.md` → `EPIC.md` (`skills/shared/reference/roadmap.md` → `epic.md`, `tasks/_template/ROADMAP.md` → `EPIC.md`; pointers in `skills/shared/SKILL.md` and `skills/scope/reference/decomposition.md`), so it no longer collides with the product-level `docs/product/ROADMAP.md`. Hierarchy: roadmap milestone → epic (parent task) → sub-tasks; the product `ROADMAP.md` template now says so. Existing task folders keep their `ROADMAP.md` until next touched. Bumped `.claude-plugin/plugin.json` 0.41.1 → 0.41.2 (patch).
 
 - Product docs wired into the escalated path: `skills/scope/reference/requirements-approval.md` seeds Goals/Non-goals from the `docs/product/PRD.md` feature a task slices, and Problem cites it; `agents/planner.md` step 1 reads whichever of `docs/product/ARCHITECTURE.md`/`API.md`/`SCHEMA.md` exist and the task touches, building within them and logging any departure as a `flags` line. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.41.0 → 0.41.1 (patch).
