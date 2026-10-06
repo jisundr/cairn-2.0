@@ -13,7 +13,9 @@ Path: `docs/tasks/YYYY-MM-DD-HHMM-review-<repo-slug>-<pr|mr>-<number>/DRAFT.md` 
 
 Find it with `Glob` on `docs/tasks/*-review-<repo-slug>-<pr|mr>-<number>` — the date-time prefix isn't known ahead of a re-review, and `Glob` sees gitignored paths. Zero matches → First review: create the folder with the current local date-time and seed `DRAFT.md` from `docs/tasks/_template/DRAFT.md` — or, if that file doesn't exist yet (a project set up before review folders moved under `docs/tasks/`), from `../task-assets/assets/tasks/_template/DRAFT.md`, relative to this skill's base directory like the `reference/` paths — then fill in. One match → Re-review: its `DRAFT.md` is the starting draft, not a blank one; append new dated sections, never overwrite a prior round. More than one → ask the user which; don't guess.
 
-The file is gitignored (`docs/tasks/*` in the root `.gitignore`) — leaving it after Approval is harmless, nothing to clean up on the PR/MR side.
+Alongside it, seed `STATE.md` from `docs/tasks/_template/STATE.md` (same fallback path): `goal` reviewing the PR/MR, `source` its URL, `path: escalated`, `paths`/`out_of_scope` empty. `key_info` holds the round and the next step, overwritten at each stage: `round N drafted, awaiting Post or Edit` → `round N posted, awaiting author` → `final review` → `done: approved`. One dated log line per event, per `cairn:shared`. A Re-review folder made before review folders carried `STATE.md` gets one seeded on that round.
+
+The files are gitignored (`docs/tasks/*` in the root `.gitignore`) — leaving them after Approval is harmless, nothing to clean up on the PR/MR side.
 
 ## First review
 
