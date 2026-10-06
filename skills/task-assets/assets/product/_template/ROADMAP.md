@@ -1,4 +1,4 @@
-> Milestones in build order. Each becomes one or more tasks under `docs/tasks/`.
+> Milestones in build order. Each becomes an epic (a parent task with sub-tasks) or a single task under `docs/tasks/`.
 
 ## Status
 

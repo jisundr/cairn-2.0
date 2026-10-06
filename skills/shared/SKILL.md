@@ -13,7 +13,7 @@ A task folder's `STATE.md` has two parts. **Frontmatter** is the state read on r
 
 `docs/tasks/YYYY-MM-DD-HHMM-<kind>-slug/` (kinds per `cairn:scope`'s Escalated path), holding `REQUIREMENTS.md` and `STATE.md` — except a `review` folder, which holds `DRAFT.md` instead, per `review-pr`'s `reference/draft-template.md`; `PLAN.md` follows requirements. Working outputs (briefs, mockups, findings) sit loose in the same folder, or in a named subfolder when several cluster. A task too big for one PR splits into numbered sub-task folders (`01-<kind>-slug/`) inside it, each with its own `REQUIREMENTS.md`, `STATE.md`, branch and restated `out_of_scope`; only that sub-task's session writes them. A follow-on goal sourced from a doc in an existing folder nests there as its next sub-task, not a new top-level folder (a doc inside a sub-task nests inside it), per `cairn:scope` step 0. Sub-tasks run in parallel unless one names `depends_on`. Without worktree isolation (single-repo projects) they share one tree, where files touched only by convention (`plugin.json`, `CHANGELOG.md`) collide unlisted in any `paths`; give one sub-task sole ownership of that bump via `depends_on` on the rest.
 
-A parent with sub-tasks also gets `ROADMAP.md`, per `reference/roadmap.md`.
+A parent with sub-tasks also gets `EPIC.md`, per `reference/epic.md`.
 
 ## Running verification
 
@@ -27,5 +27,5 @@ Also measure the active task's `STATE.md` frontmatter — its own task folder, n
 |---|---|
 | reference/security-checklist.md | Reviewing a diff — check it against these categories alongside whatever the review already covers. |
 | reference/fix-lanes.md | Tagging a diff review's own reuse/simplification/efficiency findings, for human triage. |
-| reference/roadmap.md | Creating sub-tasks, or moving one to its next stage. |
+| reference/epic.md | Creating sub-tasks, or moving one to its next stage. |
 | reference/marker-task.md | A `SubagentStart` hook named your marker file and you hold a sub-task folder. |
