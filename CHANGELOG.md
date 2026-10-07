@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `CONTRIBUTING.md` (new): how to report a bug, set up a fork with submodules, follow the per-commit rules, run the gate, and install a working copy as a local marketplace. Bumped `plugin/.claude-plugin/plugin.json` 0.45.3 → 0.45.4 (patch).
+
 - `README.md`: the "What cairn writes" table lists `~/.claude/cairn/.jq-hint`, the flag file behind the one-time missing-`jq` hint. Bumped `plugin/.claude-plugin/plugin.json` 0.45.2 → 0.45.3 (patch).
 
 - `hooks/session-start.sh`: when `jq` is missing, it now says so once (flag file `~/.claude/cairn/.jq-hint`) instead of every hook silently doing nothing; one new selftest case covers the first-run hint and the silent second run. Bumped `plugin/.claude-plugin/plugin.json` 0.45.1 → 0.45.2 (patch).
