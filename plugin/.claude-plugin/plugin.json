@@ -1,7 +1,7 @@
 {
   "name": "cairn",
   "displayName": "Cairn",
-  "version": "0.45.12",
+  "version": "0.46.0",
   "description": "A lean, on-demand, non-invasive development workflow for Claude Code.",
   "author": {
     "name": "Jayson De los Reyes",

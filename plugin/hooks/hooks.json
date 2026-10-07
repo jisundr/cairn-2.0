@@ -1,5 +1,13 @@
 {
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Glob|Grep",
+        "hooks": [
+          { "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/allow-plugin-read.sh\"" }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [

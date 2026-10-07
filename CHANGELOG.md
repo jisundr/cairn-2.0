@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `hooks/allow-plugin-read.sh` (new) and its `PreToolUse` entry in `hooks/hooks.json`: Read, Glob and Grep calls whose path is inside the plugin's own folder are allowed without a prompt, so `/cairn-setup` and the skills can read their templates and references; in a headless run those reads were denied outright and setup stopped. Paths with `..`, look-alike sibling folders and every other tool get no decision, so normal permissions apply. Nine selftest cases. Found in a cold first-run test. Bumped `plugin/.claude-plugin/plugin.json` 0.45.12 → 0.46.0 (minor).
+
 - `skills/task-assets/assets/product/setup.md`: copying the seven product-doc templates into `docs/product/_template/` is now opt-in, asked once, since nothing in cairn reads that copy. Bumped `plugin/.claude-plugin/plugin.json` 0.45.11 → 0.45.12 (patch).
 
 - `skills/task-assets/assets/tasks/setup.md`: copying the task templates into `docs/tasks/_template/` is now opt-in (asked once; cairn seeds from its own copies otherwise), and the three `docs/tasks/*` ignore lines are shown as a suggestion instead of appended to the project's `.gitignore`, which the README lists as never written. Bumped `plugin/.claude-plugin/plugin.json` 0.45.10 → 0.45.11 (patch).
