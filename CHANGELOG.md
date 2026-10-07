@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/PRODUCT.md` brought up to date: the dashboard is mission-control (`/cairn-mc`, `mission-control/frontend/src`) rather than `cairn:cairn-tokens` / `token-metering/`; the version points at `plugin.json` instead of a stale `0.14.1`; the 18 → 4 agents / 10 → 10 skills figures are labelled as measured at the 2.0 rewrite, with today's counts beside them. Bumped `.claude-plugin/plugin.json` 0.44.3 → 0.44.4 (patch).
+
 - `README.md`: "What cairn writes" now lists `~/.claude/cairn/known-projects.json` and `pricing-check-state.json`, which `hooks/stop-mc.sh` writes at the end of each session; the "never written" line reads "anything else outside the repository root", and the teardown line says `~/.claude/cairn/` is removed by hand. Bumped `.claude-plugin/plugin.json` 0.44.2 → 0.44.3 (patch).
 
 - `.github/workflows/ci.yml`: the selftest step now runs `hooks/*.sh` and `skills/**/*.sh` as well as `tools/**/*.sh` (which matched nothing, so no hook selftest ever ran in CI), and checkout fetches submodules, since `hooks/stop-mc.sh --selftest` needs `mission-control/`. Bumped `.claude-plugin/plugin.json` 0.44.1 → 0.44.2 (patch).
