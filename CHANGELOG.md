@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated to include `.github/ISSUE_TEMPLATE/bug.yml`; always-loaded total unchanged at 2,682 B. Bumped `plugin/.claude-plugin/plugin.json` 0.45.8 → 0.45.9 (patch).
+
 - `plugin/.claude-plugin/plugin.json`: adds `homepage`, `license: MIT` and `keywords` so marketplace listings show where to read more and how cairn is licensed. Bumped `plugin/.claude-plugin/plugin.json` 0.45.7 → 0.45.8 (patch).
 
 - `plugin/LICENSE` (new): a copy of the root MIT license inside `plugin/`, since an install copies only that folder. Bumped `plugin/.claude-plugin/plugin.json` 0.45.6 → 0.45.7 (patch).
