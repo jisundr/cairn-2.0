@@ -29,7 +29,7 @@ Not every instruction is needed for every task. Loading everything up front wast
 **Examples**
 cairn 2.0 is built around this idea end to end:
 - In a consuming project, cairn leaves a single marker line in that project's `CLAUDE.md` — nothing else. The rest (`.harness/architecture.md`, `standards.md`, etc.) is only read when a skill actually needs it.
-- Inside a skill, `SKILL.md` stays small and holds a "Load when" table instead of the full content, e.g. `skills/review-pr/SKILL.md` points to `reference/draft-template.md` with the note "Drafting findings ... the format to present" — that reference file is only pulled in at that step, not at skill start.
+- Inside a skill, `SKILL.md` stays small and holds a "Load when" table instead of the full content, e.g. `plugin/skills/review-pr/SKILL.md` points to `reference/draft-template.md` with the note "Drafting findings ... the format to present" — that reference file is only pulled in at that step, not at skill start.
 - `tools/budget.py` enforces this split by checking skill *reference* files are actually named in their skill's "Load when" table (an orphaned reference file that's never linked is flagged as a bug — content sitting in the repo but not reachable on demand).
 
 **How to do it**

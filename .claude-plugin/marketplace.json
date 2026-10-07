@@ -5,7 +5,7 @@
   "plugins": [
     {
       "name": "cairn",
-      "source": ".",
+      "source": "./plugin",
       "description": "A lean, on-demand, non-invasive development workflow for Claude Code."
     }
   ]

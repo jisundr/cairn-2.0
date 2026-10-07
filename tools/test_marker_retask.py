@@ -1,11 +1,11 @@
-"""Runs the rewrite command from skills/shared/reference/marker-task.md against fixture markers."""
+"""Runs the rewrite command from plugin/skills/shared/reference/marker-task.md against fixture markers."""
 import json
 import os
 import re
 import subprocess
 from pathlib import Path
 
-REF = Path(__file__).resolve().parent.parent / "skills/shared/reference/marker-task.md"
+REF = Path(__file__).resolve().parent.parent / "plugin/skills/shared/reference/marker-task.md"
 NAME = "s1--a1.active"
 
 

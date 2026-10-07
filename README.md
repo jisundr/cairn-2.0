@@ -36,7 +36,7 @@ Three postures for running the same chain — not three separate chains:
 
 Unattended mode never publishes on its own — it stops once `reviewer` passes and leaves merging or opening a PR to you. To run one: confirm the launch once, then hand the task off to an isolated worktree, either through a headless Claude Code run you start yourself or a scheduled/triggered one. To check back in, just resume the task normally — a cold resume reads `STATE.md`, the stop marker in `key_info` explains why it stopped, and any `flags` list what it assumed along the way.
 
-See `skills/start/reference/unattended.md` for the details.
+See `plugin/skills/start/reference/unattended.md` for the details.
 
 ## What gets loaded, and when
 
@@ -73,4 +73,4 @@ Run `/cairn-teardown` any time to remove the marker block and `.cairn/` (delete 
 
 ## Developing cairn
 
-See [`CLAUDE.md`](CLAUDE.md) for the per-commit discipline, and `.harness/*.md` for this repo's own development standards.
+The plugin lives in [`plugin/`](plugin/), and that folder is all an install copies; `docs/`, `tools/` and the rest of the root are for developing cairn. See [`CLAUDE.md`](CLAUDE.md) for the per-commit discipline, and `.harness/*.md` for this repo's own development standards.

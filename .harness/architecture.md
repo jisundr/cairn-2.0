@@ -6,7 +6,7 @@
 - Node 22/npm — CI + frontend-build only, never a consuming-project runtime dependency
 
 ## Layering
-- Flat at repo root: `agents/`, `skills/`, `commands/`, `hooks/`, `tools/`, `docs/`
+- Plugin under `plugin/` (`agents/`, `skills/`, `commands/`, `hooks/`, `mission-control/`, `.claude-plugin/plugin.json`) — the only folder an install copies; `tools/`, `docs/`, `.harness/` at repo root
 - Subsystem files group under their own `tools/<name>/` dir rather than flattening into `tools/` root
 
 ## Boundaries

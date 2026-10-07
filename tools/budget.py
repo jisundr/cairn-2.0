@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 RUNTIME_DIRS = ("agents", "skills", "commands", "hooks")
+PLUGIN_DIR = "plugin"
 FORBIDDEN_WRITE_PATHS = (
     ".claude/settings.json",
     ".claude/settings.local.json",
@@ -43,6 +44,12 @@ def repo_root() -> Path:
             return p
         p = p.parent
     return Path(__file__).resolve().parent.parent
+
+
+def plugin_root(root):
+    """The plugin's own root: `plugin/` when it holds the manifest, else the repo root."""
+    p = root / PLUGIN_DIR
+    return p if (p / ".claude-plugin" / "plugin.json").exists() else root
 
 
 class Finding:
@@ -118,9 +125,13 @@ def scan(root):
     rows = []  # (path, measured, unit, load_class, headroom)
     always_loaded_total = 0
     agents = []  # (path, fields, tools set)
+    pre = plugin_root(root).relative_to(root).as_posix() + "/"
+    pre = "" if pre == "./" else pre
 
     for path, rel in all_files(root):
-        if rel.startswith("agents/") and rel.endswith(".md") and rel.count("/") == 1:
+        # prel: path relative to the plugin root, or "" for files outside it
+        prel = rel[len(pre):] if rel.startswith(pre) else ""
+        if prel.startswith("agents/") and prel.endswith(".md") and prel.count("/") == 1:
             text = read_text(path)
             fields, body = parse_frontmatter(text)
             desc = fields.get("description", "")
@@ -135,7 +146,7 @@ def scan(root):
             agents.append((rel, fields, tools))
             continue
 
-        if fnmatch.fnmatch(rel, "skills/*/SKILL.md"):
+        if fnmatch.fnmatch(prel, "skills/*/SKILL.md"):
             text = read_text(path)
             fields, _ = parse_frontmatter(text)
             size = len(text.encode())
@@ -145,13 +156,13 @@ def scan(root):
             always_loaded_total += desc_bytes
             continue
 
-        if fnmatch.fnmatch(rel, "skills/*/reference/*.md"):
+        if fnmatch.fnmatch(prel, "skills/*/reference/*.md"):
             size = len(read_text(path).encode())
             findings += cap_check("skill-reference", rel, size, "B", 6000, 8192)
             rows.append((rel, size, "B", "on-demand", headroom(size, 8192)))
             continue
 
-        if fnmatch.fnmatch(rel, "commands/*.md"):
+        if fnmatch.fnmatch(prel, "commands/*.md"):
             text = read_text(path)
             fields, _ = parse_frontmatter(text)
             size = len(text.encode())
@@ -160,7 +171,7 @@ def scan(root):
             always_loaded_total += len(fields.get("description", "").encode())
             continue
 
-        if fnmatch.fnmatch(rel, "hooks/*"):
+        if fnmatch.fnmatch(prel, "hooks/*"):
             size = len(read_text(path).encode()) if is_text_file(path) else path.stat().st_size
             findings += cap_check("hook-script", rel, size, "B", 1500, 2048)
             rows.append((rel, size, "B", "executed", headroom(size, 2048)))
@@ -189,7 +200,7 @@ def scan(root):
             findings += cap_check("task-state", rel, size, "B", 800, 1024)
             continue
 
-        if rel == "skills/task-assets/assets/claude-md-marker.md":
+        if prel == "skills/task-assets/assets/claude-md-marker.md":
             size = len(read_text(path).encode())
             findings += cap_check("claude-md-marker", rel, size, "B", 250, 400)
             rows.append((rel, size, "B", "on-demand", headroom(size, 400)))
@@ -201,7 +212,7 @@ def scan(root):
             rows.append((rel, size, "B", "always-loaded (this repo)", headroom(size, 4096)))
             continue
 
-        if rel.endswith(".md") and (rel.startswith("skills/") or rel.startswith("commands/")):
+        if prel.endswith(".md") and (prel.startswith("skills/") or prel.startswith("commands/")):
             size = len(read_text(path).encode())
             findings += cap_check("runtime-md-catchall", rel, size, "B", None, 8192)
             rows.append((rel, size, "B", "on-demand", headroom(size, 8192)))
@@ -241,7 +252,7 @@ def check_at_imports(root):
 
 def check_reference_tables(root):
     findings = []
-    skills_dir = root / "skills"
+    skills_dir = plugin_root(root) / "skills"
     if not skills_dir.exists():
         return findings
     for skill_dir in sorted(p for p in skills_dir.iterdir() if p.is_dir()):
@@ -261,7 +272,7 @@ def check_reference_tables(root):
 def check_placeholders(root):
     findings = []
     for d in RUNTIME_DIRS:
-        base = root / d
+        base = plugin_root(root) / d
         if not base.exists():
             continue
         for path in sorted(base.rglob("*")):
@@ -278,7 +289,7 @@ def check_placeholders(root):
 def check_mandate_language(root):
     findings = []
     for d in RUNTIME_DIRS:
-        base = root / d
+        base = plugin_root(root) / d
         if not base.exists():
             continue
         for path in sorted(base.rglob("*")):
@@ -301,7 +312,7 @@ def check_registry(root, agents):
         return findings
     if not registry_path.exists():
         return [Finding("agent-tool-registry", "docs/REGISTRY.md", "error",
-                         "missing while agent files exist under agents/")]
+                         "missing while agent files exist under the plugin's agents/")]
     text = read_text(registry_path)
     sections = {}
     current = None
@@ -350,7 +361,7 @@ def check_shell_selftest(root):
 def check_forbidden_paths(root):
     findings = []
     for d in RUNTIME_DIRS:
-        base = root / d
+        base = plugin_root(root) / d
         if not base.exists():
             continue
         for path in sorted(base.rglob("*")):

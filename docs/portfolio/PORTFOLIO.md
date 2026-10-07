@@ -4,7 +4,7 @@ External-evaluation material for cairn 2.0. Every claim below traces to a file, 
 
 ## What it is
 
-cairn is a Claude Code plugin that gives a software project a governed AI development workflow — a fixed `builder → reviewer` pipeline (with an opt-in `planner` and `scribe`), run under a disclosed, enforced token budget, that reads a project's own rules instead of imposing its own conventions, and that can be removed without a trace (`README.md`). It ships as a single plugin (version in `.claude-plugin/plugin.json`), plus a bundled sub-application — mission-control, a local token-usage dashboard (`mission-control/` submodule, `/cairn-mc`) — with its own Python backend, frontend, and test suite.
+cairn is a Claude Code plugin that gives a software project a governed AI development workflow — a fixed `builder → reviewer` pipeline (with an opt-in `planner` and `scribe`), run under a disclosed, enforced token budget, that reads a project's own rules instead of imposing its own conventions, and that can be removed without a trace (`README.md`). It ships as a single plugin (version in `plugin/.claude-plugin/plugin.json`), plus a bundled sub-application — mission-control, a local token-usage dashboard (`plugin/mission-control/` submodule, `/cairn-mc`) — with its own Python backend, frontend, and test suite.
 
 ## Role classification
 
