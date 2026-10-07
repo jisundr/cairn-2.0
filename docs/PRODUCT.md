@@ -27,7 +27,7 @@ Unlike heavier agent-orchestration frameworks that add persistent scaffolding, d
 - Two workflow paths: a two-hop default (`builder` → `reviewer` → PR) and an opt-in escalated path (`planner` → `builder` → `reviewer` → PR) for changes that span submodules, alter a published contract, or can't be described in two sentences.
 - Three attendance postures over the same chain: interactive, attended, and unattended (escalated-path only; stops at `done` / `needs-human` / `stalled`; never auto-publishes).
 - `/cairn-teardown` reverses installation, removing the marker block and `.cairn/` and reporting exactly what's left behind and why.
-- Ships one optional feature, a local token-metering dashboard, mission-control (`/cairn-mc`, shipped as the `mission-control/` submodule), for a solo developer checking their own Claude Code session cost/token usage in a browser. It has its own established visual system, design record, and audience distinct from cairn's own marketing surfaces — see `mission-control/frontend/src` and the dashboard's design record; do not fold its "clean minimal SaaS" instrument-panel language into a cairn-brand surface, and do not let cairn-brand work edit its components.
+- Ships one optional feature, a local token-metering dashboard, mission-control (`/cairn-mc`, shipped as the `mission-control/` submodule), for a solo developer checking their own Claude Code session cost/token usage in a browser. Its visual system extends the landing page's Lockfile world into a live dashboard and has its own design record (`docs/DESIGN.md`, app at `mission-control/frontend/src`); landing-page work edits `docs/marketing/DESIGN-landing.md`, not the dashboard's record or components.
 
 ## Capabilities and Constraints
 
