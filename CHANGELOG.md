@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `plugin/LICENSE` (new): a copy of the root MIT license inside `plugin/`, since an install copies only that folder. Bumped `plugin/.claude-plugin/plugin.json` 0.45.6 → 0.45.7 (patch).
+
 - `LICENSE` (new): MIT, so others can use, fork and redistribute cairn. Bumped `plugin/.claude-plugin/plugin.json` 0.45.5 → 0.45.6 (patch).
 
 - `.github/ISSUE_TEMPLATE/bug.yml` (new): bug-report form asking for what happened, cairn version, OS and Claude Code version, and `/cairn-doctor` output. Bumped `plugin/.claude-plugin/plugin.json` 0.45.4 → 0.45.5 (patch).
