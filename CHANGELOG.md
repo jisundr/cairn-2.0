@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `commands/cairn-review-pr.md`: description trimmed 158 → 114 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.7 → 0.44.8 (patch).
+
 - `skills/requirements/SKILL.md`: description trimmed 175 → 136 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.6 → 0.44.7 (patch).
 
 - `skills/review-pr/SKILL.md`: description trimmed 203 → 144 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.5 → 0.44.6 (patch).

@@ -1,5 +1,5 @@
 ---
-description: Reviews an open PR/MR — code-review findings plus cairn's security checklist and fix-lane tags, drafted and gated behind confirmation before anything posts.
+description: Reviews an open PR/MR with cairn's security checklist and fix-lane tags; drafts first, posts only on confirmation.
 argument-hint: <PR/MR URL>
 ---
 
