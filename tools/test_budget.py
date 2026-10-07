@@ -273,3 +273,33 @@ def test_report_splits_consuming_project_table(tmp_path):
 def test_clean_repo_exits_zero(tmp_path):
     findings, *_ = budget.gather_findings(tmp_path)
     assert errs(findings) == []
+
+
+def plugin_layout(tmp_path):
+    w(tmp_path, "plugin/.claude-plugin/plugin.json", '{"name": "cairn", "version": "0.0.0"}')
+    w(tmp_path, "docs/REGISTRY.md", "## builder\n- Read — baseline\n- Write — authors code\n")
+
+
+def test_plugin_subfolder_caps_and_totals(tmp_path):
+    plugin_layout(tmp_path)
+    w(tmp_path, "plugin/agents/builder.md", agent_md(description="x" * 400))
+    w(tmp_path, "plugin/commands/setup.md", "---\ndescription: dddd\n---\nbody\n")
+    findings, rows, total = budget.gather_findings(tmp_path)
+    assert any(f.rule == "agent-description" and f.path == "plugin/agents/builder.md" for f in errs(findings))
+    assert total == 404
+
+
+def test_plugin_subfolder_runtime_checks(tmp_path):
+    plugin_layout(tmp_path)
+    w(tmp_path, "plugin/agents/builder.md", agent_md(body="You MUST verify. <placeholder>"))
+    w(tmp_path, "plugin/skills/foo/SKILL.md", "---\nname: foo\ndescription: d\n---\nno table\n")
+    w(tmp_path, "plugin/skills/foo/reference/orphan.md", "content")
+    rules = {f.rule for f in errs(budget.gather_findings(tmp_path)[0])}
+    assert {"no-mandate-language", "no-placeholders", "reference-table-orphan"} <= rules
+
+
+def test_root_agents_ignored_when_plugin_subfolder_exists(tmp_path):
+    plugin_layout(tmp_path)
+    w(tmp_path, "agents/builder.md", agent_md(description="x" * 400))
+    _, _, total, agents = budget.scan(tmp_path)
+    assert agents == [] and total == 0

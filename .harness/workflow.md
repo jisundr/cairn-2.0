@@ -6,10 +6,10 @@
 ## Commits / PR
 - One artifact per commit + its `docs/REGISTRY.md` line (if it adds an agent) + `CHANGELOG.md` entry — never a sweep
 - `CHANGELOG.md` is main-thread-owned by convention — no agent can write repo root (`scribe` is restricted to `docs/`)
-- Bump `.claude-plugin/plugin.json` version on every commit, including docs-only — the marketplace re-syncs a consuming project's install on version change, not on content diff, so an un-bumped change never reaches installs. Patch for docs/fixes, minor for a new capability.
+- Bump `plugin/.claude-plugin/plugin.json` version on every commit, including docs-only — the marketplace re-syncs a consuming project's install on version change, not on content diff, so an un-bumped change never reaches installs. Patch for docs/fixes, minor for a new capability.
 - A `mission-control` change lands as its own commit in that submodule, pushed, then registered here as a separate commit: bump the gitlink, bump the version, add the `CHANGELOG.md` entry
 
 ## Gates
 - `python tools/budget.py` clean after every file
-- Phase-end: `budget.py` + `pytest tools/` + `for s in hooks/*.sh; do "$s" --selftest; done` + `budget.py --report`
+- Phase-end: `budget.py` + `pytest tools/` + `for s in plugin/hooks/*.sh; do "$s" --selftest; done` + `budget.py --report`
 - No mandate language (MUST/ALWAYS/NEVER/MANDATORY/NON-NEGOTIABLE) in shipped artifacts
