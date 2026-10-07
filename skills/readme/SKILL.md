@@ -1,6 +1,6 @@
 ---
 name: readme
-description: Structure for a README under docs/ — what it is, how to use it, how it's configured. Loaded by scribe when asked for a README.
+description: README structure under docs/ — what it is, usage, configuration. Loaded by scribe for a README.
 ---
 
 # cairn:readme
@@ -19,4 +19,4 @@ The steps or commands someone actually needs to use it.
 
 Any options, flags, or files that change its behavior — omit if there are none.
 
-Lead with what a reader needs in the next five minutes, not a history of decisions.
+Lead with what a reader needs in the next five minutes, not a history of decisions. A picture that earns its place — a real flow, a multi-component layout — follows `cairn:diagrams`.
