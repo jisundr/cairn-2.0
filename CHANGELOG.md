@@ -4,6 +4,18 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated for the new hook and the setup edits. Bumped `plugin/.claude-plugin/plugin.json` 0.46.1 → 0.46.2 (patch).
+
+- `README.md`: the "What cairn writes" table lists the bare `CLAUDE.md` setup can now offer, `docs/BUDGET.md` (written by setup but missing from the table), and the opt-in template copies under `docs/tasks/_template/` and `docs/product/_template/`. Bumped `plugin/.claude-plugin/plugin.json` 0.46.0 → 0.46.1 (patch).
+
+- `hooks/allow-plugin-read.sh` (new) and its `PreToolUse` entry in `hooks/hooks.json`: Read, Glob and Grep calls whose path is inside the plugin's own folder are allowed without a prompt, so `/cairn-setup` and the skills can read their templates and references; in a headless run those reads were denied outright and setup stopped. Paths with `..`, look-alike sibling folders and every other tool get no decision, so normal permissions apply. Nine selftest cases. Found in a cold first-run test. Bumped `plugin/.claude-plugin/plugin.json` 0.45.12 → 0.46.0 (minor).
+
+- `skills/task-assets/assets/product/setup.md`: copying the seven product-doc templates into `docs/product/_template/` is now opt-in, asked once, since nothing in cairn reads that copy. Bumped `plugin/.claude-plugin/plugin.json` 0.45.11 → 0.45.12 (patch).
+
+- `skills/task-assets/assets/tasks/setup.md`: copying the task templates into `docs/tasks/_template/` is now opt-in (asked once; cairn seeds from its own copies otherwise), and the three `docs/tasks/*` ignore lines are shown as a suggestion instead of appended to the project's `.gitignore`, which the README lists as never written. Bumped `plugin/.claude-plugin/plugin.json` 0.45.10 → 0.45.11 (patch).
+
+- `commands/cairn-setup.md`: a project with no root `CLAUDE.md` no longer dead-ends at step 1; setup offers to create a bare one (a single `# <repo folder name>` line, shown first) or to stop so the user writes their own, and creates it only on confirmation. Found in a cold first-run test. Bumped `plugin/.claude-plugin/plugin.json` 0.45.9 → 0.45.10 (patch).
+
 - `docs/BUDGET.md` regenerated to include `.github/ISSUE_TEMPLATE/bug.yml`; always-loaded total unchanged at 2,682 B. Bumped `plugin/.claude-plugin/plugin.json` 0.45.8 → 0.45.9 (patch).
 
 - `plugin/.claude-plugin/plugin.json`: adds `homepage`, `license: MIT` and `keywords` so marketplace listings show where to read more and how cairn is licensed. Bumped `plugin/.claude-plugin/plugin.json` 0.45.7 → 0.45.8 (patch).

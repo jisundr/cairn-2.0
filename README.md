@@ -87,8 +87,11 @@ In a consuming project, cairn writes **only** the paths below — everything els
 
 | Path | When | Whose content |
 |---|---|---|
+| A bare root `CLAUDE.md` (one `# <folder>` line) | `/cairn-setup`, only if none exists and you confirm | your project's |
 | One marker block in root `CLAUDE.md` | `/cairn-setup`, on confirmation | cairn's, and cleanly removable |
 | `.harness/*.md` | `/cairn-setup` or `/cairn-retro`, per-rule confirmation | your project's — cairn drafts it, your team owns it |
+| `docs/BUDGET.md` | `/cairn-setup`, alongside `.harness/` | your project's — line counts and caps for the harness files |
+| `docs/tasks/_template/`, `docs/product/_template/` | `/cairn-setup`, only if you say yes | your project's — editable copies of cairn's templates |
 | `.harness/local/` | `/cairn-setup --local`, on confirmation | this developer's — never committed |
 | `docs/tasks/<slug>/` | escalated path only | your project's |
 | `.cairn/` | runtime state | cairn's, and self-ignoring |
