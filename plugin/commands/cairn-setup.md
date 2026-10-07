@@ -9,7 +9,7 @@ Templates: `${CLAUDE_PLUGIN_ROOT}/skills/task-assets/assets/` (relative below).
 
 ## Default mode
 
-1. No root `CLAUDE.md` → say so, stop; never creates one.
+1. No root `CLAUDE.md` → ask: create a bare one (`# <repo folder name>`, shown first), or stop so the user writes one (or runs `/init`). No answer → stop.
 2. `CLAUDE.md` already has `<!-- cairn:start -->` → skip to 4.
 3. Else read `claude-md-marker.md`, show it, ask before appending (blank line first if needed).
 4. Follow `harness-generation.md` to observe, confirm, and write the four harness files plus `docs/BUDGET.md`; also covers the bare-`<path>` variant.
