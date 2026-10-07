@@ -1,5 +1,5 @@
 ---
-description: Reports plugin version, marker/harness/.cairn/roster state, and the local layer line by line. Read-only — installs, fixes, and gates nothing.
+description: Read-only report: plugin version, marker/harness/.cairn/roster state, and the local layer. Fixes nothing.
 ---
 
 Read-only. Never writes, never blocks. Local-layer rules: `${CLAUDE_PLUGIN_ROOT}/skills/task-assets/assets/local-layer-classification.md`.

@@ -4,6 +4,28 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/portfolio/PORTFOLIO.md`: names mission-control (`mission-control/` submodule, `/cairn-mc`) instead of `token-metering/` / `tools/tokens/`, points at `plugin.json` for the version instead of `0.14.5` and a commit count, and describes what CI runs today in place of the removed vendoring-drift check. Bumped `.claude-plugin/plugin.json` 0.44.14 → 0.44.15 (patch).
+
+- `docs/PRODUCT.md`: the mission-control line says its design extends the landing page's Lockfile world with its own record in `docs/DESIGN.md`, dropping the retired "clean minimal SaaS" instruction. Bumped `.claude-plugin/plugin.json` 0.44.13 → 0.44.14 (patch).
+
+- `docs/marketing/DESIGN-landing.md`: the scope note says the mission-control dashboard (`mission-control/frontend/src`) now shares this file's Lockfile world, as `docs/DESIGN.md` records, instead of describing token-metering's retired "Clean Minimal SaaS" system as a separate world; the two records still stay separate files. Bumped `.claude-plugin/plugin.json` 0.44.12 → 0.44.13 (patch).
+
+- `docs/README.md`: the PRODUCT.md and DESIGN.md rows name mission-control and `mission-control/frontend/src` instead of `token-metering/`, and say DESIGN.md carries the landing page's Lockfile world rather than a separate one, matching DESIGN.md itself. Bumped `.claude-plugin/plugin.json` 0.44.11 → 0.44.12 (patch).
+
+- `commands/cairn-retro.md`: description trimmed 139 → 109 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.10 → 0.44.11 (patch).
+
+- `commands/cairn-doctor.md`: description trimmed 143 → 105 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.9 → 0.44.10 (patch).
+
+- `skills/scope/SKILL.md`: description trimmed 157 → 133 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.8 → 0.44.9 (patch).
+
+- `commands/cairn-review-pr.md`: description trimmed 158 → 114 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.7 → 0.44.8 (patch).
+
+- `skills/requirements/SKILL.md`: description trimmed 175 → 136 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.6 → 0.44.7 (patch).
+
+- `skills/review-pr/SKILL.md`: description trimmed 203 → 144 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.5 → 0.44.6 (patch).
+
+- `skills/brainstorm/SKILL.md`: description trimmed 251 → 171 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.4 → 0.44.5 (patch).
+
 - `docs/PRODUCT.md` brought up to date: the dashboard is mission-control (`/cairn-mc`, `mission-control/frontend/src`) rather than `cairn:cairn-tokens` / `token-metering/`; the version points at `plugin.json` instead of a stale `0.14.1`; the 18 → 4 agents / 10 → 10 skills figures are labelled as measured at the 2.0 rewrite, with today's counts beside them. Bumped `.claude-plugin/plugin.json` 0.44.3 → 0.44.4 (patch).
 
 - `README.md`: "What cairn writes" now lists `~/.claude/cairn/known-projects.json` and `pricing-check-state.json`, which `hooks/stop-mc.sh` writes at the end of each session; the "never written" line reads "anything else outside the repository root", and the teardown line says `~/.claude/cairn/` is removed by hand. Bumped `.claude-plugin/plugin.json` 0.44.2 → 0.44.3 (patch).

@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: Reviews an open PR/MR from the main thread — delegates finding-work to the native code-review skill, checks cairn's security checklist and fix-lane tags, and gates posting behind explicit confirmation.
+description: Reviews an open PR/MR — native code-review findings plus cairn's security checklist and fix-lane tags; posts only after explicit confirmation.
 ---
 
 # cairn:review-pr

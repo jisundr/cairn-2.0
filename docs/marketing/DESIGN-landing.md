@@ -77,7 +77,7 @@ components:
 
 # Design System: cairn — Public Landing Page
 
-**Scope of this file.** Governs `docs/marketing/index.html` only — cairn's public GitHub Pages landing/overview page. This is a deliberately separate visual world from the token-metering dashboard documented in `docs/DESIGN.md` (React/Tailwind app at `token-metering/frontend/src`, "Clean Minimal SaaS" world: Public Sans + Martian Mono, indigo accent, no-shadow rule). Per `docs/PRODUCT.md`'s explicit instruction, cairn-brand work must never edit the dashboard's components or fold its language into this one, and this file must never be merged into or overwrite `docs/DESIGN.md`'s dashboard record. If a future cairn-brand surface joins this landing page, extend this file; the dashboard's file and world stay untouched.
+**Scope of this file.** Governs `docs/marketing/index.html` only — cairn's public GitHub Pages landing/overview page. The mission-control dashboard (`docs/DESIGN.md`, React/Tailwind app at `mission-control/frontend/src`) now carries this file's Lockfile world into a live-data surface, replacing token-metering's earlier "Clean Minimal SaaS" system. The two records stay separate files: this one governs the landing page, `docs/DESIGN.md` governs the dashboard, and neither is merged into the other. If a future cairn-brand surface joins this landing page, extend this file.
 
 ## Overview
 
