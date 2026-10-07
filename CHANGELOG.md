@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/portfolio/PORTFOLIO.md`: names mission-control (`mission-control/` submodule, `/cairn-mc`) instead of `token-metering/` / `tools/tokens/`, points at `plugin.json` for the version instead of `0.14.5` and a commit count, and describes what CI runs today in place of the removed vendoring-drift check. Bumped `.claude-plugin/plugin.json` 0.44.14 → 0.44.15 (patch).
+
 - `docs/PRODUCT.md`: the mission-control line says its design extends the landing page's Lockfile world with its own record in `docs/DESIGN.md`, dropping the retired "clean minimal SaaS" instruction. Bumped `.claude-plugin/plugin.json` 0.44.13 → 0.44.14 (patch).
 
 - `docs/marketing/DESIGN-landing.md`: the scope note says the mission-control dashboard (`mission-control/frontend/src`) now shares this file's Lockfile world, as `docs/DESIGN.md` records, instead of describing token-metering's retired "Clean Minimal SaaS" system as a separate world; the two records still stay separate files. Bumped `.claude-plugin/plugin.json` 0.44.12 → 0.44.13 (patch).
