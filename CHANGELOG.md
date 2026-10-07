@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `skills/review-pr/SKILL.md`: description trimmed 203 → 144 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.5 → 0.44.6 (patch).
+
 - `skills/brainstorm/SKILL.md`: description trimmed 251 → 171 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.4 → 0.44.5 (patch).
 
 - `docs/PRODUCT.md` brought up to date: the dashboard is mission-control (`/cairn-mc`, `mission-control/frontend/src`) rather than `cairn:cairn-tokens` / `token-metering/`; the version points at `plugin.json` instead of a stale `0.14.1`; the 18 → 4 agents / 10 → 10 skills figures are labelled as measured at the 2.0 rewrite, with today's counts beside them. Bumped `.claude-plugin/plugin.json` 0.44.3 → 0.44.4 (patch).
