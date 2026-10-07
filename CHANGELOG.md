@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/marketing/DESIGN-landing.md`: the scope note says the mission-control dashboard (`mission-control/frontend/src`) now shares this file's Lockfile world, as `docs/DESIGN.md` records, instead of describing token-metering's retired "Clean Minimal SaaS" system as a separate world; the two records still stay separate files. Bumped `.claude-plugin/plugin.json` 0.44.12 → 0.44.13 (patch).
+
 - `docs/README.md`: the PRODUCT.md and DESIGN.md rows name mission-control and `mission-control/frontend/src` instead of `token-metering/`, and say DESIGN.md carries the landing page's Lockfile world rather than a separate one, matching DESIGN.md itself. Bumped `.claude-plugin/plugin.json` 0.44.11 → 0.44.12 (patch).
 
 - `commands/cairn-retro.md`: description trimmed 139 → 109 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.10 → 0.44.11 (patch).
