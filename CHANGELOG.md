@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `.github/workflows/ci.yml`: the selftest step now runs `hooks/*.sh` and `skills/**/*.sh` as well as `tools/**/*.sh` (which matched nothing, so no hook selftest ever ran in CI), and checkout fetches submodules, since `hooks/stop-mc.sh --selftest` needs `mission-control/`. Bumped `.claude-plugin/plugin.json` 0.44.1 → 0.44.2 (patch).
+
 - `.gitmodules`: the `mission-control` submodule URL switches from SSH (`git@github.com:…`) to HTTPS, so a clone, CI checkout or plugin install without GitHub SSH keys can still fetch it. Bumped `.claude-plugin/plugin.json` 0.44.0 → 0.44.1 (patch).
 
 ## 2026-10-07
