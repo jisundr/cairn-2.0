@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/README.md`: the PRODUCT.md and DESIGN.md rows name mission-control and `mission-control/frontend/src` instead of `token-metering/`, and say DESIGN.md carries the landing page's Lockfile world rather than a separate one, matching DESIGN.md itself. Bumped `.claude-plugin/plugin.json` 0.44.11 → 0.44.12 (patch).
+
 - `commands/cairn-retro.md`: description trimmed 139 → 109 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.10 → 0.44.11 (patch).
 
 - `commands/cairn-doctor.md`: description trimmed 143 → 105 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.9 → 0.44.10 (patch).
