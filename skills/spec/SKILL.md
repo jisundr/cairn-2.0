@@ -1,6 +1,6 @@
 ---
 name: spec
-description: Structure for a design/spec document — architecture, components, data flow, error handling, testing. Loaded by scribe when asked for a spec or design doc.
+description: Spec/design doc structure — architecture, components, data flow, errors, testing. Loaded by scribe.
 ---
 
 # cairn:spec
@@ -17,7 +17,7 @@ Each piece: what it does, how it's used, what it depends on.
 
 ## Data flow
 
-How information moves through the components.
+How information moves through the components. A flow with branches, or a layout of several components, gets a diagram per `cairn:diagrams`; one a short list carries stays a list.
 
 ## Error handling
 

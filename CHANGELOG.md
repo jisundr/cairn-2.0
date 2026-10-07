@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-07
 
+- `skills/spec/SKILL.md`: Data flow now sends a flow with branches, or a multi-component layout, to `cairn:diagrams`, and leaves what a short list carries as a list. Description trimmed 156 → 101 B to fund the new skill's description under the 3,000 B always-loaded ceiling (#11). Bumped `.claude-plugin/plugin.json` 0.43.2 → 0.43.3 (patch).
+
 - `mission-control` gitlink advanced `347b22b` → `4ac8081` (jisundr/cairn-2.0-mission-control#1): a `review`-kind task folder sits in the Kanban's In review column (after done/blocked/awaiting approval) rather than Scoping for lacking a `PLAN.md`, and the drawer's Docs tab hides only the file the Details tab already shows, so `DRAFT.md` stays visible once a review folder carries `STATE.md`. Bumped `.claude-plugin/plugin.json` 0.43.1 → 0.43.2 (patch).
 
 - Readers of review folders follow suit: `skills/shared/SKILL.md`'s stage inference puts a `review` folder in review (after done/blocked/awaiting approval) instead of scoping for lacking a `PLAN.md`, and its task-folder line says `DRAFT.md` stands in for requirements, not for `STATE.md` (two parentheticals trimmed to stay under the 4,096 B cap); `skills/start/reference/resume.md` never offers a `review` folder for resume, `STATE.md` or not; `commands/cairn-triage.md` keeps its `DRAFT.md`-only trailing line for older review folders. Mission-control's matching change is jisundr/cairn-2.0-mission-control#1; the gitlink bump follows its merge. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.43.0 → 0.43.1 (patch).
