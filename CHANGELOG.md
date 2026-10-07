@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated for the new hook and the setup edits. Bumped `plugin/.claude-plugin/plugin.json` 0.46.1 → 0.46.2 (patch).
+
 - `README.md`: the "What cairn writes" table lists the bare `CLAUDE.md` setup can now offer, `docs/BUDGET.md` (written by setup but missing from the table), and the opt-in template copies under `docs/tasks/_template/` and `docs/product/_template/`. Bumped `plugin/.claude-plugin/plugin.json` 0.46.0 → 0.46.1 (patch).
 
 - `hooks/allow-plugin-read.sh` (new) and its `PreToolUse` entry in `hooks/hooks.json`: Read, Glob and Grep calls whose path is inside the plugin's own folder are allowed without a prompt, so `/cairn-setup` and the skills can read their templates and references; in a headless run those reads were denied outright and setup stopped. Paths with `..`, look-alike sibling folders and every other tool get no decision, so normal permissions apply. Nine selftest cases. Found in a cold first-run test. Bumped `plugin/.claude-plugin/plugin.json` 0.45.12 → 0.46.0 (minor).
