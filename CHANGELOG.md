@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `skills/task-assets/assets/tasks/setup.md`: copying the task templates into `docs/tasks/_template/` is now opt-in (asked once; cairn seeds from its own copies otherwise), and the three `docs/tasks/*` ignore lines are shown as a suggestion instead of appended to the project's `.gitignore`, which the README lists as never written. Bumped `plugin/.claude-plugin/plugin.json` 0.45.10 → 0.45.11 (patch).
+
 - `commands/cairn-setup.md`: a project with no root `CLAUDE.md` no longer dead-ends at step 1; setup offers to create a bare one (a single `# <repo folder name>` line, shown first) or to stop so the user writes their own, and creates it only on confirmation. Found in a cold first-run test. Bumped `plugin/.claude-plugin/plugin.json` 0.45.9 → 0.45.10 (patch).
 
 - `docs/BUDGET.md` regenerated to include `.github/ISSUE_TEMPLATE/bug.yml`; always-loaded total unchanged at 2,682 B. Bumped `plugin/.claude-plugin/plugin.json` 0.45.8 → 0.45.9 (patch).
