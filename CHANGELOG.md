@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-07
 
+- New `cairn:diagrams` skill (#11), loaded by `scribe` when a doc needs a picture: says when a diagram earns its place over a list; Mermaid `<name>.mmd` → `<name>.svg` for flows and decisions, a dependency-free `<name>.gen.mjs` for layout-heavy architecture, both in a `diagrams/` folder beside the doc; colors, fonts and spacing from the project's design system (`docs/DESIGN.md` tokens) via `mermaid.config.json` and a shared `theme.mjs`, else a neutral default palette; labels taken from the code and doc text; each diagram linked with alt text and a one-line `<!-- regenerate: … -->` note. `scribe` has no `Bash`, so it hands back the render commands for the main thread. `reference/starters.md` carries the config, theme and generator starters (all three run as shipped); `stale.sh` (with `--selftest`) lists every SVG older than its source by last commit time, an uncommitted source edit counting as newer, and exits 1 if any. Always-loaded total 2,996 / 3,000 B. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.43.4 → 0.44.0 (minor).
+
 - `skills/readme/SKILL.md`: a picture that earns its place (a real flow, a multi-component layout) follows `cairn:diagrams`. Description trimmed 128 → 97 B for the same ceiling (#11). Bumped `.claude-plugin/plugin.json` 0.43.3 → 0.43.4 (patch).
 
 - `skills/spec/SKILL.md`: Data flow now sends a flow with branches, or a multi-component layout, to `cairn:diagrams`, and leaves what a short list carries as a list. Description trimmed 156 → 101 B to fund the new skill's description under the 3,000 B always-loaded ceiling (#11). Bumped `.claude-plugin/plugin.json` 0.43.2 → 0.43.3 (patch).
