@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `README.md`: new "Your first five minutes" section walking a new user through `/cairn-setup` (each question it asks), committing `.harness/`, a first change on the default path, and when the escalated path kicks in, based on a cold first-run test. Bumped `plugin/.claude-plugin/plugin.json` 0.46.2 → 0.46.3 (patch).
+
 - `docs/BUDGET.md` regenerated for the new hook and the setup edits. Bumped `plugin/.claude-plugin/plugin.json` 0.46.1 → 0.46.2 (patch).
 
 - `README.md`: the "What cairn writes" table lists the bare `CLAUDE.md` setup can now offer, `docs/BUDGET.md` (written by setup but missing from the table), and the opt-in template copies under `docs/tasks/_template/` and `docs/product/_template/`. Bumped `plugin/.claude-plugin/plugin.json` 0.46.0 → 0.46.1 (patch).
