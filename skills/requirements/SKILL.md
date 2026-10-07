@@ -1,6 +1,6 @@
 ---
 name: requirements
-description: Structure for a requirements document — problem, goals, non-goals, stakeholders, constraints, open questions, success criteria. Loaded by scribe when asked for requirements.
+description: Requirements doc structure — problem, goals, non-goals, stakeholders, constraints, open questions, success criteria. Loaded by scribe.
 ---
 
 # cairn:requirements
