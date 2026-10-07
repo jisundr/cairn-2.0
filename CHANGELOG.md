@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `README.md`: the "What cairn writes" table lists `~/.claude/cairn/.jq-hint`, the flag file behind the one-time missing-`jq` hint. Bumped `plugin/.claude-plugin/plugin.json` 0.45.2 → 0.45.3 (patch).
+
 - `hooks/session-start.sh`: when `jq` is missing, it now says so once (flag file `~/.claude/cairn/.jq-hint`) instead of every hook silently doing nothing; one new selftest case covers the first-run hint and the silent second run. Bumped `plugin/.claude-plugin/plugin.json` 0.45.1 → 0.45.2 (patch).
 
 - `README.md`: adds a Requirements table (`bash`, `jq`, `python3` ≥ 3.10, `git`, optional `gh`/`glab`, what breaks without each, and Git Bash or WSL on Windows) and a Commands table naming all eight slash commands, so a new user can install and find their way without reading the source. Bumped `plugin/.claude-plugin/plugin.json` 0.45.0 → 0.45.1 (patch).

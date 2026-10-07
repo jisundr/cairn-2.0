@@ -93,6 +93,7 @@ In a consuming project, cairn writes **only** the paths below — everything els
 | `docs/tasks/<slug>/` | escalated path only | your project's |
 | `.cairn/` | runtime state | cairn's, and self-ignoring |
 | `~/.claude/cairn/known-projects.json`, `pricing-check-state.json` | end of each session in a cairn project | cairn's — the list of projects `/cairn-mc` shows, and when its pricing table was last checked |
+| `~/.claude/cairn/.jq-hint` | first session without `jq` | cairn's — an empty flag so the missing-`jq` hint shows only once |
 | The files you actually asked to change | during work | your project's — that's the job |
 
 **Never written, under any circumstance:** `.claude/settings.json` or `settings.local.json`; `.claude/agents/`, `.claude/skills/`, `.claude/commands/`, `.claude/hooks/`; your project's own `.gitignore` (except the self-contained one inside `.cairn/`); CI config, package manifests, lockfiles, git hooks, or `.git/` internals; any doc scaffold your project didn't ask for; anything else outside the repository root.
