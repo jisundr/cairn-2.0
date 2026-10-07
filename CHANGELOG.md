@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `commands/cairn-retro.md`: description trimmed 139 → 109 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.10 → 0.44.11 (patch).
+
 - `commands/cairn-doctor.md`: description trimmed 143 → 105 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.9 → 0.44.10 (patch).
 
 - `skills/scope/SKILL.md`: description trimmed 157 → 133 B to restore headroom under the always-loaded ceiling; same trigger and meaning. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.44.8 → 0.44.9 (patch).

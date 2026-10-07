@@ -1,5 +1,5 @@
 ---
-description: Reflects on this session, drafts harness-update candidates with evidence from what happened, same confirm-then-write cycle as /cairn-setup.
+description: Drafts harness-update candidates from this session's evidence; same confirm-then-write cycle as /cairn-setup.
 ---
 
 Reflects on this session's conversation only — never the codebase, that's `/cairn-setup`'s job.
