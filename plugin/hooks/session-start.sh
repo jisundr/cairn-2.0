@@ -7,13 +7,20 @@ h=$(mktemp -d);d="$h/.claude/cairn/active";mkdir -p "$d"
 echo '{}' >"$d/old.json";touch -t 202001010000 "$d/old.json";echo '{}' >"$d/new.json"
 HOME="$h" "$0" <<<'{}' &>/dev/null
 t [ ! -f "$d/old.json" -a -f "$d/new.json" ]
-rm -rf "$h"
+b=$(mktemp -d);for c in bash cat find mkdir touch;do ln -s "$(command -v $c)" "$b/$c";done
+o1=$(HOME="$h" PATH="$b" "$0" <<<'{}' 2>&1);o2=$(HOME="$h" PATH="$b" "$0" <<<'{}' 2>&1)
+t [ -n "$o1" -a -z "$o2" ]
+rm -rf "$h" "$b"
 echo "session-start.sh selftest: $p passed, $f failed"
 exit $((f>0))
 fi
 in="$(cat)"
 [ -n "${HOME:-}" ] && find "$HOME/.claude/cairn/active" -maxdepth 1 -name '*.json' -mtime +0 -delete 2>/dev/null
-command -v jq >/dev/null 2>&1 || exit 0
+if ! command -v jq >/dev/null 2>&1; then
+[ -n "${HOME:-}" ] || exit 0;k="$HOME/.claude/cairn/.jq-hint"
+[ -f "$k" ] || { mkdir -p "${k%/*}" 2>/dev/null && touch "$k" 2>/dev/null && printf 'cairn: jq is not on PATH, so cairn hooks are idle (no session tracking, empty /cairn-mc). Tell the user once: install jq, then run /cairn-doctor.\n'; }
+exit 0
+fi
 IFS=$'\t' read -r sid cwd <<<"$(jq -r '[.session_id,.cwd]|map(.//"")|@tsv' <<<"$in" 2>/dev/null)"
 [ -n "$sid" -a -n "$cwd" ] || exit 0
 grep -qsF '<!-- cairn:start -->' "$cwd/CLAUDE.md" || exit 0

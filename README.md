@@ -13,6 +13,34 @@ Think of cairn as a considerate guest in your project: it leaves a single line b
 
 Then, in the project you want cairn to work in, run `/cairn-setup`.
 
+### Requirements
+
+| Tool | Needed for | Without it |
+|---|---|---|
+| Claude Code | everything | — |
+| `bash` | the hooks | hooks don't run. On Windows, use Git for Windows (Git Bash) or WSL. |
+| `jq` | the hooks | hooks skip their work; session tracking and `/cairn-mc` data stay empty. |
+| `python3` ≥ 3.10 | `/cairn-mc` and its token tracking | no dashboard, no cost data. Standard library only, nothing to `pip install`. |
+| `git` | branches, worktrees, PRs | — |
+| `gh` or `glab` (optional) | `/cairn-review-pr`, detecting merged PRs | `/cairn-review-pr` stops and says so; task stages fall back to `STATE.md`. |
+
+Run `/cairn-doctor` to see which of these it finds.
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `/cairn-setup` | Adds the marker to `CLAUDE.md`, then drafts `.harness/` rules for you to confirm. `--local` writes your personal preferences. |
+| `/cairn-doctor` | Read-only health check: version, marker, harness, dependencies. |
+| `/cairn-triage` | Sorts task folders by stage. |
+| `/cairn-research <topic>` | Investigates a topic with parallel subagents into the active task folder. |
+| `/cairn-review-pr <url>` | Reviews a PR with cairn's security checklist; drafts first, posts only when you confirm. |
+| `/cairn-retro` | Proposes harness updates from this session's evidence. |
+| `/cairn-mc` | Opens the local cost dashboard. |
+| `/cairn-teardown` | Removes the marker and `.cairn/`, and reports anything left behind. |
+
+Day-to-day work needs no command: once set up, just ask Claude for a change and cairn routes it.
+
 ## Two paths, cheap by default
 
 | Path | Flow | Budget |
@@ -65,6 +93,7 @@ In a consuming project, cairn writes **only** the paths below — everything els
 | `docs/tasks/<slug>/` | escalated path only | your project's |
 | `.cairn/` | runtime state | cairn's, and self-ignoring |
 | `~/.claude/cairn/known-projects.json`, `pricing-check-state.json` | end of each session in a cairn project | cairn's — the list of projects `/cairn-mc` shows, and when its pricing table was last checked |
+| `~/.claude/cairn/.jq-hint` | first session without `jq` | cairn's — an empty flag so the missing-`jq` hint shows only once |
 | The files you actually asked to change | during work | your project's — that's the job |
 
 **Never written, under any circumstance:** `.claude/settings.json` or `settings.local.json`; `.claude/agents/`, `.claude/skills/`, `.claude/commands/`, `.claude/hooks/`; your project's own `.gitignore` (except the self-contained one inside `.cairn/`); CI config, package manifests, lockfiles, git hooks, or `.git/` internals; any doc scaffold your project didn't ask for; anything else outside the repository root.

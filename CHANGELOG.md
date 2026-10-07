@@ -4,6 +4,24 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated to include `.github/ISSUE_TEMPLATE/bug.yml`; always-loaded total unchanged at 2,682 B. Bumped `plugin/.claude-plugin/plugin.json` 0.45.8 → 0.45.9 (patch).
+
+- `plugin/.claude-plugin/plugin.json`: adds `homepage`, `license: MIT` and `keywords` so marketplace listings show where to read more and how cairn is licensed. Bumped `plugin/.claude-plugin/plugin.json` 0.45.7 → 0.45.8 (patch).
+
+- `plugin/LICENSE` (new): a copy of the root MIT license inside `plugin/`, since an install copies only that folder. Bumped `plugin/.claude-plugin/plugin.json` 0.45.6 → 0.45.7 (patch).
+
+- `LICENSE` (new): MIT, so others can use, fork and redistribute cairn. Bumped `plugin/.claude-plugin/plugin.json` 0.45.5 → 0.45.6 (patch).
+
+- `.github/ISSUE_TEMPLATE/bug.yml` (new): bug-report form asking for what happened, cairn version, OS and Claude Code version, and `/cairn-doctor` output. Bumped `plugin/.claude-plugin/plugin.json` 0.45.4 → 0.45.5 (patch).
+
+- `CONTRIBUTING.md` (new): how to report a bug, set up a fork with submodules, follow the per-commit rules, run the gate, and install a working copy as a local marketplace. Bumped `plugin/.claude-plugin/plugin.json` 0.45.3 → 0.45.4 (patch).
+
+- `README.md`: the "What cairn writes" table lists `~/.claude/cairn/.jq-hint`, the flag file behind the one-time missing-`jq` hint. Bumped `plugin/.claude-plugin/plugin.json` 0.45.2 → 0.45.3 (patch).
+
+- `hooks/session-start.sh`: when `jq` is missing, it now says so once (flag file `~/.claude/cairn/.jq-hint`) instead of every hook silently doing nothing; one new selftest case covers the first-run hint and the silent second run. Bumped `plugin/.claude-plugin/plugin.json` 0.45.1 → 0.45.2 (patch).
+
+- `README.md`: adds a Requirements table (`bash`, `jq`, `python3` ≥ 3.10, `git`, optional `gh`/`glab`, what breaks without each, and Git Bash or WSL on Windows) and a Commands table naming all eight slash commands, so a new user can install and find their way without reading the source. Bumped `plugin/.claude-plugin/plugin.json` 0.45.0 → 0.45.1 (patch).
+
 - The plugin moves into `plugin/`: `agents/`, `skills/`, `commands/`, `hooks/`, the `mission-control` submodule and `plugin.json` now live under it, and `.claude-plugin/marketplace.json` points its `source` at `./plugin`, so an install copies only the plugin (about 2.6 MB) instead of the whole repo with `docs/`, `tools/`, `.github/` and the 200 KB `CHANGELOG.md`. The install command is unchanged, and `${{CLAUDE_PLUGIN_ROOT}}` paths inside the plugin are unaffected. `tools/budget.py` resolves runtime paths under `plugin/` when it holds the manifest (three new tests); `tools/test_marker_retask.py`, CI, `CLAUDE.md`, `.harness/architecture.md`, `.harness/workflow.md`, `README.md` and the path mentions in `docs/` follow. CI drops its root-`CLAUDE.md` warning filter for plain `claude plugin validate --strict` on the marketplace and the plugin, since `CLAUDE.md` no longer sits at the plugin root. One commit rather than one per file, since any partial move leaves the gate red. `docs/BUDGET.md` regenerated. Bumped `plugin/.claude-plugin/plugin.json` 0.44.15 → 0.45.0 (minor).
 
 - `docs/portfolio/PORTFOLIO.md`: names mission-control (`mission-control/` submodule, `/cairn-mc`) instead of `token-metering/` / `tools/tokens/`, points at `plugin.json` for the version instead of `0.14.5` and a commit count, and describes what CI runs today in place of the removed vendoring-drift check. Bumped `.claude-plugin/plugin.json` 0.44.14 → 0.44.15 (patch).
