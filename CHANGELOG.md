@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-07
 
+- `skills/readme/SKILL.md`: a picture that earns its place (a real flow, a multi-component layout) follows `cairn:diagrams`. Description trimmed 128 → 97 B for the same ceiling (#11). Bumped `.claude-plugin/plugin.json` 0.43.3 → 0.43.4 (patch).
+
 - `skills/spec/SKILL.md`: Data flow now sends a flow with branches, or a multi-component layout, to `cairn:diagrams`, and leaves what a short list carries as a list. Description trimmed 156 → 101 B to fund the new skill's description under the 3,000 B always-loaded ceiling (#11). Bumped `.claude-plugin/plugin.json` 0.43.2 → 0.43.3 (patch).
 
 - `mission-control` gitlink advanced `347b22b` → `4ac8081` (jisundr/cairn-2.0-mission-control#1): a `review`-kind task folder sits in the Kanban's In review column (after done/blocked/awaiting approval) rather than Scoping for lacking a `PLAN.md`, and the drawer's Docs tab hides only the file the Details tab already shows, so `DRAFT.md` stays visible once a review folder carries `STATE.md`. Bumped `.claude-plugin/plugin.json` 0.43.1 → 0.43.2 (patch).
