@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `plugin/.claude-plugin/plugin.json`: adds `homepage`, `license: MIT` and `keywords` so marketplace listings show where to read more and how cairn is licensed. Bumped `plugin/.claude-plugin/plugin.json` 0.45.7 → 0.45.8 (patch).
+
 - `plugin/LICENSE` (new): a copy of the root MIT license inside `plugin/`, since an install copies only that folder. Bumped `plugin/.claude-plugin/plugin.json` 0.45.6 → 0.45.7 (patch).
 
 - `LICENSE` (new): MIT, so others can use, fork and redistribute cairn. Bumped `plugin/.claude-plugin/plugin.json` 0.45.5 → 0.45.6 (patch).
