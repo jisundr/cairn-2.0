@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: Explores an idea too unformed for cairn:scope's narrow questions — clarifies the problem, weighs approaches only when a real choice exists, and names which doc (via scribe) would help. Invoked from scope's vague-request path, or directly on request.
+description: Explores an idea too unformed to scope — clarifies the problem, weighs approaches if a real choice exists, names a doc for scribe. From scope's vague path or on request.
 ---
 
 # cairn:brainstorm
