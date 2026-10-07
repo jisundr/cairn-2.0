@@ -27,13 +27,13 @@ Unlike heavier agent-orchestration frameworks that add persistent scaffolding, d
 - Two workflow paths: a two-hop default (`builder` → `reviewer` → PR) and an opt-in escalated path (`planner` → `builder` → `reviewer` → PR) for changes that span submodules, alter a published contract, or can't be described in two sentences.
 - Three attendance postures over the same chain: interactive, attended, and unattended (escalated-path only; stops at `done` / `needs-human` / `stalled`; never auto-publishes).
 - `/cairn-teardown` reverses installation, removing the marker block and `.cairn/` and reporting exactly what's left behind and why.
-- Ships one optional feature, a local token-metering dashboard (`cairn:cairn-tokens`), for a solo developer checking their own Claude Code session cost/token usage in a browser. It has its own established visual system, design record, and audience distinct from cairn's own marketing surfaces — see `token-metering/frontend/src` and the dashboard's design record; do not fold its "clean minimal SaaS" instrument-panel language into a cairn-brand surface, and do not let cairn-brand work edit its components.
+- Ships one optional feature, a local token-metering dashboard, mission-control (`/cairn-mc`, shipped as the `mission-control/` submodule), for a solo developer checking their own Claude Code session cost/token usage in a browser. It has its own established visual system, design record, and audience distinct from cairn's own marketing surfaces — see `mission-control/frontend/src` and the dashboard's design record; do not fold its "clean minimal SaaS" instrument-panel language into a cairn-brand surface, and do not let cairn-brand work edit its components.
 
 ## Capabilities and Constraints
 
 - Writes only a fixed, disclosed set of paths in a consuming project (marker block, `.harness/*.md`, `.harness/local/`, `docs/tasks/<slug>/`, `.cairn/`, and the files a task actually asks it to change) — never `.claude/settings*`, agents/skills/commands/hooks directories, the project's own `.gitignore`, CI config, manifests, lockfiles, or git internals.
 - No accounts, no hosted service, no telemetry — everything runs locally inside the user's own Claude Code session.
-- Pre-1.0 (`0.14.1` as of this writing), single-maintainer, open source on GitHub — no enterprise/paid tier.
+- Pre-1.0 (current version in `.claude-plugin/plugin.json`), single-maintainer, open source on GitHub — no enterprise/paid tier.
 
 ## Brand Commitments
 
@@ -43,7 +43,7 @@ Unlike heavier agent-orchestration frameworks that add persistent scaffolding, d
 ## Evidence on Hand
 
 - No stars, testimonials, or case studies to cite — a cairn-brand surface's proof must come from the mechanism itself, never from invented third-party endorsement. But real, measured before/after numbers exist and are the strongest available proof:
-  - **cairn's own predecessor → cairn 2.0** (this repo, measured directly): 18 agents (278 KB) → 4 agents (5.5 KB); 10 skills (87 KB) → 10 skills (14.6 KB); baseline tokens loaded before a user types anything, ~9k → ~800 (marker block + always-loaded frontmatter, counted from this repo's current `agents/`, `commands/`, `skills/*/SKILL.md`); tokens spent per feature, 200–400k → ≤ 40k (default path) / ≤ 150k (escalated path).
+  - **cairn's own predecessor → cairn 2.0** (this repo, measured directly at the 2.0 rewrite): 18 agents (278 KB) → 4 agents (5.5 KB); 10 skills (87 KB) → 10 skills (14.6 KB) — since grown to 5 agents (10.2 KB) and 11 skills (25.2 KB) as of 0.44; baseline tokens loaded before a user types anything, ~9k → ~800 (marker block + always-loaded frontmatter, counted from this repo's current `agents/`, `commands/`, `skills/*/SKILL.md`); tokens spent per feature, 200–400k → ≤ 40k (default path) / ≤ 150k (escalated path).
   - **Two other, unnamed agent frameworks evaluated during this redesign** (kept anonymous — private projects, not public products, cited only for their measured numbers): one ran ~52k baseline tokens before any work began and 0.7–1.5M+ tokens for one medium feature, driven by a large always-loaded registry and 10+ agent hops per task; the other proved that a ~1–2k token baseline is achievable with almost no framework at all, at the cost of near-zero enforcement (no CI, no blocking checks).
   - Source data for all of the above lives in a private local comparison document, not committed to this repo (it names and paths those other projects); only the numbers above, and cairn's own measured figures, are for public use.
 - Real facts and voice to draw from: `README.md`, `CLAUDE.md`, `docs/BUDGET.md`, `docs/REGISTRY.md`.

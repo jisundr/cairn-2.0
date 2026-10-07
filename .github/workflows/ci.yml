@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -28,4 +30,4 @@ jobs:
       - run: python -m pytest tools/
       - run: |
           shopt -s nullglob globstar
-          for s in tools/**/*.sh; do "$s" --selftest || exit 1; done
+          for s in hooks/*.sh skills/**/*.sh tools/**/*.sh; do "$s" --selftest || exit 1; done

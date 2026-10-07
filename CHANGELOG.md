@@ -2,6 +2,16 @@
 
 Reverse-chronological, one entry per artifact-commit. Never loaded by the model — read by humans only.
 
+## 2026-10-08
+
+- `docs/PRODUCT.md` brought up to date: the dashboard is mission-control (`/cairn-mc`, `mission-control/frontend/src`) rather than `cairn:cairn-tokens` / `token-metering/`; the version points at `plugin.json` instead of a stale `0.14.1`; the 18 → 4 agents / 10 → 10 skills figures are labelled as measured at the 2.0 rewrite, with today's counts beside them. Bumped `.claude-plugin/plugin.json` 0.44.3 → 0.44.4 (patch).
+
+- `README.md`: "What cairn writes" now lists `~/.claude/cairn/known-projects.json` and `pricing-check-state.json`, which `hooks/stop-mc.sh` writes at the end of each session; the "never written" line reads "anything else outside the repository root", and the teardown line says `~/.claude/cairn/` is removed by hand. Bumped `.claude-plugin/plugin.json` 0.44.2 → 0.44.3 (patch).
+
+- `.github/workflows/ci.yml`: the selftest step now runs `hooks/*.sh` and `skills/**/*.sh` as well as `tools/**/*.sh` (which matched nothing, so no hook selftest ever ran in CI), and checkout fetches submodules, since `hooks/stop-mc.sh --selftest` needs `mission-control/`. Bumped `.claude-plugin/plugin.json` 0.44.1 → 0.44.2 (patch).
+
+- `.gitmodules`: the `mission-control` submodule URL switches from SSH (`git@github.com:…`) to HTTPS, so a clone, CI checkout or plugin install without GitHub SSH keys can still fetch it. Bumped `.claude-plugin/plugin.json` 0.44.0 → 0.44.1 (patch).
+
 ## 2026-10-07
 
 - New `cairn:diagrams` skill (#11), loaded by `scribe` when a doc needs a picture: says when a diagram earns its place over a list; Mermaid `<name>.mmd` → `<name>.svg` for flows and decisions, a dependency-free `<name>.gen.mjs` for layout-heavy architecture, both in a `diagrams/` folder beside the doc; colors, fonts and spacing from the project's design system (`docs/DESIGN.md` tokens) via `mermaid.config.json` and a shared `theme.mjs`, else a neutral default palette; labels taken from the code and doc text; each diagram linked with alt text and a one-line `<!-- regenerate: … -->` note. `scribe` has no `Bash`, so it hands back the render commands for the main thread. `reference/starters.md` carries the config, theme and generator starters (all three run as shipped); `stale.sh` (with `--selftest`) lists every SVG older than its source by last commit time, an uncommitted source edit counting as newer, and exits 1 if any. Always-loaded total 2,996 / 3,000 B. `docs/BUDGET.md` regenerated. Bumped `.claude-plugin/plugin.json` 0.43.4 → 0.44.0 (minor).

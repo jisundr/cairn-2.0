@@ -64,11 +64,12 @@ In a consuming project, cairn writes **only** the paths below — everything els
 | `.harness/local/` | `/cairn-setup --local`, on confirmation | this developer's — never committed |
 | `docs/tasks/<slug>/` | escalated path only | your project's |
 | `.cairn/` | runtime state | cairn's, and self-ignoring |
+| `~/.claude/cairn/known-projects.json`, `pricing-check-state.json` | end of each session in a cairn project | cairn's — the list of projects `/cairn-mc` shows, and when its pricing table was last checked |
 | The files you actually asked to change | during work | your project's — that's the job |
 
-**Never written, under any circumstance:** `.claude/settings.json` or `settings.local.json`; `.claude/agents/`, `.claude/skills/`, `.claude/commands/`, `.claude/hooks/`; your project's own `.gitignore` (except the self-contained one inside `.cairn/`); CI config, package manifests, lockfiles, git hooks, or `.git/` internals; any doc scaffold your project didn't ask for; anything outside the repository root.
+**Never written, under any circumstance:** `.claude/settings.json` or `settings.local.json`; `.claude/agents/`, `.claude/skills/`, `.claude/commands/`, `.claude/hooks/`; your project's own `.gitignore` (except the self-contained one inside `.cairn/`); CI config, package manifests, lockfiles, git hooks, or `.git/` internals; any doc scaffold your project didn't ask for; anything else outside the repository root.
 
-Run `/cairn-teardown` any time to remove the marker block and `.cairn/` — it'll show you exactly what's left behind and why.
+Run `/cairn-teardown` any time to remove the marker block and `.cairn/` (delete `~/.claude/cairn/` by hand once no project uses cairn) — it'll show you exactly what's left behind and why.
 
 ## Developing cairn
 
