@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `commands/cairn-doctor.md`: step 9 trimmed under the 2,048 B hard cap; the check details moved to `skills/task-assets/assets/release-validation.md`. Bumped `plugin/.claude-plugin/plugin.json` 0.49.4 → 0.49.5 (patch).
+
 - `commands/cairn-doctor.md`: step 9 validates the `## Release` section (known keys, tag and title formats, branch, version file, host CLI). Bumped `plugin/.claude-plugin/plugin.json` 0.49.3 → 0.49.4 (patch).
 
 - `skills/task-assets/assets/harness-generation.md`: setup proposes the `## Release` keys from the branch, remote and existing tags, for confirmation. Bumped `plugin/.claude-plugin/plugin.json` 0.49.2 → 0.49.3 (patch).

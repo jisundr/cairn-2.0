@@ -13,4 +13,4 @@ Read-only. Never writes, never blocks. Local-layer rules: `${CLAUDE_PLUGIN_ROOT}
 
 7. **Dependencies** — `jq`/`python3` on PATH, yes/no each. `.cairn/tokens.db` present → latest `timestamp` in `calls` (`sqlite3` or python3's `sqlite3` module); absent/no rows → say so.
 8. **Task folders** — list `docs/tasks/*/` (skip `_template/`): folder name + `STATE.md`'s `key_info` if present.
-9. **Release** — `.harness/workflow.md` has no `## Release` → "defaults apply", stop. Else check each `- Key: value` line against the keys in `${CLAUDE_PLUGIN_ROOT}/skills/release/SKILL.md`: unknown key or a missing `: value` → unrecognised; duplicate → flag; `rc tag`/`final tag` lacking `X.Y.Z`, `rc tag` lacking `N`, or `final title` containing `v` → malformed; `Branch` not a local or remote branch, `Version file` (not `none`) missing, `Host CLI` not `gh`/`glab` or not on PATH → flag. One line per finding, "valid" if none.
+9. **Release** — no `## Release` in `.harness/workflow.md` → "defaults apply", stop. Else validate per `${CLAUDE_PLUGIN_ROOT}/skills/task-assets/assets/release-validation.md`.
