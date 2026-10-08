@@ -2,7 +2,9 @@
 
 A lean, on-demand, non-invasive development workflow for Claude Code.
 
-Think of cairn as a considerate guest in your project: it leaves a single line behind, reads everything else only when it's needed, does nothing until your project has told it how things work, and can be removed without a trace. Nothing gets copied into your codebase — the whole framework lives in this plugin.
+**cairn studies your repo and drafts its rules for you to approve. The rules are yours: plain markdown in `.harness/` that any Claude session can follow, with or without cairn.** Keep using cairn and it builds, reviews and plans against those rules on a small token budget. Remove it and the rules stay.
+
+Think of cairn as a considerate guest in your project: it reads everything only when it's needed, does nothing until your project has told it how things work, and leaves nothing of its own behind when you remove it. The whole framework lives in this plugin.
 
 ## Install
 
@@ -47,6 +49,7 @@ Day-to-day work needs no command: once set up, just ask Claude for a change and 
    - No `CLAUDE.md` yet? It offers to create a bare one, or you can run `/init` first.
    - It shows the one marker block it adds to `CLAUDE.md`.
    - It reads your repo and proposes rules for `.harness/`, each with the evidence it found. Approve, edit or drop each one.
+   - It offers one line for `CLAUDE.md` pointing at `.harness/`, so Claude follows the rules even without cairn.
    - It asks whether to copy its task and product templates into `docs/`. "No" is fine; cairn has its own copies.
    - It suggests `.gitignore` lines for task folders, for you to add if you want.
 2. **Commit what setup wrote.** `.harness/` is your team's from here on.
@@ -104,6 +107,7 @@ In a consuming project, cairn writes **only** the paths below — everything els
 | A bare root `CLAUDE.md` (one `# <folder>` line) | `/cairn-setup`, only if none exists and you confirm | your project's |
 | One marker block in root `CLAUDE.md` | `/cairn-setup`, on confirmation | cairn's, and cleanly removable |
 | `.harness/*.md` | `/cairn-setup` or `/cairn-retro`, per-rule confirmation | your project's — cairn drafts it, your team owns it |
+| One line in root `CLAUDE.md` pointing at `.harness/`, outside the marker | `/cairn-setup`, on confirmation | your project's — kept by `/cairn-teardown` so the rules outlive cairn |
 | `docs/BUDGET.md` | `/cairn-setup`, alongside `.harness/` | your project's — line counts and caps for the harness files |
 | `docs/tasks/_template/`, `docs/product/_template/` | `/cairn-setup`, only if you say yes | your project's — editable copies of cairn's templates |
 | `.harness/local/` | `/cairn-setup --local`, on confirmation | this developer's — never committed |
@@ -115,7 +119,7 @@ In a consuming project, cairn writes **only** the paths below — everything els
 
 **Never written, under any circumstance:** `.claude/settings.json` or `settings.local.json`; `.claude/agents/`, `.claude/skills/`, `.claude/commands/`, `.claude/hooks/`; your project's own `.gitignore` (except the self-contained one inside `.cairn/`); CI config, package manifests, lockfiles, git hooks, or `.git/` internals; any doc scaffold your project didn't ask for; anything else outside the repository root.
 
-Run `/cairn-teardown` any time to remove the marker block and `.cairn/` (delete `~/.claude/cairn/` by hand once no project uses cairn) — it'll show you exactly what's left behind and why.
+Run `/cairn-teardown` any time to remove the marker block and `.cairn/` (delete `~/.claude/cairn/` by hand once no project uses cairn). Your `.harness/` rules and the `CLAUDE.md` line pointing at them stay, so Claude keeps following them. Teardown shows you exactly what's left behind and why.
 
 ## Developing cairn
 
