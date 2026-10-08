@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated after the setup change. Bumped `plugin/.claude-plugin/plugin.json` 0.51.5 → 0.51.6 (patch).
+
 - `skills/task-assets/assets/harness-generation.md`: when setup records a `Procedure`, it also writes one plain sentence above the keys (follow the file; explicit yes before pushing a tag or creating a release), so a session without cairn follows the procedure and keeps its confirmation stop. The doctor check only reads `- Key: value` lines, so the sentence is ignored. Bumped `plugin/.claude-plugin/plugin.json` 0.51.4 → 0.51.5 (patch).
 
 - `docs/BUDGET.md` regenerated after the setup change. Bumped `plugin/.claude-plugin/plugin.json` 0.51.3 → 0.51.4 (patch).
