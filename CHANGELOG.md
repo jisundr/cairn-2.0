@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `.github/workflows/pages.yml`: adds `contents: read` so checkout does not depend on default token scope, queues deploys instead of cancelling a running one (`cancel-in-progress: false`), redeploys when the workflow file itself changes, and notes that Pages Source must be "GitHub Actions". Bumped `plugin/.claude-plugin/plugin.json` 0.51.12 → 0.51.13 (patch).
+
 - `.github/workflows/ci.yml`: checkout v7, setup-python v7 and setup-node v7 (all Node 24) to clear the Node.js 20 deprecation warning. Bumped `plugin/.claude-plugin/plugin.json` 0.51.11 → 0.51.12 (patch).
 
 - `.github/workflows/pages.yml`: actions moved to their Node 24 majors (checkout v7, configure-pages v6, upload-pages-artifact v5, deploy-pages v5) to clear the Node.js 20 deprecation warning. Bumped `plugin/.claude-plugin/plugin.json` 0.51.10 → 0.51.11 (patch).

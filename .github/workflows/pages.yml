@@ -1,18 +1,21 @@
+# Deploys docs/marketing. Needs Settings > Pages > Source set to "GitHub Actions";
+# on "Deploy from a branch" the classic build overwrites this deploy.
 name: Deploy Pages
 
 on:
   push:
     branches: [main]
-    paths: ["docs/marketing/**"]
+    paths: ["docs/marketing/**", ".github/workflows/pages.yml"]
   workflow_dispatch:
 
 permissions:
+  contents: read
   pages: write
   id-token: write
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
