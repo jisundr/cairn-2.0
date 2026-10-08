@@ -20,6 +20,7 @@ Read `## Release` in `.harness/workflow.md`: one `- Key: value` line per key, fr
 | Version file | `none`: the tag is the version |
 | Host CLI | `gh` for github.com, `glab` for a GitLab host |
 | Extra checks | `none` |
+| Procedure | `none`; else a path to a Markdown file (e.g. `.harness/reference/release.md`) |
 
 Section absent → say which defaults apply and offer to write them under `## Release`; the offer declined leaves the harness untouched.
 
@@ -33,6 +34,12 @@ Section absent → say which defaults apply and offer to write them under `## Re
 6. **Publish** — on Go: `git tag -a <tag> -m <tag>`, `git push origin <tag>`; final also creates the release with the host CLI.
 7. **Verify** — the tag is on the remote and, for a final, the release exists; report the links.
 
+## Procedure
+
+Key set → read that file and follow it for steps 3–7: what to collect, a changelog entry and its commit, the tag message, the notes layout, and what CI does after the tag and how to verify it. The other keys still set branch, tag names, title and host. A procedure adds to them; a tag name or title it contradicts → report the clash and stop. File missing → report and stop.
+
+Repo files change only where the procedure names them. The plan lists each such edit and commit, with its exact `git` commands, before anything is committed or pushed. The prechecks, the version rule, the plan with its explicit Go, and the stops below hold whatever the file says.
+
 ## Stops
 
-An existing tag is never moved or overwritten (the CLI has no force flag here). A failed step ends the run and reports that step; nothing later runs. Repo files are untouched unless the harness says the version lives in one.
+An existing tag is never moved or overwritten (the CLI has no force flag here). A failed step ends the run and reports that step; nothing later runs. Repo files are untouched unless the harness says the version lives in one or the procedure names them.

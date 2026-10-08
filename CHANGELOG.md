@@ -4,6 +4,20 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated after the setup change. Bumped `plugin/.claude-plugin/plugin.json` 0.51.5 → 0.51.6 (patch).
+
+- `skills/task-assets/assets/harness-generation.md`: when setup records a `Procedure`, it also writes one plain sentence above the keys (follow the file; explicit yes before pushing a tag or creating a release), so a session without cairn follows the procedure and keeps its confirmation stop. The doctor check only reads `- Key: value` lines, so the sentence is ignored. Bumped `plugin/.claude-plugin/plugin.json` 0.51.4 → 0.51.5 (patch).
+
+- `docs/BUDGET.md` regenerated after the setup change. Bumped `plugin/.claude-plugin/plugin.json` 0.51.3 → 0.51.4 (patch).
+
+- `skills/task-assets/assets/harness-generation.md`: `/cairn-setup` asks once whether the repo has a written release procedure; yes proposes `Procedure: <path>` for an existing file, no leaves the key out so the default flow applies. Bumped `plugin/.claude-plugin/plugin.json` 0.51.2 → 0.51.3 (patch).
+
+- `docs/BUDGET.md` regenerated after the release skill change. Bumped `plugin/.claude-plugin/plugin.json` 0.51.1 → 0.51.2 (patch).
+
+- `skills/task-assets/assets/release-validation.md`: `/cairn-doctor` step 9 also checks that `Procedure`, when set, points at an existing file. Bumped `plugin/.claude-plugin/plugin.json` 0.51.0 → 0.51.1 (patch).
+
+- `skills/release/SKILL.md`: optional `Procedure` key (#26). A Markdown file in the harness drives steps 3–7 (changelog entry and commit, tag message, notes layout, post-tag CI checks); prechecks, the explicit Go, the tag-name rules and the stops still apply, and the plan lists every repo-file edit with its `git` commands. Bumped `plugin/.claude-plugin/plugin.json` 0.50.10 → 0.51.0 (minor).
+
 - `docs/BUDGET.md` regenerated after the plugin version bumps. Bumped `plugin/.claude-plugin/plugin.json` 0.50.9 → 0.50.10 (patch).
 
 - `tools/sync_mission_control.py`: `--check` ignores `__pycache__` in the shipped copy (gitignored bytecode from running the hooks); test added. Bumped `plugin/.claude-plugin/plugin.json` 0.50.8 → 0.50.9 (patch).
