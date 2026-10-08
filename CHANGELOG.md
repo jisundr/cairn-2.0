@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated. Bumped `plugin/.claude-plugin/plugin.json` 0.48.4 → 0.48.5 (patch).
+
 - This repo's own `.harness/*.md` headers switch to the standalone wording the templates use since 0.46.4. Bumped `plugin/.claude-plugin/plugin.json` 0.48.3 → 0.48.4 (patch).
 
 - `commands/cairn-setup.md`'s `--local` mode moves into `skills/task-assets/assets/local/setup.md` (new), unchanged, freeing headroom under the 2,048 B cap: 2,046 → 1,396 B. Bumped `plugin/.claude-plugin/plugin.json` 0.48.2 → 0.48.3 (patch).
