@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `skills/task-assets/assets/harness-generation.md`: setup proposes the `## Release` keys from the branch, remote and existing tags, for confirmation. Bumped `plugin/.claude-plugin/plugin.json` 0.49.2 → 0.49.3 (patch).
+
 - `skills/task-assets/assets/workflow.md`: template gains a `## Release` section, so `/cairn-setup` writes it for `cairn:release` to read. Bumped `plugin/.claude-plugin/plugin.json` 0.49.1 → 0.49.2 (patch).
 
 - `skills/release/SKILL.md`: `## Release` keys fixed to a seven-key list (Branch, rc tag, final tag, final title, Version file, Host CLI, Extra checks) so `/cairn-doctor` can validate them. Bumped `plugin/.claude-plugin/plugin.json` 0.49.0 → 0.49.1 (patch).
