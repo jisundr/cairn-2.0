@@ -20,7 +20,7 @@ Open an issue with the bug template. Include your cairn version and the output o
    for s in plugin/hooks/*.sh; do "$s" --selftest; done
    ```
 
-CI runs the same checks plus `claude plugin validate --strict`.
+There is no CI; this gate is the only check, so run it locally before every PR. `claude plugin validate . --strict` is worth running too.
 
 ## Trying your change
 

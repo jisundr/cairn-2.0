@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `CONTRIBUTING.md`: no longer says CI runs the gate; it is a local-only check now. Bumped `plugin/.claude-plugin/plugin.json` 0.51.14 → 0.51.15 (patch).
+
 - `.github/workflows/ci.yml`: removed; the budget gate, tests, hook selftests and `claude plugin validate` no longer run on push or pull request, so they run locally via the CLAUDE.md phase gate. Bumped `plugin/.claude-plugin/plugin.json` 0.51.13 → 0.51.14 (patch).
 
 - `.github/workflows/pages.yml`: adds `contents: read` so checkout does not depend on default token scope, queues deploys instead of cancelling a running one (`cancel-in-progress: false`), redeploys when the workflow file itself changes, and notes that Pages Source must be "GitHub Actions". Bumped `plugin/.claude-plugin/plugin.json` 0.51.12 → 0.51.13 (patch).
