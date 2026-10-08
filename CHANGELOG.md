@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `skills/release/SKILL.md`: optional `Procedure` key (#26). A Markdown file in the harness drives steps 3–7 (changelog entry and commit, tag message, notes layout, post-tag CI checks); prechecks, the explicit Go, the tag-name rules and the stops still apply, and the plan lists every repo-file edit with its `git` commands. Bumped `plugin/.claude-plugin/plugin.json` 0.50.10 → 0.51.0 (minor).
+
 - `docs/BUDGET.md` regenerated after the plugin version bumps. Bumped `plugin/.claude-plugin/plugin.json` 0.50.9 → 0.50.10 (patch).
 
 - `tools/sync_mission_control.py`: `--check` ignores `__pycache__` in the shipped copy (gitignored bytecode from running the hooks); test added. Bumped `plugin/.claude-plugin/plugin.json` 0.50.8 → 0.50.9 (patch).
