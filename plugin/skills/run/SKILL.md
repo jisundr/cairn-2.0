@@ -1,6 +1,6 @@
 ---
 name: run
-description: Starts this project's app to exercise a change — reads the start command from environment.md, or asks; reports how to reach it.
+description: Starts the app from environment.md's start command (or asks); reports how to reach it.
 ---
 
 # cairn:run

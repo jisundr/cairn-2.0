@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `skills/run/SKILL.md`: description trimmed 129 → 86 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.50.0 → 0.50.1 (patch).
+
 - `commands/cairn-release.md`: new `/cairn-release rc|final [bump]` entry point for `cairn:release` (closes #24). Bumped `plugin/.claude-plugin/plugin.json` 0.49.5 → 0.50.0 (minor).
 
 - `commands/cairn-doctor.md`: step 9 trimmed under the 2,048 B hard cap; the check details moved to `skills/task-assets/assets/release-validation.md`. Bumped `plugin/.claude-plugin/plugin.json` 0.49.4 → 0.49.5 (patch).
