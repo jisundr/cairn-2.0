@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/marketing/assets/token-dashboard.webp`: replaced the old "Token Metering" capture with the current mission-control Overview (30-day trend, by model / agent / tool), rendered from the shipped `plugin/mission-control/` server against seeded demo data; landing page alt text updated to match. Bumped `plugin/.claude-plugin/plugin.json` 0.51.9 → 0.51.10 (patch).
+
 - `docs/marketing/DESIGN-landing.md`: records the redesign (1040px column, hero stat strip, card sections, tint bands, new breakpoints). Bumped `plugin/.claude-plugin/plugin.json` 0.51.8 → 0.51.9 (patch).
 
 - `docs/marketing/index.html`: landing page redesign in the same Lockfile register — two-column hero with a copyable install command and a stat strip, cards for the paths, load classes, writes/never-writes and postures, tinted section bands, a wider 1040px column. Colour semantics unchanged. Bumped `plugin/.claude-plugin/plugin.json` 0.51.7 → 0.51.8 (patch).
