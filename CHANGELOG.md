@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `README.md`: leads with the harness as the main reason to use cairn (rules drafted from your repo, approved by you, followable by any Claude session with or without cairn), and adds the `CLAUDE.md` pointer line to the setup walkthrough, the "What cairn writes" table and the teardown note. Bumped `plugin/.claude-plugin/plugin.json` 0.47.1 → 0.47.2 (patch).
+
 - `commands/cairn-teardown.md`: the report names the `CLAUDE.md` pointer to `.harness/` among what stays, and says why: the rules keep working without cairn. Bumped `plugin/.claude-plugin/plugin.json` 0.47.0 → 0.47.1 (patch).
 
 - `skills/task-assets/assets/harness-generation.md`: after writing the harness, setup offers one plain line for root `CLAUDE.md`, outside the cairn marker, pointing at `.harness/` so any Claude session reads the rules with or without cairn; skipped when `CLAUDE.md` already mentions `.harness/`, written only on confirmation, and left by `/cairn-teardown`. Later steps renumber. Bumped `plugin/.claude-plugin/plugin.json` 0.46.4 → 0.47.0 (minor).
