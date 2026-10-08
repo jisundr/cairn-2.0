@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `commands/cairn-teardown.md`: description trimmed 116 → 67 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.11 → 0.48.12 (patch).
+
 - `commands/cairn-review-pr.md`: description trimmed 114 → 81 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.10 → 0.48.11 (patch).
 
 - `commands/cairn-setup.md`: description trimmed 137 → 132 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.9 → 0.48.10 (patch).

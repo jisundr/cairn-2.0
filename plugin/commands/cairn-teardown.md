@@ -1,5 +1,5 @@
 ---
-description: Removes the marker block and .cairn/; reports what it left behind and why. Points at /plugin uninstall for the rest.
+description: Removes cairn's marker and .cairn/, and reports what stays and why.
 ---
 
 1. If `CLAUDE.md` contains the `<!-- cairn:start -->` … `<!-- cairn:end -->` block, remove it and collapse the leftover blank line. If absent, say so.
