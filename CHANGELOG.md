@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `skills/release/SKILL.md`: new `cairn:release` skill (closes the skill half of #24). Reads `## Release` from `.harness/workflow.md`; defaults: rc = tag `vX.Y.Z-rcN` only, final = tag `vX.Y.Z` + release `X.Y.Z`. Publishes only on an explicit yes. Bumped `plugin/.claude-plugin/plugin.json` 0.48.15 → 0.49.0 (minor).
+
 - `docs/BUDGET.md` regenerated after the description trims; always-loaded total 2,682 → 2,410 B. Bumped `plugin/.claude-plugin/plugin.json` 0.48.14 → 0.48.15 (patch).
 
 - `commands/cairn-doctor.md`: description trimmed 105 → 75 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.13 → 0.48.14 (patch).
