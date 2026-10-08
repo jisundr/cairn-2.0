@@ -4,6 +4,26 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated after the description trims; always-loaded total 2,682 → 2,410 B. Bumped `plugin/.claude-plugin/plugin.json` 0.48.14 → 0.48.15 (patch).
+
+- `commands/cairn-doctor.md`: description trimmed 105 → 75 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.13 → 0.48.14 (patch).
+
+- `commands/cairn-retro.md`: description trimmed 109 → 72 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.12 → 0.48.13 (patch).
+
+- `commands/cairn-teardown.md`: description trimmed 116 → 67 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.11 → 0.48.12 (patch).
+
+- `commands/cairn-review-pr.md`: description trimmed 114 → 81 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.10 → 0.48.11 (patch).
+
+- `commands/cairn-setup.md`: description trimmed 137 → 132 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.9 → 0.48.10 (patch).
+
+- `skills/shared/SKILL.md`: description trimmed 127 → 113 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.8 → 0.48.9 (patch).
+
+- `skills/requirements/SKILL.md`: description trimmed 136 → 120 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.7 → 0.48.8 (patch).
+
+- `skills/review-pr/SKILL.md`: description trimmed 144 → 116 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.6 → 0.48.7 (patch).
+
+- `skills/brainstorm/SKILL.md`: description trimmed 171 → 111 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.5 → 0.48.6 (patch).
+
 - `docs/BUDGET.md` regenerated. Bumped `plugin/.claude-plugin/plugin.json` 0.48.4 → 0.48.5 (patch).
 
 - This repo's own `.harness/*.md` headers switch to the standalone wording the templates use since 0.46.4. Bumped `plugin/.claude-plugin/plugin.json` 0.48.3 → 0.48.4 (patch).

@@ -1,6 +1,6 @@
 ---
 name: shared
-description: Mechanics shared by planner, builder, and reviewer — STATE.md conventions and how to run the harness's verification commands.
+description: STATE.md conventions and how to run the harness's verification commands. Shared by planner, builder and reviewer.
 ---
 
 # cairn:shared

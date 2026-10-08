@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: Reviews an open PR/MR — native code-review findings plus cairn's security checklist and fix-lane tags; posts only after explicit confirmation.
+description: Reviews a PR/MR with code-review findings, cairn's security checklist and fix-lane tags. Posts only on confirmation.
 ---
 
 # cairn:review-pr

@@ -1,5 +1,5 @@
 ---
-description: Offers the CLAUDE.md marker, then observe-confirm harness generation; --local writes local prefs; --track toggles marker-ledger tracking.
+description: Adds cairn's CLAUDE.md marker, then drafts .harness/ rules to confirm. --local sets personal prefs; --track toggles ledger tracking.
 argument-hint: [<path>] [--local] [--track <label>] [--untrack <label>]
 ---
 
