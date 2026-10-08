@@ -9,16 +9,17 @@ Runs in the main thread; subagents do not publish. Invoked as `rc` or `final`, p
 
 ## Rules
 
-Read `## Release` in `.harness/workflow.md`. Keys it can set, with the defaults used when a key or the section is absent:
+Read `## Release` in `.harness/workflow.md`: one `- Key: value` line per key, from this fixed list (`/cairn-doctor` checks it). Defaults apply to an absent key or section.
 
 | Key | Default |
 |---|---|
-| Release branch | the repo's default branch |
-| rc | tag `vX.Y.Z-rcN`, no release |
-| final | tag `vX.Y.Z`, release titled `X.Y.Z` (no `v`) with notes |
-| Version lives in | the tag only |
+| Branch | the repo's default branch |
+| rc tag | `vX.Y.Z-rcN`; an rc is a tag only |
+| final tag | `vX.Y.Z` |
+| final title | `X.Y.Z`; a final is tag plus release with notes |
+| Version file | `none`: the tag is the version |
 | Host CLI | `gh` for github.com, `glab` for a GitLab host |
-| Extra checks | none |
+| Extra checks | `none` |
 
 Section absent → say which defaults apply and offer to write them under `## Release`; the offer declined leaves the harness untouched.
 
