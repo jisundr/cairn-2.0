@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/marketing/index.html`: landing page redesign in the same Lockfile register — two-column hero with a copyable install command and a stat strip, cards for the paths, load classes, writes/never-writes and postures, tinted section bands, a wider 1040px column. Colour semantics unchanged. Bumped `plugin/.claude-plugin/plugin.json` 0.51.7 → 0.51.8 (patch).
+
 - `docs/marketing/index.html`: landing page showed v0.14.1 and 4 agents / 10 skills; now v0.51.7 with the measured 5 agents (10.2 KB) and 12 skills (27.9 KB). Bumped `plugin/.claude-plugin/plugin.json` 0.51.6 → 0.51.7 (patch).
 
 - `docs/BUDGET.md` regenerated after the setup change. Bumped `plugin/.claude-plugin/plugin.json` 0.51.5 → 0.51.6 (patch).
