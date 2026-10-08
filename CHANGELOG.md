@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `commands/cairn-setup.md`: description trimmed 137 → 132 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.9 → 0.48.10 (patch).
+
 - `skills/shared/SKILL.md`: description trimmed 127 → 113 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.8 → 0.48.9 (patch).
 
 - `skills/requirements/SKILL.md`: description trimmed 136 → 120 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.7 → 0.48.8 (patch).
