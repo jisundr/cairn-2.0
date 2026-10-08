@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `commands/cairn-setup.md`'s `--local` mode moves into `skills/task-assets/assets/local/setup.md` (new), unchanged, freeing headroom under the 2,048 B cap: 2,046 → 1,396 B. Bumped `plugin/.claude-plugin/plugin.json` 0.48.2 → 0.48.3 (patch).
+
 - `skills/task-assets/assets/budget.md` (new) and `harness-generation.md` step 4: a project's `docs/BUDGET.md` is written from a fixed template (harness table with caps 40/40/30/30, then a roster table), so every setup and retro produces the same layout instead of one improvised per run. Bumped `plugin/.claude-plugin/plugin.json` 0.48.1 → 0.48.2 (patch).
 
 - `skills/task-assets/assets/setup-finish.md`: the first option is now **Done — ⭐ star cairn**, which stars the repo with `gh` when it is signed in (else gives the link) and then wraps up; **Done for now** becomes **Done**. The build-now option is dropped. Bumped `plugin/.claude-plugin/plugin.json` 0.48.0 → 0.48.1 (patch).
