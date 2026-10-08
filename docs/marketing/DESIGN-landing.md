@@ -49,7 +49,7 @@ spacing:
   section-mobile: "52px 0"
   hero-grid-gap: "20px"
   two-col-gap: "32px"
-  wrap-max-width: "920px"
+  wrap-max-width: "1040px"
   wrap-padding: "0 24px"
 components:
   btn-primary:
@@ -134,7 +134,7 @@ An editor/diff palette: a near-white/near-black neutral pair carries all prose a
 
 ## Layout
 
-Single centered column, `.wrap` capped at `max-width: 920px` with `24px` side padding. Sections run a fixed vertical rhythm: `72px 0` padding with a `1px` `--border-soft` bottom rule between sections (last section has none). The hero adds `56px` top padding above the standard section rhythm.
+Single centered column, `.wrap` capped at `max-width: 1040px` with `24px` side padding. Sections run a fixed vertical rhythm: `72px 0` padding with a `1px` `--border-soft` bottom rule between sections (last section has none). The hero adds `56px` top padding above the standard section rhythm.
 
 Two responsive grid patterns recur: the hero's two-column `1.3fr 1fr` diff-panel + lockfile-cards row (`gap: 20px`), and a `1fr 1fr` two-column pattern for the writes/never-writes manifest (`gap: 32px`). Both collapse to a single column under `760px`. Every child of both grid patterns carries `min-width: 0` — a real, load-bearing rule fixing a genuine overflow bug found during finish review (long diff lines and manifest paths were pushing grid tracks wider than their column, breaking the layout at narrow widths).
 
@@ -194,3 +194,7 @@ Sticky top bar (`position: sticky; top: 0`), translucent-blurred background, bot
 - **Don't** add `box-shadow` or hard-offset block shadows anywhere — this is a bordered, flat editor world, not a neobrutalist one.
 - **Don't** extend diff-red beyond "never writes"/teardown semantics into a general de-emphasis or muted-value color.
 - **Don't** re-introduce ligatures on any mono/code context; JetBrains Mono's contextual alternates render literal diff syntax (`<!--`, `-->`) as arrow glyphs, which misrepresents verbatim file content.
+
+## Revision 0.51.8
+
+The landing page was redesigned within this contract; colour semantics, the sans/mono split, flat borders-only depth and the no-ligature rule are unchanged. What moved: the hero is a two-column row (headline, lede and a copyable install command beside the `CLAUDE.md` diff) with a four-cell stat strip beneath it, replacing the `budget.lock` card; the paths, load classes, writes/never-writes and postures sections are bordered cards rather than tables and YAML blocks (the metrics table stays); sections alternate between `--bg` and a `--tint` band; the writes/never-writes cards carry a 2px `--add-line` / `--remove-line` top rule; breakpoints are 860px (grids collapse) and 560px (tight rhythm, nav trims to the GitHub link).
