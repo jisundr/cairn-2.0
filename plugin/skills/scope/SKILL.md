@@ -1,6 +1,6 @@
 ---
 name: scope
-description: Resolves scope when cairn:start's checklist fires — writes a scope record; interviews only if vague, decomposes only if multi-area.
+description: Resolves scope when cairn:start's checklist fires; interviews only if vague, decomposes only if multi-area.
 ---
 
 # cairn:scope
