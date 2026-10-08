@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `tools/sync_mission_control.py` (+ test): copies mission-control's runtime files (nine modules and `static/`) from the root submodule into `plugin/mission-control/`; `--check` exits 1 when the shipped copy is stale. Dev-only, never ships. Bumped `plugin/.claude-plugin/plugin.json` 0.50.4 → 0.50.5 (patch).
+
 - `.gitmodules`: the `mission-control` submodule moves from `plugin/mission-control` to the repo root, same pinned commit (4ac8138), so the plugin folder no longer depends on a submodule. The plugin's own runtime copy follows in the next commits. Bumped `plugin/.claude-plugin/plugin.json` 0.50.3 → 0.50.4 (patch).
 
 - `docs/BUDGET.md` regenerated after the release skill, command and description trims. Bumped `plugin/.claude-plugin/plugin.json` 0.50.2 → 0.50.3 (patch).
