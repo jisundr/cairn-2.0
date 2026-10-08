@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated after the plugin version bumps. Bumped `plugin/.claude-plugin/plugin.json` 0.50.9 → 0.50.10 (patch).
+
 - `tools/sync_mission_control.py`: `--check` ignores `__pycache__` in the shipped copy (gitignored bytecode from running the hooks); test added. Bumped `plugin/.claude-plugin/plugin.json` 0.50.8 → 0.50.9 (patch).
 
 - `.harness/workflow.md`: the mission-control rule now includes running `tools/sync_mission_control.py` after a gitlink bump, and the phase-end gate runs its `--check`. Bumped `plugin/.claude-plugin/plugin.json` 0.50.7 → 0.50.8 (patch).
