@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `skills/brainstorm/SKILL.md`: description trimmed 171 → 111 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.5 → 0.48.6 (patch).
+
 - `docs/BUDGET.md` regenerated. Bumped `plugin/.claude-plugin/plugin.json` 0.48.4 → 0.48.5 (patch).
 
 - This repo's own `.harness/*.md` headers switch to the standalone wording the templates use since 0.46.4. Bumped `plugin/.claude-plugin/plugin.json` 0.48.3 → 0.48.4 (patch).
