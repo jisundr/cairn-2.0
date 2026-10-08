@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `commands/cairn-teardown.md`: the report names the `CLAUDE.md` pointer to `.harness/` among what stays, and says why: the rules keep working without cairn. Bumped `plugin/.claude-plugin/plugin.json` 0.47.0 → 0.47.1 (patch).
+
 - `skills/task-assets/assets/harness-generation.md`: after writing the harness, setup offers one plain line for root `CLAUDE.md`, outside the cairn marker, pointing at `.harness/` so any Claude session reads the rules with or without cairn; skipped when `CLAUDE.md` already mentions `.harness/`, written only on confirmation, and left by `/cairn-teardown`. Later steps renumber. Bumped `plugin/.claude-plugin/plugin.json` 0.46.4 → 0.47.0 (minor).
 
 - Harness templates (`skills/task-assets/assets/{architecture,standards,environment,workflow}.md`): the header now reads as the repo's own rules for people, Claude or any AI tool, with the cairn-specific limit as a clause, so a harness kept after `/cairn-teardown` still makes sense. `environment.md`'s header was an H1 by mistake; it is now a quote like the others. Existing projects keep their current header until they regenerate. Bumped `plugin/.claude-plugin/plugin.json` 0.46.3 → 0.46.4 (patch).
