@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `tools/sync_mission_control.py`: `--check` ignores `__pycache__` in the shipped copy (gitignored bytecode from running the hooks); test added. Bumped `plugin/.claude-plugin/plugin.json` 0.50.8 → 0.50.9 (patch).
+
 - `.harness/workflow.md`: the mission-control rule now includes running `tools/sync_mission_control.py` after a gitlink bump, and the phase-end gate runs its `--check`. Bumped `plugin/.claude-plugin/plugin.json` 0.50.7 → 0.50.8 (patch).
 
 - `.harness/architecture.md`: layout now names the root `mission-control/` submodule and `plugin/mission-control/` as its generated runtime copy. Bumped `plugin/.claude-plugin/plugin.json` 0.50.6 → 0.50.7 (patch).

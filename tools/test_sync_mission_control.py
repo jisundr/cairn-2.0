@@ -41,3 +41,11 @@ def test_sync_is_idempotent_and_removes_extras(tmp_path):
     (dst / "stray.py").write_text("x")
     assert sm.sync(src, dst) == ["stray.py"]
     assert sm.sync(src, dst) == []
+
+
+def test_check_ignores_pycache(tmp_path):
+    src, dst = make_src(tmp_path), tmp_path / "out"
+    sm.sync(src, dst)
+    (dst / "__pycache__").mkdir()
+    (dst / "__pycache__" / "db.cpython-313.pyc").write_bytes(b"x")
+    assert sm.stale(src, dst) == []

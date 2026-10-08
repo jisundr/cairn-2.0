@@ -38,7 +38,8 @@ def stale(src: Path, dst: Path) -> list[str]:
            if not (dst / rel).is_file() or (dst / rel).read_bytes() != f.read_bytes()]
     if dst.is_dir():
         bad += [p.relative_to(dst).as_posix() for p in sorted(dst.rglob("*"))
-                if p.is_file() and p.relative_to(dst).as_posix() not in files]
+                if p.is_file() and "__pycache__" not in p.parts
+                and p.relative_to(dst).as_posix() not in files]
     return bad
 
 
