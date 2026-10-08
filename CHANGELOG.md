@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated after the release skill, command and description trims. Bumped `plugin/.claude-plugin/plugin.json` 0.50.2 → 0.50.3 (patch).
+
 - `skills/scope/SKILL.md`: description trimmed 133 → 107 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.50.1 → 0.50.2 (patch).
 
 - `skills/run/SKILL.md`: description trimmed 129 → 86 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.50.0 → 0.50.1 (patch).
