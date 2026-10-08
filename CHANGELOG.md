@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `skills/task-assets/assets/harness-generation.md`: `/cairn-setup` asks once whether the repo has a written release procedure; yes proposes `Procedure: <path>` for an existing file, no leaves the key out so the default flow applies. Bumped `plugin/.claude-plugin/plugin.json` 0.51.2 → 0.51.3 (patch).
+
 - `docs/BUDGET.md` regenerated after the release skill change. Bumped `plugin/.claude-plugin/plugin.json` 0.51.1 → 0.51.2 (patch).
 
 - `skills/task-assets/assets/release-validation.md`: `/cairn-doctor` step 9 also checks that `Procedure`, when set, points at an existing file. Bumped `plugin/.claude-plugin/plugin.json` 0.51.0 → 0.51.1 (patch).
