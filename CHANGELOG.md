@@ -4,6 +4,10 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `skills/task-assets/assets/setup-finish.md`: the first option is now **Done — ⭐ star cairn**, which stars the repo with `gh` when it is signed in (else gives the link) and then wraps up; **Done for now** becomes **Done**. The build-now option is dropped. Bumped `plugin/.claude-plugin/plugin.json` 0.48.0 → 0.48.1 (patch).
+
+- `commands/cairn-setup.md` step 6 and `skills/task-assets/assets/setup-finish.md` (new): setup ends with a recap and one question, "Setup's finished. How did it go?", offering **Done — let's build** (loads `cairn:start` and asks for a first task), **Done for now** (suggests what to commit and wraps up) and **Something went wrong** (asks what, runs `/cairn-doctor`'s read-only checks, proposes a fix applied only on confirmation, and points at GitHub issues for a cairn bug). Headless runs stop after the recap. `cairn-setup.md` is now 2,046 of 2,048 B. Bumped `plugin/.claude-plugin/plugin.json` 0.47.3 → 0.48.0 (minor).
+
 - `docs/BUDGET.md` regenerated for the harness template and setup edits. Bumped `plugin/.claude-plugin/plugin.json` 0.47.2 → 0.47.3 (patch).
 
 - `README.md`: leads with the harness as the main reason to use cairn (rules drafted from your repo, approved by you, followable by any Claude session with or without cairn), and adds the `CLAUDE.md` pointer line to the setup walkthrough, the "What cairn writes" table and the teardown note. Bumped `plugin/.claude-plugin/plugin.json` 0.47.1 → 0.47.2 (patch).
