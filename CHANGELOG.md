@@ -4,6 +4,10 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `.github/workflows/ci.yml`: checkout v7, setup-python v7 and setup-node v7 (all Node 24) to clear the Node.js 20 deprecation warning. Bumped `plugin/.claude-plugin/plugin.json` 0.51.11 → 0.51.12 (patch).
+
+- `.github/workflows/pages.yml`: actions moved to their Node 24 majors (checkout v7, configure-pages v6, upload-pages-artifact v5, deploy-pages v5) to clear the Node.js 20 deprecation warning. Bumped `plugin/.claude-plugin/plugin.json` 0.51.10 → 0.51.11 (patch).
+
 - `docs/marketing/assets/token-dashboard.webp`: replaced the old "Token Metering" capture with the current mission-control Overview (30-day trend, by model / agent / tool), rendered from the shipped `plugin/mission-control/` server against seeded demo data; landing page alt text updated to match. Bumped `plugin/.claude-plugin/plugin.json` 0.51.9 → 0.51.10 (patch).
 
 - `docs/marketing/DESIGN-landing.md`: records the redesign (1040px column, hero stat strip, card sections, tint bands, new breakpoints). Bumped `plugin/.claude-plugin/plugin.json` 0.51.8 → 0.51.9 (patch).
