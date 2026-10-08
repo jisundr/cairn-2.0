@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated after the CI workflow removal. Bumped `plugin/.claude-plugin/plugin.json` 0.51.15 → 0.51.16 (patch).
+
 - `CONTRIBUTING.md`: no longer says CI runs the gate; it is a local-only check now. Bumped `plugin/.claude-plugin/plugin.json` 0.51.14 → 0.51.15 (patch).
 
 - `.github/workflows/ci.yml`: removed; the budget gate, tests, hook selftests and `claude plugin validate` no longer run on push or pull request, so they run locally via the CLAUDE.md phase gate. Bumped `plugin/.claude-plugin/plugin.json` 0.51.13 → 0.51.14 (patch).
