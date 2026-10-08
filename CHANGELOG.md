@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-08
 
+- `docs/BUDGET.md` regenerated after the description trims; always-loaded total 2,682 → 2,410 B. Bumped `plugin/.claude-plugin/plugin.json` 0.48.14 → 0.48.15 (patch).
+
 - `commands/cairn-doctor.md`: description trimmed 105 → 75 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.13 → 0.48.14 (patch).
 
 - `commands/cairn-retro.md`: description trimmed 109 → 72 B to bring the always-loaded total under its 2,500 B soft cap; same trigger and meaning. Bumped `plugin/.claude-plugin/plugin.json` 0.48.12 → 0.48.13 (patch).
