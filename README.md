@@ -1,12 +1,33 @@
 # cairn
 
+> **cairn 2.0 is deprecated and frozen.** No further updates will be pushed to this repository: no features, no fixes and no version bumps after 0.51.19. It is superseded by **cairn 3.0**, which keeps your `.harness/` working unchanged. See [Migrating to cairn 3.0](#migrating-to-cairn-30).
+
 A lean, on-demand, non-invasive development workflow for Claude Code.
 
 **cairn studies your repo and drafts its rules for you to approve. The rules are yours: plain markdown in `.harness/` that any Claude session can follow, with or without cairn.** Keep using cairn and it builds, reviews and plans against those rules on a small token budget. Remove it and the rules stay.
 
 Think of cairn as a considerate guest in your project: it reads everything only when it's needed, does nothing until your project has told it how things work, and leaves nothing of its own behind when you remove it. The whole framework lives in this plugin.
 
+## Migrating to cairn 3.0
+
+cairn 3.0 lives at [`jisundr/cairn-3.0-core`](https://github.com/jisundr/cairn-3.0-core). Your `.harness/` needs no changes: every rule file works as written, and cairn does not rewrite it without your approval. `/cairn-mc` and its hooks are unchanged and stay in the 3.0 repository.
+
+3.0 installs under the same marketplace name, so uninstall 2.0 first:
+
+```
+/plugin uninstall cairn@cairn-marketplace
+/plugin marketplace remove cairn-marketplace
+/plugin marketplace add jisundr/cairn-3.0-core
+/plugin install cairn@cairn-marketplace
+```
+
+Then open a project and run `/cairn-doctor`. Rules without an evidence line are reported as legacy and are not failed. New in 3.0: rules can carry the evidence they came from and an `applies when:` trigger, your corrections are queued as rule candidates that `/cairn-retro` shows you (nothing is applied without your approval), and `STATE.md` has a published schema. The full upgrade note, including which 2.0 `STATE.md` files report an error and the one-line fix, is the [Upgrading from 2.0](https://github.com/jisundr/cairn-3.0-core#upgrading-from-20) section of the 3.0 README.
+
+2.0 stays installable from this repository as it is, with no support and no updates.
+
 ## Install
+
+These are the install steps for the final 2.0 release. New installs should use [cairn 3.0](#migrating-to-cairn-30).
 
 ```
 /plugin marketplace add jisundr/cairn-2.0
