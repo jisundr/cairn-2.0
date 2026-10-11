@@ -6,7 +6,7 @@
     {
       "name": "cairn",
       "source": "./plugin",
-      "description": "A lean, on-demand, non-invasive development workflow for Claude Code."
+      "description": "Deprecated: superseded by cairn 3.0 (github.com/jisundr/cairn-3.0-core). No further updates."
     }
   ]
 }

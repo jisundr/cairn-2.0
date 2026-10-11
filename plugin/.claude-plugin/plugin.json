@@ -1,7 +1,7 @@
 {
   "name": "cairn",
   "displayName": "Cairn",
-  "version": "0.51.18",
+  "version": "0.51.19",
   "description": "Deprecated: superseded by cairn 3.0 (github.com/jisundr/cairn-3.0-core). No further updates.",
   "author": {
     "name": "Jayson De los Reyes",
