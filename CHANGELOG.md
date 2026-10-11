@@ -4,6 +4,8 @@ Reverse-chronological, one entry per artifact-commit. Never loaded by the model 
 
 ## 2026-10-11
 
+- `plugin/.claude-plugin/plugin.json`: description now reads as deprecated and points to cairn 3.0, so installed users see it in the plugin listing. Bumped `plugin/.claude-plugin/plugin.json` 0.51.17 → 0.51.18 (patch).
+
 - `README.md`: cairn 2.0 is deprecated and frozen; added the deprecation banner and a Migrating to cairn 3.0 section that links the 3.0 repository and its upgrade note. No further updates will be pushed. Bumped `plugin/.claude-plugin/plugin.json` 0.51.16 → 0.51.17 (patch).
 
 ## 2026-10-08
